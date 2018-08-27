@@ -51,7 +51,7 @@
 			    			</a>
 			    		</td>
 			    		<td class="text-center">
-			    		    @include('admin.roles.delete', ['usuario' => $rol])
+			    		    @include('admin.roles.delete', ['rol' => $rol])
 			    		</td>
 			    	</tr>
 				@endforeach

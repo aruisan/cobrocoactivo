@@ -23,7 +23,8 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
 		//crud funcionarios
 		Route::get('funcionarios', 'Admin\FuncionariosController@index')->name('admin.funcionarios');
-		Route::get('funcionarios/create', 'Admin\FuncionariosController@create')->middleware('permission:create_funcionarios');
+		//Route::get('funcionarios/create', 'Admin\FuncionariosController@create')->middleware('permission:create_funcionarios');
+		Route::get('funcionarios/create', 'Admin\FuncionariosController@create');
 		Route::post('funcionarios', 'Admin\FuncionariosController@store');
 		Route::get('funcionarios/{id}/edit', 'Admin\FuncionariosController@edit');
 		Route::patch('funcionarios/{id}', 'Admin\FuncionariosController@update');

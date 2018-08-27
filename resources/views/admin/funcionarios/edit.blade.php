@@ -28,7 +28,7 @@
     	<div class="row">
             <div class="col-md-12" id="data">
             <h2 class="text-center">Editar Funcionario</h2>
-        	@include('admin.funcionarios.partials._form', ['usuario' => $usuario, 'url' => 'admin/funcionarios/'.$usuario->id, 'method' => 'PATCH'])
+        	@include('admin.funcionarios.partials._form', ['usuario' => $usuario, 'roles' => $roles, 'rolUser' => $rolUser,'url' => 'admin/funcionarios/'.$usuario->id, 'method' => 'PATCH'])
     	   </div>
         </div>
     </div>

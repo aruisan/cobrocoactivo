@@ -27,8 +27,8 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12" id="data">
-                    <h2 class="text-center">Crear Funcionario</h2>
-				 @include('admin.roles.partials._form', ['usuario' => $usuario, 'tipos'=> $tipos ,'url' => 'admin/roles', 'method' => 'POST'])
+                    <h2 class="text-center">Crear Rol</h2>
+				 @include('admin.roles.partials._form', ['data' => $data,'url' => 'admin/roles', 'method' => 'POST'])
 			</div>
 		</div>
 	</div> 

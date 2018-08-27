@@ -44,4 +44,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Model\Cobro\UserBoss', 'boss_id');
     }
+
+    public function rol()
+    {
+        return $this->hasOne('App\Model\Admin\ModelHasRol', 'model_id');
+    }
+
 }

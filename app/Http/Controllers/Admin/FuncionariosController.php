@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Model\User;
 use App\Model\Cobro\Type;
 use App\Model\Cobro\UserBoss;
+use Session;
+use Spatie\Permission\Models\Role;
+use App\Model\Admin\ModelHasRol;
 
 class FuncionariosController extends Controller
 {
@@ -21,7 +24,9 @@ class FuncionariosController extends Controller
     {   
         $usuario = new User;  
         $tipos =  Type::pluck('nombre', 'id');
-        return view('admin.funcionarios.create', compact('usuario' ,'tipos')); 
+        $roles =  Role::pluck('name', 'id');
+
+        return view('admin.funcionarios.create', compact('usuario' ,'tipos', 'roles')); 
     }
 
     public function store(Request $request)
@@ -49,9 +54,11 @@ class FuncionariosController extends Controller
     public function edit($id)
     {
         $usuario = User::find($id);
+        $rolUser = ModelHasRol::where('role_id', $id)->first();
         $tipos =  Type::pluck('nombre', 'id');
+        $roles =  Role::pluck('name', 'id');
 
-        return view('admin.funcionarios.edit', compact('usuario', 'tipos'));
+        return view('admin.funcionarios.edit', compact('usuario', 'tipos', 'roles', 'rolUser'));
     }
 
 
