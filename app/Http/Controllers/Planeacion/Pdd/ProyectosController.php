@@ -22,7 +22,7 @@ class ProyectosController extends Controller
                 $count = $count + $eje->programas()->count();
             }
 
-        return view('Planeacion.Pdd.data.createProyecto',compact('pdd', 'count'));
+        return view('planeacion.pdd.data.createproyecto',compact('pdd', 'count'));
     }
 
     public function store(Request $request)
@@ -96,6 +96,6 @@ class ProyectosController extends Controller
         $pdd = $proyecto->programa->eje->pdd;
         $dep = Dependencia::all();
 
-        return view('Planeacion.Pdd.SubProyectos.index',compact('proyecto', 'pdd','dep'));
+        return view('planeacion.pdd.subproyectos.index',compact('proyecto', 'pdd','dep'));
     }
 }

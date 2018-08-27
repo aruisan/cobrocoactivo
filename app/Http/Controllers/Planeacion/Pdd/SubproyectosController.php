@@ -18,7 +18,7 @@ class SubproyectosController extends Controller
     {
         $pdd = Pdd::find($pdd);
 
-        return view('Planeacion.Pdd.SubProyectos.createSubProyectos',compact('pdd'));
+        return view('planeacion.pdd.subproyectos.createsubproyectos',compact('pdd'));
     }
 
     public function store(Request $request)
@@ -69,7 +69,7 @@ class SubproyectosController extends Controller
         $sub = SubProyecto::findOrFail($id);
         $dep = Dependencia::all();
         $pdd = $sub->proyecto->programa->eje->pdd;
-        return view('Planeacion.Pdd.subProyectos.edit', compact('sub', 'pdd','dep'));
+        return view('planeacion.pdd.subproyectos.edit', compact('sub', 'pdd','dep'));
     }
 
     public function update(Request $request, $id)

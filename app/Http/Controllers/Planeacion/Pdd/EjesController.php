@@ -31,7 +31,7 @@ class EjesController extends Controller
         $eje = Eje::find(1);
         //dd($eje->programas);
         $pdd = Pdd::findOrFail($pdd);
-        return view('Planeacion.Pdd.data.createDataPdd',compact('pdd'));
+        return view('planeacion.pdd.data.createdatapdd',compact('pdd'));
     }
 
     /**
