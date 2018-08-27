@@ -30,9 +30,9 @@ class PdesarrolloController extends Controller
             $pdd = Pdd::all()->first();
             //dd($pdd);
             $val = 1;
-            return view('Planeacion.Pdd.index',compact('val', 'pdd','tables'));
+            return view('planeacion.pdd.index',compact('val', 'pdd','tables'));
         } else{
-            return view('Planeacion.Pdd.index', compact('val'));
+            return view('planeacion.pdd.index', compact('val'));
         }
     }
 

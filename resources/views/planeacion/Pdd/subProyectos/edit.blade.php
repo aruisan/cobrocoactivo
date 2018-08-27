@@ -16,7 +16,6 @@
             <li><a href="{{ asset('/pdd/proyecto/create/'.$pdd->id) }}" class="btn btn-primary">Proyectos</a></li>
         </ul>
     </li>
-    <li> <a data-toggle="modal" data-target="#subProyectoModal" class="btn btn btn-primary"><i class="fa fa-plus"></i><span class="hide-menu">&nbsp;Nuevo SubProyecto</span></a></li>
 @stop
 @section('content')
         <div class="col-md-12 align-self-center" id="crud">
