@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Hacienda\Presupuesto;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Collection;
+use Illuminate\Http\Request;
 use App\Model\Hacienda\Presupuesto\Rubro;
 use App\Model\Hacienda\Presupuesto\Font;
+use App\Model\Planeacion\Pdd\SubProyecto;
 use App\Model\Dependencia;
 use App\Model\Hacienda\Presupuesto\Vigencia;
 use App\Model\Hacienda\Presupuesto\Level;
 use App\Model\Hacienda\Presupuesto\Register;
+use Session;
 
 class RubrosController extends Controller
 {
@@ -18,16 +21,14 @@ class RubrosController extends Controller
       $vigencia = Vigencia::findOrFail($vigencia_id);
       $fonts = Font::where('vigencia_id', $vigencia_id)->get();
       $niveles = Level::where('vigencia_id', $vigencia_id)->get();
-      $dependencias = Dependencia::all();
+      $subProy = SubProyecto::all();
       $ultimoLevel = Level::where('vigencia_id', $vigencia_id)->get()->last();
       $registers = Register::where('level_id', $ultimoLevel->id)->get();
 
        foreach ($registers as $register){
-           //dd($register);
                 $register_id = $register->code_padre->registers->id;
                 $code = $register->code_padre->registers->code.$register->code;
                 $ultimo = $register->code_padre->registers->level->level;
-
                   while($ultimo > 1){
                         $registro = Register::findOrFail($register_id);
                         $register_id = $registro->code_padre->registers->id;
@@ -49,7 +50,7 @@ class RubrosController extends Controller
             $fila = $vigencia->ultimo - $levels;
         }
 
-      return view('hacienda.presupuesto.vigencia.createRubros', compact('vigencia', 'fonts', 'dependencias', 'fila', 'niveles', 'registers', 'codigos','vigencia_id'));
+      return view('hacienda.presupuesto.vigencia.createRubros', compact('vigencia', 'fonts', 'subProy', 'fila', 'niveles', 'registers', 'codigos','vigencia_id'));
     }
 
     /**
@@ -63,22 +64,22 @@ class RubrosController extends Controller
         //dd($request->all());
         $id         = $request->rubro_id;
         $name       = $request->nombre;
+        $subProy    = $request->subproyecto_id;
         $code       = $request->code;
         $register   = $request->register_id;
-        $dependencia= $request->dependencia_id;
         $vigencia   = $request->vigencia_id;
         $count = count($register);
 
         for($i = 0; $i < $count; $i++){
 
             if($id[$i]){
-                $this->update($id[$i], $name[$i], $code[$i], $register[$i], $dependencia[$i]);      
+                $this->update($id[$i], $name[$i], $code[$i], $register[$i], $subProy[$i]);
             }else{          
                 $rubro = new Rubro();
                 $rubro->name = $name[$i];
                 $rubro->cod = $code[$i];
                 $rubro->register_id = $register[$i];
-                $rubro->dependencia_id = $dependencia[$i];
+                $rubro->subproyecto_id = $subProy[$i];
                 $rubro->vigencia_id = $vigencia;
                 $rubro->save();
             }
@@ -116,14 +117,14 @@ class RubrosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($id, $name, $code, $register, $dependencia)
+    public function update($id, $name, $code, $register, $subproyecto_id)
     {
         //dd($name);
         $rubro = Rubro::findOrFail($id);
         $rubro->name = $name;
         $rubro->cod = $code;
         $rubro->register_id = $register;
-        $rubro->dependencia_id = $dependencia;
+        $rubro->subproyecto_id = $subproyecto_id;
         $rubro->save();
     }
 

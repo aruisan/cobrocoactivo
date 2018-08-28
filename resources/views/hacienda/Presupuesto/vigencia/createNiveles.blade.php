@@ -15,12 +15,9 @@ Creación de Niveles
                     <a href="/presupuesto/registro/create/{{ $level->vigencia_id }}/{{ $level->level }}" class="btn btn-primary">Nivel {{ $level->level }}</a>
                 </li>
             @endforeach
-            <li>
-                <a href="{{ url('/presupuesto') }}" class="btn btn-primary">Fuentes</a>
-            </li>
-            <li>
-                <a href="{{ url('/presupuesto') }}" class="btn btn-primary">Rubros</a>
-            </li>
+                <li><a href="/presupuesto/font/create/{{ $level->vigencia_id }}" class="btn btn-primary">Fuentes</a></li>
+                <li><a href="/presupuesto/rubro/create/{{ $level->vigencia_id }}" class="btn btn-primary">Rubros</a></li>
+
         </ul>
     </li>
 @stop

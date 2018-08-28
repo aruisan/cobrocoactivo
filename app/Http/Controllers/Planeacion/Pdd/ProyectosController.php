@@ -22,7 +22,7 @@ class ProyectosController extends Controller
                 $count = $count + $eje->programas()->count();
             }
 
-        return view('planeacion.pdd.data.createproyecto',compact('pdd', 'count'));
+        return view('planeacion.pdd.data.createProyecto',compact('pdd', 'count'));
     }
 
     public function store(Request $request)

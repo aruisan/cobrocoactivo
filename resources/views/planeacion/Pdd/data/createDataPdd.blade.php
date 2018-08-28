@@ -110,7 +110,7 @@
         @else
             <div class="alert alert-warning">
                 <center>
-                    <h3 class="text-warning">debes de crear ejes para poder crear programas</h3>
+                    <h3 class="text-warning">Debes de crear ejes para poder crear programas</h3>
                 </center>
             </div>
         @endif
