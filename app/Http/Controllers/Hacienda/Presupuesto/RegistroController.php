@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Hacienda\Presupuesto;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Level;
-use App\Register;
-use App\CodePadre;
+use App\Model\Hacienda\Presupuesto\Level;
+use App\Model\Hacienda\Presupuesto\Register;
+use App\Model\Hacienda\Presupuesto\CodePadre;
 
 
 class RegistroController extends Controller
@@ -36,7 +36,7 @@ class RegistroController extends Controller
             $fila = $nivel->rows - $conteo;
         }
 
-        return view('presupuesto.vigencia.createRegistros', compact('nivel', 'niveles', 'fila', 'codes'));
+        return view('hacienda.presupuesto.vigencia.createregistros', compact('nivel', 'niveles', 'fila', 'codes'));
     }
 
     public function show($id)

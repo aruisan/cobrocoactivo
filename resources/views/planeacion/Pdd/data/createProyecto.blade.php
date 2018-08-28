@@ -63,7 +63,7 @@
                                     @endforeach
                                 </select>
                             </td>
-                            <td class="text-center"><button type="button" class="btn-sn btn-danger borrar">&nbsp; - &nbsp;</button></td>
+                            <td class="text-center"><button type="button" class="btn-sn btn-danger borrar">&nbsp;-&nbsp;</button></td>
                             <td></td>
                         </tr>
                             @foreach($pdd->ejes as $ejes)

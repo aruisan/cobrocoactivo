@@ -102,12 +102,13 @@ class SubproyectosController extends Controller
 
     public function updatePeriodo($pd, $mi, $mod, $md, $vi, $llave){
         $store = Periodo::findOrFail($pd);
-        $store->periodo = $pd;
+        //$store->periodo = $pd;
         $store->metaInicial = $mi;
         $store->modificacion = $mod;
         $store->metaDefinitiva = $md;
         $store->ValorInicial = $vi;
         $store->subProyecto_id = $llave;
+        //dd($store);
         $store->save();
 
     }

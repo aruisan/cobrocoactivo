@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Hacienda\Presupuesto;
 
 use App\Http\Controllers\Controller;
-use App\FontsRubro;
+use App\Model\Hacienda\Presupuesto\FontsRubro;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Rubro;
-use App\Font;
-use App\Dependencia;
-use App\Vigencia;
-use App\Level;
-use App\Register;
+use App\Model\Hacienda\Presupuesto\Rubro;
+use App\Model\Hacienda\Presupuesto\Font;
+use App\Model\Dependencia;
+use App\Model\Hacienda\Presupuesto\Vigencia;
+use App\Model\Hacienda\Presupuesto\Level;
+use App\Model\Hacienda\Presupuesto\Register;
 
 class PresupuestoController extends Controller
 {
@@ -22,13 +22,9 @@ class PresupuestoController extends Controller
      */
     public function index(){
 
-
         //vigens = Vigencia::where('vigencia', 2018)->where('tipo', 1)->get();
-        $vigens = null;
-
-
-        //$vigens = Vigencia::where('id', '>',0)->get();
-
+        //$vigens = null;
+        $vigens = Vigencia::where('id', '>',0)->get();
         $count = count($vigens);
 
         if ($count < 1){

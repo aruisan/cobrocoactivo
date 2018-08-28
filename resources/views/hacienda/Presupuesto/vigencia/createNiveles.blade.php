@@ -1,41 +1,67 @@
-@extends('layouts.presupuesto')
-@section('contenido')
-
-        <div class="container-fluid" id="crud">
-			<div class="row">
-                <div class="col-10">
-                    <div class="card">
-                        <form action="{{ url('/level') }}" method="POST"  class="form">
-                                @csrf
+@extends('layouts.dashboard')
+@section('titulo')
+Creación de Niveles
+@stop
+@section('sidebar')
+    <li class="dropdown">
+        <a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown" href="#">
+            <span class="hide-menu">Niveles</span>
+            &nbsp;
+            <i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-user">
+            @foreach($niveles as $level)
+                <li>
+                    <a href="/presupuesto/registro/create/{{ $level->vigencia_id }}/{{ $level->level }}" class="btn btn-primary">Nivel {{ $level->level }}</a>
+                </li>
+            @endforeach
+            <li>
+                <a href="{{ url('/presupuesto') }}" class="btn btn-primary">Fuentes</a>
+            </li>
+            <li>
+                <a href="{{ url('/presupuesto') }}" class="btn btn-primary">Rubros</a>
+            </li>
+        </ul>
+    </li>
+@stop
+@section('content')
+    <div class="col-md-12 align-self-center" id="crud">
+        <div class="row justify-content-center">
+            <br>
+            <center><h2>Creación de Niveles para la Vigencia {{ $vigencia->vigencia }}</h2></center><br><br>
+                        <form action="{{ url('/presupuesto/level') }}" method="POST"  class="form">
+                            {{ csrf_field() }}
                                 <input type="hidden" class="form-control" id="vigencia_id" name="vigencia_id" value="{{ $vigencia->id }}">
-                                <table class="table" id="tabla">
-                                    <center><h2>Creacion de Niveles para la Vigencia {{ $vigencia->vigencia }}</h2></center><br><br>
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="tabla">
                                     <thead>
-                                        <th class="text-center">Nivel</th>
-                                        <th class="text-center">Nombre</th>
-                                        <th class="text-center">Cifras</th>
-                                        <th class="text-center">Filas</th>
-                                        <th class="text-center"><i class="fa fa-trash-o"></i></th>
+                                    <th class="text-center">Nivel</th>
+                                    <th class="text-center">Nombre</th>
+                                    <th class="text-center">Cifras</th>
+                                    <th class="text-center">Filas</th>
+                                    <th class="text-center"><i class="fa fa-trash-o"></i></th>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="dato in datos" class="table-primary">
-                                            <td><input type="hidden" name="level_id[]" v-model="dato.id"><input type="text" name="nivel[]" v-model="dato.level"></td>
-                                            <td><input type="text" class="form-control" name="nombre[]" v-model="dato.name" required></td>
-                                            <td><input type="number" class="form-control" name="cifra[]" v-model="dato.cifras" required></td>
-                                            <td><input type="number" class="form-control" name="fila[]" v-model="dato.rows" required></td>
-                                            <td><button type="button" class="btn btn-danger" v-on:click.prevent="eliminarDatos(dato.id)" ><i class="fa fa-trash-o"></i></button></td>
-                                        </tr>
-                                        @for($i=0;$i < $fila ;$i++)
-                                        <tr >
+                                    <tr v-for="dato in datos" style="background-color:#9fcdff">
+                                        <td><input type="hidden" name="level_id[]" v-model="dato.id"><input type="text" name="nivel[]" v-model="dato.level"></td>
+                                        <td><input type="text" name="nombre[]" v-model="dato.name" required></td>
+                                        <td><input type="number" name="cifra[]" v-model="dato.cifras" required></td>
+                                        <td><input type="number" name="fila[]" v-model="dato.rows" required></td>
+                                        <td class="text-center"><button type="button" v-on:click.prevent="eliminarDatos(dato.id)" class="btn-sm btn-danger" ><i class="fa fa-trash-o"></i></button></td>
+                                    </tr>
+                                    @for($i=0;$i < $fila ;$i++)
+                                        <tr>
                                             <td><input type="hidden" name="level_id[]"><input type="text" name="nivel[]"></td>
-                                            <td><input type="text" class="form-control" name="nombre[]" required></td>
-                                            <td><input type="number" class="form-control" name="cifra[]" required></td>
-                                            <td><input type="number" class="form-control" name="fila[]"  required></td>
-                                            <td><input type="button" value="-" class="btn btn-danger borrar"/></td>
+                                            <td><input type="text" name="nombre[]" required></td>
+                                            <td><input type="number" name="cifra[]" required></td>
+                                            <td><input type="number" name="fila[]"  required></td>
+                                            <td class="text-center"><input type="button" value="-" class="btn-sm btn-danger borrar"/></td>
                                         </tr>
-                                        @endfor
+                                    @endfor
                                     </tbody>
-                                </table><br>
+                                </table>
+                            </div>
+                                <br>
                             <center>
                                 <button type="button" v-on:click.prevent="nuevaFila" class="btn btn-success">Agregar Fila</button>
                                 <button type="submit" class="btn btn-primary">Guardar</button>
@@ -43,31 +69,18 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-2">
-                    <br>
-                    <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Niveles
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            @foreach($niveles as $level)
-                                <li><a href="/registro/create/{{ $level->vigencia_id }}/{{ $level->level }}">Nivel {{ $level->level }}</a></li>
-                            @endforeach
-                                <li><a href="/font/create/{{ $vigencia->id }}">Fuentes</a></li>
-                                <li><a href="/rubro/create/{{ $vigencia->id }}">Rubros</a></li>
-                                <li class="active">Nuevo Nivel</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
 
 @stop
 
 @section('js')
 <script>
+
+    $(document).ready(function() {
+        $('#tabla').DataTable( {
+            responsive: true,
+            "searching": false
+        } );
+    } );
 	  	
 //funcion para borrar una celda
 $(document).on('click', '.borrar', function (event) {
@@ -86,14 +99,14 @@ new Vue({
 	methods:{
 		getDatos: function(){
 			var vigencia = $('#vigencia_id').val();
-			var urlVigencia = '/level/'+vigencia;
+			var urlVigencia = '/presupuesto/level/'+vigencia;
 			axios.get(urlVigencia).then(response => {
 				this.datos = response.data;
 			});
 		},
 
 		eliminarDatos: function(dato){
-			var urlVigencia = '/level/'+dato;
+			var urlVigencia = '/presupuesto/level/'+dato;
 			axios.delete(urlVigencia).then(response => {
 				this.getDatos();
 				toastr.success('Eliminado correctamente');
@@ -102,7 +115,7 @@ new Vue({
 
 		nuevaFila: function(){
 	  		var nivel=parseInt($("#tabla tr").length);
-			$('#tabla tr:last').after('<tr><td><input type="hidden" name="level_id[]"><input type="text" name="nivel[]"></td><td><input type="text" class="form-control" name="nombre[]" required></td><td><input type="number" class="form-control" name="cifra[]" required></td><td><input type="number" class="form-control" name="fila[]" required></td><td><input type="button" class="borrar btn btn-danger" value="-" /></td></tr>');
+			$('#tabla tr:last').after('<tr><td><input type="hidden" name="level_id[]"><input type="text" name="nivel[]"></td><td><input type="text" name="nombre[]" required></td><td><input type="number" name="cifra[]" required></td><td><input type="number" name="fila[]" required></td><td class="text-center"><input type="button" class="borrar btn-sm btn-danger" value="-" /></td></tr>');
 
 		}
 	}

@@ -33,6 +33,7 @@
     </style>
 @stop
 @section('sidebar')
+    @if($val != 0)
     <li class="dropdown">
         <a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown" href="#">
             <span class="hide-menu">Navegación</span>
@@ -45,6 +46,33 @@
             <li><a href="{{ asset('/pdd/proyecto/create/'.$pdd->id) }}" class="btn btn-primary">Proyectos</a></li>
         </ul>
     </li>
+    <li> <a href="{{ asset('#') }}" class="btn btn btn-primary"><i class="fa fa-plus"></i><span class="hide-menu">&nbsp;Nuevo Plan de Desarrollo</span></a></li>
+    <li class="dropdown">
+        <a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown" href="#">
+            <span class="hide-menu">Historico</span>
+            &nbsp
+            <i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-user">
+            <li><a href="{{ asset('#') }}" class="btn btn-primary">PDD 1</a></li>
+            <li><a href="{{ asset('#') }}" class="btn btn-primary">PDD 2</a></li>
+            <li><a href="{{ asset('#') }}" class="btn btn-primary">PDD 3</a></li>
+        </ul>
+    </li>
+    @else
+        <li class="dropdown">
+            <a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown" href="#">
+                <span class="hide-menu">Historico</span>
+                &nbsp
+                <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-user">
+                <li><a href="{{ asset('#') }}" class="btn btn-primary">PDD 1</a></li>
+                <li><a href="{{ asset('#') }}" class="btn btn-primary">PDD 2</a></li>
+                <li><a href="{{ asset('#') }}" class="btn btn-primary">PDD 3</a></li>
+            </ul>
+        </li>
+    @endif
 @stop
 @section('content')
     @if($val == 0)

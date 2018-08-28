@@ -99,7 +99,6 @@
     </li>
     <li> <a href="#" class="btn btn-primary"><i class="fa fa-edit"></i><span class="hide-menu">&nbsp; Editar Presupuesto</span></a></li>
     <li> <a href="#" class="btn btn-primary"><i class="fa fa-server"></i><span class="hide-menu">&nbsp; Tabla de Retención</span></a></li>
-    <li> <a href="#" class="btn btn-primary"><i class="fa fa-address-book"></i><span class="hide-menu">&nbsp; Terceros</span></a></li>
 @stop
 @section('content')
     <div class="col-md-12 align-self-center">
@@ -191,7 +190,7 @@
                             <br>
                             <div class="alert alert-danger">
                                 No se ha creado un presupuesto actual de egresos, para crearlo de click al siguiente link:
-                                <a href="{{ url('presupuesta/vigencia/create/0') }}" class="alert-link">Crear Presupuesto de Egresos</a>.
+                                <a href="{{ url('presupuesto/vigencia/create/0') }}" class="alert-link">Crear Presupuesto de Egresos</a>.
                             </div>
                 @endif
                         </tbody>

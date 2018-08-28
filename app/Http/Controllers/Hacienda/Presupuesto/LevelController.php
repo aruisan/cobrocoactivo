@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Hacienda\Presupuesto;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Vigencia;
-use App\Level;
-use App\Rubro;
+use App\Model\Hacienda\Presupuesto\Vigencia;
+use App\Model\Hacienda\Presupuesto\Level;
+use App\Model\Hacienda\Presupuesto\Rubro;
 use Session;
 
 class LevelController extends Controller
@@ -28,8 +28,8 @@ class LevelController extends Controller
         }else if( $vigencia->ultimo > $levels){
             $fila = $vigencia->ultimo - $levels;
         }
-       // dd($fila);
-        return view('presupuesto.vigencia.createNiveles', compact('vigencia', 'fila', 'niveles'));
+       //dd($niveles);
+        return view('hacienda.presupuesto.vigencia.createniveles', compact('vigencia', 'fila', 'niveles'));
     }
 
     /**
@@ -72,7 +72,7 @@ class LevelController extends Controller
             }
         }
         Session::flash('success','Los Niveles se han creado exitosamente');
-       return  redirect('registro/create/'.$vigencia.'/1');
+       return  redirect('presupuesto/registro/create/'.$vigencia.'/1');
     }
 
     /**

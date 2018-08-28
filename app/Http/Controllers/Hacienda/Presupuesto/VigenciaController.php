@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Hacienda\Presupuesto;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Vigencia;
-use App\User;
+use App\Model\Hacienda\Presupuesto\Vigencia;
+use App\Model\User;
 use App\Traits\FileTraits;
 use Session;
 
@@ -14,7 +14,7 @@ class VigenciaController extends Controller
 
 	 public function create($tipo)
     {
-    	return view('presupuesto.vigencia.create', compact('tipo'));
+    	return view('hacienda.presupuesto.vigencia.create', compact('tipo'));
     }
 
     public function store(Request $request){
@@ -48,7 +48,7 @@ class VigenciaController extends Controller
             $vigencia->save();
 
             Session::flash('success','La Vigencia se ha creado exitosamente');
-            return redirect('/level/create/'.$vigencia->id);
+            return redirect('/presupuesto/level/create/'.$vigencia->id);
         }else{
             Session::flash('error','La Vigencia no se puede duplicar');
             return back();
