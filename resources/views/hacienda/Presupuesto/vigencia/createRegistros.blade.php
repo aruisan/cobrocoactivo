@@ -3,6 +3,7 @@
 	Creación de Registros
 @stop
 @section('sidebar')
+	<li><a href="/presupuesto/level/create/{{ $nivel->vigencia_id }}" class="btn btn-primary">Atras</a></li>
 	<li class="dropdown">
 		<a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown" href="#">
 			<span class="hide-menu">Niveles</span>
@@ -40,9 +41,9 @@
 		        				@endif
 		        			</thead>
 		        			<tbody>	
-		        				<tr v-for="dato in datos" class="table-primary">
-		        					<td><input type="hidden" name="register_id[]" v-model="dato.id"><input type="text" name="code[]" v-model="dato.code" pattern=".{<?= $nivel->cifras ?>,<?= $nivel->cifras ?>}" required title="solo se permiten <?= $nivel->cifras ?> cifras"></td>
-		        					<td><input type="text" name="nombre[]" v-model="dato.name" required></td>
+		        				<tr v-for="dato in datos" style="background-color:#9fcdff">
+		        					<th scope="row"><input type="hidden" name="register_id[]" v-model="dato.id"><input style="text-align:center" type="text" name="code[]" v-model="dato.code" pattern=".{<?= $nivel->cifras ?>,<?= $nivel->cifras ?>}" required title="solo se permiten <?= $nivel->cifras ?> cifras"></th>
+		        					<th scope="row"><input type="text" style="text-align:center" name="nombre[]" v-model="dato.name" required></th>
 		        					@if($nivel->level > 1)
 		        					<td>
 		        						<select name="padre[]" class="form-control">
@@ -126,9 +127,9 @@ new Vue({
 
 			@if($nivel->level > 1)
 	
-				$('#tabla tr:last').after(' <tr><td><input type="hidden" name="register_id[]"><input type="text" class="form-control" name="code[]" pattern=".{<?= $nivel->cifras ?>,<?= $nivel->cifras ?>}" required title="solo se permiten <?= $nivel->cifras ?> cifras"></td><td><input type="text" class="form-control" name="nombre[]" required></td><td><select name="padre[]" class="form-control">@foreach($codes as $code)<option value="{{ $code->id }}">{{ $code->id }} - {{ $code->name }}</option>@endforeach</select></td><td><input type="button" class="borrar btn btn-danger" value="-" /></td></tr>');
+				$('#tabla tr:last').after(' <tr><td><input type="hidden" name="register_id[]"><input type="text" name="code[]" pattern=".{<?= $nivel->cifras ?>,<?= $nivel->cifras ?>}" required title="solo se permiten <?= $nivel->cifras ?> cifras"></td><td><input type="text" name="nombre[]" required></td><td><select name="padre[]">@foreach($codes as $code)<option value="{{ $code->id }}">{{ $code->id }} - {{ $code->name }}</option>@endforeach</select></td><td class="text-center"><input type="button" class="borrar btn-sm btn-danger" value="-" /></td></tr>');
 			@else
-				$('#tabla tr:last').after('<tr><td><input type="hidden" name="register_id[]"><input type="text" class="form-control" name="code[]" pattern=".{<?= $nivel->cifras ?>,<?= $nivel->cifras ?>}" required title="solo se permiten <?= $nivel->cifras ?> cifras"></td><td><input type="text" class="form-control" name="nombre[]" required></td><td></td><td><input type="button" class="borrar btn btn-danger" value="-" /></td></tr>');
+				$('#tabla tr:last').after('<tr><td><input type="hidden" name="register_id[]"><input type="text" name="code[]" pattern=".{<?= $nivel->cifras ?>,<?= $nivel->cifras ?>}" required title="solo se permiten <?= $nivel->cifras ?> cifras"></td><td><input type="text" name="nombre[]" required></td><td class="text-center"><input type="button" class="borrar btn-sm btn-danger" value="-" /></td></tr>');
 			@endif
 			
 		}

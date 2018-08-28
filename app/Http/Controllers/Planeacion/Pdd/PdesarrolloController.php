@@ -21,7 +21,6 @@ class PdesarrolloController extends Controller
     {
         //$ejes = Eje::find(1);
         //dd($pdesarrollos->ejes);
-       
 
         if (Pdd::all()->count() > 0){
             $tables = DB::select('SELECT ejes.name AS "ejes", programas.name AS "programas", proyectos.code AS "Numproy", proyectos.name AS "Pname", proyectos.linea_base AS "Plinea", proyectos.indicador AS "Pind", proyectos.metaInicial AS "Pini", proyectos.modificacion AS "Pmod", proyectos.metaDefinitiva AS "Pmetdef", sub_proyectos.id AS "Numsub", sub_proyectos.name AS "SPname", sub_proyectos.tipo AS "SPtipo", sub_proyectos.indicador AS "SPindi", sub_proyectos.unidad_medida AS "SPund", sub_proyectos.linea_base AS "SPlinea" FROM ejes, programas, proyectos, sub_proyectos WHERE sub_proyectos.proyecto_id = proyectos.id AND proyectos.programa_id = programas.id AND programas.eje_id = ejes.id');
