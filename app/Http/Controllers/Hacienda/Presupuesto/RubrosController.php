@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Hacienda\Presupuesto;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Collection;
-use App\Rubro;
-use App\Font;
-use App\Dependencia;
-use App\Vigencia;
-use App\Level;
-use App\Register;
+use App\Model\Hacienda\Presupuesto\Rubro;
+use App\Model\Hacienda\Presupuesto\Font;
+use App\Model\Dependencia;
+use App\Model\Hacienda\Presupuesto\Vigencia;
+use App\Model\Hacienda\Presupuesto\Level;
+use App\Model\Hacienda\Presupuesto\Register;
 
 class RubrosController extends Controller
 {
@@ -23,6 +23,7 @@ class RubrosController extends Controller
       $registers = Register::where('level_id', $ultimoLevel->id)->get();
 
        foreach ($registers as $register){
+           //dd($register);
                 $register_id = $register->code_padre->registers->id;
                 $code = $register->code_padre->registers->code.$register->code;
                 $ultimo = $register->code_padre->registers->level->level;
@@ -48,7 +49,7 @@ class RubrosController extends Controller
             $fila = $vigencia->ultimo - $levels;
         }
 
-      return view('presupuesto.vigencia.createRubros', compact('vigencia', 'fonts', 'dependencias', 'fila', 'niveles', 'registers', 'codigos','vigencia_id'));
+      return view('hacienda.presupuesto.vigencia.createRubros', compact('vigencia', 'fonts', 'dependencias', 'fila', 'niveles', 'registers', 'codigos','vigencia_id'));
     }
 
     /**

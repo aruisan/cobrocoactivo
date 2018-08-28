@@ -29,7 +29,7 @@ class PresupuestoController extends Controller
 
         if ($count < 1){
             $V = "Vacio";
-            return view('Hacienda.presupuesto.index', compact('V'));
+            return view('hacienda.presupuesto.index', compact('V'));
         } else {
             foreach ($vigens as $vigen) {
                 $V = $vigen->id;
@@ -183,7 +183,7 @@ class PresupuestoController extends Controller
                 }
             }
     }
-        return view('presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','values','valoresIniciales'));
+        return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','values','valoresIniciales'));
     }
 
     /**

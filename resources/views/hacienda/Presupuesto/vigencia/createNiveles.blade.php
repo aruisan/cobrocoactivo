@@ -43,10 +43,10 @@ Creación de Niveles
                                     </thead>
                                     <tbody>
                                     <tr v-for="dato in datos" style="background-color:#9fcdff">
-                                        <td><input type="hidden" name="level_id[]" v-model="dato.id"><input type="text" name="nivel[]" v-model="dato.level"></td>
-                                        <td><input type="text" name="nombre[]" v-model="dato.name" required></td>
-                                        <td><input type="number" name="cifra[]" v-model="dato.cifras" required></td>
-                                        <td><input type="number" name="fila[]" v-model="dato.rows" required></td>
+                                        <th scope="row"><input type="hidden" name="level_id[]" v-model="dato.id"><input type="text" style="text-align:center" name="nivel[]" v-model="dato.level"></th>
+                                        <th scope="row"><input type="text" name="nombre[]" v-model="dato.name" style="text-align:center" required></th>
+                                        <th scope="row"><input type="number" name="cifra[]" v-model="dato.cifras" style="text-align:center" required></th>
+                                        <th scope="row"><input type="number" name="fila[]" v-model="dato.rows" style="text-align:center" required></th>
                                         <td class="text-center"><button type="button" v-on:click.prevent="eliminarDatos(dato.id)" class="btn-sm btn-danger" ><i class="fa fa-trash-o"></i></button></td>
                                     </tr>
                                     @for($i=0;$i < $fila ;$i++)
