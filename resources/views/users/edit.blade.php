@@ -42,7 +42,7 @@
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Rol:</strong>
-            {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-control','multiple')) !!}
+            {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-control')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
@@ -53,3 +53,36 @@
 
 
 @endsection
+
+@section('js')
+    <script type="text/javascript">
+        new Vue({
+            el: '#data',
+            created: function(){
+                this.getJefes();
+            },
+            data:{
+
+                selected: @if($user->user_boss) {{ $user->user_boss->boss_id }} @else 0 @endif,
+                datos: []
+            },
+            methods:{
+                getJefes: function(){
+                    var data = $('#type').val();
+                        if(data > 1)
+                        {
+                            $('#divJefes').show();
+                        }else{
+                            $('#divJefes').hide();
+                        }
+                    var url = '/admin/funcionarios/jefes/'+data;
+                    axios.get(url)
+                         .then(response => {
+                            this.datos = response.data;
+                    });
+                }
+
+            }
+        });
+    </script>
+@stop

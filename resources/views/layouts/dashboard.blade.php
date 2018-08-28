@@ -58,303 +58,66 @@
     <div id="wrapper">
 
         <!-- Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-default" role="navigation" style="">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+        <nav class="navbar  navbar-dark bg-default" role="navigation"  data-offset-top="100">
+          <div class="container-fluid">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu-dependencias">
+                  <span class="sr-only">Toggle navigation</span>
+                  <i class="fa fa-bars fa-2x text-white"></i>
                 </button>
-            </div>
-   
-                                        
+              </div><!--navbar-header-->                    
 
             <!-- /.navbar-header -->
-              <ul class="nav navbar-top-links navbar-left btn-group col-md-10">
-                <li class="dropdown">
-                  <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" title="AUDITORIA">
-                    <i class="fa fa-address-card-o" aria-hidden="true"></i>
-                      <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a tabindex="-1" href="#">Contraloría</a></li>
-                    <li class="dropdown-submenu">
-                      <a class="test green-text" tabindex="-1" href="#">Control interno <span class="caret"></span></a>
-                      <ul class="dropdown-menu">
-                        <li><a tabindex="-1" href="#">Planes de Mejoramiento</a></li>
-                        <li><a tabindex="-1" href="#">Planes de Auditorias</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>  
-
-                <li class="dropdown">
-                  <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" title="ADMINISTRATIVO">
-                    <i class="fa fa-tasks" aria-hidden="true"></i>
-                      <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a tabindex="-1" href="#">Contractual</a></li>
-                    <li><a tabindex="-1" href="#">registros</a></li>
-                    <li><a tabindex="-1" href="#">paz y salvo</a></li>
-                    <li><a tabindex="-1" href="#">permisos</a></li>
-                    <li class="dropdown-submenu">
-                      <a class="test green-text" tabindex="-1" href="#">Dirección Vivienda <span class="caret"></span></a>
-                      <ul class="dropdown-menu">
-                        <li><a tabindex="-1" href="#">titulación de predios</a></li>
-                        <li><a tabindex="-1" href="#">Proyectos</a></li>
-                      </ul>
-                    </li>
-                    <li class="dropdown-submenu">
-                      <a class="test green-text" tabindex="-1" href="#">Dirección Deportes <span class="caret"></span></a>
-                      <ul class="dropdown-menu">
-                        <li><a tabindex="-1" href="#">Proyectos</a></li>
-                        <li><a tabindex="-1" href="#">Escenarios</a></li>
-                      </ul>
-                    </li>
-                    <li class="dropdown-submenu">
-                      <a class="test green-text" tabindex="-1" href="#">Dirección Medio Ambiente <span class="caret"></span></a>
-                      <ul class="dropdown-menu">
-                        <li><a tabindex="-1" href="#">Censo Usuarios</a></li>
-                        <li><a tabindex="-1" href="#">Poda Arboles</a></li>
-                      </ul>
-                    </li>
-                    <li class="dropdown-submenu">
-                      <a class="test green-text" tabindex="-1" href="#">Dirección Operativa <span class="caret"></span></a>
-                      <ul class="dropdown-menu">
-                        <li><a tabindex="-1" href="#">Talento humano</a></li>
-                        <li><a tabindex="-1" href="#">Nómina</a></li>
-                        <li><a tabindex="-1" href="#">Prensa</a></li>
-                      </ul>
-                    </li>
-                     <li class="dropdown-submenu">
-                      <a class="test green-text" tabindex="-1" href="#">Gestión de calidad <span class="caret"></span></a>
-                      <ul class="dropdown-menu">
-                        <li><a tabindex="-1" href="#">Manual de Procesos y Procedimientos</a></li>
-                        <li><a tabindex="-1" href="#">Manual de Contratación</a></li>
-                        <li><a tabindex="-1" href="#">Manual de Funciones</a></li>
-                        <li><a tabindex="-1" href="#">Manual de Cartera</a></li>
-                        <li><a tabindex="-1" href="#">Manual de Firmas</a></li>
-                        <li><a tabindex="-1" href="#">Manual NIIF</a></li>
-                      </ul>
-                    </li>
-                    <li class="dropdown-submenu">
-                      <a class="test green-text" tabindex="-1" href="#">Gestion documental <span class="caret"></span></a>
-                      <ul class="dropdown-menu">
-                        <li><a tabindex="-1" href="#">Correspondencia</a></li>
-                        <li><a tabindex="-1" href="#">Trámites</a></li>
-                        <li><a tabindex="-1" href="#">Archivo</a></li>
-                      </ul>
-                    </li>
-                    <li class="dropdown-submenu">
-                      <a class="test green-text" tabindex="-1" href="#">Sistemas <span class="caret"></span></a>
-                      <ul class="dropdown-menu">
-                        <li><a tabindex="-1" href="#">Mesa de ayuda</a></li>
-                        <li><a tabindex="-1" href="#">Vivelab</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>    
-
-                <li class="dropdown">
-                  <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" title="EDUCACION">
-                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
-                      <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a tabindex="-1" href="#">Instituciones educativas</a></li>
-                    <li><a tabindex="-1" href="#">Proyectos</a></li>
-                  </ul>
-                </li>  
-
-                <li class="dropdown">
-                  <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" title="PLANEACION">
-                    <i class="fa fa-map-o" aria-hidden="true"></i>
-                      <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a tabindex="-1" href="#">licencias planecacion</a></li>
-                    <li><a tabindex="-1" href="#">Nomenclatura</a></li>
-                    <li><a tabindex="-1" href="#">Estratificacion</a></li>
-                    <li><a tabindex="-1" href="#">Riesgos</a></li>
-                    <li><a tabindex="-1" href="{{ url('/pdd') }}">Plan de Desarrollo</a></li>
-                  </ul>
-                </li>  
-
-                <li class="dropdown">
-                  <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" title="TRANSITO">
-                    <i class="fa fa-car" aria-hidden="true"></i>
-                      <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a tabindex="-1" href="#">Comparendos</a></li>
-                    <li><a tabindex="-1" href="#">Trámites</a></li>
-                    <li><a tabindex="-1" href="#">Proyectos</a></li>
-                  </ul>
-                </li>  
-
-                <li class="dropdown">
-                  <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" title="INFRAESTRUCTURA">
-                    <i class="fa fa-building-o" aria-hidden="true"></i>
-                      <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a tabindex="-1" href="#">Personal</a></li>
-                    <li><a tabindex="-1" href="#">Proyectos</a></li>
-                    <li><a tabindex="-1" href="#">Maquinaria</a></li>
-                  </ul>
-                </li>  
-
-                <li class="dropdown">
-                  <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" title="GOBIERNO">
-                    <i class="fa fa-university" aria-hidden="true"></i>
-                      <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a tabindex="-1" href="#">Espacio Público</a></li>
-                    <li><a tabindex="-1" href="#">Proyectos</a></li>
-                  </ul>
-                </li>  
-
-                <li class="dropdown">
-                  <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" title="SALUD">
-                    <i class="fa fa-heart-o" aria-hidden="true"></i>
-                      <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a tabindex="-1" href="#">Subsidiado</a></li>
-                    <li><a tabindex="-1" href="#">Salud Pública</a></li>
-                    <li><a tabindex="-1" href="#">Red hospitalaria</a></li>
-                    <li><a tabindex="-1" href="#">Proyectos</a></li>
-                  </ul>
-                </li> 
-
-                <li class="dropdown">
-                  <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" title="HACIENDA">
-                    <span class="glyphicon glyphicon-usd"></span>
-                      <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a tabindex="-1" href="{{ url('/presupuesto') }}">Presupuesto</a></li>
-                    <li><a tabindex="-1" href="#">contabilidad</a></li>
-                    <li><a tabindex="-1" href="#">tesoreria</a></li>
-                    <li><a tabindex="-1" href="#">Proyectos</a></li>
-                    <li class="dropdown-submenu">
-                      <a class="test green-text" tabindex="-1" href="#">impustos <span class="caret"></span></a>
-                      <ul class="dropdown-menu">
-                        <li><a tabindex="-1" href="#">impuesto predial</a></li>
-                        <li><a tabindex="-1" href="#">industria y comercio</a></li>
-                        <li><a tabindex="-1" href="#">publicidad exterior visual</a></li>
-                        <li><a tabindex="-1" href="#">valorizacion</a></li>
-                        <li><a tabindex="-1" href="#">plusvalia</a></li>
-                        <li><a tabindex="-1" href="#">alumbrado publico</a></li>
-                      </ul>
-                    </li>
-                    <li class="dropdown-submenu">
-                      <a class="test green-text" tabindex="-1" href="#">cobro coactivo <span class="caret"></span></a>
-                      <ul class="dropdown-menu">
-                        <li><a tabindex="-1" href="{{url('/predios')}}">predial</a></li>
-                        <li><a tabindex="-1" href="#">transito</a></li>
-                        <li><a tabindex="-1" href="#">industria y comercio</a></li>
-                        <li><a tabindex="-1" href="#">ejecutivo</a></li>
-                        <li><a tabindex="-1" href="#">Policivo</a></li>
-                      </ul>
-                    </li>
-                    <li class="dropdown-submenu">
-                      <a class="test green-text" tabindex="-1" href="#">almacen <span class="caret"></span></a>
-                      <ul class="dropdown-menu">
-                        <li><a tabindex="-1" href="#">Entradas</a></li>
-                        <li><a tabindex="-1" href="#">Salidas</a></li>
-                        <li><a tabindex="-1" href="#">Plan de Compras</a></li>
-                        <li><a tabindex="-1" href="#">activos fijos</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li> 
-
-                <li class="dropdown">
-                  <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" title="DESARROLLO">
-                    <i class="fa fa-cogs" aria-hidden="true"></i>
-                      <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a tabindex="-1" href="#">Desplazados</a></li>
-                    <li><a tabindex="-1" href="#">Proyectos</a></li>
-                  </ul>
-                </li> 
-
-                <li class="dropdown">
-                  <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown"  title="SANSONATORIO">
-                    <i class="fa fa-times-circle" aria-hidden="true"></i>
-                      <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a tabindex="-1" href="#">Disciplinarios</a></li>
-                    <li><a tabindex="-1" href="#">Administrativo</a></li>
-                  </ul>
-                </li> 
-
-                <li class="dropdown">
-                  <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" title="CONVIVENCIA">
-                    <i class="fa fa-users" aria-hidden="true"></i>
-                      <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a tabindex="-1" href="#">Policivo</a></li>
-                    <li><a tabindex="-1" href="#">Comisaria familia</a></li>
-                    <li><a tabindex="-1" href="#">Comparendos</a></li>
-                  </ul>
-                </li> 
-
-                <li class="dropdown">
-                  <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" title="JUDICIAL">
-                    <i class="fa fa-gavel" aria-hidden="true"></i>
-                      <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a tabindex="-1" href="#">Demandado</a></li>
-                    <li><a tabindex="-1" href="#">Demandante</a></li>
-                    <li><a tabindex="-1" href="#">Comité de Conciliación</a></li>
-                  </ul>
-                </li> 
-            </ul>
-            <ul class="nav navbar-top-links navbar-right">
-                <li><button class="btn btn-danger btn-sm" id="verNormatividad" data-toggle="modal" data-target="#modal-normas" ><span>Normatividad</span></button></li>
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle btn-sm" data-toggle="dropdown" href="#">
-                        {{Auth::user()->name }}<i class="fa fa-caret-down"></i>
+              <div class="collapse navbar-collapse navbar-ex1-collapse" id="menu-dependencias">
+                
+                <ul class="nav navbar-nav btn-group">
+                    @include('layouts.cuerpo.menu-dependencias')
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                  <li><button class="btn btn-danger btn-sm" id="verNormatividad" data-toggle="modal" data-target="#modal-normas" ><span>Normatividad</span></button></li>
+                  <li>
+                    <a href="{{route('notificaciones.index')}}" ><i class="fa fa-bell-o" style="color:white;"></i>
+                      @if ($count = Auth::user()->unreadnotifications->count())
+                          <span class="badge badge" style="background-color:#fa3e3e;color:white">{{$count}}</span>
+                      @endif
                     </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="{{url('kk')}}"><i class="material-icons md-18">settings</i> Editar Perfil</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                          <a href="#"  onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                            <i class="material-icons md-18">input</i> Salir
-                          </a>
-                           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                          </form>
-                        </li>
+                  </li>  
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
+                      <i class="fa fa-user-circle" aria-hidden="true"></i> 
+                      <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li class="text-center">{{Auth::user()->name }}</li>
+                      <li class="divider"></li>
+                      <li><a href="{{url('kk')}}"><i class="material-icons md-18">settings</i> Editar Perfil</a></li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="#"  onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                          <i class="material-icons md-18">input</i> Salir
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                          {{ csrf_field() }}
+                        </form>
+                      </li>
                     </ul>
-                    <!-- /.dropdown-user -->
-                </li>
-                <!-- /.dropdown -->
-            </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
             <!-- /.navbar-top-links -->
-
-            <div class="navbar-default sidebar" role="navigation">
-                <div class="sidebar-nav navbar-collapse">
+            <!-- /.navbar-static-side -->
+        </nav>
+        <div class="navbar-default sidebar" role="navigation">
+          <div class="sidebar-nav">
                     <ul class="nav" id="side-menu">
                           @yield('sidebar')     
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
-            <!-- /.navbar-static-side -->
-        </nav>
 
         <div id="page-wrapper">
            
@@ -576,6 +339,7 @@
     
 <script>
 $(document).ready(function(){
+  $('.dropdown-toggle').dropdown();
   $('.dropdown-submenu a.test').on("click", function(e){
     $(this).next('ul').toggle();
     e.stopPropagation();

@@ -16,15 +16,22 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
 
 	////////////////////admin//////////////////
+	Route::group(['prefix' => 'dashboard'] ,function () 
+	{
+		Route::get('notificaciones', 'NotificationController@index')->name('notificaciones.index');
+	    Route::get('notificaciones/{id}', 'NotificationController@read')->name('notifications.read');
+	    Route::delete('notificaciones/{id}', 'NotificationController@destroy')->name('notifications.destroy');
+	    Route::get('notificaciones-visibilidad/{id}', 'NotificationController@visibilidad')->name('notification.visibilidad');
+	 });
+
 	Route::group(['prefix' => 'admin'] ,function () 
 	{
 		//Route::resource('personas', 'PersonasController');
-		//Route::resource('funcionarios', 'Admin\FuncionariosController');
 
 		//crud funcionarios
-		//Route::get('funcionarios/create', 'Admin\FuncionariosController@create')->middleware('permission:create_funcionarios');
-		Route::get('funcionarios/jefes/{id}', 'Admin\Funcionarios2Controller@jefe');
-		Route::resource('funcionarios', 'Admin\Funcionarios2Controller');
+//Route::get('funcionarios/create','Admin\FuncionariosController@create')->middleware('permission:create_funcionarios');
+		Route::get('funcionarios/jefes/{id}', 'Admin\FuncionariosController@jefe');
+		Route::resource('funcionarios', 'Admin\FuncionariosController');
 
 		//crud de roles
 		Route::resource('roles', 'Admin\RolesController');
@@ -50,10 +57,7 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 		
 		Route::get('usuarios-tipo/{id}', 'UserController@userstype');
 
-		//Route::get('notificaciones', 'NotificationController@index')->name('notificaciones.index');
-	    //Route::get('notificaciones/{id}', 'NotificationController@read')->name('notifications.read');
-	    // Route::delete('notificaciones/{id}', 'NotificationController@destroy')->name('notifications.destroy');
-	    //Route::get('notificaciones-visibilidad/{id}', 'NotificationController@visibilidad')->name('notification.visibilidad');
+		
 
 	    //Route::post('importar', 'ImportController@import')->name('importar');
 
