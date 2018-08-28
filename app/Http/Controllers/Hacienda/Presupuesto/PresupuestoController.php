@@ -13,6 +13,7 @@ use App\Model\Hacienda\Presupuesto\Vigencia;
 use App\Model\Hacienda\Presupuesto\Level;
 use App\Model\Hacienda\Presupuesto\Register;
 
+
 class PresupuestoController extends Controller
 {
     /**
@@ -85,6 +86,8 @@ class PresupuestoController extends Controller
                                     foreach ($rubros as $rubro) {
                                         if ($register->id == $rubro->register_id) {
                                             $newCod = "$code$rubro->cod";
+                                            $fR = $rubro->FontsRubro;
+                                            //dd($newCod, $fR);
                                             for ($i=0;$i<$tamFountsRubros;$i++){
                                                 $rubrosF = FontsRubro::where('rubro_id', $fuentesRubros[$i]['rubro_id'])->orderBy('font_id')->get();
                                                 $numR = count($rubrosF);

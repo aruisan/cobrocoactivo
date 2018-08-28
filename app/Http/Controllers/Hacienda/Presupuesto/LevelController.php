@@ -28,7 +28,7 @@ class LevelController extends Controller
         }else if( $vigencia->ultimo > $levels){
             $fila = $vigencia->ultimo - $levels;
         }
-       //dd($niveles);
+       //dd($vigencia);
         return view('hacienda.presupuesto.vigencia.createniveles', compact('vigencia', 'fila', 'niveles'));
     }
 

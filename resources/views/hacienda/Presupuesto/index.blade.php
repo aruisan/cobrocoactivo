@@ -41,9 +41,6 @@
             padding: .5em 2em 1em;
             border: 1px solid #ddd;
         }
-
-
-
         .tab-button-outer {
             display: none;
         }
@@ -97,7 +94,10 @@
             <li><a href="{{ url('/presupuesto/vigencia/create/0') }}" class="btn btn-primary">Egresos</a></li>
         </ul>
     </li>
-    <li> <a href="#" class="btn btn-primary"><i class="fa fa-edit"></i><span class="hide-menu">&nbsp; Editar Presupuesto</span></a></li>
+    @if($V != "Vacio")
+        <li> <a href="{{ url('/presupuesto/level/create/'.$V) }}" class="btn btn-primary"><i class="fa fa-edit"></i><span class="hide-menu">&nbsp;Editar Presupuesto</span></a></li>
+    @else
+    @endif
     <li> <a href="#" class="btn btn-primary"><i class="fa fa-server"></i><span class="hide-menu">&nbsp; Tabla de Retención</span></a></li>
 @stop
 @section('content')
@@ -155,7 +155,7 @@
             </div>
             <div id="tabHome" class="tab-contents">
                 @if($V != "Vacio")
-                    <table class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                    <table class="table table-hover table-striped table-bordered">
                         <thead>
                         <tr>
                             <th class="text-center">Rubro</th>
