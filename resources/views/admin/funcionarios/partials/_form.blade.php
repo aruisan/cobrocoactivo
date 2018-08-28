@@ -23,8 +23,18 @@
 
         <div class=" col-xs-12 col-sm-6 col-md-4 col-lg-4">
             <div class="form-group">
-                {{ Form::label('Tipo', 'Tipo')}}
-                {{ Form::select('role', $roles , $rolUser->role_id, ['class' => 'form-control', 'placeholder' =>'Selecciona un rol para el usuario']) }}            
+                {{ Form::label('rol', 'rol')}}
+            @if($method == 'POST')
+                {{ Form::select('rol', $roles , null, ['class' => 'form-control', 'placeholder' =>'Selecciona un rol para el usuario']) }}   
+            @else
+                <select name="rol" class="form-control">
+                    @foreach($roles as $rol)
+                        <option disabled>Selecciona un rol para el usuario</option>
+                        <option>encargado</option>
+                        <option value="{{ $rol->name }}" @if($rol->id == $rolUser) selected @endif>{{ $rol->name}}</option>
+                    @endforeach
+                </select>
+            @endif         
             </div>
         </div>
 

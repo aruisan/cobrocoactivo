@@ -22,23 +22,12 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 		//Route::resource('funcionarios', 'Admin\FuncionariosController');
 
 		//crud funcionarios
-		Route::get('funcionarios', 'Admin\FuncionariosController@index')->name('admin.funcionarios');
 		//Route::get('funcionarios/create', 'Admin\FuncionariosController@create')->middleware('permission:create_funcionarios');
-		Route::get('funcionarios/create', 'Admin\FuncionariosController@create');
-		Route::post('funcionarios', 'Admin\FuncionariosController@store');
-		Route::get('funcionarios/{id}/edit', 'Admin\FuncionariosController@edit');
-		Route::patch('funcionarios/{id}', 'Admin\FuncionariosController@update');
-		Route::delete('funcionarios/{id}', 'Admin\FuncionariosController@destroy');
-		Route::get('funcionarios/jefes/{id}', 'Admin\FuncionariosController@jefe');
+		Route::get('funcionarios/jefes/{id}', 'Admin\Funcionarios2Controller@jefe');
+		Route::resource('funcionarios', 'Admin\Funcionarios2Controller');
 
 		//crud de roles
-		Route::get('roles', 'Admin\RolesController@index')->name('admin.roles');
-		Route::get('roles/create', 'Admin\RolesController@create');
-		Route::post('roles', 'Admin\RolesController@store');
-		Route::get('roles/{id}', 'Admin\RolesController@show');
-		Route::get('roles/{id}/edit', 'Admin\RolesController@edit');
-		Route::patch('roles/{id}', 'Admin\RolesController@update');
-		Route::delete('roles/{id}', 'Admin\RolesController@destroy');
+		Route::resource('roles', 'Admin\RolesController');
 
 
 

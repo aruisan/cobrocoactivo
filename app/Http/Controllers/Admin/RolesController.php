@@ -1,68 +1,153 @@
 <?php
 
+
 namespace App\Http\Controllers\Admin;
+
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-use Session;
-use App\User;
-use App\Model\Admin\ModelHasRol;
+use DB;
+use App\Model\Admin\Modulo;
 
 
 class RolesController extends Controller
 {
-    public function index()
-	{
-		$roles = Role::all(); 
-    	return view('admin.roles.index', compact('roles'));
-	}
-
-	public function create()
-    {   
-        $data = new Role;
-        return view('admin.roles.create', compact('data')); 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    function __construct()
+    {
+         $this->middleware('permission:role-list');
+         $this->middleware('permission:role-create', ['only' => ['create','store']]);
+         $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:role-delete', ['only' => ['destroy']]);
     }
 
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        $roles = Role::orderBy('id','DESC')->paginate(5);
+        return view('roles.index',compact('roles'))
+            ->with('i', ($request->input('page', 1) - 1) * 5);
+    }
+
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $modulos = Modulo::all();
+        //$permission = Permission::get();
+        return view('roles.create',compact('modulos'));
+    }
+
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
-    	$store = new Role;
-    	$store->name = $request->name;
-    	$store->save();
+        $this->validate($request, [
+            'name' => 'required|unique:roles,name',
+            'permission' => 'required',
+        ]);
 
-    	return redirect()->route('admin.roles');
+
+        $role = Role::create(['name' => $request->input('name')]);
+        $role->syncPermissions($request->input('permission'));
+
+
+        return redirect()->route('roles.index')
+                        ->with('success','Role created successfully');
+    }
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $role = Role::find($id);
+        $rolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
+            ->where("role_has_permissions.role_id",$id)
+            ->get();
+
+
+        return view('roles.show',compact('role','rolePermissions'));
     }
 
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function edit($id)
     {
-    	$data = Role::find($id);
-    	return view('admin.roles.edit', compact('data'));
+        $role = Role::find($id);
+        $modulos = Modulo::all();
+        $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
+            ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
+            ->all();
+
+
+        return view('roles.edit',compact('role','modulos','rolePermissions'));
     }
 
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, $id)
     {
-    	$update = Role::find($id);
-    	$update->name = $request->name;
-    	$update->save();
+        $this->validate($request, [
+            'name' => 'required',
+            'permission' => 'required',
+        ]);
 
-    	return redirect()->route('admin.roles');
+
+        $role = Role::find($id);
+        $role->name = $request->input('name');
+        $role->save();
+
+
+        $role->syncPermissions($request->input('permission'));
+
+
+        return redirect()->route('roles.index')
+                        ->with('success','Role updated successfully');
     }
-
-
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function destroy($id)
     {
-
-        $destroy = Role::find($id);
-        $usuarios = ModelHasRol::where('role_id', $destroy->id)->count();
-
-         if($usuarios > 0){
-            Session::flash('warning', 'tiene '.$usuarios.' Usuarios Relacionados a este Rol.');
-        }else{
-            $destroy->delete();
-            Session::flash('error','Rol Eliminado correctamente');
-        }
-    	return back();
+        DB::table("roles")->where('id',$id)->delete();
+        return redirect()->route('roles.index')
+                        ->with('success','Role deleted successfully');
     }
 }

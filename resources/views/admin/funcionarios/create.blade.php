@@ -28,7 +28,7 @@
 		<div class="row">
 			<div class="col-md-12" id="data">
                     <h2 class="text-center">Crear Funcionario</h2>
-				 @include('admin.funcionarios.partials._form', ['usuario' => $usuario, 'tipos'=> $tipos, 'roles' => $roles, 'rolUser' => $rolUser ,'url' => 'admin/funcionarios', 'method' => 'POST'])
+				 @include('admin.funcionarios.partials._form', ['usuario' => $usuario, 'tipos'=> $tipos, 'roles' => $roles,'url' => 'admin/funcionarios', 'method' => 'POST'])
 			</div>
 		</div>
 	</div> 

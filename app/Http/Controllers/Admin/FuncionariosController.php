@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Model\User;
+use App\User;
 use App\Model\Cobro\Type;
 use App\Model\Cobro\UserBoss;
 use Session;
@@ -24,7 +24,7 @@ class FuncionariosController extends Controller
     {   
         $usuario = new User;  
         $tipos =  Type::pluck('nombre', 'id');
-        $roles =  Role::pluck('name', 'id');
+        $roles =  Role::pluck('name','name')->all();
 
         return view('admin.funcionarios.create', compact('usuario' ,'tipos', 'roles')); 
     }
@@ -54,9 +54,12 @@ class FuncionariosController extends Controller
     public function edit($id)
     {
         $usuario = User::find($id);
-        $rolUser = ModelHasRol::where('role_id', $id)->first();
+        //$rolUser = ModelHasRol::where('role_id', $id)->first();
+        $rolUser = $usuario->roles->pluck('name','name')->all();
+
         $tipos =  Type::pluck('nombre', 'id');
-        $roles =  Role::pluck('name', 'id');
+        $roles =  Role::all();
+        dd($rolUser);
 
         return view('admin.funcionarios.edit', compact('usuario', 'tipos', 'roles', 'rolUser'));
     }
