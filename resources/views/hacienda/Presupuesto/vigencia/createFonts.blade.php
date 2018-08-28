@@ -49,43 +49,43 @@
     <div class="col-md-12 align-self-center" id="crud">
         <div class="row justify-content-center">
             <br>
-            <center><h3>Creacion de Fuentes para la Vigencia {{ $vigencia->vigencia }}</h3></center>
+            <center><h2>Creación de Fuentes para la Vigencia {{ $vigencia->vigencia }}</h2></center>
             <br><hr>
             <form action="{{url('/presupuesto/font')}}" method="POST">
-                            {{ csrf_field() }}
-				        			<input type="hidden" id="vigencia_id" name="vigencia_id" value="{{ $vigencia->id }}">
-				        			<div class="table-responsive">
-				        				<table class="table table-bordered" id="tabla">
-						        			<thead>
-						        				<th class="text-center">Code</th>
-						        				<th class="text-center">Nombre</th>
-						        				<th class="text-center">Valor</th>
-						        				<th class="text-center"><i class="fa fa-trash-o"></i></th>
-						        			</thead>
-						        			<tbody>
-						        				<tr v-for="dato in datos">
-						        					<th scope="row"><input type="hidden" name="font_id[]" v-model="dato.id"><input type="text" style="text-align:center" name="code[]" v-model="dato.code"></th>
-						        					<th scope="row"><input type="text" name="nombre[]" style="text-align:center" v-model="dato.name"></th>
-						        					<th scope="row"><input type="number" name="valor[]" style="text-align:center" v-model="dato.valor" required></th>
-						        					<td class="text-center"><button type="button" class="btn-sm btn-danger" v-on:click.prevent="eliminarDatos(dato.id)" ><i class="fa fa-trash-o"></i></button></td>
-						        				</tr>
-						        				@for($i=0;$i < $fila ;$i++)
-												<tr >
-													<td><input type="hidden" name="font_id[]"><input type="text" name="code[]"></td>
-						        					<td><input type="text" name="nombre[]" required></td>
-						        					<td><input type="number" name="valor[]"  required></td>
-						        					<td class="text-center"><input type="button" class="borrar btn-sm btn-danger" value=" - " /></td>
-												</tr>
-												@endfor
-						        			</tbody>
-					        			</table>
-					        		</div><br><center>
-			        		<button type="button" v-on:click.prevent="nuevaFila" class="btn btn-success">Nueva Fila</button>
-			        		<button type="submit" class="btn btn-primary">Guardar</button>
-							</center>
-			        	</form>
-			        </div>
-			    </div>
+            {{ csrf_field() }}
+                <input type="hidden" id="vigencia_id" name="vigencia_id" value="{{ $vigencia->id }}">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="tabla">
+                        <thead>
+                            <th class="text-center">Code</th>
+                            <th class="text-center">Nombre</th>
+                            <th class="text-center">Valor</th>
+                            <th class="text-center"><i class="fa fa-trash-o"></i></th>
+                        </thead>
+                        <tbody>
+                            <tr v-for="dato in datos">
+                                <th scope="row"><input type="hidden" name="font_id[]" v-model="dato.id"><input type="text" style="text-align:center" name="code[]" v-model="dato.code"></th>
+                                <th scope="row"><input type="text" name="nombre[]" style="text-align:center" v-model="dato.name"></th>
+                                <th scope="row"><input type="number" name="valor[]" style="text-align:center" v-model="dato.valor" required></th>
+                                <td class="text-center"><button type="button" class="btn-sm btn-danger" v-on:click.prevent="eliminarDatos(dato.id)" ><i class="fa fa-trash-o"></i></button></td>
+                            </tr>
+                            @for($i=0;$i < $fila ;$i++)
+                            <tr >
+                                <td><input type="hidden" name="font_id[]"><input type="text" name="code[]"></td>
+                                <td><input type="text" name="nombre[]" required></td>
+                                <td><input type="number" name="valor[]"  required></td>
+                                <td class="text-center"><input type="button" class="borrar btn-sm btn-danger" value=" - " /></td>
+                            </tr>
+                            @endfor
+                        </tbody>
+                    </table>
+                </div><br><center>
+            <button type="button" v-on:click.prevent="nuevaFila" class="btn btn-success">Nueva Fila</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            </center>
+        </form>
+    </div>
+</div>
 
 @stop
 

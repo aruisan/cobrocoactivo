@@ -82,7 +82,6 @@ class PresupuestoController extends Controller
                                 }
                                 $codigos[] = collect(['id' => $register->id, 'codigo' => $code, 'name' => $register->name, 'code' => '', 'V' => $V, 'valor' => '','id_rubro' => '','register_id' => $register2->register_id]);
                                 if ($register->level_id == $lastLevel){
-
                                     foreach ($rubros as $rubro) {
                                         if ($register->id == $rubro->register_id) {
                                             $newCod = "$code$rubro->cod";
@@ -183,7 +182,7 @@ class PresupuestoController extends Controller
                 }
             }
     }
-        return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','values','valoresIniciales'));
+        return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales'));
     }
 
     /**

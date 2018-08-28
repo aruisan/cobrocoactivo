@@ -117,14 +117,14 @@ class RubrosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($id, $name, $code, $register, $dependencia)
+    public function update($id, $name, $code, $register, $subproyecto_id)
     {
         //dd($name);
         $rubro = Rubro::findOrFail($id);
         $rubro->name = $name;
         $rubro->cod = $code;
         $rubro->register_id = $register;
-        $rubro->dependencia_id = $dependencia;
+        $rubro->subproyecto_id = $subproyecto_id;
         $rubro->save();
     }
 
