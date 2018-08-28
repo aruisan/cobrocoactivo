@@ -1,34 +1,40 @@
-@extends('layouts.presupuesto')
-@section('contenido')
-
-	<div class="container-fluid" id="crud">
-		<div class="row">
-			<div class="col-12">
-				<div class="card">
-        		<form action="{{url('/rubro')}}" method="POST"  class="form">
-        				@csrf
-	        			<input type="hidden" class="form-control" id="vigencia_id" name="vigencia_id" value="{{ $vigencia->id }}">
+@extends('layouts.dashboard')
+@section('titulo')
+    Creación de Rubros
+@stop
+@section('sidebar')
+    <li class="dropdown">
+        <a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown" href="#">
+            <span class="hide-menu">Niveles</span>
+            &nbsp;
+            <i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-user">
+            @foreach($niveles as $level)
+                <li><a href="/presupuesto/registro/create/{{ $level->vigencia_id }}/{{ $level->level }}" class="btn btn-primary">Nivel {{ $level->level }}</a></li>
+            @endforeach
+            <li><a href="/presupuesto/font/create/{{ $vigencia_id }}" class="btn btn-primary">Fuentes</a></li>
+            <li><a href="/presupuesto/rubro/create/{{ $vigencia_id }}" class="btn btn-primary">Rubros</a></li>
+            <li><a href="/presupuesto/level/create/{{ $vigencia_id }}" class="btn btn-primary">Nuevo Nivel</a></li>
+        </ul>
+    </li>
+@stop
+@section('content')
+    <div class="col-md-12 align-self-center" id="crud">
+        <div class="row justify-content-center">
+            <br>
+            <h2><center>Creación de Rubros para la Vigencia {{ $vigencia->vigencia }}</center></h2><br>
+            <hr>
+        		<form action="{{ url('/presupuesto/rubro') }}" method="POST"  class="form">
+                    {{ csrf_field() }}
+	        			<input type="hidden" id="vigencia_id" name="vigencia_id" value="{{ $vigencia_id }}">
 	        			<div class="table-responsive">
-        				<table class="table" id="tabla">
-							<center>Creacion de Rubros para la Vigencia {{ $vigencia->vigencia }}</center><br>
+        				<table class="table table-bordered" id="tabla">
 							<center>
-                            <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Niveles
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    @foreach($niveles as $level)
-                                        <li><a href="/registro/create/{{ $level->vigencia_id }}/{{ $level->level }}">Nivel {{ $level->level }}</a></li>
-                                    @endforeach
-                                    <li><a href="/font/create/{{ $vigencia_id }}">Fuentes</a></li>
-                                    <li><a href="/rubro/create/{{ $vigencia_id }}">Rubros</a></li>
-                                    <li><a href="/level/create/{{ $vigencia_id }}">Nuevo Nivel</a></li>
-                                </ul>
-                            </div>
                             </center><br>
 		        			<thead>
 		        				<th class="text-center">Registro</th>
-		        				<th class="text-center">Dependencia</th>
+		        				<th class="text-center">Sub Proyecto</th>
 		        				<th class="text-center">Code</th>
 		        				<th class="text-center">Nombre</th>
 		        				<th class="text-center">Valor</th>
@@ -37,7 +43,7 @@
 		        			</thead>
 		        			<tbody>
 		        				@foreach($vigencia->rubros as $dato)
-		        				<tr class="table-primary">
+		        				<tr>
 		        					<td>
 		        						<input type="hidden" name="rubro_id[]" value="{{ $dato->id }}">
 		        						<select name="register_id[]" class="form-control">
@@ -53,17 +59,17 @@
 		        						</select>
 		        					</td>
 		        					<td>
-		        						<select name="dependencia_id[]"  class="form-control">
-		        							@foreach($dependencias as $dependencia)
-		        								<option value="{{ $dependencia->id }}" @if($dato->dependencia_id ==  $dependencia->id) selected @endif>{{ $dependencia->name }}</option>
+		        						<select name="subproyecto_id[]"  class="form-control">
+		        							@foreach($subProy as $subProys)
+		        								<option value="{{ $subProys->id }}" @if($dato->subproyecto_id ==  $subProys->id) selected @endif>{{ $subProys->name }}</option>
 		        							@endforeach
 		        						</select>
 		        					</td>
-		        					<td><input type="text" class="form-control" name="code[]" value="{{ $dato->cod }}"></td>
-		        					<td><input type="text" class="form-control" name="nombre[]" value="{{ $dato->name }}"></td>
-		        					<td class="text-dark">$ {{ $dato->fontsRubro->sum('valor')  }}</td>
-		        					<td><a href="{{ url('/FontRubro', $dato->id) }}" class="btn btn-primary"><i class="fa fa-sign-in"></i></a></td>
-		        					<td><button type="button" class="btn btn-danger borrar" v-on:click.prevent="eliminarDatos({{ $dato->id }})" ><i class="fa fa-trash-o"></i></button></td>
+		        					<th scope="row"><input type="text" style="text-align:center" name="code[]" value="{{ $dato->cod }}"></th>
+		        					<th scope="row"><input type="text" style="text-align:center" name="nombre[]" value="{{ $dato->name }}"></th>
+		        					<th scope="row" class="text-center" style="vertical-align:middle;">$ {{ $dato->fontsRubro->sum('valor')  }}</th>
+		        					<td class="text-center" style="vertical-align:middle;"><a href="{{ url('/presupuesto/FontRubro', $dato->id) }}" class="btn-sm btn-success">&nbsp;<i class="fa fa-sign-in"></i>&nbsp;</a></td>
+		        					<td class="text-center" style="vertical-align:middle;"><button type="button" class="btn-sm btn-danger borrar" v-on:click.prevent="eliminarDatos({{ $dato->id }})" ><i class="fa fa-trash-o"></i></button></td>
 		        				</tr>
 		        				@endforeach
 		        				@for($i=0;$i < $fila ;$i++)
@@ -82,17 +88,17 @@
 		        						</select>
 		        					</td>
 		        					<td>
-		        						<select name="dependencia_id[]"  class="form-control">
-		        							@foreach($dependencias as $dependencia)
-		        								<option value="{{ $dependencia->id }}">{{ $dependencia->name }}</option>
+		        						<select name="subproyecto_id[]"  class="form-control">
+		        							@foreach($subProy as $subProys)
+		        								<option value="{{ $subProys->id }}">{{ $subProys->name }}</option>
 		        							@endforeach
 		        						</select>
 		        					</td>
-		        					<td><input type="hidden" name="rubro_id[]"><input type="text" class="form-control" name="code[]"></td>
-		        					<td><input type="text" class="form-control" name="nombre[]"></td>
+		        					<td><input type="hidden" name="rubro_id[]"><input type="text" name="code[]"></td>
+		        					<td><input type="text" name="nombre[]"></td>
 		        					<td></td>
 		        					<td></td>
-		        					<td><input type="button" class="borrar btn btn-danger" value="-" /></td>
+		        					<td style="vertical-align:middle;"><input type="button" class="borrar btn-sm btn-danger" value="-" /></td>
 		        				</tr>
 								@endfor
 		        			</tbody>
@@ -111,8 +117,13 @@
 
 @section('js')
 <script>
-	  	
 
+    $(document).ready(function() {
+        $('#tabla').DataTable( {
+            responsive: true,
+            "searching": false
+        } );
+    } );
 
 //funcion para borrar una celda
 $(document).on('click', '.borrar', function (event) {
@@ -126,7 +137,7 @@ new Vue({
 	methods:{
 
 		eliminarDatos: function(dato){
-			var urlVigencia = '/rubro/'+dato;
+			var urlVigencia = '/presupuesto/rubro/'+dato;
 			axios.delete(urlVigencia).then(response => {
 				toastr.error('Rubro eliminado correctamente');
 			});
@@ -134,7 +145,7 @@ new Vue({
 
 		nuevaFila: function(){
 	  		
-			$('#tabla tr:last').after("<tr><td><select name='register_id[]' class='form-control'>@foreach($registers as $register)<option value='{{ $register->id }}'>@foreach($codigos as $codigo)@if($codigo['id'] == $register->id) {{$codigo['codigo'] }} @endif @endforeach - {{ $register->name }}</option>@endforeach</select></td><td><select name='dependencia_id[]'  class='form-control'>@foreach($dependencias as $dependencia)<option value='{{ $dependencia->id }}'>{{ $dependencia->name }}</option>@endforeach</select></td><td><input type='hidden' name='rubro_id[]'><input type='text' name='code[]' class='form-control'></td><td><input type='text' class='form-control' name='nombre[]'></td></td><td></td><td></td><td><input type='button' class='borrar btn btn-danger' value='-'/></td></tr>");
+			$('#tabla tr:last').after("<tr><td><select name='register_id[]' class='form-control'>@foreach($registers as $register)<option value='{{ $register->id }}'>@foreach($codigos as $codigo)@if($codigo['id'] == $register->id) {{$codigo['codigo'] }} @endif @endforeach - {{ $register->name }}</option>@endforeach</select></td><td><select name='subproyecto_id[]'  class='form-control'>@foreach($subProy as $subProys)<option value='{{ $subProys->id }}'>{{ $subProys->name }}</option>@endforeach</select></td><td><input type='hidden' name='rubro_id[]'><input type='text' name='code[]'></td><td><input type='text' name='nombre[]'></td></td><td></td><td></td><td style='vertical-align:middle;' class='text-center'><input type='button' class='borrar btn-sm btn-danger' value='-'/></td></tr>");
 		}
 	}
 });

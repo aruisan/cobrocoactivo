@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Rubro extends Model
 {
     public function dependencia(){
-		return $this->hasOne('App\Model\Hacienda\Presupuesto\Dependencia','id', 'dependencia_id');
+		return $this->hasOne('App\Model\Dependencia','id', 'dependencia_id');
 	}
 
 	public function vigencia(){

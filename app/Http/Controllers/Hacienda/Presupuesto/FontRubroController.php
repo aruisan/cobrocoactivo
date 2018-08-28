@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Hacienda\Presupuesto;
 
 use App\Http\Controllers\Controller;
-use App\FontsRubro;
-use App\Rubro;
+use App\Model\Hacienda\Presupuesto\FontsRubro;
+use App\Model\Hacienda\Presupuesto\Rubro;
 
 use Session;
 
@@ -52,7 +52,7 @@ class FontRubroController extends Controller
     public function show($id)
     {
         $rubro = Rubro::find($id);
-        return view('presupuesto.vigencia.createFontsRubro', compact('rubro'));
+        return view('hacienda.presupuesto.vigencia.createFontsRubro', compact('rubro'));
     }
 
 

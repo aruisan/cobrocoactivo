@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Hacienda\Presupuesto;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Font;
-use App\Vigencia;
-use App\Level;
+use App\Model\Hacienda\Presupuesto\Font;
+use App\Model\Hacienda\Presupuesto\Vigencia;
+use App\Model\Hacienda\Presupuesto\Level;
 
 use Session;
 
@@ -26,7 +26,7 @@ class FontsController extends Controller
         }else if( $vigencia->ultimo > $levels){
             $fila = $vigencia->ultimo - $levels;
         }
-        return view('presupuesto.vigencia.createFonts', compact('vigencia', 'fila', 'niveles'));
+        return view('hacienda.presupuesto.vigencia.createFonts', compact('vigencia', 'fila', 'niveles'));
     }
 
     /**

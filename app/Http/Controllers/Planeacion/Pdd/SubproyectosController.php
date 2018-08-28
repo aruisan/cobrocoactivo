@@ -18,7 +18,7 @@ class SubproyectosController extends Controller
     {
         $pdd = Pdd::find($pdd);
 
-        return view('planeacion.pdd.subproyectos.createsubproyectos',compact('pdd'));
+        return view('planeacion.pdd.subproyectos.create',compact('pdd'));
     }
 
     public function store(Request $request)

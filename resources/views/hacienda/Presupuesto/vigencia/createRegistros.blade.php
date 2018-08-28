@@ -33,7 +33,8 @@
 		        				@if($nivel->level > 1)
 		        					<th class="text-center">Código</th>
 			        				<th class="text-center">Nombre</th>
-			        				<th class="text-center">Relacion</th>
+			        				<th class="text-center">Relación</th>
+			        				<th></th>
 		        				@else
 		        					<th class="text-center">Código</th>
 			        				<th class="text-center">Nombre</th>
@@ -61,7 +62,7 @@
 		        						<td><input type="text"  name="nombre[]" required></td>
 		        						@if($nivel->level > 1)
 		        						<td>
-		        						<select name="padre[]">
+		        						<select name="padre[]" class="form-control">
 		        							@foreach($codes as $code)
 		        								<option value="{{ $code->id }}">{{ $code->id }} - {{ $code->name }}</option>
 		        							@endforeach
@@ -127,7 +128,7 @@ new Vue({
 
 			@if($nivel->level > 1)
 	
-				$('#tabla tr:last').after(' <tr><td><input type="hidden" name="register_id[]"><input type="text" name="code[]" pattern=".{<?= $nivel->cifras ?>,<?= $nivel->cifras ?>}" required title="solo se permiten <?= $nivel->cifras ?> cifras"></td><td><input type="text" name="nombre[]" required></td><td><select name="padre[]">@foreach($codes as $code)<option value="{{ $code->id }}">{{ $code->id }} - {{ $code->name }}</option>@endforeach</select></td><td class="text-center"><input type="button" class="borrar btn-sm btn-danger" value="-" /></td></tr>');
+				$('#tabla tr:last').after(' <tr><td><input type="hidden" name="register_id[]"><input type="text" name="code[]" pattern=".{<?= $nivel->cifras ?>,<?= $nivel->cifras ?>}" required title="solo se permiten <?= $nivel->cifras ?> cifras"></td><td><input type="text" name="nombre[]" required></td><td><select name="padre[]" class="form-control">@foreach($codes as $code)<option value="{{ $code->id }}" >{{ $code->id }} - {{ $code->name }}</option>@endforeach</select></td><td class="text-center"><input type="button" class="borrar btn-sm btn-danger" value="-" /></td></tr>');
 			@else
 				$('#tabla tr:last').after('<tr><td><input type="hidden" name="register_id[]"><input type="text" name="code[]" pattern=".{<?= $nivel->cifras ?>,<?= $nivel->cifras ?>}" required title="solo se permiten <?= $nivel->cifras ?> cifras"></td><td><input type="text" name="nombre[]" required></td><td class="text-center"><input type="button" class="borrar btn-sm btn-danger" value="-" /></td></tr>');
 			@endif

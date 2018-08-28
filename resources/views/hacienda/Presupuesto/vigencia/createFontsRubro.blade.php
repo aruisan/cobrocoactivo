@@ -1,5 +1,5 @@
-@extends('layouts.presupuesto')
-@section('contenido')
+@extends('layouts.dashboard')
+@section('content')
 
 <div id="content"> 
     <div id="contenido">
