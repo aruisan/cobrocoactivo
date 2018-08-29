@@ -34,8 +34,8 @@
                 <tbody>
                 @foreach($rubro->vigencia->fonts as $font)
                     <tr>
-                        <td class="text-dark">{{ $font->name }}</td>
-                        <td class="text-dark">${{ $font->valor - $font->fontsRubro->sum('valor') }}</td>
+                        <td>{{ $font->name }}</td>
+                        <td>$<?php echo number_format($font->valor - $font->fontsRubro->sum('valor'),0) ?></td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -46,7 +46,7 @@
     <div class="card">
         <br>
         <center>
-            <h4><b>Valor del Rubro ${{ $rubro->fontsRubro->sum('valor') }}.00</b></h4>
+            <h4><b>Valor del Rubro $<?php echo number_format($rubro->fontsRubro->sum('valor'),0) ?></b></h4>
         </center>
         <br>
     </div>

@@ -67,7 +67,7 @@
 		        					</td>
 		        					<th scope="row"><input type="text" style="text-align:center" name="code[]" value="{{ $dato->cod }}"></th>
 		        					<th scope="row"><input type="text" style="text-align:center" name="nombre[]" value="{{ $dato->name }}"></th>
-		        					<th scope="row" class="text-center" style="vertical-align:middle;">$ {{ $dato->fontsRubro->sum('valor')  }}</th>
+		        					<th scope="row" class="text-center" style="vertical-align:middle;">$ <?php echo number_format($dato->fontsRubro->sum('valor'),0)?></th>
 		        					<td class="text-center" style="vertical-align:middle;"><a href="{{ url('/presupuesto/FontRubro', $dato->id) }}" class="btn-sm btn-success">&nbsp;<i class="fa fa-sign-in"></i>&nbsp;</a></td>
 		        					<td class="text-center" style="vertical-align:middle;"><button type="button" class="btn-sm btn-danger borrar" v-on:click.prevent="eliminarDatos({{ $dato->id }})" ><i class="fa fa-trash-o"></i></button></td>
 		        				</tr>
