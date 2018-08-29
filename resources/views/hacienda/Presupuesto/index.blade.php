@@ -65,6 +65,10 @@
     </style>
 @stop
 @section('sidebar')
+    @if($V != "Vacio")
+        <li> <a href="{{ url('/presupuesto/level/create/'.$V) }}" class="btn btn-success"><i class="fa fa-edit"></i><span class="hide-menu">&nbsp;Editar Presupuesto</span></a></li>
+    @else
+    @endif
     <li class="dropdown">
         <a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown" href="#">
             <i class="fa fa-calendar-check-o"></i>
@@ -94,10 +98,6 @@
             <li><a href="{{ url('/presupuesto/vigencia/create/0') }}" class="btn btn-primary">Egresos</a></li>
         </ul>
     </li>
-    @if($V != "Vacio")
-        <li> <a href="{{ url('/presupuesto/level/create/'.$V) }}" class="btn btn-primary"><i class="fa fa-edit"></i><span class="hide-menu">&nbsp;Editar Presupuesto</span></a></li>
-    @else
-    @endif
     <li> <a href="#" class="btn btn-primary"><i class="fa fa-server"></i><span class="hide-menu">&nbsp; Tabla de Retención</span></a></li>
 @stop
 @section('content')
@@ -124,7 +124,6 @@
                             <a class="dropdown-item" id="dropdown2-tab" href="#tabAddEgr" role="tab" data-toggle="tab" aria-controls="dropdown2">Egresos</a>
                         </div>
                     </li>
-                    <li><a href="#tabReg">Registros</a></li>
                     <li class="nav-item dropdown">
                         <a data-toggle="dropdown">
                             Reducción
@@ -135,9 +134,17 @@
                             <a class="dropdown-item" id="dropdown2-tab" href="#tabRedEgr" role="tab" data-toggle="tab" aria-controls="dropdown2">Egresos</a>
                         </div>
                     </li>
-                    <li><a href="#tabCre">Creditos</a></li>
-                    <li><a href="#tabApl">Aplazos</a></li>
-                    <li><a href="#tabOP">Orden Pago</a></li>
+                    <li class="nav-item dropdown">
+                        <a data-toggle="dropdown">
+                            Más
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" id="dropdown1-tab" href="#tabCre" role="tab" data-toggle="tab" aria-controls="dropdown1">Creditos</a>
+                            <a class="dropdown-item" id="dropdown2-tab" href="#tabApl" role="tab" data-toggle="tab" aria-controls="dropdown2">Aplazos</a>
+                            <a class="dropdown-item" id="dropdown3-tab" href="#tabOP" role="tab" data-toggle="tab" aria-controls="dropdown3">Orden de Pago</a>
+                        </div>
+                    </li>
                 </ul>
             </div>
             <div class="tab-select-outer">
@@ -155,37 +162,41 @@
             </div>
             <div id="tabHome" class="tab-contents">
                 @if($V != "Vacio")
-                    <table class="table table-hover table-striped table-bordered">
-                        <thead>
-                        <tr>
-                            <th class="text-center">Rubro</th>
-                            <th class="text-center">Nombre</th>
-                            <th class="text-center">P. Inicial</th>
-                            @foreach($fuentes as $fuente)
-                                <th class="text-center">{{ $fuente['name'] }}</th>
-                            @endforeach
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($codigos as $codigo)
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered">
+                            <thead>
                             <tr>
-                                <td class="text-dark">{{ $codigo['codigo']}}</td>
-                                <td class="text-dark">{{ $codigo['name']}}</td>
-                                @foreach($valoresIniciales as $valorInicial)
-                                    @if($valorInicial['id'] == $codigo['id'])
-                                        <td class="text-center text-dark">$<?php echo number_format($valorInicial['valor'],0);?>.00</td>
-                                    @endif
-                                @endforeach
-                                @if($codigo['valor'])
-                                    <td class="text-center text-dark">$<?php echo number_format($codigo['valor'],0);?>.00</td>
-                                @endif
-                                @foreach($FRubros as $FRubro)
-                                    @if($FRubro['rubro_id'] == $codigo['id_rubro'])
-                                        <td class="text-center text-dark">$<?php echo number_format($FRubro["valor"],0);?>.00</td>
-                                    @endif
+                                <th class="text-center">Rubro</th>
+                                <th class="text-center">Nombre</th>
+                                <th class="text-center">P. Inicial</th>
+                                @foreach($fuentes as $fuente)
+                                    <th class="text-center">{{ $fuente['name'] }}</th>
                                 @endforeach
                             </tr>
-                        @endforeach
+                            </thead>
+                            <tbody>
+                            @foreach($codigos as $codigo)
+                                <tr>
+                                    <td class="text-dark">{{ $codigo['codigo']}}</td>
+                                    <td class="text-dark">{{ $codigo['name']}}</td>
+                                    @foreach($valoresIniciales as $valorInicial)
+                                        @if($valorInicial['id'] == $codigo['id'])
+                                            <td class="text-center text-dark">$ <?php echo number_format($valorInicial['valor'],0);?>.00</td>
+                                        @endif
+                                    @endforeach
+                                    @if($codigo['valor'])
+                                        <td class="text-center text-dark">$ <?php echo number_format($codigo['valor'],0);?>.00</td>
+                                    @endif
+                                    @foreach($FRubros as $FRubro)
+                                        @if($FRubro['rubro_id'] == $codigo['id_rubro'])
+                                            <td class="text-center text-dark">$ <?php echo number_format($FRubro["valor"],0);?>.00</td>
+                                        @endif
+                                    @endforeach
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                         @else
                             <br>
                             <div class="alert alert-danger">
@@ -193,8 +204,6 @@
                                 <a href="{{ url('presupuesto/vigencia/create/0') }}" class="alert-link">Crear Presupuesto de Egresos</a>.
                             </div>
                 @endif
-                        </tbody>
-                    </table>
             </div>
             <div id="tabFuente" class="tab-contents">
                 <h2 class="text-center">Fuente</h2>
