@@ -23,18 +23,30 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <strong>Permisos:</strong>
+            <center><h3>Permisos:</h3></center>
             <br/>
-            @foreach($modulos as $modulo)
-                <label>{{ Form::checkbox('modulo[]', $modulo->id, false, array('class' => 'modulo', 'id' => $modulo->name)) }}
-                    {{ $modulo->name }}</label><br>
-                @foreach($modulo->permisos as $value)
-                    <label class="permisos">{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => $modulo->name, 'id')) }}
-                    {{ $value->alias }}</label>
-                <br/>
+            @foreach ($modulos->chunk(3) as $chunk)
+            <hr>
+            <div class="row">
+                @foreach($chunk as $modulo)
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <label>{{ Form::checkbox('modulo[]', $modulo->id, false, array('class' => 'modulo', 'id' => $modulo->name)) }}
+                                {{ $modulo->name }}</label><br>
+                            @foreach($modulo->permisos as $value)
+                                <label class="permisos">{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => $modulo->name, 'id')) }}
+                                {{ $value->alias }}</label>
+                            <br/>
+                            @endforeach
+                            <br>
+                        </div>
+                    </div>
+                </div>
                 @endforeach
-                <br>
-            @endforeach
+            </div>
+            <hr>
+        @endforeach
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
@@ -50,6 +62,16 @@
     <style type="text/css">
         .permisos{
             margin-left: 15px;
+        }
+
+        hr { 
+            display: block;
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+            margin-left: auto;
+            margin-right: auto;
+            border-style: inset;
+            border-width: 1px;
         }
     </style>
 @endsection
