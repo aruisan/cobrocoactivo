@@ -30,15 +30,15 @@
             <tbody>
             <tr>
                 <td>Presupuesto</td>
-                <td class="text-dark">{{ $vigencia->presupuesto_inicial }}</td>
+                <td>$<?php echo number_format($vigencia->presupuesto_inicial,0) ?></td>
             </tr>
             <tr>
                 <td>Ingresos en las Fuentes</td>
-                <td class="text-dark">{{ $vigencia->fonts->sum('valor') }}</td>
+                <td>$<?php echo number_format($vigencia->fonts->sum('valor'),0) ?></td>
             </tr>
             <tr>
                 <td>Dinero Disponible</td>
-                <td class="text-dark">{{ $vigencia->presupuesto_inicial - $vigencia->fonts->sum('valor') }}</td>
+                <td>$<?php echo number_format($vigencia->presupuesto_inicial - $vigencia->fonts->sum('valor'),0) ?></td>
             </tr>
             </tbody>
         </table>

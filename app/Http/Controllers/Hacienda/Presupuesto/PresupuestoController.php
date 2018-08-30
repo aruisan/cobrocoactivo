@@ -13,6 +13,7 @@ use App\Model\Hacienda\Presupuesto\Vigencia;
 use App\Model\Hacienda\Presupuesto\Level;
 use App\Model\Hacienda\Presupuesto\Register;
 
+
 class PresupuestoController extends Controller
 {
     /**
@@ -85,6 +86,8 @@ class PresupuestoController extends Controller
                                     foreach ($rubros as $rubro) {
                                         if ($register->id == $rubro->register_id) {
                                             $newCod = "$code$rubro->cod";
+                                            $fR = $rubro->FontsRubro;
+                                            //dd($newCod, $fR);
                                             for ($i=0;$i<$tamFountsRubros;$i++){
                                                 $rubrosF = FontsRubro::where('rubro_id', $fuentesRubros[$i]['rubro_id'])->orderBy('font_id')->get();
                                                 $numR = count($rubrosF);
@@ -128,6 +131,12 @@ class PresupuestoController extends Controller
                                                 }
                                             }
                                             $valFuent = FontsRubro::where('rubro_id', $rubro->id)->sum('valor');
+                                            //Se añade el codigo de la fuente al rubro
+                                            $FR = FontsRubro::where('rubro_id', $rubro->id)->get();
+                                            $idFR = $FR[0]['font_id'];
+                                            $FuenteCode = Font::findOrFail($idFR );
+                                            $newCod = "$newCod$FuenteCode->code";
+                                            //
                                             $codigos[] = collect(['id_rubro' => $rubro->id, 'id' => '', 'codigo' => $newCod, 'name' => $rubro->name, 'code' => $rubro->code, 'V' => $V, 'valor' => $valFuent, 'register_id' => $register->register_id]);
                                         }
                                     }
@@ -149,7 +158,7 @@ class PresupuestoController extends Controller
                     $codigos[] = collect(['id' => $register2->id, 'codigo' => $codigoEnd, 'name' => $register2->name, 'code' => '', 'V' => $V, 'valor' => '','id_rubro' => '', 'register_id' => $register2->register_id]);
                 }
             }
-
+            //Sumas de los Valores
             foreach ($allRegisters as $allRegister){
                 if($allRegister->level_id == $lastLevel){
                     $rubrosRegs = Rubro::where('register_id',$allRegister->id)->get();
@@ -164,8 +173,6 @@ class PresupuestoController extends Controller
                     }else{
                         $valoresIniciales[] = collect(['id' => $allRegister->id, 'valor' => 0, 'level_id' => $allRegister->level_id, 'register_id' => $allRegister->register_id]);
                     }
-                }elseif ($allRegister->level_id == 1){
-                    $valoresIniciales[] = collect(['id' => $allRegister->id, 'valor' => $vigens[0]['presupuesto_inicial'], 'level_id' => $allRegister->level_id, 'register_id' => 'Padre']);
                 } else{
                     for ($i=0;$i<sizeof($valoresIniciales);$i++){
                         if ($valoresIniciales[$i]['register_id'] == $allRegister->id){
@@ -181,6 +188,7 @@ class PresupuestoController extends Controller
                     }
                 }
             }
+            //
     }
         return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales'));
     }
