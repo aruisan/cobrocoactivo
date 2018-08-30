@@ -1,6 +1,6 @@
 <?php
 
-use App\User;
+use App\Model\User;
 use App\Model\Cobro\UserBoss;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
