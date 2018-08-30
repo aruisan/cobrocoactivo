@@ -53,7 +53,7 @@
                             <td class="text-center">@if($data->tipo == 1) Incremento @elseif($data->tipo == 2) Mantenimiento @else Reducción @endif</td>
                             <td class="text-center">{{ $data->unidad_medida }}</td>
                             <td class="text-center">{{ $data->dependencia->name}}</td>
-                            <td class="text-center"><a href="{{ url('/pdd/subproyecto/'.$data->id.'/edit') }}" class="btn-sm btn-success"><i class="fa fa-pencil-square-o"></i></a></td>
+                            <td class="text-center" style="vertical-align:middle;"><a href="{{ url('/pdd/subproyecto/'.$data->id.'/edit') }}" class="btn-sm btn-success"><i class="fa fa-pencil-square-o"></i></a></td>
                             <td class="text-center">
                                 <button type="button" class="btn-sm btn-danger" v-on:click.prevent="eliminarDatos({{ $data->id }})" >
                                     <i class="fa fa-trash-o"></i>

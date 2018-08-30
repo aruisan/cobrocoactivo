@@ -43,7 +43,7 @@
                     <td class="text-center"><button type="button" class="btn-sm btn-danger borrar">&nbsp;-&nbsp; </button></td>
                 </tr>
                 @foreach($pdd->ejes as $dato)
-                    <tr style="background-color:#9fcdff">
+                    <tr>
                         <th scope="row"><input type="hidden" value="{{ $dato->id }}" name="id[]"><input type="text" name="nombre[]" value="{{$dato->name }}" style="text-align:center" required></th>
                         <td class="text-center"><button type="button" class="btn-sm btn-danger borrar" v-on:click.prevent="eliminarDatos({{ $dato->id }})" ><i class="fa fa-trash-o"></i></button></td>
                     </tr>
@@ -87,7 +87,7 @@
                     </tr>
                     @foreach($pdd->ejes as $ejes)
                         @foreach($ejes->programas as $dato2)
-                            <tr style="background-color:#9fcdff">
+                            <tr>
                                 <th scope="row"><input type="hidden" value="{{ $dato2->id }}" name="id[]"><input type="text" style="text-align:center" name="nombre[]" value="{{ $dato2->name }}" required></th>
                                 <td class="text-center">
                                     <select name="eje_id[]" required>
