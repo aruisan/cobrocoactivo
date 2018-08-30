@@ -17,33 +17,39 @@
 
 {!! Form::open(array('route' => 'funcionarios.store','method'=>'POST')) !!}
 <div class="row" id="data">
-    <div class="col-xs-12 col-sm-6 col-md-6">
+    <div class="col-xs-12 col-sm-6 col-md-4">
         <div class="form-group">
             <strong>Nombre:</strong>
             {!! Form::text('name', null, array('placeholder' => 'Digite el Nombre','class' => 'form-control')) !!}
         </div>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-6">
+    <div class="col-xs-12 col-sm-6 col-md-4">
         <div class="form-group">
             <strong>Correo:</strong>
             {!! Form::text('email', null, array('placeholder' => 'Correo ','class' => 'form-control')) !!}
         </div>
     </div>
+    <div class="col-xs-12 col-sm-6 col-md-4">
+        <div class="form-group">
+            {{ Form::label('Dependencia', 'Dependencia')}}
+            {!! Form::select('dependencia_id', $dependencias,[], array('class' => 'form-control')) !!}
+        </div>
+    </div> 
 
-    <div class="col-xs-12 col-sm-4 col-md-4">
+    <div class="col-xs-12 col-sm-6 col-md-4">
         <div class="form-group">
             {{ Form::label('Rol', 'Rol')}}
             {!! Form::select('roles', $roles,[], array('class' => 'form-control')) !!}
         </div>
     </div>
-    <div class=" col-xs-12 col-sm-4 col-md-4 col-lg-4">
+    <div class=" col-xs-12 col-sm-6 col-md-4 col-lg-4">
         <div class="form-group">
             {{ Form::label('Tipo', 'Tipo')}}
             {{ Form::select('type_id', $tipos , null, ['id'=>'type','class' => 'form-control', 'placeholder' =>'Selecciona Tipo de usuario', '@change' => 'getJefes()']) }}            
         </div>
     </div>
 
-        <div class=" col-xs-12 col-sm-4 col-md-4 col-lg-4">
+        <div class=" col-xs-12 col-sm-6 col-md-4 col-lg-4">
             <div class="form-group" style="display: none;" id="divJefes">
                 {{ Form::label('Jefe', 'Jefe')}}
                 <select class="form-control" name="jefe" v-model="selected">

@@ -11,6 +11,7 @@ use App\Model\Cobro\UserBoss;
 use App\Model\Cobro\Type;
 use Spatie\Permission\Models\Role;
 use App\Model\Permiso;
+use App\Model\Admin\Dependencia;
 use DB;
 use Hash;
 
@@ -51,7 +52,8 @@ class FuncionariosController extends Controller
     {
     	$tipos =  Type::pluck('nombre', 'id');
         $roles =  Role::pluck('name','name')->all();
-        return view('admin.funcionarios.create',compact('roles', 'tipos'));
+        $dependencias =  Dependencia::pluck('name', 'id');
+        return view('admin.funcionarios.create',compact('roles', 'tipos', 'dependencias'));
     }
 
 
@@ -81,7 +83,7 @@ class FuncionariosController extends Controller
         if($request->jefe)
         {
             $jefe = new UserBoss;
-            $jefe->user_id = $usuario->id;
+            $jefe->user_id = $user->id;
             $jefe->boss_id = $request->jefe;
             $jefe->save();
         }
@@ -116,9 +118,10 @@ class FuncionariosController extends Controller
         $roles = Role::pluck('name','name')->all();
         $tipos =  Type::pluck('nombre', 'id');
         $userRole = $user->roles->pluck('name')->all();
+        $dependencias =  Dependencia::pluck('name', 'id');
 
 
-        return view('admin.funcionarios.edit',compact('user','roles','userRole', 'tipos'));
+        return view('admin.funcionarios.edit',compact('user','roles','userRole', 'tipos', 'dependencias'));
     }
 
 
