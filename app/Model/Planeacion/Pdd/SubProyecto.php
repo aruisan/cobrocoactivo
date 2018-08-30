@@ -11,7 +11,7 @@ class SubProyecto extends Model
 	}
 
 	public function dependencia(){
-		return $this->belongsTo('App\Model\Dependencia');
+		return $this->belongsTo('App\Model\Admin\Dependencia');
 	}
 
 	public function proyecto(){
