@@ -69,7 +69,7 @@
                             @foreach($pdd->ejes as $ejes)
                                 @foreach($ejes->programas as $programas)
                                     @foreach($programas->proyectos as $proyecto)
-                                        <tr style="background-color:#9fcdff">
+                                        <tr>
                                             <td>
                                                 <input style="text-align:center" type="text" value="{{ $proyecto->code }}"  name="code[]">
                                             </td>
@@ -96,7 +96,7 @@
                                                     <i class="fa fa-trash-o"></i>
                                                 </button>
                                             </td>
-                                            <td>
+                                            <td style="vertical-align:middle;">
                                                 <a class="btn-sm btn-primary" href="{{ asset('/pdd/proyecto/'.$proyecto->id) }}">
                                                     <i class="fa fa-bars"></i>
                                                 </a>
@@ -131,7 +131,8 @@
 
     $(document).ready(function() {
         $('#tabla_proyectos').DataTable( {
-            responsive: true
+            responsive: true,
+            "searching": false
         } );
     } );
 	  	

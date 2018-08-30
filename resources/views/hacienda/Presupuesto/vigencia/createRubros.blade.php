@@ -3,6 +3,7 @@
     Creación de Rubros
 @stop
 @section('sidebar')
+    <li> <a href="{{ url('/presupuesto') }}" class="btn btn-success"><i class="fa fa-money"></i><span class="hide-menu">&nbsp; Presupuesto</span></a></li>
     <li class="dropdown">
         <a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown" href="#">
             <span class="hide-menu">Niveles</span>
@@ -110,9 +111,6 @@
         		</form>
         	</div>
 			</div>
-		</div>
-    </div>
-
 @stop
 
 @section('js')
@@ -121,7 +119,8 @@
     $(document).ready(function() {
         $('#tabla').DataTable( {
             responsive: true,
-            "searching": false
+            "searching": false,
+            "oLanguage": {"sZeroRecords": "", "sEmptyTable": ""}
         } );
     } );
 

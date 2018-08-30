@@ -127,7 +127,8 @@
     $(document).ready(function() {
         $('#tabla').DataTable( {
             responsive: true,
-            "searching": false
+            "searching": false,
+            "oLanguage": {"sZeroRecords": "", "sEmptyTable": ""}
         } );
     } );
 
