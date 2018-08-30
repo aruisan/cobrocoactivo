@@ -20,6 +20,13 @@ class CreateTypesTable extends Migration
             $table->enum('expediente',[0,1])->default(0);
             $table->timestamps();
         });
+
+        Schema::create('dependencias', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+
+            $table->timestamps();
+        });
     }
 
     /**
@@ -30,5 +37,6 @@ class CreateTypesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('types');
+        Schema::dropIfExists('dependencias');
     }
 }

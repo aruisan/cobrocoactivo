@@ -15,7 +15,7 @@ class CreatePddsTable extends Migration
     {
         Schema::create('pdds', function (Blueprint $table) {
             $table->increments('id');
-            $table->char('name');
+            $table->string('name');
             $table->date('ff_inicio');
             $table->date('ff_final');
 

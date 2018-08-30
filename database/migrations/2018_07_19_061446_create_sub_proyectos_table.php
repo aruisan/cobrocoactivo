@@ -15,7 +15,7 @@ class CreateSubProyectosTable extends Migration
     {
         Schema::create('sub_proyectos', function (Blueprint $table) {
             $table->increments('id');
-            $table->char('name');
+            $table->string('name');
             $table->integer('linea_base');
             $table->text('indicador');//puede estar volando
             $table->enum('tipo', [1, 2, 3]);

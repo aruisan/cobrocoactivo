@@ -15,8 +15,8 @@ class CreateRubrosTable extends Migration
     {
         Schema::create('rubros', function (Blueprint $table){
             $table->increments('id');
-            $table->char('cod');
-            $table->char('name');
+            $table->string('cod');
+            $table->string('name');
 
             $table->integer('register_id')->unsigned();
             $table->foreign('register_id')->references('id')->on('registers');

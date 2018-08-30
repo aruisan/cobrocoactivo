@@ -1,10 +1,6 @@
-@extends('adminlte::page')
-
-@section('title', 'CobroCoactivo')
-
-
-@section('content_header')
-    <h1>Tus Notificaciones</h1>
+@extends('layouts.dashboard')
+@section('titulo')
+   Notificaciones
 @stop
 
 @section('content')

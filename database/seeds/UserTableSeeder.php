@@ -1,8 +1,9 @@
 <?php
 
-use App\Model\User;
+use App\User;
 use App\Model\Cobro\UserBoss;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class UserTableSeeder extends Seeder
 {
@@ -14,12 +15,13 @@ class UserTableSeeder extends Seeder
     public function run()
     {
         
-        User::create([
+       $user = User::create([
            'name' => 'Admin',
            'email' => 'Admin@admin.com',
-           'admin' => '1',
            'password' => bcrypt('123456'),
-        ]);        
+        ]);  
+
+       $user->assignRole('administrador');
 
         User::create([
            'name' => 'yoe',
@@ -28,7 +30,7 @@ class UserTableSeeder extends Seeder
            'password' => bcrypt('123456'),
         ]);
 
-        /*factory(User::class, 20)->create()->each(function ($u) {
+        factory(User::class, 20)->create()->each(function ($u) {
 
               $type_id = $u->type->id;
 
@@ -46,14 +48,14 @@ class UserTableSeeder extends Seeder
 
         });
 
-        /*$boss_id_static = User::whereHas('type', function ($query){
+        $boss_id_static = User::whereHas('type', function ($query){
                               $query->where('id', 2);
                           })->pluck('id')->random();
 
         UserBoss::create([
                   'user_id' => 2,
                   'boss_id' => $boss_id_static,
-        ]);*/
+        ]);
 
     }
 }

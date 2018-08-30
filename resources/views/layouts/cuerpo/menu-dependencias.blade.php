@@ -244,3 +244,20 @@
                     <li><a tabindex="-1" href="#">Comité de Conciliación</a></li>
                   </ul>
                 </li> 
+
+                <li class="dropdown">
+                  <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" title="Configuración">
+                    <i class="fa fa-cogs" aria-hidden="true"></i>
+                      <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a tabindex="-1" href="#">Configuración basica</a></li>
+                    <li><a tabindex="-1" href="#">Gestión de Dependencias</a></li>
+                    @can('funcionario-list')
+                    <li><a tabindex="-1" href="{{ route('funcionarios.index') }}">Gestión de Funcionarios</a></li>
+                    @endcan
+                    @can('role-list')
+                    <li><a tabindex="-1" href="{{ route('roles.index') }}">Gestión de Roles</a></li>
+                    @endcan
+                  </ul>
+                </li> 

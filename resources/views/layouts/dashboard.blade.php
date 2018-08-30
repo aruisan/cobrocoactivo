@@ -74,17 +74,21 @@
                 <ul class="nav navbar-nav btn-group">
                     @include('layouts.cuerpo.menu-dependencias')
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
-                  <li><button class="btn btn-danger btn-sm" id="verNormatividad" data-toggle="modal" data-target="#modal-normas" ><span>Normatividad</span></button></li>
+                <ul class="nav navbar-nav navbar-right btn-group">
                   <li>
-                    <a href="{{route('notificaciones.index')}}" ><i class="fa fa-bell-o" style="color:white;"></i>
+                    <a class="btn btn-danger btn-raised" data-toggle="modal" data-target="#modal-normas" title="NORMATIVIDAD">
+                      <i class="fa fa-file-text" aria-hidden="true"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{{route('notificaciones.index')}}" class="btn btn-raised btn-primary" title="NOTIFICACIONES"><i class="fa fa-bell-o"></i>
                       @if ($count = Auth::user()->unreadnotifications->count())
-                          <span class="badge badge" style="background-color:#fa3e3e;color:white">{{$count}}</span>
+                          <i class="fa fa-bell-o" aria-hidden="true">{{$count}}</i>
                       @endif
                     </a>
                   </li>  
                   <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
+                    <a href="#" class="dropdown-toggle btn btn-raised btn-info" data-toggle="dropdown" >
                       <i class="fa fa-user-circle" aria-hidden="true"></i> 
                       <span class="caret"></span>
                     </a>

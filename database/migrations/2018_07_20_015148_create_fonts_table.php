@@ -15,8 +15,8 @@ class CreateFontsTable extends Migration
     {
         Schema::create('fonts', function (Blueprint $table) {
             $table->increments('id');
-            $table->char('name')->nullable();
-            $table->char('code');
+            $table->string('name')->nullable();
+            $table->string('code');
             $table->integer('valor');
 
             $table->integer('vigencia_id')->unsigned();

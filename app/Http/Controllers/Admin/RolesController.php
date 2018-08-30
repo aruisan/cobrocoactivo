@@ -36,7 +36,7 @@ class RolesController extends Controller
     public function index(Request $request)
     {
         $roles = Role::orderBy('id','DESC')->paginate(5);
-        return view('roles.index',compact('roles'))
+        return view('admin.roles.index',compact('roles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -50,7 +50,7 @@ class RolesController extends Controller
     {
         $modulos = Modulo::all();
         //$permission = Permission::get();
-        return view('roles.create',compact('modulos'));
+        return view('admin.roles.create',compact('modulos'));
     }
 
 
@@ -73,7 +73,7 @@ class RolesController extends Controller
 
 
         return redirect()->route('roles.index')
-                        ->with('success','Role created successfully');
+                        ->with('success','Rol creado satisfactoriamente');
     }
     /**
      * Display the specified resource.
@@ -88,8 +88,7 @@ class RolesController extends Controller
             ->where("role_has_permissions.role_id",$id)
             ->get();
 
-
-        return view('roles.show',compact('role','rolePermissions'));
+        return view('admin.roles.show',compact('role','rolePermissions'));
     }
 
 
@@ -108,7 +107,7 @@ class RolesController extends Controller
             ->all();
 
 
-        return view('roles.edit',compact('role','modulos','rolePermissions'));
+        return view('admin.roles.edit',compact('role','modulos','rolePermissions'));
     }
 
 
@@ -136,7 +135,7 @@ class RolesController extends Controller
 
 
         return redirect()->route('roles.index')
-                        ->with('success','Role updated successfully');
+                        ->with('success','Rol actualizado satisfactoriamente');
     }
     /**
      * Remove the specified resource from storage.
@@ -148,6 +147,6 @@ class RolesController extends Controller
     {
         DB::table("roles")->where('id',$id)->delete();
         return redirect()->route('roles.index')
-                        ->with('success','Role deleted successfully');
+                        ->with('error','Rol Borrado Satisfactoriamente');
     }
 }

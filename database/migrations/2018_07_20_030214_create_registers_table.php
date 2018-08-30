@@ -15,8 +15,8 @@ class CreateRegistersTable extends Migration
     {
         Schema::create('registers', function (Blueprint $table) {
             $table->increments('id');
-            $table->char('name');
-            $table->char('code');
+            $table->string('name');
+            $table->string('code');
 
             $table->integer('register_id')->unsigned()->nullable();
             $table->foreign('register_id')->references('id')->on('registers'); 

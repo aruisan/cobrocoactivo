@@ -1,67 +1,63 @@
-
 @extends('layouts.dashboard')
 @section('titulo')
-    Funcionarios
+    Crear Roles
 @stop
-
 @section('sidebar')
-    <li><a href="{{url('admin/roles')}}" class="btn btn-success"> <i class="fa fa-user fa-fw "></i>  Ver Roles</a></li>
-    <li class="dropdown">
-        <a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown" href="#">
-            <i class="material-icons md-18">account_box</i>
-            Funcionarios
-            <i class="fa fa-caret-down"></i>
-        </a>
-        <ul class="dropdown-menu dropdown-user">
-            <li>
-                <a href="{{url('admin/funcionarios')}}" class="btn btn-primary"><i class="material-icons md-12ss">list</i> Ver </a>
-            </li>
-            <li>
-                <a href="{{url('admin/funcionarios/create')}}" class="btn btn-primary"><i class="material-icons md-12ss">create</i> Crear</a>
-            </li>
-        </ul>
-    </li>
+  @include('admin.roles.cuerpo.aside')
 @stop
-
 @section('content')
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-12" id="data">
-                    <h2 class="text-center">Crear Rol</h2>
-				 @include('admin.roles.partials._form', ['data' => $data,'url' => 'admin/roles', 'method' => 'POST'])
-			</div>
-		</div>
-	</div> 
-@stop
+<div class="row">
+    <div class="col-lg-12 margin-tb">
+            <h2 class="text-center"> Crear Rol</h2>
+    </div>
+</div>
+
+
+{!! Form::open(array('route' => 'roles.store','method'=>'POST')) !!}
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <strong>Nombre:</strong>
+            {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <strong>Permisos:</strong>
+            <br/>
+            @foreach($modulos as $modulo)
+                <label>{{ Form::checkbox('modulo[]', $modulo->id, false, array('class' => 'modulo', 'id' => $modulo->name)) }}
+                    {{ $modulo->name }}</label><br>
+                @foreach($modulo->permisos as $value)
+                    <label class="permisos">{{ Form::checkbox('permission[]', $value->id, false, array('class' => $modulo->name)) }}
+                    {{ $value->alias }}</label>
+                <br/>
+                @endforeach
+                <br>
+            @endforeach
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+        <button type="submit" class="btn btn-primary btn-sm">Guardar</button>
+    </div>
+</div>
+{!! Form::close() !!}
+
+
+@endsection
+
+@section('css')
+    <style type="text/css">
+        .permisos{
+            margin-left: 15px;
+        }
+    </style>
+@endsection
 
 @section('js')
     <script type="text/javascript">
-
-        new Vue({
-            el: '#data',
-            jefes: function(){
-                this.getJefes();
-            },
-            data:{
-                datos: []
-            },
-            methods:{
-                getJefes: function(){
-                    var data = $('#type').val();
-                        if(data > 1)
-                        {
-                            $('#divJefes').show();
-                        }else{
-                            $('#divJefes').hide();
-                        }
-                    var url = '/admin/funcionarios/jefes/'+data;
-                    axios.get(url)
-                         .then(response => {
-                            this.datos = response.data;
-                    });
-                }
-
-            }
+         $('.modulo').on('change', function(){
+            $( "."+this.id ).prop('checked', $(this).prop("checked"));
         });
     </script>
-@stop
+@endsection

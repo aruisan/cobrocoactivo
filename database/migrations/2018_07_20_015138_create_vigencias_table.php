@@ -17,8 +17,8 @@ class CreateVigenciasTable extends Migration
             $table->increments('id');
             $table->Integer('vigencia');
             $table->Integer('tipo');
-            $table->char('numero_decreto')->nullable();
-            $table->char('ruta')->nullable();
+            $table->string('numero_decreto')->nullable();
+            $table->string('ruta')->nullable();
             $table->date('fecha')->nullable();
             $table->integer('count')->default(0);
             $table->integer('ultimo');

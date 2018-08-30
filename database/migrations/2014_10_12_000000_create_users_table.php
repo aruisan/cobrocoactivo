@@ -18,11 +18,13 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->enum('admin', [1,0])->default(0);
             $table->enum('active', [1,0])->default(1);
 
             $table->integer('type_id')->nullable()->unsigned();
             $table->foreign('type_id')->references('id')->on('types');
+            
+            $table->integer('dependencia_id')->nullable()->unsigned();
+            $table->foreign('dependencia_id')->references('id')->on('dependencias');
 
             $table->rememberToken();
             $table->timestamps();

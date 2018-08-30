@@ -1,68 +1,61 @@
-
 @extends('layouts.dashboard')
 @section('titulo')
     Funcionarios
 @stop
-
 @section('sidebar')
-	<li><a href="{{url('admin/funcionarios/create')}}" class="btn btn-success"><i class="material-icons md-18">account_box</i> Nuevo Funcionario</a></li>
-	<li class="dropdown">
-    	<a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown" href="#">
-        	<i class="fa fa-user fa-fw "></i> 
-    			ROLES FUNCIONARIOS
-        	<i class="fa fa-caret-down"></i>
-        </a>
-        <ul class="dropdown-menu dropdown-user">
-        	<li>
-        		<a href="{{url('admin/roles')}}" class="btn btn-primary"><i class="material-icons md-12ss">list</i> Ver </a>
-            </li>
-            <li>
-        		<a href="{{url('admin/roles/create')}}" class="btn btn-primary"><i class="material-icons md-12ss">create</i> Crear</a>
-            </li>
-        </ul>
-    </li>
+  @include('admin.funcionarios.cuerpo.aside')
 @stop
-
 @section('content')
-@include('alertas.errors')
-		<br>
-		<div class="table-responsive">
-			<table class="table table-bordered cell-border table-hover" id="example"  data-form="deleteForm">
-				 <thead>
-			            <th class="text-center">ID</th>
-			            <th class="text-center">Nombre</th>
-			            <th class="text-center">Email</th>
-			            <th class="text-center">Tipo</th>
-			            <th class="text-center">Jefe</th>
-			            <th class="text-center"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></th>
-			            <th class="text-center"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></th>
-			    </thead>
-			    <tbody>
-				@foreach($usuarios as $usuario)
-			    	<tr>
-			    		<td class="text-center">{{$usuario->id}}</td>
-			    		<td class="text-center">{{$usuario->name}}</td>
-			    		<td class="text-center">{{$usuario->email}}</td>
-			    		<td class="text-center">@if($usuario->type) {{$usuario->type->nombre}} @endif</td>
-			    		<td class="text-center">@if($usuario->user_boss) {{$usuario->user_boss->boss->name}} @endif</td>
-			    		<td class="text-center">
-			    			<a href="{{url("admin/funcionarios/".$usuario->id."/edit")}}" class="btn btn-xs btn-info">
-			    				<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-			    			</a>
-			    		</td>
-			    		<td class="text-center">
-			    		    @include('admin.funcionarios.delete', ['usuario' => $usuario])
-			    		</td>
-			    	</tr>
-				@endforeach
-				</tbody>
-			</table>
-	</div>
-@stop
-@section('js')
-   <script>
-		$(document).ready(function() {
-		    $('#example').DataTable();
-		} );
-   </script>
-@stop
+<div class="row">
+    <div class="col-lg-12 margin-tb">
+            <h2 class="text-center">administración Funcionarios</h2>
+    </div>
+</div>
+
+
+<table class="table table-bordered">
+ <tr>
+   <th class="text-center">No</th>
+   <th class="text-center">Name</th>
+   <th class="text-center">Email</th>
+   <th class="text-center">Roles</th>
+   <th class="text-center">Tipo</th>
+   <th class="text-center">Jefe</th>
+   <th class="text-center"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></th>
+   <th class="text-center"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></th>
+ </tr>
+ @foreach ($data as $key => $user)
+  <tr>
+    <td class="text-center">{{ ++$i }}</td>
+    <td class="text-center">{{ $user->name }}</td>
+    <td class="text-center">{{ $user->email }}</td>
+    <td class="text-center">
+      @if(!empty($user->roles))
+        @foreach($user->roles as $rol)
+           <a href="{{ route('roles.show', $rol->id) }}"><label class="badge badge-success">{{ $rol->name }}</label></a>
+        @endforeach
+      @endif
+    </td>
+    <td class="text-center">@if($user->type) {{$user->type->nombre}} @endif</td>
+    <td class="text-center">@if($user->user_boss) {{$user->user_boss->boss->name}} @endif</td>
+    <td class="text-center">
+      <a href="{{ route('funcionarios.edit',$user->id) }}" class="btn btn-sm btn-info">
+        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+      </a>
+    </td>
+    <td>
+        {!! Form::open(['method' => 'DELETE','route' => ['funcionarios.destroy', $user->id],'style'=>'display:inline']) !!}
+          <button type="submit" name="delete_modal" class="btn btn-sm btn-danger delete" >
+            <span class="glyphicon glyphicon-remove " aria-hidden="true"></span>
+          </button>
+        {!! Form::close() !!}
+    </td>
+  </tr>
+ @endforeach
+</table>
+
+
+{!! $data->render() !!}
+
+
+@endsection
