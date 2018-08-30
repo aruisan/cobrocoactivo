@@ -6,7 +6,7 @@
         </a>
         <ul class="dropdown-menu dropdown-user">
           <li>
-            <a href="{{route('funcionarios.index')}}" class="btn btn-primary"><i class="material-icons md-12ss">list</i> Ver </a>
+            <a href="{{route('funcionarios.index')}}" class="btn btn-primary"><i class="material-icons md-12ss">list</i> Listar </a>
             </li>
             <li>
             <a href="{{route('funcionarios.create')}}" class="btn btn-primary"><i class="material-icons md-12ss">create</i> Crear</a>

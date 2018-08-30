@@ -26,20 +26,24 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
 	Route::group(['prefix' => 'admin'] ,function () 
 	{
-		//Route::resource('personas', 'PersonasController');
 
 		//crud funcionarios
-//Route::get('funcionarios/create','Admin\FuncionariosController@create')->middleware('permission:create_funcionarios');
 		Route::get('funcionarios/jefes/{id}', 'Admin\FuncionariosController@jefe');
 		Route::resource('funcionarios', 'Admin\FuncionariosController');
 
 		//crud de roles
 		Route::resource('roles', 'Admin\RolesController');
 
+		//crud dependencias
+		Route::resource('dependencias', 'Admin\DependenciasController');
+		Route::get('dependencias/listar', 'Admin\DependenciasController@listar')->name('dependencias.listar');
+		
+
 
 
 
 		////////////////////////////////////////////////////
+		//Route::resource('personas', 'PersonasController');
 		//Route::get('asignar/{id}', 'AsignarController@index');
 		//Route::resource('asignar', 'AsignarController');
 /*

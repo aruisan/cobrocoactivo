@@ -32,6 +32,10 @@ class User extends Authenticatable
     ];
 
 
+    public function dependencia()
+    {
+        return $this->belongsTo('App\Model\Admin\Dependencia');
+    }    
     public function type()
     {
         return $this->belongsTo('App\Model\Cobro\Type');

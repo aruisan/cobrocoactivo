@@ -27,6 +27,13 @@ class PermissionTableSeeder extends Seeder
            'funcionario-delete'
         ];
 
+        $dep = [
+           'dependencia-list',
+           'dependencia-create',
+           'dependencia-edit',
+           'dependencia-delete'
+        ];
+
         $role = Role::create(['name' => 'administrador']);
 
         foreach ($roles as $rol) {
@@ -43,6 +50,14 @@ class PermissionTableSeeder extends Seeder
                                   'modulo_id' => 2    
                                 ]);
             $role->givePermissionTo($permissionf);
+        }
+
+        foreach ($dep as $d) {
+            $permissiond = Permission::create([
+                                  'name' => $d,
+                                  'modulo_id' => 3    
+                                ]);
+            $role->givePermissionTo($permissiond);
         }
     }
 }

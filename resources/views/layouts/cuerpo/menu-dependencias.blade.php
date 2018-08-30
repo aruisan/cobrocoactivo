@@ -252,7 +252,7 @@
                   </button>
                   <ul class="dropdown-menu">
                     <li><a tabindex="-1" href="#">Configuración basica</a></li>
-                    <li><a tabindex="-1" href="#">Gestión de Dependencias</a></li>
+                    <li><a tabindex="-1" href="{{ route('dependencias.index') }}">Gestión de Dependencias</a></li>
                     @can('funcionario-list')
                     <li><a tabindex="-1" href="{{ route('funcionarios.index') }}">Gestión de Funcionarios</a></li>
                     @endcan

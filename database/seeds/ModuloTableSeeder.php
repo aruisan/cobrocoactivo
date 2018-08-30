@@ -14,5 +14,6 @@ class ModuloTableSeeder extends Seeder
     {
         Modulo::create(['name' => 'Roles']);
         Modulo::create(['name' => 'Funcionarios']);
+        Modulo::create(['name' => 'Dependencias']);
     }
 }

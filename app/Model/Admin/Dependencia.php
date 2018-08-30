@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model;
+namespace App\Model\Admin;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,11 +9,12 @@ class Dependencia extends Model
 
     protected $fillable = ['name'];
 
-     public function subProyectos(){
+    public function subProyectos(){
 		return $this->hasMany('App\Model\Planeacion\Pdd\SubProyecto','dependencia_id');
 	}
 
-	public function pdd(){
-		return $this->belongsTo('App\Model\Planeacion\Pdd\Pdd');
+	public function users(){
+		return $this->hasMany('App\User','dependencia_id');
 	}
+
 }
