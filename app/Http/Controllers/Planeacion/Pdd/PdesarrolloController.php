@@ -49,16 +49,28 @@ class PdesarrolloController extends Controller
             }
             foreach ($programas as  $programa){
                 foreach ($listProy as $list){
-                    if ($programa->id == $list['prog_id'])
-                        $listProg[] = collect(['id' => $programa->id, 'name' => $programa->name, 'eje_id' => $programa->eje_id, 'span' => $list['span']]);
+                    //dd($programa, $list);
+                    if ($programa->id == $list['prog_id']){
+                        $listProg = null;
+                        dd($listProg, $list);
+                        if (count($listProg) > 0){
+                            foreach ($listProg as $prog){
+                                if ($prog['id'] == $programa->id){
+                                    $span = $prog['span'] + $list['span'];
+                                    //dd($span);
+                                }
+                            }
+                        }else{
+                            $listProg[] = collect(['id' => $programa->id, 'name' => $programa->name, 'eje_id' => $programa->eje_id, 'span' => $list['span']]);
+                        }
+                    }
                 }
             }
-            //dd($listProy);
+            //dd($listProg);
             $tables = DB::select('SELECT ejes.name AS "ejes", programas.name AS "programas", proyectos.code AS "Numproy", proyectos.name AS "Pname", proyectos.linea_base AS "Plinea", proyectos.indicador AS "Pind", proyectos.metaInicial AS "Pini", proyectos.modificacion AS "Pmod", proyectos.metaDefinitiva AS "Pmetdef", sub_proyectos.id AS "Numsub", sub_proyectos.name AS "SPname", sub_proyectos.tipo AS "SPtipo", sub_proyectos.indicador AS "SPindi", sub_proyectos.unidad_medida AS "SPund", sub_proyectos.linea_base AS "SPlinea" FROM ejes, programas, proyectos, sub_proyectos WHERE sub_proyectos.proyecto_id = proyectos.id AND proyectos.programa_id = programas.id AND programas.eje_id = ejes.id');
         }else{
             $tables = 0;
         }
-        //dd($listProg);
         $pdd = Pdd::all()->first();
         return view('planeacion.pdd.index',compact('pdd','tables', 'listEjes','listProg'));
     }

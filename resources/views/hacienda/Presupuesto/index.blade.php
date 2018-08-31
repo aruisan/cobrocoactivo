@@ -194,9 +194,9 @@
                                 <th class="text-center">Acciones</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr>
-                                <th scope="row">1</th>
+                            <tbody id="registros">
+                            <tr data-idalumno="1">
+                                <td>1</th>
                                 <td>Registro 1</td>
                                 <td><span class="badge badge-danger">Anulado</span></td>
                                 <td>
@@ -204,7 +204,7 @@
                                     <button type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr data-idalumno="2">
                                 <th scope="row">2</th>
                                 <td>Registro 2</td>
                                 <td><span class="badge badge-success">Aprobado</span></td>
@@ -290,4 +290,17 @@
                 </div>
             </div>
         </div>
+@stop
+@section('js')
+    <script>
+        $('#registros').on('click','tr td', function(evt){
+            var target;
+            target = $(event.target);
+            url ="/presupuesto/"+ target.parent().data('idalumno');
+            window.open(url, '_blank');
+            return false;
+        });
+
+        $('#registros').css("cursor","pointer");
+    </script>
 @stop
