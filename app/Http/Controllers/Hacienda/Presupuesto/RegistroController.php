@@ -36,7 +36,7 @@ class RegistroController extends Controller
             $fila = $nivel->rows - $conteo;
         }
 
-        return view('hacienda.presupuesto.vigencia.createregistros', compact('nivel', 'niveles', 'fila', 'codes'));
+        return view('hacienda.presupuesto.vigencia.createRegistros', compact('nivel', 'niveles', 'fila', 'codes'));
     }
 
     public function show($id)

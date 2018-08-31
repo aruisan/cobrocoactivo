@@ -29,7 +29,7 @@ class LevelController extends Controller
             $fila = $vigencia->ultimo - $levels;
         }
        //dd($vigencia);
-        return view('hacienda.presupuesto.vigencia.createniveles', compact('vigencia', 'fila', 'niveles'));
+        return view('hacienda.presupuesto.vigencia.createNiveles', compact('vigencia', 'fila', 'niveles'));
     }
 
     /**
