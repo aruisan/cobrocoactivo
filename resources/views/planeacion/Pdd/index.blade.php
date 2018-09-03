@@ -33,7 +33,6 @@
     </style>
 @stop
 @section('sidebar')
-    {{-- @if($val != 0) --}}
     @if($pdd)
         <li class="dropdown">
             <a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown" href="#">
@@ -76,7 +75,6 @@
     @endif
 @stop
 @section('content')
-    {{-- @if($val == 0) --}}
     @if($pdd)
         <div class="col-md-12 align-self-center" id="proyectos">
             <center>
@@ -232,54 +230,54 @@
                             <td>{{ $table->SPlinea }}</td>
                         </tr>
                     @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    @else
-        <div class="col-md-12 align-self-center">
-            <div class="row justify-content-center">
-                <br>
-                <div class="alert alert-danger">
-                    <center>
-                        Actualmente no hay un plan de desarrollo, llene el siguiente formulario para su respectiva creación.
-                    </center>
-                </div>
-                <br>
-                <center><h2>Nuevo Plan de Desarrollo</h2></center>
-                <br>
-                <hr>
-                <div class="form-validation">
-                    <form class="form-valide" action="/pdd" method="POST" enctype="multipart/form-data">
-                        {{ csrf_field() }}
-                        <div class="form-group">
-                            <label class="col-lg-4 col-form-label text-right" for="nombre">Nombre <span class="text-danger">*</span></label>
-                            <div class="col-lg-6">
-                                <input type="text" class="form-control" name="name">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-4 col-form-label text-right" for="ff_inicio">Fecha de Inicio <span class="text-danger">*</span></label>
-                            <div class="col-lg-6">
-                                <input type="date" class="form-control" name="ff_inicio" value="{{ Carbon\Carbon::today()->Format('Y-m-d')}}" min="{{ Carbon\Carbon::today()->Format('Y-m-d')}}">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-4 col-form-label text-right" for="ff_final">Fecha Final <span class="text-danger">*</span></label>
-                            <div class="col-lg-6">
-                                <input type="date" class="form-control" name="ff_final" value="{{ Carbon\Carbon::today()->Format('Y-m-d')}}" min="{{ Carbon\Carbon::today()->Format('Y-m-d')}}">
-                            </div>
-                        </div>
-                        <center>
-                        <div class="form-group row">
-                            <div class="col-lg-12 ml-auto">
-                                <button type="submit" class="btn btn-primary">Guardar</button>
-                            </div>
-                        </div>
-                        </center>
-                    </form>
+        </tbody>
+    </table>
+</div>
+</div>
+@else
+<div class="col-md-12 align-self-center">
+<div class="row justify-content-center">
+    <br>
+    <div class="alert alert-danger">
+        <center>
+            Actualmente no hay un plan de desarrollo, llene el siguiente formulario para su respectiva creación.
+        </center>
+    </div>
+    <br>
+    <center><h2>Nuevo Plan de Desarrollo</h2></center>
+    <br>
+    <hr>
+    <div class="form-validation">
+        <form class="form-valide" action="/pdd" method="POST" enctype="multipart/form-data">
+            {{ csrf_field() }}
+            <div class="form-group">
+                <label class="col-lg-4 col-form-label text-right" for="nombre">Nombre <span class="text-danger">*</span></label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="name">
                 </div>
             </div>
-        </div>
-    @endif
+            <div class="form-group">
+                <label class="col-lg-4 col-form-label text-right" for="ff_inicio">Fecha de Inicio <span class="text-danger">*</span></label>
+                <div class="col-lg-6">
+                    <input type="date" class="form-control" name="ff_inicio" value="{{ Carbon\Carbon::today()->Format('Y-m-d')}}" min="{{ Carbon\Carbon::today()->Format('Y-m-d')}}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-4 col-form-label text-right" for="ff_final">Fecha Final <span class="text-danger">*</span></label>
+                <div class="col-lg-6">
+                    <input type="date" class="form-control" name="ff_final" value="{{ Carbon\Carbon::today()->Format('Y-m-d')}}" min="{{ Carbon\Carbon::today()->Format('Y-m-d')}}">
+                </div>
+            </div>
+            <center>
+            <div class="form-group row">
+                <div class="col-lg-12 ml-auto">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
+            </center>
+        </form>
+    </div>
+</div>
+</div>
+@endif
 @stop
