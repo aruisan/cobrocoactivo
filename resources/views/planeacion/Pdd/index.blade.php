@@ -86,6 +86,110 @@
                 </div>
             </center>
             <br>
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="pill" href="#tabHome">Ejes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="pill" href="#tabProg">Programas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="pill" href="#tabProy">Proyectos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="pill" href="#tabSP">Sub Proyectos</a>
+                </li>
+            </ul>
+            <div class="tab-content" style="background-color: white">
+                <div id="tabHome" class="tab-pane active">
+                    <div class="col-md-12 align-self-center">
+                        <center>
+                            <h2>
+                                Ejes
+                            </h2>
+                        </center>
+                        <br>
+                        <div class="table-responsive">
+                            <center>
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">Id</th>
+                                        <th class="text-center">Nombre</th>
+                                        <th class="text-center">Valor inicial</th>
+                                        <th class="text-center">Valor final</th>
+                                        <th class="text-center">Valor ejecución</th>
+                                        <th class="text-center">% Ejecución</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($pdd->ejes as $ejes)
+                                    <tr class="text-center">
+                                        <td>{{$ejes->id}}</td>
+                                        <td>{{$ejes->name}}</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                    </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+                <div id="tabProg" class="tab-pane">
+                    <div class="col-md-12 align-self-center">
+                        <center>
+                            <h2>
+                                Programas
+                            </h2>
+                        </center>
+                        <br>
+                        <div class="table-responsive">
+                            <center>
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">Id</th>
+                                        <th class="text-center">Nombre del Eje</th>
+                                        <th class="text-center">Nombre del Programa</th>
+                                        <th class="text-center">Valor inicial</th>
+                                        <th class="text-center">Valor final</th>
+                                        <th class="text-center">Valor ejecución</th>
+                                        <th class="text-center">% Ejecución</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($listProg as $prog)
+                                        <tr class="text-center">
+                                            <td>{{$prog['id']}}</td>
+                                            <td></td>
+                                            <td>{{$prog['name']}}</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+                <div id="tabProy" class="tab-pane">
+                    <div class="col-md-12 align-self-center">
+                        Proyectos
+                    </div>
+                </div>
+                <div id="tabSP" class="tab-pane">
+                    <div class="col-md-12 align-self-center">
+                        Sub Proyectos
+                    </div>
+                </div>
+                {{--
             <div class="table-responsive">
                 <table class="table3">
                     <thead>
@@ -236,9 +340,10 @@
                             <td>{{ $table->SPlinea }}</td>
                         </tr>
                     @endforeach
-        
+
 </tbody>
 </table>
+--}}
 </div>
 </div>
 @else

@@ -35,6 +35,7 @@ class PermissionTableSeeder extends Seeder
         ];
 
         $role = Role::create(['name' => 'administrador']);
+
         foreach ($roles as $rol) {
             $permission = Permission::create([
                                   'name' => $rol,
