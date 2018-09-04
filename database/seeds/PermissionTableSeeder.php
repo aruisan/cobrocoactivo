@@ -34,29 +34,34 @@ class PermissionTableSeeder extends Seeder
            'dependencia-delete'
         ];
 
+
+
         $role = Role::create(['name' => 'administrador']);
 
         foreach ($roles as $rol) {
-            $permission = Permission::create([
+            /*$permission = Permission::create([
                                   'name' => $rol,
                                   'modulo_id' => 1    
-                                ]);
+                                ]);*/
+            $permission = Permission::where('name', $rol)->first();
             $role->givePermissionTo($permission);
         }
 
         foreach ($fun as $f) {
-            $permissionf = Permission::create([
+           /* $permissionf = Permission::create([
                                   'name' => $f,
                                   'modulo_id' => 2    
-                                ]);
+                                ]);*/
+            $permissionf = Permission::where('name', $f)->first();
             $role->givePermissionTo($permissionf);
         }
 
         foreach ($dep as $d) {
-            $permissiond = Permission::create([
+           /* $permissiond = Permission::create([
                                   'name' => $d,
                                   'modulo_id' => 3    
-                                ]);
+                                ]);*/
+            $permissiond = Permission::where('name', $d)->first();
             $role->givePermissionTo($permissiond);
         }
     }

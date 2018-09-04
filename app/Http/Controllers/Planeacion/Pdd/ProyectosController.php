@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Model\Planeacion\Pdd\Proyecto;
 use App\Model\Planeacion\Pdd\Pdd;
 use App\Model\Planeacion\Pdd\Eje;
-use App\Model\Dependencia;
+use App\Model\Admin\Dependencia;
 
 use Session;
 
