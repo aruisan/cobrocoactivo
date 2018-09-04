@@ -104,9 +104,9 @@ class PdesarrolloController extends Controller
         }else{
             $tables = 0;
         }
-        //dd($listProy);
+        //dd($listProg);
         $pdd = Pdd::all()->first();
-        return view('planeacion.pdd.index',compact('pdd','tables', 'listEjes','listProg','listProy','listSP'));
+        return view('planeacion.pdd.index',compact('pdd','tables','ps','sps','programas'));
     }
 
     /**
