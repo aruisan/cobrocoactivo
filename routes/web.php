@@ -22,6 +22,13 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 	    Route::get('notificaciones/{id}', 'NotificationController@read')->name('notifications.read');
 	    Route::delete('notificaciones/{id}', 'NotificationController@destroy')->name('notifications.destroy');
 	    Route::get('notificaciones-visibilidad/{id}', 'NotificationController@visibilidad')->name('notification.visibilidad');
+
+	 });
+
+	Route::group(['prefix' => 'administrativo'] ,function () 
+	{
+		Route::resource('registros', 'Administrativo\RegistrosController');
+	    
 	 });
 
 	Route::group(['prefix' => 'admin'] ,function () 

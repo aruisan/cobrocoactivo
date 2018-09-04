@@ -182,6 +182,9 @@ return [
         //permisos y rol
         Spatie\Permission\PermissionServiceProvider::class,
 
+        //imagenes drop zone
+        Intervention\Image\ImageServiceProvider::class,
+
     ],
 
     /*
@@ -233,6 +236,9 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+
+        //Imagen
+        'Image' => Intervention\Image\Facades\Image::class,
 
 
     ],

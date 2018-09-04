@@ -12,48 +12,62 @@
     </div>
 </div>
 
-
-{!! Form::open(array('route' => 'registros.store','method'=>'POST')) !!}
-<div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            <strong>Nombre:</strong>
-            {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            <center><h3>Permisos:</h3></center>
-            <br/>
-            @foreach ($modulos->chunk(3) as $chunk)
-            <hr>
-            <div class="row">
-                @foreach($chunk as $modulo)
-                <div class="col-xs-12 col-sm-6 col-md-4">
-                    <div class="panel">
-                        <div class="panel-body">
-                            <label>{{ Form::checkbox('modulo[]', $modulo->id, false, array('class' => 'modulo', 'id' => $modulo->name)) }}
-                                {{ $modulo->name }}</label><br>
-                            @foreach($modulo->permisos as $value)
-                                <label class="permisos">{{ Form::checkbox('permission[]', $value->id, false, array('class' => $modulo->name)) }}
-                                {{ $value->alias }}</label>
-                            <br/>
-                            @endforeach
-                            <br>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
+            {!! Form::open(array('route' => 'registros.store','method'=>'POST')) !!}
+                    
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <label>FECHA DE EXPEDICION: </label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-file-archive-o" aria-hidden="true"></i></span>
+                            <input type="date" class="form-control" name="ff_exp">
                         </div>
+                        <small class="form-text text-muted">fecha donde se expide la licencia</small>
                     </div>
+                    <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <label>FECHA DE VENCIMIENTO: </label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-file-archive-o" aria-hidden="true"></i></span>
+                            <input type="date" class="form-control" name="ff_venc">
+                        </div>
+                        <small class="form-text text-muted">fecha donde vence la licencia</small>
+                    </div> 
+
                 </div>
-                @endforeach
-            </div>
-            <hr>
-        @endforeach
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                        <label class="control-label">Datos persona: </label>
+                        <div class="input-group">
+                            <input type="hidden" name="persona">
+                            <input type="text" class="form-control" id="demandado" data-toggle="modal" data-target="#modal-demandado">
+                        </div>
+                        <small class="form-text text-muted">relacionar persona</small>
+                    </div>
+
+                    <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                       <input type="file" name="file">
+                    </div>
+                </div> 
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <button class="btn btn-primary btn-raised btn-lg" id="storeRegistro">Guardar</button>
+                    </div> 
+
+            {!! Form::close() !!}
         </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-        <button type="submit" class="btn btn-primary btn-sm">Guardar</button>
-    </div>
-</div>
-{!! Form::close() !!}
 
 
 @endsection
+
+
+@section('css')
+  <style type="text/css">
+    .form-group{
+        margin-top: 10px;
+  
+    }
+  </style>    
+@stop
+
+@section('js')
+   
+@stop

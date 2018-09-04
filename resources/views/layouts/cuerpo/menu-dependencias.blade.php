@@ -22,7 +22,7 @@
                   </button>
                   <ul class="dropdown-menu">
                     <li><a tabindex="-1" href="#">Contractual</a></li>
-                    <li><a tabindex="-1" href="#">registros</a></li>
+                    <li><a tabindex="-1" href="{{ route('registros.index') }}">registros</a></li>
                     <li><a tabindex="-1" href="#">paz y salvo</a></li>
                     <li><a tabindex="-1" href="#">permisos</a></li>
                     <li class="dropdown-submenu">
