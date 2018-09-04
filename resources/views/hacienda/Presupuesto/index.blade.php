@@ -39,8 +39,16 @@
 @stop
 @section('content')
     <div class="col-md-12 align-self-center">
+        @if($V != "Vacio")
         <div class="breadcrumb text-center">
-            <strong><h4><b>Presupuesto Año 2018</b></h4></strong>
+            <strong>
+                <h4><b>Presupuesto Año 2018</b></h4>
+                <div class="form-check-inline">
+                    <input type="radio" class="form-check-input" name="optradio">Aprobado
+                    &nbsp;
+                    <input type="radio" class="form-check-input" name="optradio">Rechazado
+                </div>
+            </strong>
         </div>
             <ul class="nav nav-pills">
                 <li class="nav-item">
@@ -53,7 +61,7 @@
                     <a class="nav-link" data-toggle="pill" href="#tabPAC">PAC</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#tabCert">Certificados</a>
+                    <a class="nav-link" data-toggle="pill" href="#tabCert">CDP's</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="pill" href="#tabReg">Registros</a>
@@ -95,7 +103,7 @@
         <br>
             <div class="tab-content" style="background-color: white">
                 <div id="tabHome" class="tab-pane active"><br>
-                    @if($V != "Vacio")
+
                         <div class="table-responsive">
                             <br>
                             <table class="table table-hover table-bordered" align="100%">
@@ -132,13 +140,6 @@
                                 </tbody>
                             </table>
                         </div>
-                    @else
-                        <br>
-                        <div class="alert alert-danger">
-                            No se ha creado un presupuesto actual de egresos, para crearlo de click al siguiente link:
-                            <a href="{{ url('presupuesto/vigencia/create/0') }}" class="alert-link">Crear Presupuesto de Egresos</a>.
-                        </div>
-                    @endif
                 </div>
                 <div id="tabFuente" class="tab-pane fade"><br>
                     <h2 class="text-center">Fuente</h2>
@@ -148,6 +149,8 @@
                 </div>
                 <div id="tabCert" class=" tab-pane fade"><br>
                     <div class="table-responsive">
+                        <br>
+                        <button type="button" class="btn btn-primary btn-block m-b-12">Crear Nuevo CDP</button>
                         <br>
                         <table class="table table-bordered">
                             <thead>
@@ -160,27 +163,24 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <th scope="row">1</th>
-                                <td>Certificado 1</td>
-                                <td><span class="badge badge-pill badge-danger">Anulado</span></td>
-                                <td>
-                                    <button type="button" class="btn btn-success"><i class="fa fa-edit"></i></button>
-                                    <button type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                <td class="text-center">1</th>
+                                <td class="text-center">Certificado 1</td>
+                                <td class="text-center"><span class="badge badge-pill badge-danger">Anulado</span></td>
+                                <td class="text-center">
+                                    <a href="{{ url('/certificado/1') }}" class="btn-sm btn-success"><i class="fa fa-edit"></i></a>
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row">2</th>
-                                <td>Certificado 2</td>
-                                <td><span class="badge badge-success">Aprobado</span></td>
-                                <td>
-                                    <button type="button" class="btn btn-success"><i class="fa fa-edit"></i></button>
-                                    <button type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                <td class="text-center">2</td>
+                                <td class="text-center">Certificado 2</td>
+                                <td class="text-center"><span class="badge badge-success">Aprobado</span></td>
+                                <td class="text-center">
+                                    <a href="{{ url('/certificado/1') }}" class="btn-sm btn-success"><i class="fa fa-edit"></i></a>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
-                    <button type="button" class="btn btn-primary btn-block m-b-10"><i class="fa fa-plus"></i></button>
                 </div>
                 <div id="tabReg" class=" tab-pane fade"><br>
                     <div class="table-responsive">
@@ -289,6 +289,13 @@
                     </div>
                 </div>
             </div>
+        @else
+            <br>
+            <div class="alert alert-danger">
+                No se ha creado un presupuesto actual de egresos, para crearlo de click al siguiente link:
+                <a href="{{ url('presupuesto/vigencia/create/0') }}" class="alert-link">Crear Presupuesto de Egresos</a>.
+            </div>
+        @endif
         </div>
 @stop
 @section('js')
