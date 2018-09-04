@@ -195,6 +195,7 @@
                     </tr>
                     </thead>
                     <tbody>
+
                     @foreach($tables as $table)
                         <tr>
                             <td rowspan="">{{ $table->ejes }}</td>
@@ -235,42 +236,7 @@
                             <td>{{ $table->SPlinea }}</td>
                         </tr>
                     @endforeach
-        {{--
-        <?php //dd($listEjes); ?>
-
-@foreach($listEjes as $eje)
-    <tr>
-        <td rowspan="{{ $eje['span'] }}">{{ $eje['name'] }},{{ $eje['span'] }}</td>
-        <td rowspan="{{ $eje['span'] }}">0</td>
-        <td rowspan="{{ $eje['span'] }}">0</td>
-        <td rowspan="{{ $eje['span'] }}">0</td>
-        <td rowspan="{{ $eje['span'] }}">0</td>
-        @foreach($listProg as $prog)
-            @if($prog['eje_id'] == $eje['id'])
-            <td rowspan="{{ $prog['span'] }}">{{ $prog['name'] }},{{ $prog['span'] }}</td>
-                <td rowspan="{{ $prog['span'] }}">0</td>
-                <td rowspan="{{ $prog['span'] }}">0</td>
-                <td rowspan="{{ $prog['span'] }}">0</td>
-                <td rowspan="{{ $prog['span'] }}">0</td>
-            @endif
-                @foreach($listProy as $proy)
-                    @if($prog['id'] == $proy['prog_id'])
-                        <td rowspan="{{ $proy['span'] }}">{{ $proy['id'] }}</td>
-                        <td rowspan="{{ $proy['span'] }}">{{ $proy['name'] }},{{ $proy['span'] }}</td>
-                        <td rowspan="{{ $proy['span'] }}">0</td>
-                        <td rowspan="{{ $proy['span'] }}">0</td>
-                        <td rowspan="{{ $proy['span'] }}">0</td>
-                        <td rowspan="{{ $proy['span'] }}">0</td>
-                        <td rowspan="{{ $proy['span'] }}">0</td>
-                        <td rowspan="{{ $proy['span'] }}">0</td>
-                        <td rowspan="{{ $proy['span'] }}">0</td>
-                        <td rowspan="{{ $proy['span'] }}">0</td>
-                    @endif
-                @endforeach
-    </tr>
-        @endforeach
-@endforeach
---}}
+        
 </tbody>
 </table>
 </div>
