@@ -75,6 +75,7 @@
     @endif
 @stop
 @section('content')
+    <div class="row">
     @if($pdd)
         <div class="col-md-12 align-self-center" id="proyectos">
             <center>
@@ -86,196 +87,333 @@
                 </div>
             </center>
             <br>
-            <div class="table-responsive">
-                <table class="table3">
-                    <thead>
-                    <tr>
-                        <th colspan="56" class="text-center">PLAN INDICATIVO</th>
-                    </tr>
-                    <tr>
-                        <th colspan="12" class="text-center">EJES PROGRAMATICOS</th>
-                        <th colspan="18" class="text-center">META DE RESULTADO DEL PROYECTO</th>
-                        <th colspan="26" class="text-center">META DE PRODUCTO DEL SUBPROYECTO</th>
-                        <th colspan="20" class="text-center">PLAN PLURIANUAL DE INVERSION</th>
-                    </tr>
-                    <tr>
-                        <th colspan="12" class="text-center">&nbsp;</th>
-                        <th colspan="10" class="text-center">METAS</th>
-                        <th colspan="8" class="text-center">VALOR PROYECTO</th>
-                        <th colspan="2" class="text-center">&nbsp;</th>
-                        <th colspan="4" class="text-center">BASE</th>
-                        <th colspan="4" class="text-center">AÑO 1</th>
-                        <th colspan="4" class="text-center">AÑO 2</th>
-                        <th colspan="4" class="text-center">AÑO 3</th>
-                        <th colspan="4" class="text-center">AÑO 4</th>
-                        <th colspan="4" class="text-center">TOTALES</th>
-                        <th colspan="4" class="text-center">AÑO 1</th>
-                        <th colspan="4" class="text-center">AÑO 2</th>
-                        <th colspan="4" class="text-center">AÑO 3</th>
-                        <th colspan="4" class="text-center">AÑO 4</th>
-                        <th colspan="4" class="text-center">TOTAL INVERSION</th>
-                    </tr>
-                    <tr>
-                        <th class="text-th"><b>EJES</b></th>
-                        <th class="text-th">Valor inicial</th>
-                        <th class="text-th">Valor final</th>
-                        <th class="text-th">Valor ejecución</th>
-                        <th class="text-th">% Ejecución</th>
-                        <th class="text-th"><b>PROGRAMAS</b></th>
-                        <th class="text-th">Valor inicial</th>
-                        <th class="text-th">Valor final</th>
-                        <th class="text-th">Valor ejecución</th>
-                        <th class="text-th">% Ejecución</th>
-                        <th class="text-th"><b>Num Proyecto</b></th>
-                        <th class="text-th"><b>PROYECTOS</b></th>
-                        <th class="text-th">Linea Base</th>
-                        <th class="text-th">Indicador</th>
-                        <th class="text-th">Meta Inicial Resultado</th>
-                        <th class="text-th">Modificación Meta</th>
-                        <th class="text-th">Meta Definitiva</th>
-                        <th class="text-th">% ejecución Año 1</th>
-                        <th class="text-th">% ejecución Año 2</th>
-                        <th class="text-th">% ejecución Año 3</th>
-                        <th class="text-th">% ejecución Año 4</th>
-                        <th class="text-th">% ejec Total Cuatrienio</th>
-                        <th class="text-th">Valor Poyecto Inicial</th>
-                        <th class="text-th">Valor Proyecto Final</th>
-                        <th class="text-th">Valor Ejecución</th>
-                        <th class="text-th">% Ejecución</th>
-                        <th class="text-th">Valor ejecución año 1</th>
-                        <th class="text-th">Valor ejecución año 2</th>
-                        <th class="text-th">Valor ejecución año 3</th>
-                        <th class="text-th">Valor ejecución año 4</th>
-                        <th class="text-th"><b>Num Subpropyecto</b></th>
-                        <th class="text-th"><b>SUB PROYECTO</b></th>
-                        <th class="text-th">Tipo Meta</th>
-                        <th class="text-th">Indicador</th>
-                        <th class="text-th">Unidad de Medida</th>
-                        <th class="text-th">Linea Base</th>
-                        <th class="text-th">Meta Inicial</th>
-                        <th class="text-th">Modificación</th>
-                        <th class="text-th">Meta Definitiva</th>
-                        <th class="text-th">% Ejecución</th>
-                        <th class="text-th">Meta Inicial</th>
-                        <th class="text-th">Modificación</th>
-                        <th class="text-th">Meta Definitiva</th>
-                        <th class="text-th">% Ejecución</th>
-                        <th class="text-th">Meta Inicial</th>
-                        <th class="text-th">Modificación</th>
-                        <th class="text-th">Meta Definitiva</th>
-                        <th class="text-th">% Ejecución</th>
-                        <th class="text-th">Meta Inicial</th>
-                        <th class="text-th">Modificación</th>
-                        <th class="text-th">Meta Definitiva</th>
-                        <th class="text-th">% Ejecución</th>
-                        <th class="text-th">Meta Inicial</th>
-                        <th class="text-th">Modificación</th>
-                        <th class="text-th">Meta Definitiva</th>
-                        <th class="text-th">% Ejecución</th>
-                        <th class="text-th">Valor Inicial</th>
-                        <th class="text-th">Valor Final</th>
-                        <th class="text-th">Valor Ejecución</th>
-                        <th class="text-th">% Ejecución</th>
-                        <th class="text-th">Valor Inicial</th>
-                        <th class="text-th">Valor Final</th>
-                        <th class="text-th">Valor Ejecución</th>
-                        <th class="text-th">% Ejecución</th>
-                        <th class="text-th">Valor Inicial</th>
-                        <th class="text-th">Valor Final</th>
-                        <th class="text-th">Valor Ejecución</th>
-                        <th class="text-th">% Ejecución</th>
-                        <th class="text-th">Valor Inicial</th>
-                        <th class="text-th">Valor Final</th>
-                        <th class="text-th">Valor Ejecución</th>
-                        <th class="text-th">% Ejecución</th>
-                        <th class="text-th">Total Inicial</th>
-                        <th class="text-th">Total Final</th>
-                        <th class="text-th">Total Ejecución</th>
-                        <th class="text-th">% Ejecución</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($tables as $table)
-                        <tr>
-                            <td rowspan="">{{ $table->ejes }}</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>{{ $table->programas }}</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>{{ $table->Numproy }}</td>
-                            <td>{{ $table->Pname }}</td>
-                            <td>{{ $table->Plinea }}</td>
-                            <td>{{ $table->Pind }}</td>
-                            <td>{{ $table->Pini }}</td>
-                            <td>{{ $table->Pmod }}</td>
-                            <td>{{ $table->Pmetdef }}</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>{{ $table->Numsub }}</td>
-                            <td>{{ $table->SPname }}</td>
-                            <td>{{ $table->SPtipo }}</td>
-                            <td>{{ $table->SPindi }}</td>
-                            <td>{{ $table->SPund }}</td>
-                            <td>{{ $table->SPlinea }}</td>
-                        </tr>
-                    @endforeach
-        {{--
-        <?php //dd($listEjes); ?>
-
-@foreach($listEjes as $eje)
-    <tr>
-        <td rowspan="{{ $eje['span'] }}">{{ $eje['name'] }},{{ $eje['span'] }}</td>
-        <td rowspan="{{ $eje['span'] }}">0</td>
-        <td rowspan="{{ $eje['span'] }}">0</td>
-        <td rowspan="{{ $eje['span'] }}">0</td>
-        <td rowspan="{{ $eje['span'] }}">0</td>
-        @foreach($listProg as $prog)
-            @if($prog['eje_id'] == $eje['id'])
-            <td rowspan="{{ $prog['span'] }}">{{ $prog['name'] }},{{ $prog['span'] }}</td>
-                <td rowspan="{{ $prog['span'] }}">0</td>
-                <td rowspan="{{ $prog['span'] }}">0</td>
-                <td rowspan="{{ $prog['span'] }}">0</td>
-                <td rowspan="{{ $prog['span'] }}">0</td>
-            @endif
-                @foreach($listProy as $proy)
-                    @if($prog['id'] == $proy['prog_id'])
-                        <td rowspan="{{ $proy['span'] }}">{{ $proy['id'] }}</td>
-                        <td rowspan="{{ $proy['span'] }}">{{ $proy['name'] }},{{ $proy['span'] }}</td>
-                        <td rowspan="{{ $proy['span'] }}">0</td>
-                        <td rowspan="{{ $proy['span'] }}">0</td>
-                        <td rowspan="{{ $proy['span'] }}">0</td>
-                        <td rowspan="{{ $proy['span'] }}">0</td>
-                        <td rowspan="{{ $proy['span'] }}">0</td>
-                        <td rowspan="{{ $proy['span'] }}">0</td>
-                        <td rowspan="{{ $proy['span'] }}">0</td>
-                        <td rowspan="{{ $proy['span'] }}">0</td>
-                    @endif
-                @endforeach
-    </tr>
-        @endforeach
-@endforeach
---}}
-</tbody>
-</table>
-</div>
-</div>
-@else
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="pill" href="#tabHome">Ejes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="pill" href="#tabProg">Programas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="pill" href="#tabProy">Proyectos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="pill" href="#tabSP">Sub Proyectos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="pill" href="#tabPP">Plan Plurianual de Inversion</a>
+                </li>
+            </ul>
+            <div class="tab-content" style="background-color: white">
+                <div id="tabHome" class="tab-pane active">
+                    <div class="col-md-12 align-self-center">
+                        <br>
+                        <div class="table-responsive">
+                            <center>
+                                <table id="tabla_EJ" class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="6" class="text-center">EJES PROGRAMATICOS</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center">Id</th>
+                                        <th class="text-center">Nombre del Eje</th>
+                                        <th class="text-center">Valor inicial</th>
+                                        <th class="text-center">Valor final</th>
+                                        <th class="text-center">Valor ejecución</th>
+                                        <th class="text-center">% Ejecución</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($pdd->ejes as $ejes)
+                                    <tr class="text-center">
+                                        <td>{{$ejes->id}}</td>
+                                        <td>{{$ejes->name}}</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                    </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+                <div id="tabProg" class="tab-pane">
+                    <div class="col-md-12 align-self-center">
+                        <br>
+                        <div class="table-responsive">
+                            <center>
+                                <table id="tabla_PG" class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="7" class="text-center">EJES PROGRAMATICOS</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center">Id</th>
+                                        <th class="text-center">Nombre del Programa</th>
+                                        <th class="text-center">Nombre del Eje</th>
+                                        <th class="text-center">Valor inicial</th>
+                                        <th class="text-center">Valor final</th>
+                                        <th class="text-center">Valor ejecución</th>
+                                        <th class="text-center">% Ejecución</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($programas as $prog)
+                                        <tr class="text-center">
+                                            <td>{{$prog['id']}}</td>
+                                            <td>{{$prog['name']}}</td>
+                                            <td>{{$prog->eje->name}}</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+                <div id="tabProy" class="tab-pane">
+                    <div class="col-md-12 align-self-center">
+                        <br>
+                        <div class="table-responsive">
+                            <center>
+                                <table id="tabla_PY" class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="4" class="text-center"></th>
+                                        <th colspan="18" class="text-center">META DE RESULTADO DEL PROYECTO</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4" class="text-center"></th>
+                                        <th colspan="10" class="text-center">METAS</th>
+                                        <th colspan="8" class="text-center">VALOR DEL PROYECTO</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center">Id</th>
+                                        <th class="text-center">Codigo del Proyecto</th>
+                                        <th class="text-center">Nombre del Proyecto</th>
+                                        <th class="text-center">Nombre del Programa</th>
+                                        <th class="text-center">Linea Base</th>
+                                        <th class="text-center">Indicador</th>
+                                        <th class="text-center">Meta Inicial Resultado</th>
+                                        <th class="text-center">Modificación Meta</th>
+                                        <th class="text-center">Meta Definitiva</th>
+                                        <th class="text-center">% ejecución Año 1</th>
+                                        <th class="text-center">% ejecución Año 2</th>
+                                        <th class="text-center">% ejecución Año 3</th>
+                                        <th class="text-center">% ejecución Año 4</th>
+                                        <th class="text-center">% ejec Total Cuatrienio</th>
+                                        <th class="text-center">Valor Poyecto Inicial</th>
+                                        <th class="text-center">Valor Proyecto Final</th>
+                                        <th class="text-center">Valor Ejecución</th>
+                                        <th class="text-center">% Ejecución</th>
+                                        <th class="text-center">Valor ejecución año 1</th>
+                                        <th class="text-center">Valor ejecución año 2</th>
+                                        <th class="text-center">Valor ejecución año 3</th>
+                                        <th class="text-center">Valor ejecución año 4</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($ps as $proy)
+                                        <tr class="text-center">
+                                            <td>{{$proy['id']}}</td>
+                                            <td>{{$proy['code']}}</td>
+                                            <td>{{$proy['name']}}</td>
+                                            <td>{{$proy->programa->name}}</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+                <div id="tabSP" class="tab-pane">
+                    <div class="col-md-12 align-self-center">
+                        <br>
+                        <div class="table-responsive">
+                            <center>
+                                <table id="tabla_SP" class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="27" class="text-center">METAS DE PRODUCTO DEL SUBPROYECTO</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="3" class="text-center"></th>
+                                        <th colspan="4" class="text-center">BASE</th>
+                                        <th colspan="4" class="text-center">AÑO 1</th>
+                                        <th colspan="4" class="text-center">AÑO 2</th>
+                                        <th colspan="4" class="text-center">AÑO 3</th>
+                                        <th colspan="4" class="text-center">AÑO 4</th>
+                                        <th colspan="4" class="text-center">TOTALES</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center">Núm</th>
+                                        <th class="text-center">Nombre del Sub Proyecto</th>
+                                        <th class="text-center">Nombre del Proyecto</th>
+                                        <th class="text-center">Tipo Meta</th>
+                                        <th class="text-center">Indicador</th>
+                                        <th class="text-center">Unidad de Medida</th>
+                                        <th class="text-center">Linea Base</th>
+                                        <th class="text-center">Meta Inicial</th>
+                                        <th class="text-center">Modificación</th>
+                                        <th class="text-center">Meta Definitiva</th>
+                                        <th class="text-center">% Ejecución</th>
+                                        <th class="text-center">Meta Inicial</th>
+                                        <th class="text-center">Modificación</th>
+                                        <th class="text-center">Meta Definitiva</th>
+                                        <th class="text-center">% Ejecución</th>
+                                        <th class="text-center">Meta Inicial</th>
+                                        <th class="text-center">Modificación</th>
+                                        <th class="text-center">Meta Definitiva</th>
+                                        <th class="text-center">% Ejecución</th>
+                                        <th class="text-center">Meta Inicial</th>
+                                        <th class="text-center">Modificación</th>
+                                        <th class="text-center">Meta Definitiva</th>
+                                        <th class="text-center">% Ejecución</th>
+                                        <th class="text-center">Valor Inicial</th>
+                                        <th class="text-center">Valor Final</th>
+                                        <th class="text-center">Valor Ejecución</th>
+                                        <th class="text-center">% Ejecución</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($sps as $Sproy)
+                                        <tr class="text-center">
+                                            <td>{{$Sproy['id']}}</td>
+                                            <td>{{$Sproy['name']}}</td>
+                                            <td>{{$Sproy->proyecto->name}}</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+                <div id="tabPP" class="tab-pane">
+                    <div class="col-md-12 align-self-center">
+                        <br>
+                        <div class="table-responsive">
+                            <center>
+                                <table id="tabla_PPI" class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="20" class="text-center">PLAN PLURIANUAL DE INVERSION</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4" class="text-center">AÑO 1</th>
+                                        <th colspan="4" class="text-center">AÑO 2</th>
+                                        <th colspan="4" class="text-center">AÑO 3</th>
+                                        <th colspan="4" class="text-center">AÑO 4</th>
+                                        <th colspan="4" class="text-center">TOTAL INVERSION</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center">% Ejecución</th>
+                                        <th class="text-center">Valor Inicial</th>
+                                        <th class="text-center">Valor Final</th>
+                                        <th class="text-center">Valor Ejecución</th>
+                                        <th class="text-center">% Ejecución</th>
+                                        <th class="text-center">Valor Inicial</th>
+                                        <th class="text-center">Valor Final</th>
+                                        <th class="text-center">Valor Ejecución</th>
+                                        <th class="text-center">% Ejecución</th>
+                                        <th class="text-center">Valor Inicial</th>
+                                        <th class="text-center">Valor Final</th>
+                                        <th class="text-center">Valor Ejecución</th>
+                                        <th class="text-center">% Ejecución</th>
+                                        <th class="text-center">Valor Inicial</th>
+                                        <th class="text-center">Valor Final</th>
+                                        <th class="text-center">Valor Ejecución</th>
+                                        <th class="text-center">% Ejecución</th>
+                                        <th class="text-center">Total Inicial</th>
+                                        <th class="text-center">Total Final</th>
+                                        <th class="text-center">Total Ejecución</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($sps as $Sproy)
+                                        <tr class="text-center">
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @else
 <div class="col-md-12 align-self-center">
 <div class="row justify-content-center">
 <br>
@@ -321,4 +459,45 @@ Actualmente no hay un plan de desarrollo, llene el siguiente formulario para su 
 </div>
 </div>
 @endif
+    </div>
+@stop
+@section('js')
+    <script>
+        $(document).ready(function() {
+            $('#tabla_PPI').DataTable( {
+                responsive: true,
+                "searching": false,
+                "pageLength": 5
+            } );
+
+            $('#tabla_SP').DataTable( {
+                responsive: true,
+                "searching": false,
+                "pageLength": 5
+            } );
+
+            $('#tabla_PY').DataTable( {
+                responsive: true,
+                "searching": false,
+                "pageLength": 5
+            } );
+
+            $('#tabla_PG').DataTable( {
+                responsive: true,
+                "searching": false,
+                "pageLength": 5
+            } );
+
+            $('#tabla_EJ').DataTable( {
+                responsive: true,
+                "searching": false,
+                "pageLength": 5,
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            } );
+        } );
+
+    </script>
 @stop
