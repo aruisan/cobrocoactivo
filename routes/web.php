@@ -2,7 +2,7 @@
 
 
 Route::get('/', function () {
-    return view('visitante.index');
+	return view('visitante.index');
 });
 
 Auth::routes();
@@ -19,10 +19,10 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 	Route::group(['prefix' => 'dashboard'] ,function () 
 	{
 		Route::get('notificaciones', 'NotificationController@index')->name('notificaciones.index');
-	    Route::get('notificaciones/{id}', 'NotificationController@read')->name('notifications.read');
-	    Route::delete('notificaciones/{id}', 'NotificationController@destroy')->name('notifications.destroy');
-	    Route::get('notificaciones-visibilidad/{id}', 'NotificationController@visibilidad')->name('notification.visibilidad');
-	 });
+		Route::get('notificaciones/{id}', 'NotificationController@read')->name('notifications.read');
+		Route::delete('notificaciones/{id}', 'NotificationController@destroy')->name('notifications.destroy');
+		Route::get('notificaciones-visibilidad/{id}', 'NotificationController@visibilidad')->name('notification.visibilidad');
+	});
 
 	Route::group(['prefix' => 'admin'] ,function () 
 	{
@@ -72,55 +72,63 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 	});
 
 	////// RUTAS PRESUPUESTO
-    Route::group(['prefix' => 'presupuesto'] ,function ()
-    {
-        Route::Resource('/', 'Hacienda\Presupuesto\PresupuestoController');
+	Route::group(['prefix' => 'presupuesto'] ,function ()
+	{
+		Route::Resource('/', 'Hacienda\Presupuesto\PresupuestoController');
 
-        Route::get('vigencia/create/{tipo}', 'Hacienda\Presupuesto\VigenciaController@create');
-        Route::resource('vigencia', 'Hacienda\Presupuesto\VigenciaController');
+		Route::get('vigencia/create/{tipo}', 'Hacienda\Presupuesto\VigenciaController@create');
+		Route::resource('vigencia', 'Hacienda\Presupuesto\VigenciaController');
 
-        Route::get('level/create/{vigencia}', 'Hacienda\Presupuesto\LevelController@create');
-        Route::resource('level', 'Hacienda\Presupuesto\LevelController');
+		Route::get('level/create/{vigencia}', 'Hacienda\Presupuesto\LevelController@create');
+		Route::resource('level', 'Hacienda\Presupuesto\LevelController');
 
-        Route::get('registro/create/{vigencia}/{level}', 'Hacienda\Presupuesto\RegistroController@create');
-        Route::resource('registro', 'Hacienda\Presupuesto\RegistroController');
+		Route::get('registro/create/{vigencia}/{level}', 'Hacienda\Presupuesto\RegistroController@create');
+		Route::resource('registro', 'Hacienda\Presupuesto\RegistroController');
 
-        Route::get('font/create/{vigencia}', 'Hacienda\Presupuesto\FontsController@create');
-        Route::resource('font', 'Hacienda\Presupuesto\FontsController');
+		Route::get('font/create/{vigencia}', 'Hacienda\Presupuesto\FontsController@create');
+		Route::resource('font', 'Hacienda\Presupuesto\FontsController');
 
-        Route::get('rubro/create/{vigencia}', 'Hacienda\Presupuesto\RubrosController@create');
-        Route::resource('rubro', 'Hacienda\Presupuesto\RubrosController');
+		Route::get('rubro/create/{vigencia}', 'Hacienda\Presupuesto\RubrosController@create');
+		Route::resource('rubro', 'Hacienda\Presupuesto\RubrosController');
 
-        Route::resource('FontRubro', 'Hacienda\Presupuesto\FontRubroController');
-        Route::resource('FontRubro/saldo', 'Hacienda\Presupuesto\FontRubroController@saldoFont');
+		Route::resource('FontRubro', 'Hacienda\Presupuesto\FontRubroController');
+		Route::resource('FontRubro/saldo', 'Hacienda\Presupuesto\FontRubroController@saldoFont');
 
-    });
+	});
 
     ////// RUTAS PLAN DE DESARROLLO
-    Route::group(['prefix' => 'pdd'] ,function ()
-    {
-        Route::resource('/','Planeacion\Pdd\PdesarrolloController');
+	Route::group(['prefix' => 'pdd'] ,function ()
+	{
+		Route::resource('/','Planeacion\Pdd\PdesarrolloController');
 
-        Route::get('data/create/{pdd}','Planeacion\Pdd\EjesController@create');
-        Route::resource('eje','Planeacion\Pdd\EjesController');
+		Route::get('data/create/{pdd}','Planeacion\Pdd\EjesController@create');
+		Route::resource('eje','Planeacion\Pdd\EjesController');
 
-        Route::resource('programa','Planeacion\Pdd\ProgramasController');
+		Route::resource('programa','Planeacion\Pdd\ProgramasController');
 
-        Route::get('proyecto/create/{pdd}','Planeacion\Pdd\ProyectosController@create');
-        Route::resource('proyecto','Planeacion\Pdd\ProyectosController');
+		Route::get('proyecto/create/{pdd}','Planeacion\Pdd\ProyectosController@create');
+		Route::resource('proyecto','Planeacion\Pdd\ProyectosController');
 
-        Route::get('subproyecto/create/{pdd}','Planeacion\Pdd\SubproyectosController@create');
-        Route::resource('subproyecto','Planeacion\Pdd\SubproyectosController');
+		Route::get('subproyecto/create/{pdd}','Planeacion\Pdd\SubproyectosController@create');
+		Route::resource('subproyecto','Planeacion\Pdd\SubproyectosController');
 
-        Route::get('producto/create/{pdd}','Planeacion\Pdd\ProductoController@create');
-        Route::resource('producto','Planeacion\Pdd\ProductoController');
+		Route::get('producto/create/{pdd}','Planeacion\Pdd\ProductoController@create');
+		Route::resource('producto','Planeacion\Pdd\ProductoController');
 
-        Route::get('periodo/create/{producto}','Planeacion\Pdd\PeriodoController@create');
-        Route::resource('periodo','Planeacion\Pdd\PeriodoController');
+		Route::get('periodo/create/{producto}','Planeacion\Pdd\PeriodoController@create');
+		Route::resource('periodo','Planeacion\Pdd\PeriodoController');
 
-    });
+	});
 
 });
 
 //Route::get('/home', 'HomeController@index')->name('home');
 
+////// RUTAS ALMACEN
+Route::group(['prefix' => 'almacen'] ,function ()
+{
+	Route::Resource('/','Hacienda\Almacen\AlmacenController');
+	//return view('hacienda.almacen.index');
+
+
+});
