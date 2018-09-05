@@ -155,8 +155,12 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 ////// RUTAS ALMACEN
 Route::group(['prefix' => 'almacen'] ,function ()
 {
+	Route::get('/nuevaEntrada','Hacienda\Almacen\AlmacenController@nuevaEntrada');
+	Route::get('/inventarioEntradas','Hacienda\Almacen\AlmacenController@inventarioEntradas');
+	Route::get('/inventarioSalidas','Hacienda\Almacen\AlmacenController@inventarioSalidas');
+	Route::get('/entradas','Hacienda\Almacen\AlmacenController@entradas');
+	Route::get('/salidas','Hacienda\Almacen\AlmacenController@salidas');
 	Route::Resource('/','Hacienda\Almacen\AlmacenController');
 	//return view('hacienda.almacen.index');
-
 
 });

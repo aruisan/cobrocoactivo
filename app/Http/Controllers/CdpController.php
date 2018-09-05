@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Hacienda\Almacen;
+namespace App\Http\Controllers;
 
+use App\Cdp;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class AlmacenController extends Controller
+class CdpController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,37 +14,7 @@ class AlmacenController extends Controller
      */
     public function index()
     {
-        return view('hacienda.almacen.index');
-    }
-
-    public function nuevaEntrada()
-    {
-        return view('hacienda.almacen.nuevaEntrada');
-        
-    }
-
-    public function inventarioEntradas()
-    {
-        return view('hacienda.almacen.inventarioEntradas');
-        
-    }
-
-    public function inventarioSalidas()
-    {
-        return view('hacienda.almacen.inventarioSalidas');
-        
-    }
-
-    public function entradas()
-    {
-        return view('hacienda.almacen.entradas');
-        
-    }
-
-    public function salidas()
-    {
-        return view('hacienda.almacen.salidas');
-        
+        //
     }
 
     /**
@@ -71,10 +41,10 @@ class AlmacenController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Cdp  $cdp
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Cdp $cdp)
     {
         //
     }
@@ -82,10 +52,10 @@ class AlmacenController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Cdp  $cdp
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Cdp $cdp)
     {
         //
     }
@@ -94,10 +64,10 @@ class AlmacenController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Cdp  $cdp
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Cdp $cdp)
     {
         //
     }
@@ -105,10 +75,10 @@ class AlmacenController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Cdp  $cdp
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Cdp $cdp)
     {
         //
     }

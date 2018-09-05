@@ -2,36 +2,6 @@
 @section('titulo')
     Plan de Desarrollo
 @stop
-@section('css')
-    <style>
-        table.table3{
-            font-family:'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            font-size: 13px;
-            font-style: normal;
-            font-weight: normal;
-            letter-spacing: 1px;
-            line-height: 1.7em;
-            border-collapse:collapse;
-        }
-        .table3 thead th{
-            color:#444;
-            border:2px solid #444;
-        }
-        .table3 tbody td{
-            border:2px solid #444;
-            color:#444;
-            text-align: center !important;
-        }
-        .text-th {
-            padding:20px;
-            color:#444;
-            border:2px solid #444;
-            writing-mode: vertical-lr;
-            transform: rotate(270deg);
-            text-align: center !important;
-        }
-    </style>
-@stop
 @section('sidebar')
     @if($pdd)
         <li class="dropdown">
@@ -81,9 +51,7 @@
             <center>
                 <h2>Plan de Desarrollo: {{ $pdd->name }}</h2>
                 <div class="form-check-inline">
-                    <input type="radio" class="form-check-input" name="optradio">Aprobado
-                    &nbsp;
-                    <input type="radio" class="form-check-input" name="optradio">Rechazado
+                    <a href="{{ asset('#') }}" class="btn-sm btn btn-success"><i class="fa fa-check"></i><span class="hide-menu">&nbsp; Aprobar Plan de Desarrollo</span></a>
                 </div>
             </center>
             <br>
@@ -146,7 +114,7 @@
                         <br>
                         <div class="table-responsive">
                             <center>
-                                <table id="tabla_PG" class="table table-bordered">
+                                <table id="tabla_PG" class="table table-bordered" width="100%">
                                     <thead>
                                     <tr>
                                         <th colspan="7" class="text-center">EJES PROGRAMATICOS</th>
@@ -348,9 +316,11 @@
                                 <table id="tabla_PPI" class="table table-bordered">
                                     <thead>
                                     <tr>
+                                        <th colspan="2" class="text-center"></th>
                                         <th colspan="20" class="text-center">PLAN PLURIANUAL DE INVERSION</th>
                                     </tr>
                                     <tr>
+                                        <th colspan="2" class="text-center"></th>
                                         <th colspan="4" class="text-center">AÑO 1</th>
                                         <th colspan="4" class="text-center">AÑO 2</th>
                                         <th colspan="4" class="text-center">AÑO 3</th>
@@ -358,6 +328,8 @@
                                         <th colspan="4" class="text-center">TOTAL INVERSION</th>
                                     </tr>
                                     <tr>
+                                        <th class="text-center">Id</th>
+                                        <th class="text-center">Nombre SubProyecto</th>
                                         <th class="text-center">% Ejecución</th>
                                         <th class="text-center">Valor Inicial</th>
                                         <th class="text-center">Valor Final</th>
@@ -383,6 +355,8 @@
                                     <tbody>
                                     @foreach($sps as $Sproy)
                                         <tr class="text-center">
+                                            <td>{{$Sproy['id']}}</td>
+                                            <td>{{$Sproy['name']}}</td>
                                             <td>0</td>
                                             <td>0</td>
                                             <td>0</td>
@@ -414,46 +388,52 @@
             </div>
         </div>
     @else
-<div class="col-md-12 align-self-center">
-<div class="row justify-content-center">
-<br>
-<div class="alert alert-danger">
-<center>
-Actualmente no hay un plan de desarrollo, llene el siguiente formulario para su respectiva creación.
-</center>
-</div>
-<br>
-<center><h2>Nuevo Plan de Desarrollo</h2></center>
-<br>
-<hr>
-<div class="form-validation">
-<form class="form-valide" action="/pdd" method="POST" enctype="multipart/form-data">
-{{ csrf_field() }}
-<div class="form-group">
-    <label class="col-lg-4 col-form-label text-right" for="nombre">Nombre <span class="text-danger">*</span></label>
-    <div class="col-lg-6">
-        <input type="text" class="form-control" name="name">
+    <div class="col-md-12 align-self-center">
+    <div class="row justify-content-center">
+    <br>
+    <div class="alert alert-danger">
+    <center>
+    Actualmente no hay un plan de desarrollo, llene el siguiente formulario para su respectiva creación.
+    </center>
     </div>
-</div>
-<div class="form-group">
-    <label class="col-lg-4 col-form-label text-right" for="ff_inicio">Fecha de Inicio <span class="text-danger">*</span></label>
-    <div class="col-lg-6">
-        <input type="date" class="form-control" name="ff_inicio" value="{{ Carbon\Carbon::today()->Format('Y-m-d')}}" min="{{ Carbon\Carbon::today()->Format('Y-m-d')}}">
+    <br>
+    <center><h2>Nuevo Plan de Desarrollo</h2></center>
+    <br>
+    <hr>
+    <div class="form-validation">
+    <form class="form-valide" action="/pdd" method="POST" enctype="multipart/form-data">
+    {{ csrf_field() }}
+    <div class="form-group">
+        <label class="col-lg-4 col-form-label text-right" for="nombre">Nombre <span class="text-danger">*</span></label>
+        <div class="col-lg-6">
+            <input type="text" class="form-control" name="name">
+        </div>
     </div>
-</div>
-<div class="form-group">
-    <label class="col-lg-4 col-form-label text-right" for="ff_final">Fecha Final <span class="text-danger">*</span></label>
-    <div class="col-lg-6">
-        <input type="date" class="form-control" name="ff_final" value="{{ Carbon\Carbon::today()->Format('Y-m-d')}}" min="{{ Carbon\Carbon::today()->Format('Y-m-d')}}">
+    <div class="form-group">
+        <label class="col-lg-4 col-form-label text-right" for="ff_inicio">Fecha de Inicio <span class="text-danger">*</span></label>
+        <div class="col-lg-6">
+            <input type="date" class="form-control" name="ff_inicio" value="{{ Carbon\Carbon::today()->Format('Y-m-d')}}" min="{{ Carbon\Carbon::today()->Format('Y-m-d')}}">
+        </div>
     </div>
-</div>
-<center>
-<div class="form-group row">
-    <div class="col-lg-12 ml-auto">
-        <button type="submit" class="btn btn-primary">Guardar</button>
+    <div class="form-group">
+        <label class="col-lg-4 col-form-label text-right" for="ff_final">Fecha Final <span class="text-danger">*</span></label>
+        <div class="col-lg-6">
+            <input type="date" class="form-control" name="ff_final" value="{{ Carbon\Carbon::today()->Format('Y-m-d')}}" min="{{ Carbon\Carbon::today()->Format('Y-m-d')}}">
+        </div>
     </div>
-</div>
-</center>
+    <div class="form-group">
+        <label class="col-lg-4 col-form-label text-right" for="file">Anexar PDF</label>
+        <div class="col-lg-6 fallback">
+            <input name="file" class="form-control" type="file" class="form-control" accept="application/pdf" >
+        </div>
+    </div>
+    <center>
+    <div class="form-group row">
+        <div class="col-lg-12 ml-auto">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+    </div>
+    </center>
 </form>
 </div>
 </div>
@@ -466,26 +446,42 @@ Actualmente no hay un plan de desarrollo, llene el siguiente formulario para su 
         $(document).ready(function() {
             $('#tabla_PPI').DataTable( {
                 responsive: true,
-                "searching": false,
-                "pageLength": 5
+                "searching": true,
+                "pageLength": 5,
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'print'
+                ]
             } );
 
             $('#tabla_SP').DataTable( {
                 responsive: true,
-                "searching": false,
-                "pageLength": 5
+                "searching": true,
+                "pageLength": 5,
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'print'
+                ]
             } );
 
             $('#tabla_PY').DataTable( {
                 responsive: true,
-                "searching": false,
-                "pageLength": 5
+                "searching": true,
+                "pageLength": 5,
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'print'
+                ]
             } );
 
             $('#tabla_PG').DataTable( {
                 responsive: true,
                 "searching": false,
-                "pageLength": 5
+                "pageLength": 5,
+                dom: 'Bfrtip',
+                buttons: [
+                    'pdf', 'copy', 'csv', 'excel', 'print'
+                ]
             } );
 
             $('#tabla_EJ').DataTable( {
@@ -494,7 +490,7 @@ Actualmente no hay un plan de desarrollo, llene el siguiente formulario para su 
                 "pageLength": 5,
                 dom: 'Bfrtip',
                 buttons: [
-                    'copy', 'csv', 'excel', 'pdf', 'print'
+                    'pdf', 'copy', 'csv', 'excel', 'print'
                 ]
             } );
         } );

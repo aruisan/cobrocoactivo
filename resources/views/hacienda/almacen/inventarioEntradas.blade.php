@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('titulo')
-Almacén
+Inventario - Entradas
 @stop
 
 @section('sidebar')
@@ -18,20 +18,21 @@ Almacén
 
 <div class="row">
 	<div class="col-lg-12 margin-tb">
-		<h2 class="text-center">Stock general</h2>
+		<h2 class="text-center">Inventario de entradas</h2>
 	</div>
 </div>
 
 <table id="example" class="table table-bordered" style="width:100%">
 	<thead>
 		<tr>
-			<th>N°</th>
+			<th>Fecha</th>
 			<th>Proveedor</th>
+			<th>N° producto</th>
 			<th>Referencia</th>
 			<th>Activo</th>
+			<th>Tipo Movimiento</th>
 			<th>Cantidad</th>
-			<th>Entrada</th>
-			<th>Salida</th>
+			<th>Lugar destino</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -41,12 +42,9 @@ Almacén
 			<td>Edinburgh</td>
 			<td>61</td>
 			<td>2011/04/25</td>
-			<td align="center">
-				<a href="{{ url('/almacen/entradas') }}" class="btn btn-sm btn-info"> <i class="fa fa-plus-square"></i></a>                    
-			</td>
-			<td align="center">
-				<a href="{{ url('/almacen/salidas') }}" class="btn btn-sm btn-danger"> <i class="fa fa-minus-square"></i></a>                    
-			</td>
+			<td>Edinburgh</td>
+			<td>61</td>
+			<td>Edinburgh</td>
 		</tr>
 		<tr>
 			<td>Garrett Winters</td>
@@ -54,12 +52,9 @@ Almacén
 			<td>Tokyo</td>
 			<td>63</td>
 			<td>2011/07/25</td>
-			<td align="center">
-				<a href="{{ asset('/almacen/entradas') }}" class="btn btn-sm btn-info"> <i class="fa fa-plus-square"></i></a>                    
-			</td>
-			<td align="center">
-				<a href="{{ asset('/almacen/salidas') }}" class="btn btn-sm btn-danger"> <i class="fa fa-minus-square"></i></a>                    
-			</td>
+			<td>Edinburgh</td>
+			<td>61</td>
+			<td>Edinburgh</td>
 		</tr>
 		<tr>
 			<td>Ashton Cox</td>
@@ -67,12 +62,9 @@ Almacén
 			<td>San Francisco</td>
 			<td>66</td>
 			<td>2009/01/12</td>
-			<td align="center">
-				<a href="{{ asset('/almacen/entradas') }}" class="btn btn-sm btn-info"> <i class="fa fa-plus-square"></i></a>                    
-			</td>
-			<td align="center">
-				<a href="{{ asset('/almacen/salidas') }}" class="btn btn-sm btn-danger"> <i class="fa fa-minus-square"></i></a>                    
-			</td>
+			<td>Edinburgh</td>
+			<td>61</td>
+			<td>Edinburgh</td>
 		</tr>
 	</tbody>
 </table>

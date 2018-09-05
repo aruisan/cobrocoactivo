@@ -13,7 +13,8 @@
       </ul>
     </li>
   </ul>
-</li>  
+</li>
+
                 <li class="dropdown">
                   <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" title="ADMINISTRATIVO">
                     <i class="fa fa-tasks" aria-hidden="true"></i>
