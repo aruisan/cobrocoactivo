@@ -490,7 +490,7 @@ Actualmente no hay un plan de desarrollo, llene el siguiente formulario para su 
 
             $('#tabla_EJ').DataTable( {
                 responsive: true,
-                "searching": false,
+                "searching": true,
                 "pageLength": 5,
                 dom: 'Bfrtip',
                 buttons: [
