@@ -166,7 +166,7 @@ box-shadow: -8px 12px 18px -6px rgba(0,0,0,0.75);
         <div class="lema">
         <marquee><h4 class="text-center text-white">Bernardo Bent Alcalde Municipal
           &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-        Lery Aniceto Henry Bent Presidente Consejo Municipal</h4></marquee>
+        Leri Aniseto Henry Taylor Presidente Concejo Municipal</h4></marquee>
         </div>
     </nav>
     
