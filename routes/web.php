@@ -24,6 +24,25 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 	    Route::delete('notificaciones/{id}', 'NotificationController@destroy')->name('notifications.destroy');
 	    Route::get('notificaciones-visibilidad/{id}', 'NotificationController@visibilidad')->name('notification.visibilidad');
 
+		Route::resource('administrativos', 'Sansonatorio\AdministrativoController');
+		Route::resource('comisariafamilia', 'Convivencia\ComisariaFamiliaController');
+		Route::resource('comiteconciliacion', 'Judicial\ComiteConsiliacionController');
+		Route::resource('comparendos', 'Convivencia\ComparendoController');
+		Route::resource('contractual', 'Administrativo\ContractualController');
+		Route::resource('correspondencia', 'Administrativo\GestionDocumental\CorrespondenciaController');
+		Route::resource('demandante', 'Judicial\DemandanteController');
+		Route::resource('demandado', 'Judicial\DemandadoController');
+		Route::resource('disciplinarios', 'Sansonatorio\DisciplinarioController');
+		Route::resource('licenciasplaneacion', 'Planeacion\LicenciaPlaneacionController');
+		Route::resource('maquinaria', 'Infraestructura\MaquinariaController');
+		Route::resource('pazysalvo', 'Administrativo\PazysalvoController');
+	    Route::resource('planmejoramiento', 'Auditoria\ControlInterno\PlanMejoramientoController');
+		Route::resource('podaarboles', 'Administrativo\MedioAmbiente\PodaArbolController');
+		Route::resource('policivo', 'Convivencia\PolicivoController');
+		Route::resource('titulacionpredios', 'Administrativo\Vivienda\TitulacionPredioController');
+
+		Route::resource('subirArchivo', 'SubirArchivoController');
+
 	 });
 
 	Route::group(['prefix' => 'administrativo'] ,function () 
