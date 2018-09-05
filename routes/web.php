@@ -35,7 +35,7 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 		Route::resource('disciplinarios', 'Sansonatorio\DisciplinarioController');
 		Route::resource('licenciasplaneacion', 'Planeacion\LicenciaPlaneacionController');
 		Route::resource('maquinaria', 'Infraestructura\MaquinariaController');
-		Route::resource('pazysalvo', 'Administrativo\PazysalvoController');
+		Route::resource('pazysalvo', 'Administrativo\PazYSalvoController');
 	    Route::resource('planmejoramiento', 'Auditoria\ControlInterno\PlanMejoramientoController');
 		Route::resource('podaarboles', 'Administrativo\MedioAmbiente\PodaArbolController');
 		Route::resource('policivo', 'Convivencia\PolicivoController');
