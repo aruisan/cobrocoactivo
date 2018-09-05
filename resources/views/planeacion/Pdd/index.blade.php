@@ -2,36 +2,6 @@
 @section('titulo')
     Plan de Desarrollo
 @stop
-@section('css')
-    <style>
-        table.table3{
-            font-family:'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            font-size: 13px;
-            font-style: normal;
-            font-weight: normal;
-            letter-spacing: 1px;
-            line-height: 1.7em;
-            border-collapse:collapse;
-        }
-        .table3 thead th{
-            color:#444;
-            border:2px solid #444;
-        }
-        .table3 tbody td{
-            border:2px solid #444;
-            color:#444;
-            text-align: center !important;
-        }
-        .text-th {
-            padding:20px;
-            color:#444;
-            border:2px solid #444;
-            writing-mode: vertical-lr;
-            transform: rotate(270deg);
-            text-align: center !important;
-        }
-    </style>
-@stop
 @section('sidebar')
     @if($pdd)
         <li class="dropdown">
@@ -348,9 +318,11 @@
                                 <table id="tabla_PPI" class="table table-bordered">
                                     <thead>
                                     <tr>
+                                        <th colspan="2" class="text-center"></th>
                                         <th colspan="20" class="text-center">PLAN PLURIANUAL DE INVERSION</th>
                                     </tr>
                                     <tr>
+                                        <th colspan="2" class="text-center"></th>
                                         <th colspan="4" class="text-center">AÑO 1</th>
                                         <th colspan="4" class="text-center">AÑO 2</th>
                                         <th colspan="4" class="text-center">AÑO 3</th>
@@ -358,6 +330,8 @@
                                         <th colspan="4" class="text-center">TOTAL INVERSION</th>
                                     </tr>
                                     <tr>
+                                        <th class="text-center">Id</th>
+                                        <th class="text-center">Nombre SubProyecto</th>
                                         <th class="text-center">% Ejecución</th>
                                         <th class="text-center">Valor Inicial</th>
                                         <th class="text-center">Valor Final</th>
@@ -383,6 +357,8 @@
                                     <tbody>
                                     @foreach($sps as $Sproy)
                                         <tr class="text-center">
+                                            <td>{{$Sproy['id']}}</td>
+                                            <td>{{$Sproy['name']}}</td>
                                             <td>0</td>
                                             <td>0</td>
                                             <td>0</td>
@@ -466,26 +442,57 @@ Actualmente no hay un plan de desarrollo, llene el siguiente formulario para su 
         $(document).ready(function() {
             $('#tabla_PPI').DataTable( {
                 responsive: true,
-                "searching": false,
-                "pageLength": 5
+                "searching": true,
+                "pageLength": 5,
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'pdf',
+                        orientation: 'landscape',
+                        pageSize: 'LEGAL'
+                    },
+                    'copy', 'csv', 'excel', 'print'
+                ]
             } );
 
             $('#tabla_SP').DataTable( {
                 responsive: true,
-                "searching": false,
-                "pageLength": 5
+                "searching": true,
+                "pageLength": 5,
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'pdf',
+                        orientation: 'landscape',
+                        pageSize: 'LEGAL'
+                    },
+                    'copy', 'csv', 'excel', 'print'
+                ]
             } );
 
             $('#tabla_PY').DataTable( {
                 responsive: true,
-                "searching": false,
-                "pageLength": 5
+                "searching": true,
+                "pageLength": 5,
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'pdf',
+                        orientation: 'landscape',
+                        pageSize: 'LEGAL'
+                    },
+                    'copy', 'csv', 'excel', 'print'
+                ]
             } );
 
             $('#tabla_PG').DataTable( {
                 responsive: true,
-                "searching": false,
-                "pageLength": 5
+                "searching": true,
+                "pageLength": 5,
+                dom: 'Bfrtip',
+                buttons: [
+                    'pdf', 'copy', 'csv', 'excel', 'print'
+                ]
             } );
 
             $('#tabla_EJ').DataTable( {
@@ -494,7 +501,7 @@ Actualmente no hay un plan de desarrollo, llene el siguiente formulario para su 
                 "pageLength": 5,
                 dom: 'Bfrtip',
                 buttons: [
-                    'copy', 'csv', 'excel', 'pdf', 'print'
+                    'pdf', 'copy', 'csv', 'excel', 'print'
                 ]
             } );
         } );
