@@ -17,6 +17,36 @@ class AlmacenController extends Controller
         return view('hacienda.almacen.index');
     }
 
+    public function nuevaEntrada()
+    {
+        return view('hacienda.almacen.nuevaEntrada');
+        
+    }
+
+    public function inventarioEntradas()
+    {
+        return view('hacienda.almacen.inventarioEntradas');
+        
+    }
+
+    public function inventarioSalidas()
+    {
+        return view('hacienda.almacen.inventarioSalidas');
+        
+    }
+
+    public function entradas()
+    {
+        return view('hacienda.almacen.entradas');
+        
+    }
+
+    public function salidas()
+    {
+        return view('hacienda.almacen.salidas');
+        
+    }
+
     /**
      * Show the form for creating a new resource.
      *
