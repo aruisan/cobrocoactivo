@@ -4,6 +4,9 @@
 Route::get('/', function () {
 	return view('visitante.index');
 });
+Route::get('/info', function(){
+	return phpinfo();
+});
 
 Auth::routes();
 
