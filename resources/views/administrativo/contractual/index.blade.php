@@ -20,7 +20,7 @@
                 <td>{{$data->valor}}</td>
                 <td>{{$data->asunto}}</td>
                 <td><a href="contractual/{{$data->id}}/edit " class="btn btn-success"><span class="glyphicon glyphicon-edit"></span></a></td>
-                <td><a href="{{ route('subirArchivo.show', $data->id ) }} class="btn btn-warning">ver</a></td>
+                <td><a href="{{ route('subirArchivo.show', $data->id ) }}" class="btn btn-warning">ver</a></td>
             </tr>
         @endforeach
         </tbody>
