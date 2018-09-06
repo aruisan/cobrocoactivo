@@ -17,4 +17,8 @@ class Dependencia extends Model
 		return $this->hasMany('App\User','dependencia_id');
 	}
 
+    public function cdps(){
+        return $this->hasMany('App\Model\Hacienda\Presupuesto\Cdp\Cdp','dependencia_id');
+    }
+
 }
