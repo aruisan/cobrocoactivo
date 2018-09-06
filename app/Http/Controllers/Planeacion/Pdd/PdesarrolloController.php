@@ -32,6 +32,7 @@ class PdesarrolloController extends Controller
         }
         $pdd = Pdd::all()->first();
         return view('planeacion.pdd.index',compact('pdd','ps','sps','programas'));
+        
     }
 
     /**
