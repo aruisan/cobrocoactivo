@@ -5,25 +5,25 @@
 @section('sidebar')
     @if($V != "Vacio")
         <li> <a href="{{ url('/presupuesto/level/create/'.$V) }}" class="btn btn-success"><i class="fa fa-edit"></i><span class="hide-menu">&nbsp;Editar Presupuesto</span></a></li>
+        <li class="dropdown">
+            <a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown" href="#">
+                <i class="fa fa-calendar-check-o"></i>
+                <span class="hide-menu">Vigencia Actual</span>
+                &nbsp;
+                <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-user">
+                <li>
+                    <a href="#" class="btn btn-primary">Ingresos</a>
+                </li>
+                <li>
+                    <a href="{{ url('/presupuesto') }}" class="btn btn-primary">Egresos</a>
+                </li>
+            </ul>
+        </li>
+        <li> <a href="#" class="btn btn-primary"><i class="fa fa-edit"></i><span class="hide-menu">&nbsp; Cambiar Vigencia</span></a></li>
     @else
     @endif
-    <li class="dropdown">
-        <a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown" href="#">
-            <i class="fa fa-calendar-check-o"></i>
-            <span class="hide-menu">Vigencia Actual</span>
-            &nbsp;
-            <i class="fa fa-caret-down"></i>
-        </a>
-        <ul class="dropdown-menu dropdown-user">
-            <li>
-                <a href="#" class="btn btn-primary">Ingresos</a>
-            </li>
-            <li>
-                <a href="{{ url('/presupuesto') }}" class="btn btn-primary">Egresos</a>
-            </li>
-        </ul>
-    </li>
-    <li> <a href="#" class="btn btn-primary"><i class="fa fa-edit"></i><span class="hide-menu">&nbsp; Cambiar Vigencia</span></a></li>
     <li>
         <a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown" href="#">
             <i class="fa fa-plus"></i>
@@ -44,9 +44,7 @@
             <strong>
                 <h4><b>Presupuesto Año 2018</b></h4>
                 <div class="form-check-inline">
-                    <input type="radio" class="form-check-input" name="optradio">Aprobado
-                    &nbsp;
-                    <input type="radio" class="form-check-input" name="optradio">Rechazado
+                    <a href="{{ asset('#') }}" class="btn-sm btn btn-success"><i class="fa fa-check"></i><span class="hide-menu">&nbsp; Aprobar Presupuesto</span></a>
                 </div>
             </strong>
         </div>
@@ -100,7 +98,7 @@
                     <a class="nav-link" data-toggle="pill" href="#tabOP">Orden de Pago</a>
                 </li>
             </ul>
-        <br>
+            <br>
             <div class="tab-content" style="background-color: white">
                 <div id="tabHome" class="tab-pane active"><br>
 
@@ -290,7 +288,7 @@
                 </div>
             </div>
         @else
-            <br>
+            <br><br>
             <div class="alert alert-danger">
                 No se ha creado un presupuesto actual de egresos, para crearlo de click al siguiente link:
                 <a href="{{ url('presupuesto/vigencia/create/0') }}" class="alert-link">Crear Presupuesto de Egresos</a>.

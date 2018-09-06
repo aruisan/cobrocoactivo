@@ -31,7 +31,7 @@ class VigenciaController extends Controller
             if($request->hasFile('file'))
             {
                 $file = new FileTraits;
-                $ruta = $file->File($request->file('file'));
+                $ruta = $file->File($request->file('file'), 'Presupuesto');
             }else{
                 $ruta = "";
             }
