@@ -409,6 +409,7 @@
             <input type="text" class="form-control" name="name">
         </div>
     </div>
+    
     <div class="form-group">
         <label class="col-lg-4 col-form-label text-right" for="ff_inicio">Fecha de Inicio <span class="text-danger">*</span></label>
         <div class="col-lg-6">
