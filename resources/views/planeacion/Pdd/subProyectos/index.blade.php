@@ -67,7 +67,7 @@
             </div>
     </div>
 
-    @include('Planeacion.pdd.subProyectos.create')
+    @include('planeacion.pdd.subproyectos.create')
 
     
 @stop
