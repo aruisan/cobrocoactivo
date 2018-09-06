@@ -147,37 +147,51 @@
                 </div>
                 <div id="tabCert" class=" tab-pane fade"><br>
                     <div class="table-responsive">
-                        <br>
-                        <button type="button" class="btn btn-primary btn-block m-b-12">Crear Nuevo CDP</button>
-                        <br>
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th class="text-center">#</th>
-                                <th class="text-center">Nombre</th>
-                                <th class="text-center">Estado</th>
-                                <th class="text-center">Acciones</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td class="text-center">1</th>
-                                <td class="text-center">Certificado 1</td>
-                                <td class="text-center"><span class="badge badge-pill badge-danger">Anulado</span></td>
-                                <td class="text-center">
-                                    <a href="{{ url('/certificado/1') }}" class="btn-sm btn-success"><i class="fa fa-edit"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">2</td>
-                                <td class="text-center">Certificado 2</td>
-                                <td class="text-center"><span class="badge badge-success">Aprobado</span></td>
-                                <td class="text-center">
-                                    <a href="{{ url('/certificado/1') }}" class="btn-sm btn-success"><i class="fa fa-edit"></i></a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                            @if(count($cdps) >= 1)
+                            <br>
+                            <a href="{{ url('presupuesto/cdp/create') }}" class="btn btn-primary btn-block m-b-12">Crear Nuevo CDP</a>
+                            <br>
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">#</th>
+                                    <th class="text-center">Nombre</th>
+                                    <th class="text-center">Estado</th>
+                                    <th class="text-center">Acciones</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($cdps as $cdp)
+                                    <tr>
+                                        <td class="text-center">{{ $cdp->id }}</th>
+                                        <td class="text-center">{{ $cdp->name }}</td>
+                                        <td class="text-center"><span class="badge badge-pill badge-danger">
+                                                @if($cdp->estado == 0)
+                                                    Pendiente
+                                                @elseif($cdp->estado == 1)
+                                                    Rechazado
+                                                @elseif($cdp->estado == 2)
+                                                    Anulado
+                                                @else
+                                                    Aprobado
+                                                @endif
+                                            </span></td>
+                                        <td class="text-center">
+                                            <a href="{{ url('presupuesto/cdp/'.$cdp->id) }}" class="btn-sm btn-success"><i class="fa fa-edit"></i></a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                                @else
+                                <br><br>
+                                <div class="alert alert-danger">
+                                    <center>
+                                        No hay CDP's, para crear uno nuevo de click al siguiente link:
+                                        <a href="{{ url('presupuesto/cdp/create') }}" class="alert-link">Crear CDP</a>.
+                                    </center>
+                                </div>
+                            @endif
                     </div>
                 </div>
                 <div id="tabReg" class=" tab-pane fade"><br>
