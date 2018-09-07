@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Administrativo;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\ModuloInicial;
 
@@ -13,10 +14,19 @@ class ContractualController extends Controller
         $dependencia = auth()->user()->dependencia_id;
         $usuario = auth()->id();
 
-        $consulta = ModuloInicial::where('modulo', '=', 'contractual')
-        ->where('user_id','=',$usuario)
+        $consulta = DB::table('modulo_inicial')
+        ->join('users','modulo_inicial.user_id','=','users.id')
+        ->join('dependencias','users.dependencia_id','=','dependencias.id')
+        ->select('modulo_inicial.id','modulo_inicial.modulo','modulo_inicial.responsable','modulo_inicial.valor','modulo_inicial.asunto')
+        ->where('modulo_inicial.modulo', '=', 'contractual')
+        ->where('dependencias.id','=',$dependencia)
         ->get();
+
+        // $consulta = ModuloInicial::where('modulo', '=', 'contractual')
+        // ->where('user_id','=',$usuario)
+        // ->get();
         return view('administrativo/contractual/index')->with('consulta', $consulta);
+
     }
 
     /**

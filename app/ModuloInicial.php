@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class ModuloInicial extends Model
 {
-    protected $table = 'modulo_inicial';
+	protected $table = 'modulo_inicial';
+
+	public function users()
+	{
+		
+	}  
 }
