@@ -177,7 +177,7 @@
                                                 @endif
                                             </span></td>
                                         <td class="text-center">
-                                            <a href="{{ url('presupuesto/cdp/'.$cdp->id) }}" class="btn-sm btn-success"><i class="fa fa-edit"></i></a>
+                                            <a href="{{ url('presupuesto/cdp/'.$cdp->id.'/edit') }}" class="btn-sm btn-success"><i class="fa fa-edit"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

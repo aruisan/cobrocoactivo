@@ -7,6 +7,7 @@ use App\Model\Hacienda\Presupuesto\Rubro;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Admin\Dependencia;
+use Illuminate\Http\Response;
 
 use Session;
 class CdpController extends Controller
@@ -62,7 +63,7 @@ class CdpController extends Controller
      * @param  \App\Cdp  $cdp
      * @return \Illuminate\Http\Response
      */
-    public function show(Cdp $cdp)
+    public function show($cdp)
     {
         //
     }
@@ -73,9 +74,12 @@ class CdpController extends Controller
      * @param  \App\Cdp  $cdp
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cdp $cdp)
+    public function edit($cdp)
     {
-        //
+        $idcdp = Cdp::find($cdp);
+        $dependencias = Dependencia::all();
+        $rubros = Rubro::all();
+        return view('hacienda.presupuesto.cdp.edit', compact('idcdp', 'dependencias','rubros'));
     }
 
     /**
@@ -85,9 +89,22 @@ class CdpController extends Controller
      * @param  \App\Cdp  $cdp
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cdp $cdp)
+    public function update(Request $request, $idcdp)
     {
-        //
+        $store= Cdp::findOrFail($idcdp);
+        $store->name = $request->name;
+        $store->valor = $request->valor;
+        $store->fecha = $request->fecha;
+        $store->dependencia_id = $request->dependencia_id;
+        $store->estado = $request->estado;
+        $store->observacion = $request->observacion;
+        $store->ejecucion = $request->ejecucion;
+        $store->saldo = $request->saldo;
+        $store->rubro_id = $request->rubro_id;
+        $store->save();
+
+        Session::flash('success','El CDP '.$request->name.' se edito exitosamente.');
+        return  redirect('../presupuesto');
     }
 
     /**
