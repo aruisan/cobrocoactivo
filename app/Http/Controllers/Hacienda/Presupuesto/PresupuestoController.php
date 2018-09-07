@@ -8,10 +8,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Model\Hacienda\Presupuesto\Rubro;
 use App\Model\Hacienda\Presupuesto\Font;
-use App\Model\Dependencia;
+use App\Model\Admin\Dependencia;
 use App\Model\Hacienda\Presupuesto\Vigencia;
 use App\Model\Hacienda\Presupuesto\Level;
 use App\Model\Hacienda\Presupuesto\Register;
+use App\Model\Hacienda\Presupuesto\Cdp\Cdp;
 
 
 class PresupuestoController extends Controller
@@ -37,6 +38,7 @@ class PresupuestoController extends Controller
                 $V = $vigen->id;
             }
 
+            $cdps= Cdp::all();
             $vigencia_id = $V;
             $ultimoLevel = Level::where('vigencia_id', $vigencia_id)->get()->last();
             $registers = Register::where('level_id', $ultimoLevel->id)->get();
@@ -191,7 +193,7 @@ class PresupuestoController extends Controller
             }
             //
     }
-        return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales'));
+        return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps'));
     }
 
     /**

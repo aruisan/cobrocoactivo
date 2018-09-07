@@ -10,7 +10,12 @@ class ContractualController extends Controller
 {
     public function index()
     {
-        $consulta = ModuloInicial::where('modulo', '=', 'contractual')->get();
+        $dependencia = auth()->user()->dependencia_id;
+        $usuario = auth()->id();
+
+        $consulta = ModuloInicial::where('modulo', '=', 'contractual')
+        ->where('user_id','=',$usuario)
+        ->get();
         return view('administrativo/contractual/index')->with('consulta', $consulta);
     }
 
@@ -22,7 +27,7 @@ class ContractualController extends Controller
     public function create()
     {
         return view('administrativo.contractual.create');
-;    }
+        ;    }
 
     /**
      * Store a newly created resource in storage.
@@ -37,10 +42,11 @@ class ContractualController extends Controller
         $ingresar->valor  = $request->valor;
         $ingresar->asunto = $request->asunto;
         $ingresar->modulo = 'contractual';
+        $ingresar->user_id = auth()->id();
         $ingresar->save();
 
         return redirect()->route('contractual.index')
-        				->with('success','El contractual con responsable: '.$request->responsable.' y valor $'.$request->valor.' se ha creado satisfactoriamente');
+        ->with('success','El contractual con responsable: '.$request->responsable.' y valor $'.$request->valor.' se ha creado satisfactoriamente');
 
     }
 }

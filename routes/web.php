@@ -125,6 +125,10 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 		Route::resource('FontRubro', 'Hacienda\Presupuesto\FontRubroController');
 		Route::resource('FontRubro/saldo', 'Hacienda\Presupuesto\FontRubroController@saldoFont');
 
+		///// CDOP's
+
+        Route::resource('cdp', 'Hacienda\Presupuesto\Cdp\CdpController');
+
 	});
 
     ////// RUTAS PLAN DE DESARROLLO
@@ -152,8 +156,6 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 	});
 
 });
-
-//Route::get('/home', 'HomeController@index')->name('home');
 
 ////// RUTAS ALMACEN
 Route::group(['prefix' => 'almacen'] ,function ()
