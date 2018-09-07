@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @section('titulo')
-    Presupuesto
+    Presupuesto - 2018
 @stop
 @section('sidebar')
     @if($V != "Vacio")
@@ -101,10 +101,9 @@
             <br>
             <div class="tab-content" style="background-color: white">
                 <div id="tabHome" class="tab-pane active"><br>
-
                         <div class="table-responsive">
                             <br>
-                            <table class="table table-hover table-bordered" align="100%">
+                            <table class="table table-hover table-bordered" align="100%" id="tabla_presupuesto">
                                 <thead>
                                 <tr>
                                     <th class="text-center">Rubro</th>
@@ -140,7 +139,33 @@
                         </div>
                 </div>
                 <div id="tabFuente" class="tab-pane fade"><br>
-                    <h2 class="text-center">Fuente</h2>
+                    <div class="table-responsive">
+                        <br>
+                        <table class="table table-hover table-bordered" align="100%" id="tabla_fuentes">
+                            <thead>
+                            <tr>
+                                <th class="text-center">Rubro</th>
+                                <th class="text-center">Nombre</th>
+                                @foreach($fuentes as $fuente)
+                                    <th class="text-center">{{ $fuente['name'] }}</th>
+                                @endforeach
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($codigos as $codigo)
+                                <tr>
+                                    <td class="text-dark">{{ $codigo['codigo']}}</td>
+                                    <td class="text-dark">{{ $codigo['name']}}</td>
+                                    @foreach($FRubros as $FRubro)
+                                        @if($FRubro['rubro_id'] == $codigo['id_rubro'])
+                                            <td class="text-center text-dark">$ <?php echo number_format($FRubro["valor"],0);?>.00</td>
+                                        @endif
+                                    @endforeach
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div id="tabPAC" class="tab-pane fade"><br>
                     <h2 class="text-center">PAC</h2>
@@ -151,7 +176,7 @@
                             <br>
                             <a href="{{ url('presupuesto/cdp/create') }}" class="btn btn-primary btn-block m-b-12">Crear Nuevo CDP</a>
                             <br>
-                            <table class="table table-bordered">
+                            <table class="table table-bordered" id="tabla_CDP">
                                 <thead>
                                 <tr>
                                     <th class="text-center">#</th>
@@ -312,6 +337,34 @@
 @stop
 @section('js')
     <script>
+            $('#tabla_CDP').DataTable( {
+                responsive: true,
+                "searching": true,
+                "pageLength": 5,
+                dom: 'Bfrtip',
+                buttons: [
+                    'pdf' ,'copy', 'csv', 'excel', 'print'
+                ]
+            } );
+
+            $('#tabla_presupuesto').DataTable( {
+                responsive: true,
+                "searching": false,
+                dom: 'Bfrtip',
+                buttons: [
+                    'pdf' ,'copy', 'csv', 'excel', 'print'
+                ]
+            } );
+
+            $('#tabla_fuentes').DataTable( {
+                responsive: true,
+                "searching": false,
+                dom: 'Bfrtip',
+                buttons: [
+                    'pdf' ,'copy', 'csv', 'excel', 'print'
+                ]
+            } );
+
         $('#registros').on('click','tr td', function(evt){
             var target;
             target = $(event.target);
