@@ -3,7 +3,7 @@
     Listar Registros y Herretes
 @stop
 @section('sidebar')
-  @include('admin.roles.cuerpo.aside')
+  @include('administrativo.registros.cuerpo.aside')
 @stop
 @section('content')
 <div class="row">

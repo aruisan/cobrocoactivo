@@ -38,8 +38,7 @@
                     <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
                         <label class="control-label">Datos persona: </label>
                         <div class="input-group">
-                            <input type="hidden" name="persona">
-                            <input type="text" class="form-control" id="demandado" data-toggle="modal" data-target="#modal-demandado">
+                            <input type="text" class="form-control" data-toggle="modal" data-target="#participante">
                         </div>
                         <small class="form-text text-muted">relacionar persona</small>
                     </div>
