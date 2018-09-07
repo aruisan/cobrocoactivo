@@ -1,10 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Hacienda\Presupuesto\Cdp;
 
-use App\Cdp;
+use App\Model\Hacienda\Presupuesto\Cdp\Cdp;
+use App\Model\Hacienda\Presupuesto\Rubro;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Model\Admin\Dependencia;
 
+use Session;
 class CdpController extends Controller
 {
     /**
@@ -14,7 +18,7 @@ class CdpController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -24,7 +28,9 @@ class CdpController extends Controller
      */
     public function create()
     {
-        //
+        $dependencias = Dependencia::all();
+        $rubros = Rubro::all();
+        return view('hacienda.presupuesto.cdp.create', compact('dependencias','rubros'));
     }
 
     /**
@@ -35,7 +41,19 @@ class CdpController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $cdp = new Cdp();
+        $cdp->name = $request->name;
+        $cdp->valor = $request->valor;
+        $cdp->fecha = $request->fecha;
+        $cdp->dependencia_id = $request->dependencia_id;
+        $cdp->estado = $request->estado;
+        $cdp->observacion = $request->observacion;
+        $cdp->ejecucion= $request->ejecucion;
+        $cdp->saldo = $request->saldo;
+        $cdp->rubro_id = $request->rubro_id;
+        $cdp->save();
+        Session::flash('success','El CDP se ha creado exitosamente');
+        return redirect('../presupuesto');
     }
 
     /**
