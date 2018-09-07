@@ -97,11 +97,11 @@
             methods:{
                 getJefes: function(){
                     var data = $('#type').val();
-                        if(data > 1)
+                        if(data == 1 || data == 5 || data == 6)
                         {
-                            $('#divJefes').show();
-                        }else{
                             $('#divJefes').hide();
+                        }else{
+                            $('#divJefes').show();
                         }
                     var url = '/admin/funcionarios/jefes/'+data;
                     axios.get(url)

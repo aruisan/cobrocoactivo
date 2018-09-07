@@ -13,20 +13,28 @@ class UserTypeTableSeeder extends Seeder
     public function run()
     {
         Type::create([
-                'nombre' => 'Juez',
+                'nombre' => 'Juez CobroCoactivo',
         ]);
 
         Type::create([
-                'nombre' => 'Coordinador',
+                'nombre' => 'Coordinador CobroCoactivo',
         ]);
                 
         Type::create([
-                'nombre' => 'Abogado',
+                'nombre' => 'Abogado CobroCoactivo',
         ]);        
 
         Type::create([
-                'nombre' => 'Secretaria',
-        ]);        
+                'nombre' => 'Secretaria CobroCoactivo',
+        ]);      
+
+        Type::create([
+                'nombre' => 'Secretaria Dependencia',
+        ]);  
+
+        Type::create([
+                'nombre' => 'Administrador Dependencia',
+        ]);    
 
     }
 }

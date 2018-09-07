@@ -134,6 +134,7 @@ class FuncionariosController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //dd($request->jefe);
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
@@ -168,14 +169,15 @@ class FuncionariosController extends Controller
             $jefe = UserBoss::find($user->user_boss->id);
             $jefe->boss_id = $request->jefe;
             $jefe->save();
-        }elseif($request->jefe)
+        }elseif(!$request->jefe || $user->user_boss)
         {
+            $delete = UserBoss::where('user_id', $user->id)->delete();
+        }else{
             $jefe = new UserBoss;
             $jefe->user_id = $user->id;
             $jefe->boss_id = $request->jefe;
             $jefe->save();
         }
-
 
         return redirect()->route('funcionarios.index')
                         ->with('success','Usuario Actualizado Satisfactoriamente');
@@ -200,17 +202,17 @@ class FuncionariosController extends Controller
     public function jefe($tipo)
     {
         $type = Type::find($tipo);
-        if($type->nombre == "Secretaria")
+        if($type->nombre == "Secretaria CobroCoactivo")
         {
-            $tipo = Type::where('nombre', 'Abogado')->first();
+            $tipo = Type::where('nombre', 'Abogado CobroCoactivo')->first();
         }
-        elseif($type->nombre == "Abogado")
+        elseif($type->nombre == "Abogado CobroCoactivo")
         {
-            $tipo = Type::where('nombre', 'Coordinador')->first();
+            $tipo = Type::where('nombre', 'Coordinador CobroCoactivo')->first();
         }
-        elseif($type->nombre == "Coordinador")
+        elseif($type->nombre == "Coordinador CobroCoactivo")
         {
-            $tipo = Type::where('nombre', 'Juez')->first();
+            $tipo = Type::where('nombre', 'Juez CobroCoactivo')->first();
         }
 
         return $funcionarios = User::where('type_id', $tipo->id)->get();

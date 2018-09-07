@@ -49,7 +49,7 @@
         <div class=" col-xs-12 col-sm-6 col-md-4 col-lg-4">
             <div class="form-group" style="display: none;" id="divJefes">
                 {{ Form::label('Jefe', 'Jefe')}}
-                <select class="form-control" name="jefe" v-model="selected">
+                <select class="form-control" name="jefe" v-model="selected" id="jefe">
                     <option v-for="dato in datos" v-bind:value="dato.id">
                       @{{dato.name}}
                     </option>             
@@ -92,17 +92,19 @@
             methods:{
                 getJefes: function(){
                     var data = $('#type').val();
-                        if(data > 1)
+                        if(data == 1 || data == 5 || data == 6)
                         {
-                            $('#divJefes').show();
-                        }else{
+                            this.selected = 0;
                             $('#divJefes').hide();
+                        }else{
+                            $('#divJefes').show();
+                            var url = '/admin/funcionarios/jefes/'+data;
+                            axios.get(url)
+                                 .then(response => {
+                                    this.datos = response.data;
+                            });
                         }
-                    var url = '/admin/funcionarios/jefes/'+data;
-                    axios.get(url)
-                         .then(response => {
-                            this.datos = response.data;
-                    });
+                    
                 }
 
             }
