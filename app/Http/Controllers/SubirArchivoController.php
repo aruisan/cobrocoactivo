@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\ModuloInicial;
 use App\File;
@@ -17,7 +15,6 @@ class SubirArchivoController extends Controller
        //$foto = \Storage::disk('local')->put($nombre,  \File::get($file));
        $upload = \Request::file('file')->move($path, $nombre);
        
-
        if($file == true)
        {
         $ingresar = new File;
@@ -26,13 +23,11 @@ class SubirArchivoController extends Controller
         $ingresar->ff_cargue = $request->fecha;
         $ingresar->proceso_id = $request->id;
         $ingresar->save();
-
         return redirect()->route('subirArchivo.show', $request->id)
-        				->with('success','El archivo fue subido correctamente');
+                ->with('success','El archivo fue subido correctamente');
        }
         
     }
-
     /**
      * Display the specified resource.
      *

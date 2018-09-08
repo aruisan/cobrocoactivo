@@ -5,7 +5,7 @@
 <div class="row">
 	<div class="col-lg-12">
 		<ol class="breadcrumb">
-			<li> <a href="{{ url()->previous() }}" class="btn btn-link botonMenu">Ver Procesos</a></li>       
+			<li> <a href="{{ url('dashboard/contractual') }}" class="btn btn-link botonMenu">Ver Procesos</a></li>       
 			<li class="active">Ver archivos el proceso</li>
 		</ol>
 	</div>
@@ -79,48 +79,43 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title" id="myModalLabel"> Formulario de Archivos</h4>
 			</div>
-			@if ($modulo->modulo=='contractual')
 			<form  class="form-horizontal" enctype="multipart/form-data" method="POST" action="{{ route('subirArchivoContractual.store') }}" >
-				@else
 				<form  class="form-horizontal" enctype="multipart/form-data" method="POST" action="{{ route('subirArchivo.store') }}" >
-					@endif
-
-					<form  class="form-horizontal" enctype="multipart/form-data" method="POST" action="{{ route('subirArchivo.store') }}" >
-						<div class="modal-body-2">
-							{!! csrf_field() !!}
-							<div class="form-group">
-								<label for="nombre" class="col-sm-2 control-label">Nombre</label>
-								<div class="col-sm-10">
-									<input type="hidden" name="id" value="{{ $modulo->id }}">
-									<input type="text" class="form-control" name="nombre" placeholder="Nombre" required>
-								</div>
+					<div class="modal-body-2">
+						{!! csrf_field() !!}
+						<div class="form-group">
+							<label for="nombre" class="col-sm-2 control-label">Nombre</label>
+							<div class="col-sm-10">
+								<input type="hidden" name="id" value="{{ $modulo->id }}">
+								<input type="text" class="form-control" name="nombre" placeholder="Nombre" required>
 							</div>
-
-							<div class="form-group">
-								<label for="email" class="col-sm-2 control-label">FECHA</label>
-								<div class="col-sm-10">
-									<input type="date" class="form-control" name="fecha" required>
-								</div>
-							</div>
-
-							<label for="inputFile" class="col-md-2 control-label">File</label>
-
-							<div class="col-md-10">
-								<input type="file" name="file">
-							</div>
-
 						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-							<button type="submit" class="btn btn-primary">Subir Archivo</button>
+
+						<div class="form-group">
+							<label for="email" class="col-sm-2 control-label">FECHA</label>
+							<div class="col-sm-10">
+								<input type="date" class="form-control" name="fecha" required>
+							</div>
 						</div>
-					</form>
-				</div>
+
+						<label for="inputFile" class="col-md-2 control-label">File</label>
+
+						<div class="col-md-10">
+							<input type="file" name="file">
+						</div>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+						<button type="submit" class="btn btn-primary">Subir Archivo</button>
+					</div>
+				</form>
 			</div>
 		</div>
+	</div>
 
-		@stop
-		@section('sidebar')
+	@stop
+	@section('sidebar')
 
-		@stop       
+	@stop       
 

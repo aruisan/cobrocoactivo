@@ -23,15 +23,15 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 	{
 		Route::get('notificaciones', 'NotificationController@index')->name('notificaciones.index');
 
-	    Route::get('notificaciones/{id}', 'NotificationController@read')->name('notifications.read');
-	    Route::delete('notificaciones/{id}', 'NotificationController@destroy')->name('notifications.destroy');
-	    Route::get('notificaciones-visibilidad/{id}', 'NotificationController@visibilidad')->name('notification.visibilidad');
+		Route::get('notificaciones/{id}', 'NotificationController@read')->name('notifications.read');
+		Route::delete('notificaciones/{id}', 'NotificationController@destroy')->name('notifications.destroy');
+		Route::get('notificaciones-visibilidad/{id}', 'NotificationController@visibilidad')->name('notification.visibilidad');
 
 		Route::resource('administrativos', 'Sansonatorio\AdministrativoController');
 		Route::resource('comisariafamilia', 'Convivencia\ComisariaFamiliaController');
 		Route::resource('comiteconciliacion', 'Judicial\ComiteConsiliacionController');
 		Route::resource('comparendos', 'Convivencia\ComparendoController');
-		Route::resource('contractual', 'Administrativo\ContractualController');
+		Route::resource('contractual', 'Administrativo\Contractual\ContractualController');
 		Route::resource('correspondencia', 'Administrativo\GestionDocumental\CorrespondenciaController');
 		Route::resource('demandante', 'Judicial\DemandanteController');
 		Route::resource('demandado', 'Judicial\DemandadoController');
@@ -39,20 +39,21 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 		Route::resource('licenciasplaneacion', 'Planeacion\LicenciaPlaneacionController');
 		Route::resource('maquinaria', 'Infraestructura\MaquinariaController');
 		Route::resource('pazysalvo', 'Administrativo\PazYSalvoController');
-	    Route::resource('planmejoramiento', 'Auditoria\ControlInterno\PlanMejoramientoController');
+		Route::resource('planmejoramiento', 'Auditoria\ControlInterno\PlanMejoramientoController');
 		Route::resource('podaarboles', 'Administrativo\MedioAmbiente\PodaArbolController');
 		Route::resource('policivo', 'Convivencia\PolicivoController');
 		Route::resource('titulacionpredios', 'Administrativo\Vivienda\TitulacionPredioController');
 
 		Route::resource('subirArchivo', 'SubirArchivoController');
+		Route::resource('subirArchivoContractual', 'Administrativo\Contractual\SubirArchivoContractualController');
 
-	 });
+	});
 
 	Route::group(['prefix' => 'administrativo'] ,function () 
 	{
 		Route::resource('registros', 'Administrativo\RegistrosController');
-	    
-	 });
+		
+	});
 
 
 	Route::group(['prefix' => 'admin'] ,function () 
@@ -127,7 +128,7 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
 		///// CDOP's
 
-        Route::resource('cdp', 'Hacienda\Presupuesto\Cdp\CdpController');
+		Route::resource('cdp', 'Hacienda\Presupuesto\Cdp\CdpController');
 
 	});
 

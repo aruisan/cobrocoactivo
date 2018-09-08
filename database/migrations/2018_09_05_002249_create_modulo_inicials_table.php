@@ -21,9 +21,6 @@ class CreateModuloInicialsTable extends Migration
             $table->integer('valor')->nullable();
             $table->text('asunto')->nullable();
             $table->timestamps();
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
-
         });
     }
 

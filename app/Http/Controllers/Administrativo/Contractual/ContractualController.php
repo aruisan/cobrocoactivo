@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Administrativo;
+namespace App\Http\Controllers\Administrativo\Contractual;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\ModuloInicial;
+use App\Model\Administrativo\Contractuall\Contractual;
+use App\File;
 
 class ContractualController extends Controller
 {
@@ -14,18 +15,21 @@ class ContractualController extends Controller
         $dependencia = auth()->user()->dependencia_id;
         $usuario = auth()->id();
 
-        $consulta = DB::table('modulo_inicial')
-        ->join('users','modulo_inicial.user_id','=','users.id')
+        $consulta = DB::table('contractuales')
+        ->join('users','contractuales.idUsers','=','users.id')
         ->join('dependencias','users.dependencia_id','=','dependencias.id')
-        ->select('modulo_inicial.id','modulo_inicial.modulo','modulo_inicial.responsable','modulo_inicial.valor','modulo_inicial.asunto')
-        ->where('modulo_inicial.modulo', '=', 'contractual')
+        ->select('contractuales.id','contractuales.modulo','contractuales.responsable','contractuales.valor','contractuales.asunto')
+        ->where('contractuales.modulo', '=', 'contractual')
         ->where('dependencias.id','=',$dependencia)
         ->get();
 
+        // $consulta = Contractual::where('modulo', '=', 'contractual')->get();
+
+
         // $consulta = ModuloInicial::where('modulo', '=', 'contractual')
-        // ->where('user_id','=',$usuario)
+        // ->where('idUsers','=',$usuario)
         // ->get();
-        return view('administrativo/contractual/index')->with('consulta', $consulta);
+        return view('administrativo.contractual.index')->with('consulta', $consulta);
 
     }
 
@@ -37,7 +41,7 @@ class ContractualController extends Controller
     public function create()
     {
         return view('administrativo.contractual.create');
-        ;    }
+        ;}
 
     /**
      * Store a newly created resource in storage.
@@ -47,12 +51,12 @@ class ContractualController extends Controller
      */
     public function store(Request $request)
     {
-        $ingresar = new ModuloInicial;
+        $ingresar = new Contractual;
         $ingresar->responsable = $request->responsable;
         $ingresar->valor  = $request->valor;
         $ingresar->asunto = $request->asunto;
         $ingresar->modulo = 'contractual';
-        $ingresar->user_id = auth()->id();
+        $ingresar->idUsers = auth()->id();
         $ingresar->save();
 
         return redirect()->route('contractual.index')
