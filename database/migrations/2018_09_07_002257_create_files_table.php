@@ -18,10 +18,10 @@ class CreateFilesTable extends Migration
             $table->string('nombre', 200);
             $table->string('ruta', 200);
             $table->date('ff_cargue');
+            
             $table->unsignedInteger('proceso_id')->nullable();
-            $table->unsignedInteger('contractuales_id')->nullable();
             $table->foreign('proceso_id')->references('id')->on('modulo_inicial');
-            $table->foreign('contractuales_id')->references('id')->on('contractuales');
+
             $table->timestamps();
         });
     }
