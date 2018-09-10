@@ -13,7 +13,7 @@ class UpdateFilesTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function(Blueprint $table){
+        Schema::table('files', function(Blueprint $table){
             $table->unsignedInteger('contractuales_id')->nullable()->after('proceso_id');
             $table->foreign('contractuales_id')->references('id')->on('contractuales');
         });
