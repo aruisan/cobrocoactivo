@@ -22,4 +22,8 @@ class Rubro extends Model
 	 public function fontsRubro(){
 		return $this->hasMany('App\Model\Hacienda\Presupuesto\FontsRubro','rubro_id');
 	}
+
+    public function subProyecto() {
+        return $this->hasOne('App\Model\Planeacion\Pdd\SubProyecto', 'id', 'subproyecto_id');
+    }
 }

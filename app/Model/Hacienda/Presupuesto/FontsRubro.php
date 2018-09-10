@@ -9,6 +9,6 @@ class FontsRubro extends Model
 	protected $table = 'fonts_rubro';
 	
     public function font(){
-		return $this->hasMany('App\Model\Hacienda\Presupuesto\Font','font_id');
+		return $this->hasOne('App\Model\Hacienda\Presupuesto\Font','id','font_id');
 	}
 }

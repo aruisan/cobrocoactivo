@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
 use App\Model\Hacienda\Presupuesto\Rubro;
+use App\Model\Hacienda\Presupuesto\FontsRubro;
 use App\Model\Hacienda\Presupuesto\Font;
 use App\Model\Planeacion\Pdd\SubProyecto;
 use App\Model\Dependencia;
@@ -96,6 +97,9 @@ class RubrosController extends Controller
      */
     public function show($id)
     {
+        $rubro = Rubro::findOrFail($id);
+        $fuentesR = $rubro->Fontsrubro;
+        return view('hacienda.presupuesto.rubro.show', compact('rubro','fuentesR'));
         
     }
 
