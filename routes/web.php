@@ -27,11 +27,12 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 		Route::delete('notificaciones/{id}', 'NotificationController@destroy')->name('notifications.destroy');
 		Route::get('notificaciones-visibilidad/{id}', 'NotificationController@visibilidad')->name('notification.visibilidad');
 
+		
+		Route::resource('contractual', 'Administrativo\Contractual\ContractualController');
 		Route::resource('administrativos', 'Sansonatorio\AdministrativoController');
 		Route::resource('comisariafamilia', 'Convivencia\ComisariaFamiliaController');
 		Route::resource('comiteconciliacion', 'Judicial\ComiteConsiliacionController');
 		Route::resource('comparendos', 'Convivencia\ComparendoController');
-		Route::resource('contractual', 'Administrativo\Contractual\ContractualController');
 		Route::resource('correspondencia', 'Administrativo\GestionDocumental\CorrespondenciaController');
 		Route::resource('demandante', 'Judicial\DemandanteController');
 		Route::resource('demandado', 'Judicial\DemandadoController');
@@ -43,7 +44,6 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 		Route::resource('podaarboles', 'Administrativo\MedioAmbiente\PodaArbolController');
 		Route::resource('policivo', 'Convivencia\PolicivoController');
 		Route::resource('titulacionpredios', 'Administrativo\Vivienda\TitulacionPredioController');
-
 		Route::resource('subirArchivo', 'SubirArchivoController');
 		Route::resource('subirArchivoContractual', 'Administrativo\Contractual\SubirArchivoContractualController');
 
@@ -167,6 +167,16 @@ Route::group(['prefix' => 'almacen'] ,function ()
 	Route::get('/entradas','Hacienda\Almacen\AlmacenController@entradas');
 	Route::get('/salidas','Hacienda\Almacen\AlmacenController@salidas');
 	Route::Resource('/','Hacienda\Almacen\AlmacenController');
-	//return view('hacienda.almacen.index');
 
+});
+
+////// RUTAS CONTRACTUAL
+Route::group(['prefix' => 'contractual'] ,function ()
+{
+	// Route::get('/nuevaEntrada','Hacienda\Almacen\AlmacenController@nuevaEntrada');
+	// Route::get('/inventarioEntradas','Hacienda\Almacen\AlmacenController@inventarioEntradas');
+	// Route::get('/inventarioSalidas','Hacienda\Almacen\AlmacenController@inventarioSalidas');
+	// Route::get('/entradas','Hacienda\Almacen\AlmacenController@entradas');
+	Route::get('/rubros','Administrativo\Contractual\VerRubrosController@index');
+	Route::Resource('/','Administrativo\Contractual\ContractualController');
 });

@@ -30,5 +30,10 @@
 </table>
 @stop
 @section('sidebar')
-<a href="{{ route('contractual.create') }}" class="btn btn-primary">Nuevo Contractual</a>
+<li>
+    <a href="{{ route('contractual.create') }}" class="btn btn-primary waves-effect waves-light active">Nuevo Contractual</a>    
+</li>
+<li>
+    <a href="{{ url('/contractual/rubros') }}" class="btn btn-primary waves-effect waves-light active">ver rubros</a>    
+</li>
 @stop
