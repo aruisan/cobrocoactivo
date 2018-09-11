@@ -156,7 +156,7 @@ class RubrosController extends Controller
 
         foreach ($rubros as $rubro){
             if ($dependencia == $rubro->subProyecto->dependencia->id){
-                $datas[]= collect(['codRubro'=> $rubro->cod,'name' => $rubro->name, 'dep' => $rubro->subProyecto->dependencia->name, 'subP' => $rubro->subProyecto->name, 'valor' => $rubro->fontsRubro->sum('valor')]);
+                $datas[]= collect(['idRubro'=>$rubro->id,'codRubro'=> $rubro->cod,'name' => $rubro->name, 'dep' => $rubro->subProyecto->dependencia->name, 'subP' => $rubro->subProyecto->name, 'valor' => $rubro->fontsRubro->sum('valor')]);
             }
         }
 

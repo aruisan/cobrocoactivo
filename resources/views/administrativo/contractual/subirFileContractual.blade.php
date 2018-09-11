@@ -116,6 +116,6 @@
 
 	@stop
 	@section('sidebar')
-
+@include('administrativo.contractual.sideBar')
 	@stop       
 

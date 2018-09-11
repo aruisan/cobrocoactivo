@@ -44,5 +44,5 @@
 @stop
 
 @section('sidebar')
-<a href="{{ route('contractual.index') }}" class="btn btn-primary">Contractuales</a>
+@include('administrativo.contractual.sideBar')
 @stop
