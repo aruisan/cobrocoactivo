@@ -12,19 +12,19 @@
         <th>Cod Rubro</th>
         <th>Nom Rubro</th>
         <th>Dependencia</th>
-        <th>Subproyecto</th>{{-- 
+        <th>Subproyecto</th>
+        <th>Valor</th>
+{{--
         <th><i class="fa fa-pencil-square-o text-success"></i></th> --}}
     </thead>
     <tbody>
-        @foreach($consulta as $data )
-
-        <tr>
-            <td>{{$data->cod}}</td>
-            <td>{{$data->rubro}}</td>
-            <td>{{$data->dependencia}}</td>
-            <td>{{$data->subproyecto}}</td>
-    {{--         <td>{{$data->valor}}</td>
-            <td>{{$data->asunto}}</td> --}}
+        @foreach($datas as $data )
+            <tr>
+                <td>{{$data['codRubro']}}</td>
+                <td>{{$data['name']}}</td>
+                <td>{{$data['dep']}}</td>
+                <td>{{$data['subP']}}</td>
+                <td>{{$data['valor']}}</td>
            {{--  <td><a href="contractual/{{$data->id}}/edit " class="btn btn-success"><span class="glyphicon glyphicon-edit"></span></a></td>
             <td><a href="{{route('subirArchivoContractual.show', $data->id)}}" class="btn btn-warning">ver</a></td> --}}
         </tr>

@@ -13,6 +13,8 @@ use App\Model\Dependencia;
 use App\Model\Hacienda\Presupuesto\Vigencia;
 use App\Model\Hacienda\Presupuesto\Level;
 use App\Model\Hacienda\Presupuesto\Register;
+use Illuminate\Support\Facades\DB;
+
 use Session;
 
 class RubrosController extends Controller
@@ -99,6 +101,7 @@ class RubrosController extends Controller
     {
         $rubro = Rubro::findOrFail($id);
         $fuentesR = $rubro->Fontsrubro;
+        //dd($fuentesR);
         $valor = $fuentesR->sum('valor');
         return view('hacienda.presupuesto.rubro.show', compact('rubro','fuentesR','valor'));
         
@@ -143,5 +146,20 @@ class RubrosController extends Controller
     {
         $proyecto = Rubro::find($id);
         $proyecto->delete();
+    }
+
+    public function index()
+    {
+        $dependencia = auth()->user()->dependencia_id;
+        $usuario = auth()->id();
+        $rubros = Rubro::all();
+
+        foreach ($rubros as $rubro){
+            if ($dependencia == $rubro->subProyecto->dependencia->id){
+                $datas[]= collect(['codRubro'=> $rubro->cod,'name' => $rubro->name, 'dep' => $rubro->subProyecto->dependencia->name, 'subP' => $rubro->subProyecto->name, 'valor' => $rubro->fontsRubro->sum('valor')]);
+            }
+        }
+
+        return view('administrativo.contractual.rubrosAsignados', compact('datas'));
     }
 }
