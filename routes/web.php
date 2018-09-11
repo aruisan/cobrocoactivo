@@ -52,7 +52,9 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 	Route::group(['prefix' => 'administrativo'] ,function () 
 	{
 		Route::resource('registros', 'Administrativo\RegistrosController');
-		
+
+        Route::resource('cdp', 'Administrativo\Cdp\CdpController');
+
 	});
 
 
@@ -125,10 +127,6 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
 		Route::resource('FontRubro', 'Hacienda\Presupuesto\FontRubroController');
 		Route::resource('FontRubro/saldo', 'Hacienda\Presupuesto\FontRubroController@saldoFont');
-
-		///// CDOP's
-
-		Route::resource('cdp', 'Hacienda\Presupuesto\Cdp\CdpController');
 
 	});
 

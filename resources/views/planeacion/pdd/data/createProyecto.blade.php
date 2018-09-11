@@ -34,8 +34,6 @@
                         <th class="text-center">Línea Base</th>
                         <th class="text-center">Indicador</th>
                         <th class="text-center">Meta Inicial Resultado</th>
-                        <th class="text-center">Modificación Meta</th>
-                        <th class="text-center">Meta Definitiva</th>
                         <th class="text-center">Programa</th>
                         <th class="text-center"><i class="fa fa-trash-o"></i></th>
                         <th class="text-center"><i class="fa fa-bars"></i></th>
@@ -52,8 +50,8 @@
                             <td><input type="number" name="linea_base[]" required></td>
                             <td><input type="text" name="indicador[]" required></td>
                             <td><input type="number" name="metaInicial[]" required></td>
-                            <td><input type="number" name="modificacion[]" required></td>
-                            <td><input type="number"  name="metaDefinitiva[]" required></td>
+                            <input type="hidden" value="0" name="modificacion[]">
+                            <input type="hidden" value="0" name="metaDefinitiva[]">
                             <td>
                                 <select name="programa_id[]">
                                     @foreach($pdd->ejes as $ejes)
@@ -63,7 +61,7 @@
                                     @endforeach
                                 </select>
                             </td>
-                            <td class="text-center"><button type="button" class="btn-sn btn-danger borrar">&nbsp;-&nbsp;</button></td>
+                            <td class="text-center"><button type="button" class="btn-sn btn-danger borrar">&nbsp; - &nbsp;</button></td>
                             <td></td>
                         </tr>
                             @foreach($pdd->ejes as $ejes)
@@ -80,8 +78,6 @@
                                             <td><input style="text-align:center" type="number" name="linea_base[]" value="{{ $proyecto->linea_base }}" required></td>
                                             <td><input style="text-align:center" type="text" name="indicador[]" value="{{ $proyecto->indicador }}" required></td>
                                             <td><input style="text-align:center" type="number" name="metaInicial[]" value="{{ $proyecto->metaInicial }}" required></td>
-                                            <td><input style="text-align:center" type="number" name="modificacion[]" value="{{ $proyecto->modificacion }}" required></td>
-                                            <td><input style="text-align:center" type="number" name="metaDefinitiva[]" value="{{ $proyecto->metaDefinitiva }}" required></td>
                                             <td>
                                                 <select name="programa_id[]">
                                                     @foreach($pdd->ejes as $ejes)
@@ -166,8 +162,8 @@ new Vue({
                 '                                   <td><input type="number" name="linea_base[]" required></td>\n' +
                 '                                   <td><input type="text" name="indicador[]" required></td>\n' +
                 '                                   <td><input type="number" name="metaInicial[]" required></td>\n' +
-                '                                   <td><input type="number" name="modificacion[]" required></td>\n' +
-                '                                   <td><input type="number" name="metaDefinitiva[]" required></td>\n' +
+                '                                   <input type="hidden" value="0" name="modificacion[]" required>\n' +
+                '                                   <input type="hidden" value="0" name="metaDefinitiva[]" required>\n' +
                 '                                   <td>\n' +
                 '                                       <select name="programa_id[]">\n' +
                 '                                       @foreach($pdd->ejes as $ejes)\n' +

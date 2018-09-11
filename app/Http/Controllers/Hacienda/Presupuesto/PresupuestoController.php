@@ -12,7 +12,7 @@ use App\Model\Admin\Dependencia;
 use App\Model\Hacienda\Presupuesto\Vigencia;
 use App\Model\Hacienda\Presupuesto\Level;
 use App\Model\Hacienda\Presupuesto\Register;
-use App\Model\Hacienda\Presupuesto\Cdp\Cdp;
+use App\Model\Administrativo\Cdp\Cdp;
 
 
 class PresupuestoController extends Controller

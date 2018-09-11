@@ -2,9 +2,6 @@
 @section('titulo')
     Creación de CDP
 @stop
-@section('sidebar')
-    <li> <a href="{{ url('/presupuesto') }}" class="btn btn-success"><i class="fa fa-money"></i><span class="hide-menu">&nbsp; Presupuesto</span></a></li>
-@stop
 @section('content')
     <div class="col-md-12 align-self-center">
         <div class="row justify-content-center">
@@ -12,7 +9,7 @@
             <center><h2>Nuevo CDP</h2></center>
             <br>
             <div class="form-validation">
-                <form class="form-valide" action="{{url('/presupuesto/cdp')}}" method="POST" enctype="multipart/form-data">
+                <form class="form-valide" action="{{url('/administrativo/cdp')}}" method="POST" enctype="multipart/form-data">
                     <hr>
                     {{ csrf_field() }}
                     <div class="col-md-6 align-self-center">
@@ -34,16 +31,6 @@
                                 <input type="date" class="form-control" name="fecha" value="{{ Carbon\Carbon::today()->Format('Y-m-d')}}" min="{{ Carbon\Carbon::today()->Format('Y-m-d')}}">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-lg-4 col-form-label text-right" for="dependencias">Dependencias <span class="text-danger">*</span></label>
-                            <div class="col-lg-6">
-                                <select name="dependencia_id" class="form-control">
-                                    @foreach($dependencias as  $dependencia)
-                                        <option value="{{ $dependencia->id }}">{{ $dependencia->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
                     </div>
                     <div class="col-md-6 align-self-center">
                         <div class="form-group">
@@ -59,23 +46,24 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 col-form-label text-right" for="rubro_id">Rubros <span class="text-danger">*</span></label>
-                            <div class="col-lg-6">
-                                <select name="rubro_id" class="form-control">
-                                    @foreach($rubros as  $rubro)
-                                        <option value="{{ $rubro->id }}">{{ $rubro->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <label class="col-lg-4 col-form-label text-right" for="observacion">Observación<span class="text-danger">*</span></label>
                             <div class="col-lg-6">
                                 <textarea name="observacion" class="form-control"></textarea>
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="col-lg-4 col-form-label text-right" for="rubro_id">Rubros <span class="text-danger">*</span></label>
+                        <div class="col-lg-6">
+                            <select name="rubro_id" class="form-control">
+                                @foreach($rubros as  $rubro)
+                                    <option value="{{ $rubro->id }}">{{ $rubro->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                     <input type="hidden" class="form-control" name="estado" value="0">
+                    <input type="hidden" class="form-control" name="dependencia_id" value="{{ $dependencia }}">
                     <center>
                         <div class="form-group row">
                             <div class="col-lg-12 ml-auto">

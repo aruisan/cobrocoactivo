@@ -27,7 +27,7 @@ class ProyectosController extends Controller
 
     public function store(Request $request)
     {
-
+        //dd($request);
         $id        = $request->id;
         $code        = $request->code;
         $name      = $request->nombre;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Hacienda\Presupuesto\Cdp;
+namespace App\Model\Administrativo\Cdp;
 
 use Illuminate\Database\Eloquent\Model;
 

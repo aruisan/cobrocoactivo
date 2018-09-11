@@ -212,7 +212,7 @@
                     <div class="table-responsive">
                             @if(count($cdps) >= 1)
                             <br>
-                            <a href="{{ url('presupuesto/cdp/create') }}" class="btn btn-primary btn-block m-b-12">Crear Nuevo CDP</a>
+                            <a href="{{ url('administrativo/cdp/create') }}" class="btn btn-primary btn-block m-b-12">Crear Nuevo CDP</a>
                             <br>
                             <table class="table table-bordered" id="tabla_CDP">
                                 <thead>
@@ -240,7 +240,7 @@
                                                 @endif
                                             </span></td>
                                         <td class="text-center">
-                                            <a href="{{ url('presupuesto/cdp/'.$cdp->id.'/edit') }}" class="btn-sm btn-success"><i class="fa fa-edit"></i></a>
+                                            <a href="{{ url('administrativo/cdp/'.$cdp->id.'/edit') }}" class="btn-sm btn-success"><i class="fa fa-edit"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

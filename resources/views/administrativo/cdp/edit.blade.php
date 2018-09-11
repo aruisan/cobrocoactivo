@@ -2,9 +2,6 @@
 @section('titulo')
     Información del CDP
 @stop
-@section('sidebar')
-    <li> <a href="{{ url('/presupuesto') }}" class="btn btn-success"><i class="fa fa-money"></i><span class="hide-menu">&nbsp; Presupuesto</span></a></li>
-@stop
 @section('content')
     <div class="col-md-12 align-self-center">
         <div class="row justify-content-center">
