@@ -18,7 +18,6 @@ class VerRubrosController extends Controller
     {
         $dependencia = auth()->user()->dependencia_id;
         $usuario = auth()->id();
-
         $consulta = DB::table('rubros')
         ->join('sub_proyectos','rubros.subproyecto_id','=','sub_proyectos.id')
         ->join('dependencias','sub_proyectos.dependencia_id','=','dependencias.id')
@@ -58,7 +57,7 @@ class VerRubrosController extends Controller
      */
     public function show($id)
     {
-        //
+       
     }
 
     /**

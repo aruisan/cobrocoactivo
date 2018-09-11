@@ -32,6 +32,7 @@ Almacén
 			<th>Cantidad</th>
 			<th>Entrada</th>
 			<th>Salida</th>
+			<th>Ver</th>
 		</tr>
 	</thead>
 	<tbody>
