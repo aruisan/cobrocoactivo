@@ -99,7 +99,8 @@ class RubrosController extends Controller
     {
         $rubro = Rubro::findOrFail($id);
         $fuentesR = $rubro->Fontsrubro;
-        return view('hacienda.presupuesto.rubro.show', compact('rubro','fuentesR'));
+        $valor = $fuentesR->sum('valor');
+        return view('hacienda.presupuesto.rubro.show', compact('rubro','fuentesR','valor'));
         
     }
 

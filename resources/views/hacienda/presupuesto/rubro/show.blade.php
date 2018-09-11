@@ -45,9 +45,9 @@
                     </div>
                     <center>
                         <div class="form-group">
-                            <label class="control-label text-right col-md-4" for="valor">Valor:</label>
-                            <div class="col-lg-6">
-                                <input type="number" disabled class="form-control" style="text-align:center" name="valor" value="{{ $rubro->cod }}">
+                            <label class="control-label text-right col-md-6" for="valor">Valor Total del Rubro:</label>
+                            <div class="col-lg-6 text-left">
+                                $ <?php echo number_format($valor,0);?>.00
                             </div>
                         </div>
                     </center>
@@ -56,24 +56,27 @@
         </div>
     </div>
     <div class="col-md-12 align-self-center">
+        <hr>
         <center>
             <h3>Fuentes del Rubro</h3>
         </center>
+        <hr>
     <br>
     <div class="table-responsive">
-        <br>
-        <table class="table table-bordered" width="100%" id="tabla_FR">
+        <table class="table table-bordered" id="tablaFuentesR">
             <thead>
             <tr>
                 <th class="text-center">Id</th>
+                <th class="text-center">Codigo</th>
                 <th class="text-center">Nombre</th>
-                <th class="text-center">valor</th>
+                <th class="text-center">Valor</th>
             </tr>
             </thead>
             <tbody>
             @foreach($fuentesR as  $fuentes)
                 <tr>
                     <td>{{ $fuentes->id }}</td>
+                    <td>{{ $fuentes->font->code }}</td>
                     <td>{{ $fuentes->font->name }}</td>
                     <td class="text-center">$ <?php echo number_format($fuentes['valor'],0);?>.00</td>
                 </tr>
@@ -85,13 +88,16 @@
     @stop
 @section('js')
     <script>
-        $('#tabla_FR').DataTable( {
-            responsive: true,
-            "searching": false,
-            "ordering": false,
-            dom: 'Bfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'print'
-            ]
+        $(document).ready(function() {
+            $('#tablaFuentesR').DataTable( {
+                responsive: true,
+                "searching": false,
+                "pageLength": 5,
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'print'
+                ]
+            } );
         } );
+    </script>
 @stop
