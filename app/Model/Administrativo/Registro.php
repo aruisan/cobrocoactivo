@@ -10,4 +10,9 @@ class Registro extends Model
     {
         return $this->hasOne('App\Model\Persona');
     }
+
+    public function cdp()
+    {
+        return $this->belongsTo('App\Model\Administrativo\Cdp\Cdp','cdp_id');
+    }
 }

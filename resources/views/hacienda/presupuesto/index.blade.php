@@ -240,7 +240,9 @@
                                                 @endif
                                             </span></td>
                                         <td class="text-center">
-                                            <a href="{{ url('administrativo/cdp/'.$cdp->id.'/edit') }}" class="btn-sm btn-success"><i class="fa fa-edit"></i></a>
+                                            <a href="{{ url('administrativo/cdp/'.$cdp->id.'/edit') }}" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                                            <a href="#" title="Aprobar" class="btn-sm btn-success"><i class="fa fa-check"></i></a>
+                                            <a href="#" title="Rechazar" class="btn-sm btn-danger"><i class="fa fa-times-circle"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

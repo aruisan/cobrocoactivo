@@ -15,13 +15,23 @@ class CreateRegistrosTable extends Migration
     {
         Schema::create('registros', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('ff_vencimiento');
+            $table->text('objeto');
             $table->date('ff_expedicion');
             $table->string('ruta');
+            $table->integer('valor');
 
             $table->integer('persona_id')->unsigned();
             $table->foreign('persona_id')->references('id')->on('personas');
 
+            $table->integer('cdp_id')->unsigned();
+            $table->foreign('cdp_id')->references('id')->on('cdps');
+
+            $table->integer('contrato_id')->unsigned();
+            $table->foreign('contrato_id')->references('id')->on('contractuales');
+
+            $table->enum('secretaria_e', [0, 1, 2, 3]);
+            $table->enum('jcontratacion_e', [0, 1, 2, 3]);
+            $table->enum('jpresupuesto_e', [0, 1, 2, 3]);
 
             $table->timestamps();
         });

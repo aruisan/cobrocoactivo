@@ -15,7 +15,7 @@ class CreateCdpsTable extends Migration
     {
         Schema::create('cdps', function (Blueprint $table) {
             $table->increments('id');
-            $table->char('name');
+            $table->text('name');
             $table->integer('valor');
             $table->date('fecha');
 
@@ -24,7 +24,6 @@ class CreateCdpsTable extends Migration
 
             $table->enum('estado', [0, 1, 2, 3]);
             $table->text('observacion');
-            $table->char('ejecucion');
             $table->integer('saldo');
 
             $table->integer('rubro_id')->unsigned();

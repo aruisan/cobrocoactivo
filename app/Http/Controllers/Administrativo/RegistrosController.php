@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Intervention\Image\Facades\Image;
 use App\Model\Administrativo\Registro;
+use App\Model\Administrativo\Cdp\Cdp;
 
 
 class RegistrosController extends Controller

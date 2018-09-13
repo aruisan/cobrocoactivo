@@ -19,7 +19,8 @@ class CdpController extends Controller
      */
     public function index()
     {
-
+        $cdps = Cdp::all();
+        return view('administrativo.cdp.index', compact('cdps'));
     }
 
     /**
@@ -77,9 +78,8 @@ class CdpController extends Controller
     public function edit($cdp)
     {
         $idcdp = Cdp::find($cdp);
-        $dependencias = Dependencia::all();
         $rubros = Rubro::all();
-        return view('administrativo.cdp.edit', compact('idcdp', 'dependencias','rubros'));
+        return view('administrativo.cdp.edit', compact('idcdp','rubros'));
     }
 
     /**
