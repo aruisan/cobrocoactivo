@@ -11,6 +11,9 @@
         <li>
             <a href="{{ url('/administrativo/cdp') }}" class="btn btn-primary">CDP's</a>
         </li>
+        <li>
+            <a href="{{ url('/administrativo/registros') }}" class="btn btn-primary">Registros y Herretes</a>
+        </li>
     </ul>
 </li>
 <li class="dropdown">

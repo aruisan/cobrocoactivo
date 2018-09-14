@@ -6,7 +6,6 @@ use App\Model\Administrativo\Cdp\Cdp;
 use App\Model\Hacienda\Presupuesto\Rubro;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Model\Admin\Dependencia;
 use Illuminate\Http\Response;
 
 use Session;
@@ -50,12 +49,11 @@ class CdpController extends Controller
         $cdp->dependencia_id = $request->dependencia_id;
         $cdp->estado = $request->estado;
         $cdp->observacion = $request->observacion;
-        $cdp->ejecucion= $request->ejecucion;
         $cdp->saldo = $request->saldo;
         $cdp->rubro_id = $request->rubro_id;
         $cdp->save();
         Session::flash('success','El CDP se ha creado exitosamente');
-        return redirect('/presupuesto');
+        return redirect('/administrativo/cdp');
     }
 
     /**
@@ -98,7 +96,6 @@ class CdpController extends Controller
         $store->dependencia_id = $request->dependencia_id;
         $store->estado = $request->estado;
         $store->observacion = $request->observacion;
-        $store->ejecucion = $request->ejecucion;
         $store->saldo = $request->saldo;
         $store->rubro_id = $request->rubro_id;
         $store->save();

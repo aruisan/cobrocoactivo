@@ -14,9 +14,9 @@
                     {{ csrf_field() }}
                     <div class="col-md-6 align-self-center">
                         <div class="form-group">
-                            <label class="col-lg-4 col-form-label text-right" for="nombre">Nombre <span class="text-danger">*</span></label>
+                            <label class="col-lg-4 col-form-label text-right" for="nombre">Objeto <span class="text-danger">*</span></label>
                             <div class="col-lg-6">
-                                <input type="text" class="form-control" name="name">
+                                <textarea name="name" class="form-control"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -25,20 +25,9 @@
                                 <input type="number" class="form-control" name="valor">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-lg-4 col-form-label text-right" for="fecha">Fecha <span class="text-danger">*</span></label>
-                            <div class="col-lg-6">
-                                <input type="date" class="form-control" name="fecha" value="{{ Carbon\Carbon::today()->Format('Y-m-d')}}" min="{{ Carbon\Carbon::today()->Format('Y-m-d')}}">
-                            </div>
-                        </div>
+                        <input type="hidden" class="form-control" name="fecha" value="{{ Carbon\Carbon::today()->Format('Y-m-d')}}" min="{{ Carbon\Carbon::today()->Format('Y-m-d')}}">
                     </div>
                     <div class="col-md-6 align-self-center">
-                        <div class="form-group">
-                            <label class="col-lg-4 col-form-label text-right" for="ejecucion">Ejecución <span class="text-danger">*</span></label>
-                            <div class="col-lg-6">
-                                <input type="text" class="form-control" name="ejecucion">
-                            </div>
-                        </div>
                         <div class="form-group">
                             <label class="col-lg-4 col-form-label text-right" for="saldo">Saldo <span class="text-danger">*</span></label>
                             <div class="col-lg-6">

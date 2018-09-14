@@ -9,7 +9,7 @@ use App\Model\Planeacion\Pdd\Eje;
 use App\Model\Planeacion\Pdd\SubProyecto;
 use App\Model\Planeacion\Pdd\Programa;
 use App\Model\Planeacion\Pdd\Proyecto;
-use Illuminate\Support\Facades\DB;
+use App\Traits\FileTraits;
 
 use SebastianBergmann\Diff\Diff;
 use Session;
@@ -68,6 +68,7 @@ class PdesarrolloController extends Controller
         $pdd->ff_inicio = $request->ff_inicio;
         $pdd->ff_final = $request->ff_final;
         $pdd->user_id = 1;
+        $pdd->ruta = $ruta;
         $pdd->save();
         Session::flash('success','El plan de desarrollo se ha creado exitosamente');
         return redirect('pdd/data/create/'.$pdd->id);

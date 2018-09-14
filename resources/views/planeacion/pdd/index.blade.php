@@ -425,7 +425,7 @@
     <div class="form-group">
         <label class="col-lg-4 col-form-label text-right" for="file">Anexar PDF</label>
         <div class="col-lg-6 fallback">
-            <input name="file" class="form-control" type="file" class="form-control" accept="application/pdf" >
+            <input name="file" type="file" class="form-control" accept="application/pdf" >
         </div>
     </div>
     <center>

@@ -29,6 +29,8 @@ class CreateCdpsTable extends Migration
             $table->integer('rubro_id')->unsigned();
             $table->foreign('rubro_id')->references('id')->on('rubros');
 
+            $table->string('ruta')->nullable();
+
             $table->timestamps();
         });
     }
