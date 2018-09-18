@@ -1,6 +1,6 @@
 
     <li class="dropdown">
-        <a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown" href="#">
+        <a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown">
             <i class="fa fa-ticket"></i> 
                 REGISTROS
             <i class="fa fa-caret-down"></i>

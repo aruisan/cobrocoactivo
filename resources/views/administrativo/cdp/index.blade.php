@@ -9,11 +9,6 @@
             <i class="fa fa-plus"></i>
             <span class="hide-menu"> Crear CDP</span></a>
     </li>
-    <li>
-        <a href="{{ url('/administrativo/registros') }}" class="btn btn-success">
-            <i class="fa fa-ticket"></i>
-            <span class="hide-menu"> Registros</span></a>
-    </li>
 @stop
 @section('content')
     <div class="col-md-12 align-self-center">

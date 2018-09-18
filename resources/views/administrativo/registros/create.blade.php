@@ -15,7 +15,7 @@
 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
     <br>
     <hr>
-    {!! Form::open(array('route' => 'registros.store','method'=>'POST')) !!}
+    {!! Form::open(array('route' => 'registros.store','method'=>'POST','enctype'=>'multipart/form-data')) !!}
     <input type="hidden" name="fecha" value="{{ Carbon\Carbon::today()->Format('Y-m-d')}}">
     <input type="hidden" name="secretaria_e" value="0">
     <div class="row">
