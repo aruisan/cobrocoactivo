@@ -92,7 +92,7 @@
                 <br>
                 @if($registro->secretaria_e == 0)
                 @else
-                    @if($rol == 4)
+                    @if($rol == 2)
                     @else
                     <button class="btn btn-success" id="aprobar">Aprobar</button>
                     <button class="btn btn-danger" id="rechazar">Rechazar</button>

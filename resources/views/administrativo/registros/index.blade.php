@@ -46,7 +46,7 @@
                 <td class="text-center">{{ $data->cdp->name }}</td>
                 <td class="text-center">{{ $data->ruta }}</td>
                 <td class="text-center">
-                    @if($rol == 4)
+                    @if($rol == 2)
                         @if($data->secretaria_e == 0)
                             <a href="{{url('/administrativo/registros/'.$data->id.'/'.$rol)}}" title="Finalizar" class="btn btn-sm btn-success">
                                 <i class="fa fa-check"></i>

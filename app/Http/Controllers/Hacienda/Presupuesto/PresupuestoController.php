@@ -134,12 +134,6 @@ class PresupuestoController extends Controller
                                                 }
                                             }
                                             $valFuent = FontsRubro::where('rubro_id', $rubro->id)->sum('valor');
-                                            //Se añade el codigo de la fuente al rubro
-                                            $FR = FontsRubro::where('rubro_id', $rubro->id)->get();
-                                            $idFR = $FR[0]['font_id'];
-                                            $FuenteCode = Font::findOrFail($idFR );
-                                            $newCod = "$newCod$FuenteCode->code";
-                                            //
                                             $codigos[] = collect(['id_rubro' => $rubro->id, 'id' => '', 'codigo' => $newCod, 'name' => $rubro->name, 'code' => $rubro->code, 'V' => $V, 'valor' => $valFuent, 'register_id' => $register->register_id]);
                                             $Rubros[] = collect(['id_rubro' => $rubro->id, 'id' => '', 'codigo' => $newCod, 'name' => $rubro->name, 'code' => $rubro->code, 'V' => $V, 'valor' => $valFuent, 'register_id' => $register->register_id]);
                                         }

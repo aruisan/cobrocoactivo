@@ -28,7 +28,10 @@ class RegistrosController extends Controller
      */
     public function index(Request $request)
     {
-        $rol = auth()->user()->type_id;
+        $roles = auth()->user()->roles;
+        foreach ($roles as $role){
+            $rol= $role->id;
+        }
         $registros = Registro::orderBy('id','DESC')->paginate(5);
         return view('administrativo.registros.index',compact('registros','rol'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
@@ -114,14 +117,20 @@ class RegistrosController extends Controller
         $registro = Registro::findOrFail($id);
         $cdps = Cdp::all();
         $contratos = Contractual::all();
-        $rol = auth()->user()->type_id;
+        $roles = auth()->user()->roles;
+        foreach ($roles as $role){
+            $rol= $role->id;
+        }
         return view('administrativo.registros.edit', compact('registro','cdps','contratos','rol'));
     }
 
     public function show($id)
     {
         $registro = Registro::findOrFail($id);
-        $rol = auth()->user()->type_id;
+        $roles = auth()->user()->roles;
+        foreach ($roles as $role){
+            $rol= $role->id;
+        }
         return view('administrativo.registros.show', compact('registro','rol'));
     }
 
@@ -143,8 +152,7 @@ class RegistrosController extends Controller
     public function updateEstado($id,$rol)
     {
         $update = Registro::findOrFail($id);
-        if ($rol == 4){
-
+        if ($rol == 2){
             $estado = "3";
             $update->secretaria_e = $estado;
             $update->save();
