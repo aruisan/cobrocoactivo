@@ -48,7 +48,7 @@
                 <td class="text-center">
                     @if($rol == 2)
                         @if($data->secretaria_e == 0)
-                            <a href="{{url('/administrativo/registros/'.$data->id.'/'.$rol)}}" title="Finalizar" class="btn btn-sm btn-success">
+                            <a href="{{url('/administrativo/registros/'.$data->id.'/'.$rol.'/3')}}" title="Finalizar" class="btn btn-sm btn-success">
                                 <i class="fa fa-check"></i>
                             </a>
                             <a href="{{ url('administrativo/registros/'.$data->id.'/edit') }}" class="btn btn-sm btn-info" title="Editar">
@@ -64,6 +64,26 @@
                                 <i class="fa fa-eye"></i>
                             </a>
                             {!! Form::close() !!}
+                        @endif
+                    @elseif($rol == 3)
+                        @if($data->secretaria_e == 0)
+                            <a href="{{ url('administrativo/registros',$data->id) }}" class="btn btn-sm btn-info" title="Visualizar">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                        @elseif($data->jcontratacion_e == 3 or $data->jcontratacion_e == 1)
+                            <a href="{{ url('administrativo/registros',$data->id) }}" class="btn btn-sm btn-info" title="Visualizar">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                        @else
+                            <a href="{{url('/administrativo/registros/'.$data->id.'/'.$rol.'/3')}}" title="Aprobar" class="btn btn-sm btn-success">
+                                <i class="fa fa-check"></i>
+                            </a>
+                            <a href="{{ url('administrativo/registros',$data->id) }}" class="btn btn-sm btn-info" title="Visualizar">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                            <a href="{{url('/administrativo/registros/'.$data->id.'/'.$rol.'/1')}}" title="Rechazar" class="btn btn-sm btn-danger">
+                                <i class="fa fa-times-circle"></i>
+                            </a>
                         @endif
                     @else
                         @if($data->secretaria_e == 0)

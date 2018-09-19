@@ -100,8 +100,12 @@
         background-color: #2196F3;
     }
 
+    .progress-step.is-rechazado .progress-marker {
+        background-color: red;
+    }
+
     .progress-step.is-complete .progress-marker {
-        background-color: greenyellow;
+        background-color: #00C851;
     }
 
     .progress-step.is-complete::after {

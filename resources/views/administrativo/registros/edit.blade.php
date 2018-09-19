@@ -96,7 +96,7 @@
                     </div>
                 </div>
             <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                <a href="{{url('/administrativo/registros/'.$registro->id.'/'.$rol)}}"  class="btn btn-success">Finalizar</a>
+                <a href="{{url('/administrativo/registros/'.$registro->id.'/'.$rol.'/3')}}"  class="btn btn-success">Finalizar</a>
                 <button class="btn btn-primary" id="storeRegistro">Guardar</button>
                 {!! Form::open(['method' => 'DELETE','route' => ['registros.destroy', $registro->id],'style'=>'display:inline']) !!}
                 <button type="submit" class="btn btn-danger">Eliminar</button>

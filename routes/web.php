@@ -52,7 +52,7 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 	Route::group(['prefix' => 'administrativo'] ,function () 
 	{
 		Route::resource('registros', 'Administrativo\RegistrosController');
-        Route::get('registros/{id}/{rol}', 'Administrativo\RegistrosController@updateEstado');
+        Route::get('registros/{id}/{rol}/{estado}', 'Administrativo\RegistrosController@updateEstado');
 
 
         Route::resource('cdp', 'Administrativo\Cdp\CdpController');

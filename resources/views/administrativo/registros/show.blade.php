@@ -93,9 +93,17 @@
                 @if($registro->secretaria_e == 0)
                 @else
                     @if($rol == 2)
+                    @elseif($rol == 3)
+                        @if($registro->jcontratacion_e == 3 or $registro->jcontratacion_e == 1)
+                        @else
+                            <a href="{{url('/administrativo/registros/'.$registro->id.'/'.$rol.'/3')}}" class="btn btn-success">
+                                Aprobar
+                            </a>
+                            <a href="{{url('/administrativo/registros/'.$registro->id.'/'.$rol.'/1')}}" class="btn btn-danger">
+                                Rechazar
+                            </a>
+                        @endif
                     @else
-                    <button class="btn btn-success" id="aprobar">Aprobar</button>
-                    <button class="btn btn-danger" id="rechazar">Rechazar</button>
                     @endif
                 @endif
             </div>
