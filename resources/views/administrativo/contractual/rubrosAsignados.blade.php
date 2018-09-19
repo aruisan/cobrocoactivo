@@ -3,7 +3,36 @@
     Rubros Asignados
 @stop
 @section('sidebar')
-    @include('administrativo.contractual.sideBar')
+    <li class="dropdown">
+        <a class="dropdown-toggle btn btn btn-success" data-toggle="dropdown">
+            <span class="hide-menu">Movimientos</span>
+            &nbsp;
+            <i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-user">
+            <li>
+                <a href="{{ url('/administrativo/cdp') }}" class="btn btn-success">CDP's</a>
+            </li>
+            <li>
+                <a href="{{ url('/administrativo/cdp/create') }}" class="btn btn-success">Solicitud CDP</a>
+            </li>
+            <li>
+                <a href="{{ url('/administrativo/registros') }}" class="btn btn-success">Registros</a>
+            </li>
+            <li>
+                <a href="{{ url('/administrativo/registros/create') }}" class="btn btn-success">Solicitud Registro</a>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a href="{{ url('/dashboard/contractual') }}" class="btn btn-primary">
+            <span class="hide-menu">Contractual</span></a>
+    </li>
+    <li>
+        <a href="{{ url('/almacen') }}" class="btn btn-primary">
+            <i class="fa fa-inventory"></i>
+            <span class="hide-menu">Almacen</span></a>
+    </li>
 @stop
 @section('content')
     <div class="col-md-12 align-self-center">

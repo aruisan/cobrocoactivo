@@ -2,6 +2,12 @@
 @section('titulo')
     Creación de CDP
 @stop
+@section('sidebar')
+    <li>
+        <a href="{{ url('/administrativo/cdp') }}" class="btn btn-success">
+            <span class="hide-menu">CDP's</span></a>
+    </li>
+@stop
 @section('content')
     <div class="col-md-12 align-self-center">
         <div class="row justify-content-center">

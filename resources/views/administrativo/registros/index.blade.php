@@ -9,6 +9,15 @@
             <i class="fa fa-file"></i>
             <span class="hide-menu"> CDP's</span></a>
     </li>
+    <li>
+        <a href="{{ url('/dashboard/contractual') }}" class="btn btn-primary">
+            <span class="hide-menu">Contractual</span></a>
+    </li>
+    <li>
+        <a href="{{ url('/almacen') }}" class="btn btn-primary">
+            <i class="fa fa-inventory"></i>
+            <span class="hide-menu">Almacen</span></a>
+    </li>
 @stop
 @section('content')
 <div class="row">
@@ -38,27 +47,40 @@
                 <td class="text-center">{{ $data->ruta }}</td>
                 <td class="text-center">
                     @if($rol == 4)
-                        <button class="btn btn-sm btn-success" title="Finalizar">
-                            <i class="fa fa-check"></i>
-                        </button>
-                        <a href="{{ url('administrativo/registros/'.$data->id.'/edit') }}" class="btn btn-sm btn-info" title="Editar">
-                            <i class="fa fa-edit"></i>
-                        </a>
-                        {!! Form::open(['method' => 'DELETE','route' => ['registros.destroy', $data->id],'style'=>'display:inline']) !!}
-                        <button type="submit" class="btn btn-sm btn-danger" title="Eliminar">
-                            <i class="fa fa-trash"></i>
-                        </button>
-                        {!! Form::close() !!}
+                        @if($data->secretaria_e == 0)
+                            <a href="{{url('/administrativo/registros/'.$data->id.'/'.$rol)}}" title="Finalizar" class="btn btn-sm btn-success">
+                                <i class="fa fa-check"></i>
+                            </a>
+                            <a href="{{ url('administrativo/registros/'.$data->id.'/edit') }}" class="btn btn-sm btn-info" title="Editar">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            {!! Form::open(['method' => 'DELETE','route' => ['registros.destroy', $data->id],'style'=>'display:inline']) !!}
+                            <button type="submit" class="btn btn-sm btn-danger" title="Eliminar">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                            {!! Form::close() !!}
+                        @elseif($data->secretaria_e == 3)
+                            <a href="{{ url('administrativo/registros',$data->id) }}" class="btn btn-sm btn-info" title="Visualizar">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                            {!! Form::close() !!}
+                        @endif
                     @else
-                        <button class="btn btn-sm btn-success" title="Aprobar">
-                            <i class="fa fa-check"></i>
-                        </button>
-                        <a href="{{ url('administrativo/registros',$data->id) }}" class="btn btn-sm btn-info" title="Visualizar">
-                            <i class="fa fa-eye"></i>
-                        </a>
-                        <button type="submit" class="btn btn-sm btn-danger" title="Rechazar">
-                            <i class="fa fa-times-circle"></i>
-                        </button>
+                        @if($data->secretaria_e == 0)
+                            <a href="{{ url('administrativo/registros',$data->id) }}" class="btn btn-sm btn-info" title="Visualizar">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                        @else
+                            <button class="btn btn-sm btn-success" title="Aprobar">
+                                <i class="fa fa-check"></i>
+                            </button>
+                            <a href="{{ url('administrativo/registros',$data->id) }}" class="btn btn-sm btn-info" title="Visualizar">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                            <button type="submit" class="btn btn-sm btn-danger" title="Rechazar">
+                                <i class="fa fa-times-circle"></i>
+                            </button>
+                        @endif
                     @endif
                 </td>
             </tr>

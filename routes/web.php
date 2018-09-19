@@ -51,11 +51,11 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
 	Route::group(['prefix' => 'administrativo'] ,function () 
 	{
-        //Route::get('registros/{id}/edit', 'Administrativo\RegistrosController@updateEstadoSec');
 		Route::resource('registros', 'Administrativo\RegistrosController');
+        Route::get('registros/{id}/{rol}', 'Administrativo\RegistrosController@updateEstado');
+
 
         Route::resource('cdp', 'Administrativo\Cdp\CdpController');
-
 	});
 
 

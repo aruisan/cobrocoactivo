@@ -1259,16 +1259,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v4.0.3",
+            "version": "v4.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "bd088dc940a418f09cda079a9b5c7c478890fb8d"
+                "reference": "fa6ee28600d21d49b2b4e1006b48426cec8e579c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/bd088dc940a418f09cda079a9b5c7c478890fb8d",
-                "reference": "bd088dc940a418f09cda079a9b5c7c478890fb8d",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/fa6ee28600d21d49b2b4e1006b48426cec8e579c",
+                "reference": "fa6ee28600d21d49b2b4e1006b48426cec8e579c",
                 "shasum": ""
             },
             "require": {
@@ -1306,7 +1306,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2018-07-15T17:25:16+00:00"
+            "time": "2018-09-18T07:03:24+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -1763,16 +1763,16 @@
         },
         {
             "name": "spatie/laravel-permission",
-            "version": "2.19.0",
+            "version": "2.19.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-permission.git",
-                "reference": "cf4f3afb093a524bbdfb32f02a644a37694ff4c6"
+                "reference": "6ab41261b74707e4cbda196a51239039bd3494b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/cf4f3afb093a524bbdfb32f02a644a37694ff4c6",
-                "reference": "cf4f3afb093a524bbdfb32f02a644a37694ff4c6",
+                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/6ab41261b74707e4cbda196a51239039bd3494b7",
+                "reference": "6ab41261b74707e4cbda196a51239039bd3494b7",
                 "shasum": ""
             },
             "require": {
@@ -1820,7 +1820,7 @@
                 "security",
                 "spatie"
             ],
-            "time": "2018-09-10T19:52:52+00:00"
+            "time": "2018-09-14T18:26:21+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

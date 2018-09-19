@@ -140,13 +140,17 @@ class RegistrosController extends Controller
         return redirect('/administrativo/registros');
     }
 
-    public function updateEstadoSec($id)
+    public function updateEstado($id,$rol)
     {
         $update = Registro::findOrFail($id);
-        $update->secretaria_e = 3;
-        $update->save();
+        if ($rol == 4){
 
-        Session::flash('success','El registro ha sido aprobado exitosamente');
-        return redirect('/administrativo/registros');
+            $estado = "3";
+            $update->secretaria_e = $estado;
+            $update->save();
+
+            Session::flash('success','El registro ha sido finalizado exitosamente');
+            return redirect('/administrativo/registros');
+        }
     }
 }
