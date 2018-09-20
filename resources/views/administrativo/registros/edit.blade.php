@@ -13,11 +13,10 @@
 <div class="row">
     <br>
     <div class="col-lg-12 margin-tb">
-        <h2 class="text-center"> Editar Registro {{ $registro->objeto }}</h2>
+        <h3 class="text-center"> Editar Registro: {{ $registro->objeto }}</h3>
     </div>
 </div>
 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
-    <br>
     <hr>
     <div class="form-validation">
         <form class="form" action="{{url('/administrativo/registros/'.$registro->id)}}" method="POST">
@@ -50,7 +49,7 @@
                         <span class="input-group-addon"><i class="fa fa-file-o" aria-hidden="true"></i></span>
                         <select name="cdp_id" class="form-control">
                             @foreach($cdps as $cdp)
-                                <option value="{{ $cdp->id }}" @if($cdp->id == $registro->cdp_id) selected @endif>{{ $cdp->name }}</option>
+                                <option value="{{ $cdp->id }}" @if($cdp->id == $registro->cdp_id) selected @endif>{{ $cdp->id }} - {{ $cdp->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -95,12 +94,22 @@
                         <small class="form-text text-muted">Nombre del archivo al momento de la creación</small>
                     </div>
                 </div>
+            <div class="row">
+                @if($registro->observacion == "")
+                @else
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <label>Observación del Rechazo </label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
+                            <textarea disabled class="form-control">{{ $registro->observacion }}</textarea>
+                        </div>
+                        <small class="form-text text-muted">Observación del rechazo del registro.</small>
+                    </div>
+                @endif
+            </div>
             <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
                 <a href="{{url('/administrativo/registros/'.$registro->id.'/'.$rol.'/3')}}"  class="btn btn-success">Finalizar</a>
-                <button class="btn btn-primary" id="storeRegistro">Guardar</button>
-                {!! Form::open(['method' => 'DELETE','route' => ['registros.destroy', $registro->id],'style'=>'display:inline']) !!}
-                <button type="submit" class="btn btn-danger">Eliminar</button>
-                {!! Form::close() !!}
+                <button type="submit" class="btn btn-primary" id="storeRegistro">Guardar</button>
             </div>
         </form>
     </div>

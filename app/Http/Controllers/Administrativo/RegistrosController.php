@@ -154,17 +154,52 @@ class RegistrosController extends Controller
         $update = Registro::findOrFail($id);
         if ($rol == 2){
             $update->secretaria_e = $estado;
+            $update->jcontratacion_e = "0";
             $update->save();
 
             Session::flash('success','Secretaria, su registro ha sido finalizado exitosamente');
             return redirect('/administrativo/registros');
         }
         if ($rol == 3){
-            $update->jcontratacion_e = $estado;
-            $update->save();
+            if ($estado == 3){
+                $update->jcontratacion_e = $estado;
+                $update->save();
 
-            Session::flash('success','El registro ha cambiado de estado satisfactoriamente');
-            return redirect('/administrativo/registros');
+                Session::flash('success','El registro ha sido aprobado satisfactoriamente');
+                return redirect('/administrativo/registros');
+            }
+        }
+        if ($rol == 4){
+            if ($estado == 2){
+                $update->jpresupuesto_e = $estado;
+                $update->save();
+
+                Session::flash('error','El registro ha sido anulado');
+                return redirect('/administrativo/registros');
+            }
+            if ($estado == 3){
+                $update->jpresupuesto_e = $estado;
+                $update->save();
+
+                Session::flash('success','El registro ha sido aprobado satisfactoriamente');
+                return redirect('/administrativo/registros');
+            }
+        }
+    }
+
+    public function rechazar(Request $request, $id,$rol,$estado)
+    {
+        if ($rol == 3){
+            if ($estado == 1){
+                $update = Registro::findOrFail($id);
+                $update->observacion = $request->observacion;
+                $update->jcontratacion_e = $estado;
+                $update->secretaria_e = "0";
+                $update->save();
+
+                Session::flash('error','El registro ha sido rechazado');
+                return redirect('/administrativo/registros');
+            }
         }
     }
 }
