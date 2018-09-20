@@ -54,7 +54,7 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 	    //Registros
 	    Route::resource('registros', 'Administrativo\RegistrosController');
         Route::get('registros/{id}/{rol}/{estado}', 'Administrativo\RegistrosController@updateEstado');
-        Route::put('registros/r/{id}/{rol}/{estado}', 'Administrativo\RegistrosController@updateEstado');
+        Route::put('registros/r/{id}/{rol}/{estado}', 'Administrativo\RegistrosController@rechazar');
 
         //CDP's
         Route::resource('cdp', 'Administrativo\Cdp\CdpController');

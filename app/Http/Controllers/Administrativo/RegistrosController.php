@@ -155,6 +155,7 @@ class RegistrosController extends Controller
         if ($rol == 2){
             $update->secretaria_e = $estado;
             $update->jcontratacion_e = "0";
+            $update->observacion = "";
             $update->save();
 
             Session::flash('success','Secretaria, su registro ha sido finalizado exitosamente');
@@ -163,6 +164,8 @@ class RegistrosController extends Controller
         if ($rol == 3){
             if ($estado == 3){
                 $update->jcontratacion_e = $estado;
+                $update->jpresupesto_e = "0";
+                $update->observacion = "";
                 $update->save();
 
                 Session::flash('success','El registro ha sido aprobado satisfactoriamente');
@@ -179,6 +182,7 @@ class RegistrosController extends Controller
             }
             if ($estado == 3){
                 $update->jpresupuesto_e = $estado;
+                $update->observacion = "";
                 $update->save();
 
                 Session::flash('success','El registro ha sido aprobado satisfactoriamente');
@@ -195,6 +199,18 @@ class RegistrosController extends Controller
                 $update->observacion = $request->observacion;
                 $update->jcontratacion_e = $estado;
                 $update->secretaria_e = "0";
+                $update->save();
+
+                Session::flash('error','El registro ha sido rechazado');
+                return redirect('/administrativo/registros');
+            }
+        }
+        if ($rol == 4){
+            if ($estado == 1){
+                $update = Registro::findOrFail($id);
+                $update->observacion = $request->observacion;
+                $update->jpresupuesto_e = $estado;
+                $update->jcontratacion_e = "0";
                 $update->save();
 
                 Session::flash('error','El registro ha sido rechazado');
