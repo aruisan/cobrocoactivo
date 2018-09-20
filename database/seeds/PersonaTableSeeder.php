@@ -1,6 +1,6 @@
 <?php
 
-use App\Model\Cobro\Persona;
+use App\Model\Persona;
 use Illuminate\Database\Seeder;
 
 class PersonaTableSeeder extends Seeder

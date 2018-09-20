@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Model\Cobro\Persona::class, function (Faker $faker) {
+$factory->define(App\Model\Persona::class, function (Faker $faker) {
     return [
            
         'nombre' => $faker->name,

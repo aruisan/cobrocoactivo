@@ -23,6 +23,7 @@
                   <ul class="dropdown-menu">
                     <li><a tabindex="-1" href="{{ route('contractual.index') }}">Contractual</a></li>
                     <li><a tabindex="-1" href="{{ route('registros.index') }}">registros</a></li>
+                    <li><a tabindex="-1" href="{{ route('marcas-herretes.index') }}">marcas y herretes</a></li>
                     <li><a tabindex="-1" href="{{ route('pazysalvo.index') }}">paz y salvo</a></li>
                     <li class="disabled"><a tabindex="-1" href="#">permisos</a></li>
                     <li class="dropdown-submenu">

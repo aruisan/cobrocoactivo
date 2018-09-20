@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Cobro;
-use App\Model\CobroPersona;
+use App\Model\Persona;
 
 use Illuminate\Http\Request;
 

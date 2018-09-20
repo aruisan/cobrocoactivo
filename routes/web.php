@@ -51,11 +51,12 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
 	Route::group(['prefix' => 'administrativo'] ,function () 
 	{
-		Route::resource('registros', 'Administrativo\RegistrosController');
+				Route::resource('registros', 'Administrativo\RegistrosController');
         Route::get('registros/{id}/{rol}/{estado}', 'Administrativo\RegistrosController@updateEstado');
-
-
         Route::resource('cdp', 'Administrativo\Cdp\CdpController');
+        Route::resource('marcas-herretes', 'Administrativo\MarcaHerrete\MarcaHerreteController');
+        Route::get('persona-find/{identificador}', 'Cobro\PersonasController@personaFind');
+    		Route::post('persona/find-create', 'Cobro\PersonasController@PersonafindCreate');
 	});
 
 
