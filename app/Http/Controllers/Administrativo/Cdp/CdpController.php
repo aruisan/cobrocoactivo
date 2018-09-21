@@ -92,8 +92,6 @@ class CdpController extends Controller
         $store= Cdp::findOrFail($idcdp);
         $store->name = $request->name;
         $store->valor = $request->valor;
-        $store->fecha = $request->fecha;
-        $store->dependencia_id = $request->dependencia_id;
         $store->estado = $request->estado;
         $store->observacion = $request->observacion;
         $store->saldo = $request->saldo;

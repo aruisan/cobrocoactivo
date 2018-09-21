@@ -36,13 +36,13 @@
                         <div class="form-group">
                             <label class="control-label text-right col-md-4" for="fecha">Fecha:</label>
                             <div class="col-lg-6">
-                                <input type="text" class="form-control" disabled style="text-align:center" name="fecha" value="{{ $idcdp->fecha }}">
+                                <input type="text" class="form-control" disabled style="text-align:center" value="{{ $idcdp->fecha }}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label text-right col-md-4" for="nombre">Objeto <span class="text-danger">*</span></label>
                             <div class="col-lg-6">
-                                <input type="text" class="form-control" name="name" style="text-align:center" value="{{ $idcdp->name }}">
+                                <textarea name="objeto" class="form-control"></textarea>
                                 <input type="hidden" class="form-control" name="id" value="{{ $idcdp->id }}">
                             </div>
                         </div>
@@ -57,20 +57,8 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label text-right col-md-4" for="ejecucion">Registros <span class="text-danger">*</span></label>
-                            <div class="col-lg-6">
-                                <input type="text" class="form-control" style="text-align:center" name="ejecucion" value="{{ $idcdp->ejecucion }}">
-                            </div>
-                        </div>
                     </div>
                     <div class="col-md-6 align-self-center">
-                        <div class="form-group">
-                            <label class="control-label text-right col-md-4" for="dependencias">Dependencia:</label>
-                            <div class="col-lg-6">
-                                <input type="text" disabled class="form-control" name="dependencia_id" value="{{ $idcdp->dependencia->name }}">
-                            </div>
-                        </div>
                         <div class="form-group">
                             <label class="control-label text-right col-md-4" for="valor">Valor <span class="text-danger">*</span></label>
                             <div class="col-lg-6">
