@@ -46,6 +46,10 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 		Route::resource('titulacionpredios', 'Administrativo\Vivienda\TitulacionPredioController');
 		Route::resource('subirArchivo', 'SubirArchivoController');
 		Route::resource('subirArchivoContractual', 'Administrativo\Contractual\SubirArchivoContractualController');
+		Route::resource('rutas', 'Configuracion\Rutas\RutaController');
+		Route::get('ruta-orden/{id}', 'Configuracion\Rutas\RutaController@rutaOrden')->name('ruta.orden');
+		Route::get('ruta-orden/{id}/create', 'Configuracion\Rutas\RutaController@rutaOrdenCreate')->name('ruta.orden.create');
+		Route::post('ruta-orden/', 'Configuracion\Rutas\RutaController@rutaOrdenStore')->name('ruta.orden.store');
 
 	});
 
