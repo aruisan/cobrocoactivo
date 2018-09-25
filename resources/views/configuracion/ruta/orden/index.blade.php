@@ -27,9 +27,6 @@
      <th width="280px"><span class="glyphicon glyphicon-remove " aria-hidden="true"></span></th>
   </tr>
     @foreach ($ruta->dependencias as $data)
-    <pre>
-    {{$data}}
-    </pre>
     <tr>
         <td class="text-center">{{ $data->pivot->id }}</td> 
         <td class="text-center">{{ $data->pivot->type_id}}</td> 
@@ -37,12 +34,12 @@
         <td class="text-center">{{ $data->pivot->dias}}</td> 
       
         <td class="text-center">
-          <a href="{{ route('rutas.edit',$ruta->id) }}" class="btn btn-sm btn-info">
+          <a href="{{ route('ruta.orden.edit', [$ruta->id, $data->pivot->id]) }}" class="btn btn-sm btn-info">
             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
           </a>
         </td>
         <td class="text-center">
-            {!! Form::open(['method' => 'DELETE','route' => ['rutas.destroy', $ruta->id],'style'=>'display:inline']) !!}
+            {!! Form::open(['method' => 'DELETE','route' => ['ruta.orden.delete', $ruta->id , $data->pivot->id],'style'=>'display:inline']) !!}
                 <button type="submit" name="delete_modal" class="btn btn-sm btn-danger" >
                     <span class="glyphicon glyphicon-remove " aria-hidden="true"></span>
                 </button>

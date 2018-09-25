@@ -37,7 +37,7 @@
         </td>
         <td class="text-center">
             {!! Form::open(['method' => 'DELETE','route' => ['rutas.destroy', $data->id],'style'=>'display:inline']) !!}
-                <button type="submit" name="delete_modal" class="btn btn-sm btn-danger" >
+                <button type="submit" name="delete_modal" class="btn btn-sm btn-danger"  disabled="disabled">
                     <span class="glyphicon glyphicon-remove " aria-hidden="true"></span>
                 </button>
             {!! Form::close() !!}

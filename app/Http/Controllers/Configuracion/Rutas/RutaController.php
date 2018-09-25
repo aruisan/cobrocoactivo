@@ -124,14 +124,56 @@ class RutaController extends Controller
 
 
         $ruta->dependencias()->attach($request->dependencia,['type_id'=> $request->type, 'dias'=> $request->dias] );
-     
-        // $ruta = Ruta::find($id);
-        // $types = Type::all();
-        // $dependencias = Dependencia::all();
-        // return view('configuracion.ruta.orden.create', compact('ruta', 'types','dependencias'));             
 
         return redirect()->route('ruta.orden', $ruta->id)
-                        ->with('success','Ruta creada Exitosamente');           
+                        ->with('success','Orden creada Exitosamente');           
 
+    }
+
+    public function rutaOrdenEdit($ruta,$id){
+
+        $ruta = Ruta::find($ruta);
+
+        $data  = $ruta->dependencias()->wherePivot('id', $id)->first();
+
+        $typeOne = Type::find($data->pivot->type_id);
+
+        $types = Type::all();
+
+        $dependenciaOne = Dependencia::find($data->pivot->dependencia_id);
+
+        $dependencias = Dependencia::all();
+
+        return view('configuracion.ruta.orden.edit', compact('data','typeOne','dependenciaOne','ruta', 'types','dependencias'));
+
+    }
+
+    public function rutaOrdenUpdate(Request $request, $ruta,$id){
+
+        $ruta = Ruta::find($ruta);
+
+        $data  = $ruta->dependencias()->wherePivot('id', $id)->first();
+        $data->pivot->type_id = $request->type;
+        $data->pivot->dependencia_id = $request->dependencia;
+        $data->pivot->dias = $request->dias;
+
+        $data->pivot->save();
+
+        return redirect()->route('ruta.orden', $ruta->id)
+                        ->with('success','Orden editada Exitosamente'); 
+    }    
+
+
+    public function rutaOrdenDestroy($ruta,$id){
+
+
+        $ruta = Ruta::find($ruta);
+
+        $data  = $ruta->dependencias()->wherePivot('id', $id)->first();
+
+        $data->pivot->delete();
+
+        return redirect()->route('ruta.orden', $ruta->id)
+                        ->with('success','Orden eliminada Exitosamente'); 
     }
 }
