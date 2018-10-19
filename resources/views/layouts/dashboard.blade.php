@@ -27,8 +27,6 @@
     <link href="{{asset('/assets/datatables-plugins/dataTables.bootstrap.css')}}" rel="stylesheet">
     <link href=" https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/buttons/1.3.1/css/buttons.dataTables.min.css" rel="stylesheet">
-   
-
 
     <!-- DataTables Responsive CSS -->
     <link href="{{asset('/assets/datatables-responsive/dataTables.responsive.css')}}" rel="stylesheet">
@@ -131,6 +129,8 @@
         <!-- /#page-wrapper -->
         {{-- modales--}}
         @include('modal.participantes')
+        @include('correspondencia.modals.modals')
+        @include('archivo.modals.modals')
 
        
 
@@ -185,6 +185,7 @@
     <script src="{{asset('/assets/sb-admin/js/sb-admin-2.js')}}"></script>
     
 <script>
+
 $(document).ready(function(){
   $('.dropdown-toggle').dropdown();
   $('.dropdown-submenu a.test').on("click", function(e){

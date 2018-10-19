@@ -6,9 +6,9 @@
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                  <form class="form_entrar col-md-12" action="{{url('/login')}}" method="POST">
                   {{ csrf_field() }}
-                    <h4 class="text-center text-white">Ingreso Plataforma</h4>
+                    <h4 class="text-center text-white">Ingreso a la Plataforma</h4>
                     <div class="form-group">
-                      <input type="text" name="email" class="form-control input-lg" placeholder="email">
+                      <input type="text" name="email" class="form-control input-lg" placeholder="Email">
                     </div>
                     <div class="form-group">
                       <input type="password" name="password" class="form-control input-lg" placeholder="Password">
@@ -19,6 +19,7 @@
                   </form>
               </div>
               <div class="modal-footer">
+                  &nbsp;
               </div>
             </div>
           </div>

@@ -1,9 +1,9 @@
 <?php
 
 
-Route::get('/', function () {
-	return view('visitante.index');
-});
+Route::resource('/', 'VisitanteController');
+
+
 Route::get('/info', function(){
 	dd(phpinfo());
 });
@@ -170,6 +170,27 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 	});
 
 });
+
+//RUTAS CORRESPONDENCIA
+Route::group(['prefix' => 'correspondencia'] ,function ()
+{
+    Route::get('/create/{id}','CorrespondenciaController@create');
+    Route::Resource('/','CorrespondenciaController');
+});
+
+//RUTAS ARCHIVO
+Route::group(['prefix' => 'archivo'] ,function ()
+{
+    Route::get('/create','ArchivoController@create');
+    Route::Resource('/','ArchivoController');
+
+    Route::get('/manual/create','ManualContratController@create');
+    Route::Resource('/manual','ManualContratController');
+
+    Route::get('/plan/create','PlanAdquiController@create');
+    Route::Resource('/manual','PlanAdquiController');
+});
+
 
 ////// RUTAS ALMACEN
 Route::group(['prefix' => 'almacen'] ,function ()

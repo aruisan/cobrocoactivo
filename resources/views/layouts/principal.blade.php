@@ -12,7 +12,13 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.css') }}">
 
+    <!-- DataTables CSS -->
+    <link href="{{asset('/assets/datatables-plugins/dataTables.bootstrap.css')}}" rel="stylesheet">
+    <link href=" https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/buttons/1.3.1/css/buttons.dataTables.min.css" rel="stylesheet">
 
+    <!-- DataTables Responsive CSS -->
+    <link href="{{asset('/assets/datatables-responsive/dataTables.responsive.css')}}" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset('/assets/font-awesome/css/font-awesome.min.css') }}">
      <link rel="stylesheet" href="{{ asset('/css/footer.css') }}">
@@ -88,13 +94,17 @@
 
   .btn-primary {
     color: #fff;
-    background-color: #009688;
-    border-color: #009688;
-} 
+    background-color :rgb(9,99,90);
+    border-color: rgb(9,99,90);
+}
+  .btn-primary:hover{
+      color:#0056b3;
+      text-decoration:underline;
+      background-color:transparent
+  }
 
 body{
     background-color: #def5f2;
-    color: #fff;
     background-size:100%;
     background-repeat: no-repeat;
 } 
@@ -113,7 +123,7 @@ box-shadow: -8px 12px 18px -6px rgba(0,0,0,0.75);
   /*position: absolute;*/
     width: 100%;
     height: 30px;
-  background-color: rgba(0,0,0,.5);
+  background-color: rgb(9,99,90);
 }
 
 </style>
@@ -123,23 +133,73 @@ box-shadow: -8px 12px 18px -6px rgba(0,0,0,0.75);
       <!-- Navigation -->
   
     <nav class="navbar navbar-custom " style="background:rgb(9,99,90);">
+        <div class="lema">
+            <marquee><h4 class="text-center text-white">
+                    Mesa Directiva: Presidente: Leri Aniseto Henry Taylor  - Primer Vicepresidente: Ana Newball Taylor  - Alcalde Municipal: Bernardo Bent
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    Mesa Directiva: Presidente: Leri Aniseto Henry Taylor  - Primer Vicepresidente: Ana Newball Taylor  - Alcalde Municipal: Bernardo Bent
+                </h4></marquee>
+        </div>
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navPrincipal">
-                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
-                </button>
-                <span class="text-white" href=""><img src="{{ asset('/img/escudoIslas.png') }}" width="40"/>&nbsp; Mas Por Las Islas</span>
-    
-            </div>
+
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div id="navPrincipal" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-left">
+                    <li class="page-scroll">
+                        <a class="btn btn-primary text-white dropdown-toggle" type="button" data-toggle="dropdown">
+                            CONCEJO MUNICIPAL
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a data-toggle="modal" data-target="#modal-md" href="">Mesa Directiva</a></li>
+                            <li><a data-toggle="modal" data-target="#modal-presupuesto" href="">Presupuesto</a></li>
+                            <li><a data-toggle="modal" data-target="#modal-rc" href="">Rendición de Cuentas</a></li>
+                            <li><a data-toggle="modal" data-target="#modal-le" href="">Lista de Empleados</a></li>
+                            <li><a data-toggle="modal" data-target="#modal-lc" href="">Lista de Concejales</a></li>
+                            <li><a data-toggle="modal" data-target="#modal-lc" href="">Boletines</a></li>
+                        </ul>
+                    </li>
+                    <li class="page-scroll">
+                        <a class="btn btn-primary text-white dropdown-toggle" type="button" data-toggle="dropdown">
+                            ACUERDOS
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a data-toggle="modal" data-target="#modal-actas" href="">Actas</a></li>
+                            <li><a data-toggle="modal" data-target="#modal-acuerdos" href="">Acuerdos</a></li>
+                            <li><a data-toggle="modal" data-target="#modal-res" href="">Resoluciones</a></li>
+                        </ul>
+                    </li>
+                    <li class="page-scroll">
+                        <a class="btn btn-primary text-white dropdown-toggle" type="button" data-toggle="dropdown">
+                            CONTRATACIÓN
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a tabindex="-1" href="#">Manual de Contratación</a></li>
+                            <li><a tabindex="-1" href="#">Plan de Adquisiciones</a></li>
+                            <li><a data-toggle="modal" data-target="#modal-pc" href="">Procesos de Contratación</a></li>
+                        </ul>
+                    </li>
+                    <li class="page-scroll">
+                        <a class="btn btn-primary text-white dropdown-toggle" type="button" data-toggle="dropdown">
+                            SERVICIO AL CLIENTE
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a data-toggle="modal" data-target="#modal-contacto" href="">Contactenos</a></li>
+                            <li><a tabindex="-1" href="#">Información de Contactos</a></li>
+                            <li><a tabindex="-1" href="#">Notificaciones</a></li>
+                        </ul>
+                    </li>
+                </ul>
                 <ul class="nav navbar-nav navbar-right">
-
                     <li class="hidden">
                         <a href="#page-top"></a>
                     </li>
+
                     <li class="page-scroll">
                       <a href="" class="btn btn-link text-white" data-toggle="modal" data-target="#modal-Politicas">POLITICAS</a>
                     </li>
@@ -151,209 +211,44 @@ box-shadow: -8px 12px 18px -6px rgba(0,0,0,0.75);
                      <li class="page-scroll">
                         <a data-toggle="modal" class="btn btn-link text-white" data-target="#modal-ingresar">ENTRAR</a>
                     </li>
-                    <li class="page-scroll">
-                        <a class="btn btn-link text-white" href="{{ route('register') }}">REGISTRARSE</a>
-                    </li>
                     @endauth
                     <li class="page-scroll">
-                        <a href="" id="contactenos" class="btn btn-link text-white" data-toggle="modal" data-target="#modal-contactenos"><span>CONTACTENOS</span></a>
+                        <a id="google_translate_element"></a>
                     </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container-fluid -->
-        <div class="lema">
-        <marquee><h4 class="text-center text-white">Bernardo Bent Alcalde Municipal
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-        Leri Aniseto Henry Taylor Presidente Concejo Municipal</h4></marquee>
-        </div>
+
     </nav>
-    
 
-    <nav id="mainNav" class="navbar navbar-custom ">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle pull-left btn btn-success" data-toggle="collapse" data-target="#navSecundario">
-                    <span class="sr-only">Toggle navigation</span> Funciones <i class="fa fa-bars"></i>
-                </button> 
-            </div>
-            <div id="navSecundario" class="collapse navbar-collapse">
-                <div class="btn-group">
-                  <button class="dropdown btn-verde">
-                    <a href="" class="btn btn-verde btn-sm">Inicio</a>
-                  </button>
-
-                  <button class="dropdown btn-verde">
-                      <a class="btn btn-verde btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
-                        Dependencias
-                          <span class="caret"></span>
-                      </a>
-                      <ul class="dropdown-menu">
-                        <li><a tabindex="-1" href="#">Despacho Alcalde</a></li>
-                        <li><a tabindex="-1" href="#">Dirección Operativa</a></li>
-                        <li><a tabindex="-1" href="#">Secretaría de Hacienda</a></li>
-                        <li><a tabindex="-1" href="#">Secretaría de Desarrollo Comunitario</a></li>
-                        <li><a tabindex="-1" href="#">Secretaría de Gobierno</a></li>
-                        <li><a tabindex="-1" href="#">Secretaría de Planeación</a></li>
-                        <li><a tabindex="-1" href="#">Secretaría de Educación</a></li>
-                        <li><a tabindex="-1" href="#">Secretaría de Tránsito</a></li>
-                        <li><a tabindex="-1" href="#">Secretaría de Salud</a></li>
-                        <li><a tabindex="-1" href="#">Secretaría de infraestructura</a></li>
-                        <li><a tabindex="-1" href="#">Instituto Municipal de Turismo</a></li>
-                        <li><a tabindex="-1" href="#">Instituto Municipal Prodesarrollo</a></li>
-                        <li><a tabindex="-1" href="#">Serregionales</a></li>
-                      </ul>
-                  </button> 
-
-                  <button class="dropdown btn-verde">
-                      <a class="btn btn-verde btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
-                        Institucional
-                          <span class="caret"></span>
-                      </a>
-                      <ul class="dropdown-menu">
-                        <li><a tabindex="-1" href="#">Planes de Mejoramiento</a></li>
-                        <li><a tabindex="-1" href="#">Banco de Proyectos</a></li>
-                        <li><a tabindex="-1" href="#">Estados Financieros</a></li>
-                        <li><a tabindex="-1" href="#">Presupuestos</a></li>
-                        <li><a tabindex="-1" href="#">Rendición de cuentas</a></li>
-                        <li><a tabindex="-1" href="#">Sistema de Gestión de Calidad</a></li>
-                        <li><a tabindex="-1" href="#">Plan anticorrupción Municipal</a></li>
-                        <li><a tabindex="-1" href="#">Eventos</a></li>
-                        <li><a tabindex="-1" href="#">SIMI</a></li>
-                      </ul>
-                  </button> 
-
-                  <button class="dropdown btn-verde">
-                    <a href="" class="btn btn-verde btn-sm">Normatividad</a>
-                  </button>
-
-                  <button class="dropdown btn-verde">
-                      <a class="btn btn-verde btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
-                        Publicaciones
-                          <span class="caret"></span>
-                      </a>
-                      <ul class="dropdown-menu">
-                        <li><a tabindex="-1" href="#">Nuestro Alcalde</a></li>
-                        <li><a tabindex="-1" href="#">Formularios</a></li>
-                        <li><a tabindex="-1" href="#">Informes Control Interno</a></li>
-                        <li><a tabindex="-1" href="#">Estadísticas</a></li>
-                        <li><a tabindex="-1" href="#">Prensa</a></li>
-                        <li><a tabindex="-1" href="#">Galerías</a></li>
-                      </ul>
-                  </button> 
-
-                   <button class="dropdown btn-verde">
-                      <a class="btn btn-verde btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
-                        Contratación
-                          <span class="caret"></span>
-                      </a>
-                      <ul class="dropdown-menu">
-                        <li><a tabindex="-1" href="#">Manual de Contratación</a></li>
-                        <li><a tabindex="-1" href="#">Procesos de contratación</a></li>
-                        <li><a tabindex="-1" href="#">Plan de adquisiciones</a></li>
-                        <li><a tabindex="-1" href="#">Remates y subastas</a></li>
-                      </ul>
-                  </button> 
-
-                  <button class="dropdown btn-verde">
-                      <a class="btn btn-verde btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
-                        Servicio al Ciudadano
-                          <span class="caret"></span>
-                      </a>
-                      <ul class="dropdown-menu">
-                        <li><a tabindex="-1" href="#">Vivelab</a></li>
-                        <li><a tabindex="-1" href="#">Canal digital</a></li>
-                        <li><a tabindex="-1" href="#">Oportunidades</a></li>
-                        <li><a tabindex="-1" href="#">lineas de emergencia</a></li>
-                        <li><a tabindex="-1" href="#">lineas de atención al ciudadano</a></li>
-                        <li><a tabindex="-1" href="#">Correo Institucional</a></li>
-                        <li><a tabindex="-1" href="#">Notificaciones</a></li>
-                      </ul>
-                  </button>
-
-                  <button class="dropdown btn-verde">
-                    <a href="" class="btn btn-verde btn-sm">Comunas</a>
-                  </button>
-
-                  <button class="dropdown btn-verde">
-                    <a href="" class="btn btn-verde btn-sm">Consejo Municipal</a>
-                  </button>
-
-                  <button class="dropdown btn-verde">
-                    <a href="" class="btn btn-verde btn-sm">Personeria</a>
-                  </button>  
-                </div>
-            </div>
-        </div>
-        <!-- /.container-fluid -->
-    </nav>
           @include('alertas.errors')
           @include('alertas.success')
           @include('alertas.request')    
 @yield('contenido')
 @include('visitante.modal.ingresar')
+@include('visitante.modal.presupuesto')
+@include('visitante.modal.modals')
 
   <footer id="myFooter">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-2">
-                    <h5 class="text-center">CONTACTENOS</h5>
-                    <ul>
-                        <li class="text-center"><h6><small class="text-white">Carrera 37A 29 56 El Poblado Medellin</small></h6></li>
-                        <li class="text-center"><h6><small class="text-white">Cel 3208858086  -  3144836423  -  3176433198</small></h6></li>
-                        <li class="text-center"><h6><small class="text-white">info@siex.com.co   /  Girardot@siex.com.co</small></h6></li>
-                    </ul>
+                <div class="col-sm-2 text-right">
+                    <h5 class="text-center">Producto Elaborado Por</h5>
                 </div>
-
-                <div class="col-sm-2">
-                    <h5 class="text-center">PORTAFOLIO</h5>
-                    <ul>
-                        <li class="text-center"><small>Nuestros productos</small></li>
-                        <li class="text-center"><small>Mesa de ayuda</small></li>
-                        <li class="text-center"><small>Chat en Linea</small></li>
-                        <li class="text-center"><small>Soporte@siex.com.co</small></li>
-                    </ul>
+                <div class="col-sm-2 text-left">
+                    <a href="http://altaespecialidad.co/"><img src="{{ asset('/img/logo4.png') }}" width="90"/></a>
                 </div>
-
-                <div class="col-sm-2">
-                    <h5 class="text-center">POLITICAS</h5>
-                    <ul>
-                        <li class="text-center"><small>Políticas del Municipio</small></li>
-                        <li class="text-center"><small>Políticas de SIEX</small></li>
-                        <li class="text-center"><small>Gobierno en Línea</small></li>
-                        <li class="text-center"><small>Convenio SIEX</small></li>
-                    </ul>
+                <div class="col-sm-4">
                 </div>
-
-                <div class="col-sm-2">
-                    <h5 class="text-center">SEGURIDAD</h5>
-                    <ul>
-                        <li class="text-center"><small>Seguridad de Datos</small></li>
-                        <li class="text-center"><small>Reserva de Expedientes</small></li>
-                    </ul>
-                </div>
-
-                <div class="col-sm-2">
-                    <h5 class="text-center">EMPLEADOS</h5>
-                    <ul>
-                        <li class="text-center"><small>Personal a cargo</small></li>
-                        <li class="text-center"><small>Oferta laboral</small></li>
-                    </ul>
-                </div>
-                <div class="col-sm-2">
-                    <div class="social-networks">
-                        <a href="https://www.facebook.com/AlcaldiadeGirardot/" class="twitter"><i class="fa fa-twitter"></i></a>
-                        <a href="https://www.facebook.com/AlcaldiadeGirardot/" class="facebook"><i class="fa fa-facebook"></i></a>
-                        <a href="https://www.facebook.com/AlcaldiadeGirardot/" class="google"><i class="fa fa-google-plus"></i></a>
-                    </div>
-                    <a class="" href="http://siex.com.co/"><img src="{{ asset('/img/logo3.png') }}" width="180"/></a>
+                <div class="col-sm-4 text-center" style="padding: 10px 0">
+                    <a href="http://siex.com.co/"><img src="{{ asset('/img/logo3.png') }}" width="350"/></a>
                 </div>
             </div>
         </div>
         <div class="footer-copyright">
-            <p>© 2017 Copyright Derechos Reservados <a href="http://altaespecialidad.co/"> Alta Especialidad SAS</a> </p>
+            <p>© 2018 Copyright Derechos Reservados <a href="http://altaespecialidad.co/"> Alta Especialidad SAS</a> </p>
         </div>
     </footer>
 
@@ -364,18 +259,54 @@ box-shadow: -8px 12px 18px -6px rgba(0,0,0,0.75);
 
     <!-- Bootstrap Core JavaScript -->
     <script src="{{ asset('/assets/bootstrap/js/bootstrap.min.js') }}"></script>
+
+<!-- DataTables JavaScript -->
+<script src="{{asset('/assets/datatables/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('/assets/datatables-plugins/dataTables.bootstrap.min.js')}}"></script>
+
+<!--data tables-->
+<script src="{{ asset('js/lib/datatables/datatables.min.js') }}"></script>
+<script src="{{ asset('js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js') }}"></script>
+<script src="{{ asset('js/lib/datatables/cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js') }}"></script>
+<script src="{{ asset('js/lib/datatables/cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js') }}"></script>
+<script src="{{ asset('js/lib/datatables/cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js') }}"></script>
+<script src="{{ asset('js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit') }}"></script>
     
     <script type="text/javascript">
         $('#myModal').on('shown.bs.modal', function(){$('#myInput').focus(); });
     </script>
       <div id="fb-root"></div>
+
       <script>
+
 $(document).ready(function(){
+
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'es',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: false,
+        }, 'google_translate_element');
+    }
+
   $('.dropdown-submenu a.test').on("click", function(e){
     $(this).next('ul').toggle();
     e.stopPropagation();
     e.preventDefault();
   });
+
+    $('#tabla_presupuesto').DataTable( {
+        responsive: true,
+        "searching": false,
+        "ordering": false,
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'print'
+        ]
+    } );
 });
 </script>
 
