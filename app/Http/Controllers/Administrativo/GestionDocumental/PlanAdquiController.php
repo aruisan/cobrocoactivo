@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Administrativo\GestionDocumental;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class CorrespondenciaController extends Controller
+class PlanAdquiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,8 +14,7 @@ class CorrespondenciaController extends Controller
      */
     public function index()
     {
-        $V = "Vacio";
-        return view('correspondencia.index', compact('V'));
+        //
     }
 
     /**
@@ -22,14 +22,9 @@ class CorrespondenciaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create()
     {
-        if($id == 0){
-            $tipo = "Entrada";
-        }elseif ($id == 1){
-            $tipo = "Salida";
-        }
-        return view('correspondencia.create',compact('tipo','id'));
+        return view('administrativo.gestiondocumental.archivo.createPA');
     }
 
     /**

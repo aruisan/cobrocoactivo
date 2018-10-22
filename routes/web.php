@@ -33,7 +33,24 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 		Route::resource('comisariafamilia', 'Convivencia\ComisariaFamiliaController');
 		Route::resource('comiteconciliacion', 'Judicial\ComiteConsiliacionController');
 		Route::resource('comparendos', 'Convivencia\ComparendoController');
+
+        //RUTAS BOLETINES
+
+        Route::Resource('/boletines/','Administrativo\GestionDocumental\BoletinesController');
+
+
+        //RUTAS ARCHIVO
+
+        Route::get('/archivo/create','Administrativo\GestionDocumental\ArchivoController@create');
+        Route::Resource('/archivo/','Administrativo\GestionDocumental\ArchivoController');
+        Route::Resource('/archivo/manual','Administrativo\GestionDocumental\ManualContratController');
+        Route::Resource('/archivo/plan','Administrativo\GestionDocumental\PlanAdquiController');
+
+        //RUTAS CORRESPONDENCIA
+		Route::get('correspondencia/create/{id}','Administrativo\GestionDocumental\CorrespondenciaController@create');
 		Route::resource('correspondencia', 'Administrativo\GestionDocumental\CorrespondenciaController');
+
+
 		Route::resource('demandante', 'Judicial\DemandanteController');
 		Route::resource('demandado', 'Judicial\DemandadoController');
 		Route::resource('disciplinarios', 'Sansonatorio\DisciplinarioController');
@@ -170,27 +187,6 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 	});
 
 });
-
-//RUTAS CORRESPONDENCIA
-Route::group(['prefix' => 'correspondencia'] ,function ()
-{
-    Route::get('/create/{id}','CorrespondenciaController@create');
-    Route::Resource('/','CorrespondenciaController');
-});
-
-//RUTAS ARCHIVO
-Route::group(['prefix' => 'archivo'] ,function ()
-{
-    Route::get('/create','ArchivoController@create');
-    Route::Resource('/','ArchivoController');
-
-    Route::get('/manual/create','ManualContratController@create');
-    Route::Resource('/manual','ManualContratController');
-
-    Route::get('/plan/create','PlanAdquiController@create');
-    Route::Resource('/manual','PlanAdquiController');
-});
-
 
 ////// RUTAS ALMACEN
 Route::group(['prefix' => 'almacen'] ,function ()

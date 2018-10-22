@@ -19,9 +19,14 @@ class CorrespondenciaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        return view('administrativo.gestiondocumental.correspondencia.create');
+        if ($id == 0 ){
+            $tipo = "Entrada";
+        } elseif ($id == 1){
+            $tipo = "Salida";
+        }
+        return view('administrativo.gestiondocumental.correspondencia.create',compact('id','tipo'));
     }
 
     /**

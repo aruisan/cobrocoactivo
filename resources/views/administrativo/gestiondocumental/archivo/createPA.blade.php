@@ -1,15 +1,15 @@
 @extends('layouts.dashboard')
 @section('titulo')
-    Crear Archivo
+    Agregar Plan de Adquisiciones
 @stop
 @section('sidebar')
-    <li> <a class="btn btn-primary" href="{{ asset('/archivo') }}"><span class="hide-menu">Archivos</span></a></li>
+    <li> <a class="btn btn-primary" href="{{ asset('/dashboard/archivo') }}"><span class="hide-menu">Archivos</span></a></li>
 @stop
 @section('content')
 <div class="row">
     <br>
     <div class="col-lg-12 margin-tb">
-        <h2 class="text-center"> Creación de Archivos</h2>
+        <h2 class="text-center"> Agregar Plan de Adquisición</h2>
     </div>
 </div>
 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
@@ -30,24 +30,24 @@
     </div>
     <div class="row">
         <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <label>Tercero: </label>
+            <label>Año: </label>
             <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                <input type="text" name="persona_id" class="form-control" data-toggle="modal" data-target="#participante">
+                <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                <input type="number" name="año" class="form-control">
             </div>
-            <small class="form-text text-muted">Relacionar persona</small>
+            <small class="form-text text-muted">Año de realización del plan</small>
         </div>
     </div>
-        <div class="row">
-            <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                <label>Número de Documento: </label>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-hashtag" aria-hidden="true"></i></span>
-                    <input type="text" name="num_doc" class="form-control">
-                </div>
-                <small class="form-text text-muted">Número de Documento si lo tiene</small>
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <label>Fecha del Documento: </label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                <input type="date" name="año" class="form-control">
             </div>
+            <small class="form-text text-muted">Fecha de la elaboración del plan de adquisición</small>
         </div>
+    </div>
     <div class="row">
         <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <label>Subir Archivo: </label>
@@ -57,7 +57,7 @@
         </div>
     </div>
     <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-        <button class="btn btn-primary btn-raised btn-lg" id="storeRegistro">Guardar</button>
+        <button class="btn btn-primary btn-raised btn-lg" id="storeRegistro">Agregar</button>
     </div>
     {!! Form::close() !!}
 </div>

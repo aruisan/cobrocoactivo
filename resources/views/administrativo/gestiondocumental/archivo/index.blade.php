@@ -63,7 +63,7 @@
                         </table>
                     </div>
                     <center>
-                        <a href="{{ url('/archivo/create') }}" title="Editar" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp; Nuevo Archivo</a>
+                        <a href="{{ url('/dashboard/archivo/create') }}" title="Editar" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp; Nuevo Archivo</a>
                     </center>
                 </div>
                 <div id="tabMC" class="tab-pane fade">
@@ -76,6 +76,7 @@
                                 <th class="text-center">Id</th>
                                 <th class="text-center">Año</th>
                                 <th class="text-center">Nombre</th>
+                                <th class="text-center">Archivo</th>
                                 <th class="text-center">Acciones</th>
                             </tr>
                             </thead>
@@ -84,6 +85,9 @@
                                 <td class="text-dark text-center">1</td>
                                 <td class="text-dark text-center">2017</td>
                                 <td class="text-center text-dark">Manual de Contratación</td>
+                                <td class="text-center">
+                                    <a href="#" title="Archivo" class="btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i></a>
+                                </td>
                                 <td class="text-center">
                                     <a href="#" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                     <a href="#" title="Aprobar" class="btn-sm btn-success"><i class="fa fa-check"></i></a>
@@ -94,7 +98,7 @@
                         </table>
                     </div>
                     <center>
-                        <a href="#" title="Agregar" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp; Nuevo Manual de Contratación</a>
+                        <a href="{{ url('/dashboard/archivo/manual/create') }}" title="Agregar" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp; Agregar Manual de Contratación</a>
                     </center>
                 </div>
                 <div id="tabPA" class="tab-pane fade"><br>
@@ -106,6 +110,7 @@
                                 <th class="text-center">Id</th>
                                 <th class="text-center">Año</th>
                                 <th class="text-center">Nombre</th>
+                                <th class="text-center">Archivo</th>
                                 <th class="text-center">Acciones</th>
                             </tr>
                             </thead>
@@ -114,6 +119,9 @@
                                 <td class="text-dark text-center">1</td>
                                 <td class="text-dark text-center">2017</td>
                                 <td class="text-center text-dark">Plan de Adquisiciones</td>
+                                <td class="text-center">
+                                    <a href="#" title="Archivo" class="btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i></a>
+                                </td>
                                 <td class="text-center">
                                     <a href="#" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                     <a href="#" title="Aprobar" class="btn-sm btn-success"><i class="fa fa-check"></i></a>
@@ -124,7 +132,7 @@
                         </table>
                     </div>
                     <center>
-                        <a href="#" title="Nuevo" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp; Nuevo Plan de Adquisiciones</a>
+                        <a href="{{ url('/dashboard/archivo/plan/create') }}" title="Nuevo" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp; Nuevo Plan de Adquisiciones</a>
                     </center>
                 </div>
             </div>

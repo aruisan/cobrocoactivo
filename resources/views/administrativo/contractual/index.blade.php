@@ -17,7 +17,11 @@
 @stop
 @section('content')
     <div class="col-md-12 align-self-center">
-        <h2 class="alert alert-warning">Contractual</h2>
+        <div class="breadcrumb text-center">
+            <strong>
+                <h4><b>Contractual</b></h4>
+            </strong>
+        </div>
         @if(count($consulta)>0)
         <table id="table" class="table table-condensed table-hover table-bordered table-responsive">
             <thead>

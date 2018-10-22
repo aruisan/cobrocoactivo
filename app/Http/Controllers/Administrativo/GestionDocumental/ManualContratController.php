@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Administrativo\GestionDocumental;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class ArchivoController extends Controller
+class ManualContratController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,8 +14,7 @@ class ArchivoController extends Controller
      */
     public function index()
     {
-        $V = "Vacio";
-        return view('archivo.index', compact('V'));
+        //
     }
 
     /**
@@ -24,7 +24,7 @@ class ArchivoController extends Controller
      */
     public function create()
     {
-        return view('archivo.create');
+        return view('administrativo.gestiondocumental.archivo.createMC');
     }
 
     /**

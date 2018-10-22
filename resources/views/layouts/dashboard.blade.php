@@ -129,8 +129,9 @@
         <!-- /#page-wrapper -->
         {{-- modales--}}
         @include('modal.participantes')
-        @include('correspondencia.modals.modals')
-        @include('archivo.modals.modals')
+        @include('administrativo.gestiondocumental.correspondencia.modals.modals')
+        @include('administrativo.gestiondocumental.archivo.modals.modals')
+        @include('administrativo.gestiondocumental.boletines.modals.modals')
 
        
 

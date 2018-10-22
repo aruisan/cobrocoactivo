@@ -4,14 +4,14 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu">
-    <li><a tabindex="-1" href="{{url('/correspondencia')}}">Correspondencia</a></li>
-    <li><a tabindex="-1" href="{{url('/archivo')}}">Archivo</a></li>
+    <li><a tabindex="-1" href="{{url('/dashboard/correspondencia')}}">Correspondencia</a></li>
+    <li><a tabindex="-1" href="{{url('/dashboard/archivo')}}">Archivo</a></li>
     <li><a tabindex="-1" href="{{url('/almacen')}}">Almacen</a></li>
-    <li><a tabindex="-1" href="#">Boletines</a></li>
+    <li><a tabindex="-1" href="{{url('/dashboard/boletines')}}">Boletines</a></li>
   </ul>
 </li>
 <li class="dropdown">
-    <a class="btn btn-default btn-sm" href="#">
+    <a class="btn btn-default btn-sm" href="{{ url('/contractual') }}">
         CONTRATACIÓN
     </a>
 </li>
