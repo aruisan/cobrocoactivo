@@ -1,7 +1,9 @@
 <?php
 
 
-Route::resource('/', 'VisitanteController');
+Route::get('/', function(){
+	return view('visitante.index');
+});
 
 
 Route::get('/info', function(){
