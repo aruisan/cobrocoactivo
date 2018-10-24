@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
+//impulsos a los predios
 class CreateCategoriaImpulsoTable extends Migration
 {
     /**
@@ -11,14 +11,14 @@ class CreateCategoriaImpulsoTable extends Migration
      * @return void
      */
     public function up()
-    {
+    {/*
         Schema::create('categoria_impulsos', function(Blueprint $table){
             $table->increments('id');
             $table->string('nombre');
             $table->integer('status');
 
             $table->timestamps();
-        });
+        });*/
     }
 
     /**
@@ -28,6 +28,6 @@ class CreateCategoriaImpulsoTable extends Migration
      */
     public function down()
     {
-        Schema::drop('categoria_impulsos');
+        //Schema::drop('categoria_impulsos');
     }
 }

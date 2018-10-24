@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
+//conteos de tablas
 class CreateConteosTable extends Migration
 {
     /**
@@ -12,13 +12,14 @@ class CreateConteosTable extends Migration
      * @return void
      */
     public function up()
-    {
+    {/*
         Schema::create('conteos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('tabla');
             $table->bigInteger('valor');
             $table->timestamps();
         });
+        */
     }
 
     /**
@@ -28,6 +29,6 @@ class CreateConteosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('conteos');
+        //Schema::dropIfExists('conteos');
     }
 }

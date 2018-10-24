@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
+//relacion de impulsos a tablas
 class CreateImpulsosTable extends Migration
 {
     /**
@@ -11,7 +11,7 @@ class CreateImpulsosTable extends Migration
      * @return void
      */
     public function up()
-    {
+    {/*
         Schema::create('impulsos', function(Blueprint $table){
             $table->increments('id');
             $table->text('asunto');
@@ -26,7 +26,7 @@ class CreateImpulsosTable extends Migration
 
             $table->string('tabla');
             $table->integer('tabla_id');
-        });
+        });*/
     }
 
     /**
@@ -36,6 +36,6 @@ class CreateImpulsosTable extends Migration
      */
     public function down()
     {
-        //
+        
     }
 }

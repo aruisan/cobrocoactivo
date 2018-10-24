@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
+    /*
+        personas relacionadas en cada uno de los procesos. 
+    */
 class CreatePersonasTable extends Migration
 {
     /**
@@ -11,8 +13,11 @@ class CreatePersonasTable extends Migration
      *
      * @return void
      */
+
+    
     public function up()
     {
+        /*
         Schema::create('personas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre', 200);
@@ -24,6 +29,7 @@ class CreatePersonasTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+        */
     }
 
     /**
@@ -33,6 +39,6 @@ class CreatePersonasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('personas');
+       // Schema::dropIfExists('personas');
     }
 }
