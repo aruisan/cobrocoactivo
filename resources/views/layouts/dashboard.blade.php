@@ -184,7 +184,19 @@
     <script src="{{asset('/assets/raphael/raphael.min.js')}}"></script>
     <script src="{{asset('/assets/morrisjs/morris.min.js')}}"></script>
     <script src="{{asset('/assets/sb-admin/js/sb-admin-2.js')}}"></script>
-    
+
+    <!-- Translate-->
+    <script src="{{ asset('//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit') }}"></script>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'es',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
 <script>
 
 $(document).ready(function(){

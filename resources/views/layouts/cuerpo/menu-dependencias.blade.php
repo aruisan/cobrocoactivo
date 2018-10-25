@@ -58,7 +58,8 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu">
-    <li class="disabled"><a tabindex="-1" href="#">Configuración basica</a></li>
+    <li><a id="google_translate_element"></a></li>
+      <li class="disabled"><a tabindex="-1" href="#">Configuración basica</a></li>
     <li><a tabindex="-1" href="{{ route('dependencias.index') }}">Gestión de Dependencias</a></li>
     <li><a tabindex="-1" href="{{ route('rutas.index') }}">Rutas</a></li>
     @can('funcionario-list')

@@ -279,17 +279,19 @@ box-shadow: -8px 12px 18px -6px rgba(0,0,0,0.75);
     </script>
       <div id="fb-root"></div>
 
-      <script>
-
-$(document).ready(function(){
-
+<script type="text/javascript">
     function googleTranslateElementInit() {
         new google.translate.TranslateElement({
             pageLanguage: 'es',
             layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-            autoDisplay: false,
+            autoDisplay: false
         }, 'google_translate_element');
     }
+</script>
+
+      <script>
+
+$(document).ready(function(){
 
   $('.dropdown-submenu a.test').on("click", function(e){
     $(this).next('ul').toggle();

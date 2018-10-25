@@ -92,3 +92,24 @@
         </div>
     </div>
 @stop
+@section('js')
+    <script>
+        $('#tabla_corrE').DataTable( {
+            responsive: true,
+            "searching": false,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'print'
+            ]
+        } );
+
+        $('#tabla_corrS').DataTable( {
+            responsive: true,
+            "searching": false,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'print'
+            ]
+        } );
+    </script>
+@stop
