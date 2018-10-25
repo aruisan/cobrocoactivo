@@ -132,6 +132,7 @@
         @include('administrativo.gestiondocumental.correspondencia.modals.modals')
         @include('administrativo.gestiondocumental.archivo.modals.modals')
         @include('administrativo.gestiondocumental.boletines.modals.modals')
+        @include('administrativo.gestiondocumental.acuerdos.modals.modals')
 
        
 

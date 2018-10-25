@@ -21,7 +21,7 @@
     </a>
 </li>
 <li class="dropdown">
-    <a class="btn btn-default btn-sm" href="#">
+    <a class="btn btn-default btn-sm" href="{{ url('/dashboard/acuerdos') }}">
         ACUERDOS
     </a>
 </li>
