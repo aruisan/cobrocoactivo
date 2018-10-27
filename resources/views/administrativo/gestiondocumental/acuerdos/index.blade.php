@@ -18,7 +18,7 @@
                     <a class="nav-link" data-toggle="pill" href="#tabAcuerdos">ACUERDOS</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#tabProyectos">PROYECTOS</a>
+                    <a class="nav-link" data-toggle="pill" href="#tabProy">PROYECTOS DE ACUERDO</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="pill" href="#tabActas">ACTAS</a>
@@ -35,7 +35,7 @@
                         <table class="table table-hover table-bordered" align="100%" id="tabla_Acuerdos">
                             <thead>
                             <tr>
-                                <th class="text-center">Id</th>
+                                <th class="text-center">Acciones</th>
                                 <th class="text-center">Fecha del Documento</th>
                                 <th class="text-center">Nombre</th>
                                 <th class="text-center">Número</th>
@@ -46,32 +46,75 @@
                                 <th class="text-center">Fecha 2do Debate</th>
                                 <th class="text-center">Fecha de Aprobación</th>
                                 <th class="text-center">Fecha de Sanción</th>
-                                <th class="text-center">Acciones</th>
                             </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="text-dark">0</td>
-                                    <td class="text-dark">0</td>
-                                    <td class="text-dark">0</td>
-                                    <td class="text-dark">0</td>
-                                    <td class="text-dark">0</td>
-                                    <td class="text-dark">0</td>
-                                    <td class="text-dark">0</td>
-                                    <td class="text-center text-dark">0</td>
-                                    <td class="text-center text-dark">0</td>
-                                    <td>0</td>
-                                    <td>0</td>
                                     <td class="text-center">
                                         <a href="#" title="Ver" class="btn-sm btn-success"><i class="fa fa-file-pdf-o"></i></a>
                                         <a href="#" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                     </td>
+                                    <td class="text-dark">0</td>
+                                    <td class="text-dark">0</td>
+                                    <td class="text-dark">0</td>
+                                    <td class="text-dark">0</td>
+                                    <td class="text-dark">0</td>
+                                    <td class="text-dark">0</td>
+                                    <td class="text-center text-dark">0</td>
+                                    <td class="text-center text-dark">0</td>
+                                    <td>0</td>
+                                    <td>0</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <center>
                         <a href="{{ url('/dashboard/acuerdos/create') }}" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp; Nuevo Acuerdo</a>
+                    </center>
+                </div>
+                <div id="tabProy" class="tab-pane fade"><br>
+                    <div class="table-responsive">
+                        <br>
+                        <table class="table table-hover table-bordered" align="100%" id="tabla_Proy">
+                            <thead>
+                            <tr>
+                                <th class="text-center">Acciones</th>
+                                <th class="text-center">Fecha del Documento</th>
+                                <th class="text-center">Fecha de Entrada</th>
+                                <th class="text-center">Nombre</th>
+                                <th class="text-center">Fecha de Modificación</th>
+                                <th class="text-center">Número</th>
+                                <th class="text-center">Estado</th>
+                                <th class="text-center">Fecha de Salida</th>
+                                <th class="text-center">Comisión</th>
+                                <th class="text-center">Fecha 1er Debate</th>
+                                <th class="text-center">Fecha 2do Debate</th>
+                                <th class="text-center">Concejal Ponenete</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="text-center">
+                                    <a href="#" title="Ver" class="btn-sm btn-success"><i class="fa fa-file-pdf-o"></i></a>
+                                    <a href="#" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                                </td>
+                                <td class="text-dark">0</td>
+                                <td class="text-dark">0</td>
+                                <td class="text-dark">0</td>
+                                <td class="text-dark">0</td>
+                                <td class="text-dark">0</td>
+                                <td class="text-dark">0</td>
+                                <td class="text-dark">0</td>
+                                <td class="text-center text-dark">0</td>
+                                <td class="text-center text-dark">0</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <center>
+                        <a href="{{ url('/dashboard/acuerdos/proyectos/create') }}" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp; Nuevo Proyecto de Acuerdo</a>
                     </center>
                 </div>
                 <div id="tabActas" class="tab-pane fade">
@@ -81,38 +124,36 @@
                         <table class="table table-hover table-bordered" align="100%" id="tabla_Actas">
                             <thead>
                             <tr>
-                                <th class="text-center">Id</th>
+                                <th class="text-center">Archivo</th>
+                                <th class="text-center">Acciones</th>
                                 <th class="text-center">Fecha del Documento</th>
                                 <th class="text-center">Nombre</th>
                                 <th class="text-center">Número</th>
                                 <th class="text-center">Estado</th>
                                 <th class="text-center">Comisión</th>
                                 <th class="text-center">Fecha Aprobación</th>
-                                <th class="text-center">Archivo</th>
-                                <th class="text-center">Acciones</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td class="text-dark">0</td>
-                                <td class="text-dark">0</td>
-                                <td class="text-dark">0</td>
-                                <td class="text-dark">0</td>
-                                <td class="text-dark">0</td>
-                                <td class="text-dark">0</td>
-                                <td class="text-dark">0</td>
                                 <td class="text-center">
                                     <a href="#" title="Ver" class="btn-sm btn-success"><i class="fa fa-file-pdf-o"></i></a>
                                 </td>
                                 <td class="text-center">
                                     <a href="#" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                 </td>
+                                <td class="text-dark">0</td>
+                                <td class="text-dark">0</td>
+                                <td class="text-dark">0</td>
+                                <td class="text-dark">0</td>
+                                <td class="text-dark">0</td>
+                                <td class="text-dark">0</td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
                     <center>
-                        <a href="{{ url('#') }}" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp; Nueva Acta</a>
+                        <a href="{{ url('/dashboard/acuerdos/actas/create') }}" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp; Nueva Acta</a>
                     </center>
                 </div>
                 <div id="tabRes" class="tab-pane fade"><br>
@@ -121,32 +162,30 @@
                         <table class="table table-hover table-bordered" align="100%" id="tabla_Res">
                             <thead>
                             <tr>
-                                <th class="text-center">Id</th>
+                                <th class="text-center">Acciones</th>
                                 <th class="text-center">Fecha del Documento</th>
                                 <th class="text-center">Fecha de Entrada</th>
                                 <th class="text-center">Nombre</th>
                                 <th class="text-center">Número</th>
                                 <th class="text-center">Comisión</th>
-                                <th class="text-center">Acciones</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td class="text-dark">0</td>
-                                <td class="text-dark">0</td>
-                                <td class="text-dark">0</td>
-                                <td class="text-dark">0</td>
-                                <td class="text-dark">0</td>
-                                <td class="text-dark">0</td>
                                 <td class="text-center">
                                     <a href="#" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                 </td>
+                                <td class="text-dark">0</td>
+                                <td class="text-dark">0</td>
+                                <td class="text-dark">0</td>
+                                <td class="text-dark">0</td>
+                                <td class="text-dark">0</td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
                     <center>
-                        <a href="{{ url('#') }}" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp; Nueva Resolución</a>
+                        <a href="{{ url('/dashboard/acuerdos/resoluciones/create') }}" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp; Nueva Resolución</a>
                     </center>
                 </div>
             </div>
@@ -156,6 +195,14 @@
 @section('js')
     <script>
             $('#tabla_Actas').DataTable( {
+                responsive: true,
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'print'
+                ]
+            } );
+
+            $('#tabla_Proy').DataTable( {
                 responsive: true,
                 dom: 'Bfrtip',
                 buttons: [

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Administrativo\GestionDocumental;
+namespace App\Http\Controllers\Administrativo\GestionDocumental\Acuerdos;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

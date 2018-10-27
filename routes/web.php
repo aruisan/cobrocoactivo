@@ -53,8 +53,14 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
         //RUTAS ACUERDOS
 
-        Route::Resource('/acuerdos/','Administrativo\GestionDocumental\AcuerdosController');
+        Route::Resource('/acuerdos/','Administrativo\GestionDocumental\Acuerdos\AcuerdosController');
+        Route::Resource('/acuerdos/proyectos/','Administrativo\GestionDocumental\Acuerdos\ProyectosAcuerdoController');
+        Route::Resource('/acuerdos/actas/','Administrativo\GestionDocumental\Acuerdos\ActasController');
+        Route::Resource('/acuerdos/resoluciones/','Administrativo\GestionDocumental\Acuerdos\ResolucionesController');
 
+        //RUTAS COMISIONES
+
+        Route::Resource('/comision/plan/','Administrativo\GestionDocumental\Comisiones\ComisionPlanController');
 
 		Route::resource('demandante', 'Judicial\DemandanteController');
 		Route::resource('demandado', 'Judicial\DemandadoController');
@@ -109,9 +115,9 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 		Route::resource('dependencias', 'Admin\DependenciasController');
 		Route::get('dependencias/listar', 'Admin\DependenciasController@listar')->name('dependencias.listar');
 		
+        //RUTAS ORDEN DEL DIA
 
-
-
+        Route::resource('ordenDia','Admin\OrdenDiaController');
 
 		////////////////////////////////////////////////////
 		//Route::resource('personas', 'PersonasController');

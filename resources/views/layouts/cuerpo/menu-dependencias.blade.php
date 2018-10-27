@@ -26,7 +26,7 @@
     </a>
 </li>
 <li class="dropdown">
-    <a class="btn btn-default btn-sm" href="#">
+    <a class="btn btn-default btn-sm" href="{{ url('/admin/ordenDia') }}">
         ORDEN DEL DÍA
     </a>
 </li>
@@ -36,7 +36,7 @@
         <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
-        <li><a tabindex="-1" href="#">Comisión del Plan</a></li>
+        <li><a tabindex="-1" href="{{ url('/dashboard/comision/plan') }}">Comisión del Plan</a></li>
         <li><a tabindex="-1" href="#">Comisión de Presupuesto</a></li>
         <li><a tabindex="-1" href="#">Comisión Administrativa</a></li>
         <li><a tabindex="-1" href="#">Comisiones Accidentales</a></li>

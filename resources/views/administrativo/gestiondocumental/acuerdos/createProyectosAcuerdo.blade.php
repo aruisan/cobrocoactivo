@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @section('titulo')
-    Crear Acuerdo
+    Agregar Proyecto de Acuerdo
 @stop
 @section('sidebar')
     <li> <a class="btn btn-primary" href="{{ asset('/dashboard/acuerdos') }}"><span class="hide-menu">Acuerdos</span></a></li>
@@ -8,7 +8,7 @@
 @section('content')
 <div class="row">
     <div class="col-lg-12 margin-tb">
-        <h2 class="text-center"> Creación de Acuerdo</h2>
+        <h2 class="text-center"> Agregar Proyecto de Acuerdo</h2>
     </div>
 </div>
 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
@@ -67,7 +67,7 @@
                     <option value="">3</option>
                 </select>
             </div>
-            <small class="form-text text-muted">Consecutivo asignado al proyectode acuerdo</small>
+            <small class="form-text text-muted">Comisión del proyecto de acuerdo</small>
         </div>
     </div>
     <div class="row">
@@ -92,12 +92,16 @@
     </div>
     <div class="row">
         <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <label>Fecha de Sanción: </label>
+            <label>Concejal Ponente: </label>
             <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                <input type="date" name="fecha_sanción" class="form-control">
+                <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                <select name="concejal_ponente" class="form-control">
+                    <option value="">1</option>
+                    <option value="">2</option>
+                    <option value="">3</option>
+                </select>
             </div>
-            <small class="form-text text-muted">Fecha de sanción</small>
+            <small class="form-text text-muted">Concejal ponente</small>
         </div>
     </div>
     <div class="row">
@@ -109,7 +113,7 @@
         </div>
     </div>
     <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-        <button class="btn btn-primary btn-raised btn-lg" id="storeRegistro">Guardar</button>
+        <button class="btn btn-primary btn-raised btn-lg" id="storeRegistro">Agregar</button>
     </div>
     {!! Form::close() !!}
 </div>
