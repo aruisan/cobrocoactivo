@@ -13,7 +13,7 @@ class CreateMarcaHerretesTable extends Migration
      */
     public function up()
     {
-        Schema::create('marca_herretes', function (Blueprint $table) {
+        /*Schema::create('marca_herretes', function (Blueprint $table) {
             $table->increments('id');
             $table->date('ff_expedicion');
             $table->date('ff_vencimiento');
@@ -24,7 +24,7 @@ class CreateMarcaHerretesTable extends Migration
             $table->foreign('persona_id')->references('id')->on('personas');
 
             $table->timestamps();
-        });
+        });*/
     }
 
     /**
@@ -34,6 +34,6 @@ class CreateMarcaHerretesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('marca_herretes');
+        //Schema::dropIfExists('marca_herretes');
     }
 }

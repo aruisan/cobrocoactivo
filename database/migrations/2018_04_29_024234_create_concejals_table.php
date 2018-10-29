@@ -15,9 +15,11 @@ class CreateConcejalsTable extends Migration
     {
         Schema::create('concejales', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
             $table->string('partido');
             $table->string('periodo');
+
+            $table->integer('dato_id')->unsigned()->nullable();
+            $table->foreign('dato_id')->references('id')->on('personas');
             $table->timestamps();
         });
     }

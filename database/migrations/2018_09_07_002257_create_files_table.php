@@ -13,7 +13,7 @@ class CreateFilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('files', function (Blueprint $table) {
+        /*Schema::create('files', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre', 200);
             $table->string('ruta', 200);
@@ -23,7 +23,7 @@ class CreateFilesTable extends Migration
             $table->foreign('proceso_id')->references('id')->on('modulo_inicial');
 
             $table->timestamps();
-        });
+        });*/
     }
 
     /**

@@ -19,7 +19,7 @@ class CreateTypesDependenciasTable extends Migration
     public function up()
     {
         
-        /*
+
         Schema::create('types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
@@ -27,7 +27,7 @@ class CreateTypesDependenciasTable extends Migration
             $table->enum('expediente',[0,1])->default(0);
             $table->timestamps();
         });
-        */
+
         Schema::create('dependencias', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');

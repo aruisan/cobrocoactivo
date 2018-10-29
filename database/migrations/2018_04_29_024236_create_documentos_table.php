@@ -34,7 +34,7 @@ class CreateDocumentosTable extends Migration
             $table->string('name');
             $table->integer('number_doc');
             $table->enum('estado',[0,1,2])->default(1);
-            $table->stringh('respuesta');
+            $table->string('respuesta');
 
             $table->integer('ponente_id')->nullable()->unsigned();
             $table->foreign('ponente_id')->references('id')->on('concejales');
