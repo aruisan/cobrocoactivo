@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/*
+    relaciona a personas naturales dueñas de una persona juridica
+*/
 class CreateRepresentantesTable extends Migration
 {
     /**
@@ -12,7 +15,7 @@ class CreateRepresentantesTable extends Migration
      * @return void
      */
     public function up()
-    {
+    {/*
         Schema::create('representantes', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('rep_id')->unsigned();
@@ -22,6 +25,7 @@ class CreateRepresentantesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+        */
     }
 
     /**
@@ -31,6 +35,6 @@ class CreateRepresentantesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('representantes');
+        //Schema::dropIfExists('representantes');
     }
 }

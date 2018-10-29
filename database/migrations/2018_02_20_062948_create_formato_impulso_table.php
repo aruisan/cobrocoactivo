@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
+//formato o diseño de los impulsos
 class CreateFormatoImpulsoTable extends Migration
 {
     /**
@@ -12,6 +12,7 @@ class CreateFormatoImpulsoTable extends Migration
      */
     public function up()
     {
+        /*
         Schema::create('formato_impulsos', function(Blueprint $table){
             $table->increments('id');
             $table->string('nombre');
@@ -23,6 +24,7 @@ class CreateFormatoImpulsoTable extends Migration
             $table->foreign('categoria_id')->references('id')->on('categoria_impulsos');  
 
         });
+        */
     }
 
     /**
@@ -32,6 +34,6 @@ class CreateFormatoImpulsoTable extends Migration
      */
     public function down()
     {
-        Schema::drop('formato_impulsos');
+       // Schema::drop('formato_impulsos');
     }
 }

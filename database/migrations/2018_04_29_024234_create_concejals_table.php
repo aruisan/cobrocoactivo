@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-//conteos de tablas
-class CreateConteosTable extends Migration
+
+class CreateConcejalsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,16 @@ class CreateConteosTable extends Migration
      * @return void
      */
     public function up()
-    {/*
-        Schema::create('conteos', function (Blueprint $table) {
+    {
+        Schema::create('concejales', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('tabla');
-            $table->bigInteger('valor');
+            $table->string('partido');
+            $table->string('periodo');
+
+            $table->integer('dato_id')->unsigned()->nullable();
+            $table->foreign('dato_id')->references('id')->on('personas');
             $table->timestamps();
         });
-        */
     }
 
     /**
@@ -29,6 +31,6 @@ class CreateConteosTable extends Migration
      */
     public function down()
     {
-        //Schema::dropIfExists('conteos');
+        Schema::dropIfExists('concejales');
     }
 }

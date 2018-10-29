@@ -40,6 +40,7 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
         Route::Resource('/boletines/','Administrativo\GestionDocumental\BoletinesController');
 
+
         //RUTAS ARCHIVO
 
         Route::get('/archivo/create','Administrativo\GestionDocumental\ArchivoController@create');
@@ -51,7 +52,6 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 		Route::get('correspondencia/create/{id}','Administrativo\GestionDocumental\CorrespondenciaController@create');
 		Route::resource('correspondencia', 'Administrativo\GestionDocumental\CorrespondenciaController');
 
-        //RUTAS ACUERDOS
 
         Route::Resource('/acuerdos/','Administrativo\GestionDocumental\Acuerdos\AcuerdosController');
         Route::Resource('/acuerdos/proyectos/','Administrativo\GestionDocumental\Acuerdos\ProyectosAcuerdoController');

@@ -26,10 +26,10 @@ class UserTableSeeder extends Seeder
         User::create([
            'name' => 'yoe',
            'email' => 'yoe@yoe.com',
-           'type_id' => 3,
+           //'type_id' => 3,
            'password' => bcrypt('123456'),
         ]);
-
+/*
         factory(User::class, 20)->create()->each(function ($u) {
 
               $type_id = $u->type->id;
@@ -57,5 +57,6 @@ class UserTableSeeder extends Seeder
                   'boss_id' => $boss_id_static,
         ]);
 
+    */
     }
 }

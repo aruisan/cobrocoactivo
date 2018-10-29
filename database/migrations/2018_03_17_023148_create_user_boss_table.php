@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
+//relacion de empleado y empleador
 class CreateUserBossTable extends Migration
 {
     /**
@@ -21,7 +21,6 @@ class CreateUserBossTable extends Migration
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('boss_id')->references('id')->on('users');
-
         });
     }
 
