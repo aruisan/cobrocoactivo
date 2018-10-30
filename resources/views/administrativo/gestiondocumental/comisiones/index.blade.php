@@ -1,16 +1,16 @@
 @extends('layouts.dashboard')
 @section('titulo')
-    Comisión de Plan
+    {{ $comision }}
 @stop
-@section('sidebar')
 @section('content')
     <div class="col-md-12 align-self-center">
         <div class="breadcrumb text-center">
             <strong>
-                <h4><b>Comisión de Plan</b></h4>
+                <h4><b>{{ $comision }}</b></h4>
             </strong>
         </div>
     </div>
+    @if($id == 1)
     <div class="row">
         <div class="col-lg-12 text-center">
             <h2>Objetivo</h2>
@@ -22,14 +22,15 @@
             <div class="card">
                 <div class="card-title text-center">
                     <h3>Concejales</h3>
+                    <br>
                 </div>
                 <div class="card-body">
                     <div class="recent-meaasge">
                         <div class="media">
-                            <div class="media-left">
-                                <a href="#"><img alt="..." src="images/avatar/1.jpg" class="media-object"></a>
+                            <div class="col-lg-2">
+                                <a href="#"><img src="{{ asset('img/user.png')}}" class="card-img-top" width="100%"></a>
                             </div>
-                            <div class="media-body">
+                            <div class="col-lg-10">
                                 <h4 class="media-heading">john doe</h4>
                                 <div class="meaasge-date">15 minutes Ago</div>
                                 <p class="f-s-12">We are happy about your service </p>
@@ -37,24 +38,24 @@
                         </div>
                         <hr>
                         <div class="media">
-                            <div class="media-left">
-                                <a href="#"><img alt="..." src="imag/user.png" class="media-object"></a>
+                            <div class="col-lg-2">
+                                <a href="#"><img src="{{ asset('img/user.png')}}" class="card-img-top" width="100%"></a>
                             </div>
-                            <div class="media-body">
-                                <h4 class="media-heading">Mr. John</h4>
-                                <div class="meaasge-date">40 minutes ago</div>
-                                <p class="f-s-12">Quick service and good serve </p>
+                            <div class="col-lg-10">
+                                <h4 class="media-heading">john doe</h4>
+                                <div class="meaasge-date">15 minutes Ago</div>
+                                <p class="f-s-12">We are happy about your service </p>
                             </div>
                         </div>
                         <hr>
                         <div class="media">
-                            <div class="media-left">
-                                <a href="#"><img alt="..." src="images/avatar/3.jpg" class="media-object"></a>
+                            <div class="col-lg-2">
+                                <a href="#"><img src="{{ asset('img/user.png')}}" class="card-img-top" width="100%"></a>
                             </div>
-                            <div class="media-body">
-                                <h4 class="media-heading">Mr. Michael</h4>
-                                <div class="meaasge-date">1 minutes ago</div>
-                                <p class="f-s-12">We like your birthday cake </p>
+                            <div class="col-lg-10">
+                                <h4 class="media-heading">john doe</h4>
+                                <div class="meaasge-date">15 minutes Ago</div>
+                                <p class="f-s-12">We are happy about your service </p>
                             </div>
                         </div>
                         <hr>
@@ -66,6 +67,7 @@
             <div class="card">
                 <div class="card-title text-center">
                     <h3>Proyectos de Acuerdo</h3>
+                    <br>
                 </div>
                 <div class="card-body">
                     <div class="recent-meaasge">
@@ -89,5 +91,8 @@
             </div>
         </div>
     </div>
-
+@elseif($id == 2)
+    @elseif($id == 3)
+    @elseif($id == 4)
+    @endif
 @stop

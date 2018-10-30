@@ -36,19 +36,19 @@
         <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
-        <li><a tabindex="-1" href="{{ url('/dashboard/comision/plan') }}">Comisión del Plan</a></li>
-        <li><a tabindex="-1" href="#">Comisión de Presupuesto</a></li>
-        <li><a tabindex="-1" href="#">Comisión Administrativa</a></li>
-        <li><a tabindex="-1" href="#">Comisiones Accidentales</a></li>
+        <li><a tabindex="-1" href="{{ url('/dashboard/comision/1') }}">Comisión del Plan</a></li>
+        <li><a tabindex="-1" href="{{ url('/dashboard/comision/2') }}">Comisión de Presupuesto</a></li>
+        <li><a tabindex="-1" href="{{ url('/dashboard/comision/3') }}">Comisión Administrativa</a></li>
+        <li><a tabindex="-1" href="{{ url('/dashboard/comision/4') }}">Comisiones Accidentales</a></li>
     </ul>
 </li>
 <li class="dropdown">
-    <a class="btn btn-default btn-sm" href="#">
+    <a class="btn btn-default btn-sm" href="{{ url('/dashboard/concejales') }}">
         CONCEJALES
     </a>
 </li>
 <li class="dropdown">
-    <a class="btn btn-default btn-sm" href="#">
+    <a class="btn btn-default btn-sm" href="{{ url('/dashboard/mesaDir') }}">
         MESA DIRECTIVA
     </a>
 </li>

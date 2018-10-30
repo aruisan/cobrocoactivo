@@ -1,20 +1,31 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Administrativo\GestionDocumental\Comisiones;
 
-use App\Concejal;
+use App\Model\Administrativo\GestionDocumental\Comisiones;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class ConcejalController extends Controller
+class ComisionesController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        if ($id == 1){
+            $comision = "Comisión del Plan";
+        } elseif ($id == 2){
+            $comision = "Comisión de Presupuesto";
+        } elseif ($id == 3){
+            $comision = "Comisión Administrativa";
+        } elseif ($id == 4){
+            $comision = "Comisiones Accidentales";
+        }
+        return view('administrativo.gestiondocumental.comisiones.index', compact('comision','id'));
+
     }
 
     /**
@@ -41,10 +52,10 @@ class ConcejalController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Concejal  $concejal
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Concejal $concejal)
+    public function show($id)
     {
         //
     }
@@ -52,10 +63,10 @@ class ConcejalController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Concejal  $concejal
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Concejal $concejal)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +75,10 @@ class ConcejalController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Concejal  $concejal
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Concejal $concejal)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +86,10 @@ class ConcejalController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Concejal  $concejal
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Concejal $concejal)
+    public function destroy($id)
     {
         //
     }

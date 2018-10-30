@@ -253,7 +253,7 @@
                                 <div class="alert alert-danger">
                                     <center>
                                         No hay CDP's, para crear uno nuevo de click al siguiente link:
-                                        <a href="{{ url('presupuesto/cdp/create') }}" class="alert-link">Crear CDP</a>.
+                                        <a href="{{ url('administrativo/cdp/create') }}" class="alert-link">Crear CDP</a>.
                                     </center>
                                 </div>
                             @endif

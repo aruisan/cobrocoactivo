@@ -1,9 +1,8 @@
 <?php
 
 
-Route::get('/', function(){
-	return view('visitante.index');
-});
+Route::get('/', 'VisitanteController@index');
+
 
 
 Route::get('/info', function(){
@@ -52,6 +51,7 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 		Route::get('correspondencia/create/{id}','Administrativo\GestionDocumental\CorrespondenciaController@create');
 		Route::resource('correspondencia', 'Administrativo\GestionDocumental\CorrespondenciaController');
 
+		//RUTAS ACUERDOS
 
         Route::Resource('/acuerdos/','Administrativo\GestionDocumental\Acuerdos\AcuerdosController');
         Route::Resource('/acuerdos/proyectos/','Administrativo\GestionDocumental\Acuerdos\ProyectosAcuerdoController');
@@ -60,7 +60,15 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
         //RUTAS COMISIONES
 
-        Route::Resource('/comision/plan/','Administrativo\GestionDocumental\Comisiones\ComisionPlanController');
+        Route::get('/comision/{id}/','Administrativo\GestionDocumental\Comisiones\ComisionesController@index');
+
+        //RUTAS CONCEJALES
+
+        Route::Resource('/concejales/','Administrativo\GestionDocumental\ConcejalController');
+
+        //RUTAS MESA DIRECTIVA
+
+        Route::Resource('/mesaDir/','Administrativo\GestionDocumental\MesaDirectivaController');
 
 		Route::resource('demandante', 'Judicial\DemandanteController');
 		Route::resource('demandado', 'Judicial\DemandadoController');

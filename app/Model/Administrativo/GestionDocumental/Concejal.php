@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Model\Administrativo\GestionDocumental;
 
 use Illuminate\Database\Eloquent\Model;
 

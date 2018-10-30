@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Administrativo\GestionDocumental\Comisiones;
+namespace App\Http\Controllers\Administrativo\GestionDocumental;
 
+use App\Model\Administrativo\GestionDocumental\MesaDirectiva;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-
-class ComisionPlanController extends Controller
+class MesaDirectivaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,7 @@ class ComisionPlanController extends Controller
      */
     public function index()
     {
-        return view('administrativo.gestiondocumental.comisiones.plan.index');
-
+        return view('administrativo.gestiondocumental.mesa.index');
     }
 
     /**
@@ -26,7 +25,7 @@ class ComisionPlanController extends Controller
      */
     public function create()
     {
-        //
+        return view('administrativo.gestiondocumental.mesa.create');
     }
 
     /**
@@ -43,10 +42,10 @@ class ComisionPlanController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\MesaDirectiva  $mesaDirectiva
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(MesaDirectiva $mesaDirectiva)
     {
         //
     }
@@ -54,10 +53,10 @@ class ComisionPlanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\MesaDirectiva  $mesaDirectiva
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(MesaDirectiva $mesaDirectiva)
     {
         //
     }
@@ -66,10 +65,10 @@ class ComisionPlanController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\MesaDirectiva  $mesaDirectiva
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, MesaDirectiva $mesaDirectiva)
     {
         //
     }
@@ -77,10 +76,10 @@ class ComisionPlanController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\MesaDirectiva  $mesaDirectiva
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(MesaDirectiva $mesaDirectiva)
     {
         //
     }
