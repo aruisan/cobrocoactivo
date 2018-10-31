@@ -38,21 +38,8 @@
                                 <textarea name="name" class="form-control"></textarea>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-lg-4 col-form-label text-right" for="valor">Valor <span class="text-danger">*</span></label>
-                            <div class="col-lg-6">
-                                <input type="number" class="form-control" name="valor">
-                            </div>
-                        </div>
-                        <input type="hidden" class="form-control" name="fecha" value="{{ Carbon\Carbon::today()->Format('Y-m-d')}}" min="{{ Carbon\Carbon::today()->Format('Y-m-d')}}">
                     </div>
                     <div class="col-md-6 align-self-center">
-                        <div class="form-group">
-                            <label class="col-lg-4 col-form-label text-right" for="saldo">Saldo <span class="text-danger">*</span></label>
-                            <div class="col-lg-6">
-                                <input type="number" class="form-control" name="saldo">
-                            </div>
-                        </div>
                         <div class="form-group">
                             <label class="col-lg-4 col-form-label text-right" for="observacion">Observación<span class="text-danger">*</span></label>
                             <div class="col-lg-6">
@@ -60,16 +47,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-lg-4 col-form-label text-right" for="rubro_id">Rubros <span class="text-danger">*</span></label>
-                        <div class="col-lg-6">
-                            <select name="rubro_id" class="form-control">
-                                @foreach($rubros as  $rubro)
-                                    <option value="{{ $rubro->id }}">{{ $rubro->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
+
+                    <input type="hidden" class="form-control" name="fecha" value="{{ Carbon\Carbon::today()->Format('Y-m-d')}}" min="{{ Carbon\Carbon::today()->Format('Y-m-d')}}">
+                    <input type="hidden" class="form-control" name="saldo" value="0">
+                    <input type="hidden" class="form-control" name="valor" value="0">
+                    <input type="hidden" class="form-control" name="rubro_id" value="1">
                     <input type="hidden" class="form-control" name="estado" value="0">
                     <input type="hidden" class="form-control" name="dependencia_id" value="{{ $dependencia }}">
                     <center>

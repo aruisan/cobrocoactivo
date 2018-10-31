@@ -34,8 +34,10 @@
                         <thead>
                         <tr>
                             <th class="text-center">#</th>
-                            <th class="text-center">Nombre</th>
+                            <th class="text-center">Objeto</th>
                             <th class="text-center">Estado</th>
+                            <th class="text-center">Valor</th>
+                            <th class="text-center"><i class="fa fa-sign-in"></i></th>
                             <th class="text-center">Acciones</th>
                         </tr>
                         </thead>
@@ -44,8 +46,9 @@
                             <tr>
                                 <td class="text-center">{{ $cdp->id }}</td>
                                 <td class="text-center">{{ $cdp->name }}</td>
-                                <td class="text-center"><span class="badge badge-pill badge-danger">
-                                                @if($cdp->estado == 0)
+                                <td class="text-center">
+                                    <span class="badge badge-pill badge-danger">
+                                        @if($cdp->estado == 0)
                                             Pendiente
                                         @elseif($cdp->estado == 1)
                                             Rechazado
@@ -54,7 +57,12 @@
                                         @else
                                             Aprobado
                                         @endif
-                                            </span></td>
+                                    </span>
+                                </td>
+                                <td class="text-center">{{ $cdp->valor }}</td>
+                                <td class="text-center">
+                                    <a href="{{ url('administrativo/cdp/'.$cdp->id) }}" title="Ingresar" class="btn btn-sm btn-primary"><i class="fa fa-sign-in"></i></a>
+                                </td>
                                 <td class="text-center">
                                     <a href="{{ url('administrativo/cdp/'.$cdp->id.'/edit') }}" title="Editar" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                     <a href="#" title="Aprobar" class="btn btn-sm btn-success"><i class="fa fa-check"></i></a>

@@ -14,7 +14,6 @@ use App\Model\Hacienda\Presupuesto\Level;
 use App\Model\Hacienda\Presupuesto\Register;
 use App\Model\Administrativo\Cdp\Cdp;
 
-
 class PresupuestoController extends Controller
 {
     /**

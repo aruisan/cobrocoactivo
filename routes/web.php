@@ -101,6 +101,7 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
         //CDP's
         Route::resource('cdp', 'Administrativo\Cdp\CdpController');
+        Route::Resource('rubrosCdp','Administrativo\Cdp\RubrosCdpController');
 
 
         Route::resource('marcas-herretes', 'Administrativo\MarcaHerrete\MarcaHerreteController');

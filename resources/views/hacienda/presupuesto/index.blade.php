@@ -425,5 +425,22 @@
         });
 
         $('#registros').css("cursor","pointer");
+
+            function datosTextos() {
+                var textos = '';
+                for (var i=1;i<document.getElementById('tabla_presupuesto').rows.length;i ++){
+                    for (var j=0;j<=4;j++){
+                        if (j==4){
+                            textos = textos + document.getElementById('tabla_presupuesto').rows[i].cells[j].innerHTML;
+                        }else{
+                            textos = textos + document.getElementById('tabla_presupuesto').rows[i].cells[j].innerHTML + '-';
+                        }
+                    }
+                    textos = textos + '/';
+                }
+                alert(textos);
+
+                return textos;
+            }
     </script>
 @stop

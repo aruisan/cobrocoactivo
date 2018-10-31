@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Administrativo\Cdp;
 
+use App\Model\Hacienda\Presupuesto\FontsRubro;
 use App\Model\Administrativo\Cdp\Cdp;
+use App\Model\Administrativo\Cdp\RubrosCdp;
 use App\Model\Hacienda\Presupuesto\Rubro;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -62,9 +64,16 @@ class CdpController extends Controller
      * @param  \App\Cdp  $cdp
      * @return \Illuminate\Http\Response
      */
-    public function show($cdp)
+    public function show($id)
     {
-        //
+        $cdp = Cdp::findOrFail($id);
+        $rubros = Rubro::all();
+        $rubrosCdp = RubrosCdp::find($id);
+        foreach ($rubros as $rubro){
+            $valFuente = FontsRubro::where('rubro_id', $rubro->id)->sum('valor');
+            $valores[] = collect(['id_rubro' => $rubro->id, 'name' => $rubro->name, 'dinero' => $valFuente]);
+        }
+        return view('administrativo.cdp..show', compact('cdp','rubros','valores','rubrosCdp'));
     }
 
     /**

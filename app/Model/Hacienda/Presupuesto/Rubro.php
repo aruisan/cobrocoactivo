@@ -26,4 +26,8 @@ class Rubro extends Model
     public function subProyecto() {
         return $this->hasOne('App\Model\Planeacion\Pdd\SubProyecto', 'id', 'subproyecto_id');
     }
+
+    public function rubrosCdp(){
+        return $this->hasMany('App\Model\Administrativo\Cdp\RubrosCdp','rubro_id');
+    }
 }
