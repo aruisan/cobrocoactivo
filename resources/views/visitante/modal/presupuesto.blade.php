@@ -5,10 +5,15 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title text-center">
-                        Presupuesto Año 2018
+                        Presupuesto
                     </h4>
                 </div>
               <div class="modal-body">
+                  @if($V == "Vacio")
+                      <div class="alert alert-danger text-center">
+                          Actualmente no hay un presupuesto en la página.
+                      </div>
+                  @else
                   <div class="table-responsive">
                       <br>
                       <table class="table table-hover table-bordered" align="100%" id="tabla_presupuesto">
@@ -43,6 +48,7 @@
                           </tbody>
                       </table>
                   </div>
+                  @endif
               </div>
                 <div class="modal-footer">
                     <div class="row">

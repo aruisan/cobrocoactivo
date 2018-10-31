@@ -68,7 +68,7 @@ class CdpController extends Controller
     {
         $cdp = Cdp::findOrFail($id);
         $rubros = Rubro::all();
-        $rubrosCdp = RubrosCdp::find($id);
+        $rubrosCdp = RubrosCdp::find('rubro_id',$id);
         foreach ($rubros as $rubro){
             $valFuente = FontsRubro::where('rubro_id', $rubro->id)->sum('valor');
             $valores[] = collect(['id_rubro' => $rubro->id, 'name' => $rubro->name, 'dinero' => $valFuente]);

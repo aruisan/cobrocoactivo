@@ -229,6 +229,7 @@ box-shadow: -8px 12px 18px -6px rgba(0,0,0,0.75);
           @yield('contenido')
           @include('visitante.modal.ingresar')
           @include('visitante.modal.modals')
+          @include('visitante.modal.presupuesto')
 
   <footer id="myFooter">
         <div class="container-fluid">
