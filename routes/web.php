@@ -160,19 +160,19 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 	////// RUTAS PRESUPUESTO
 
 
-	Route::Resource('hacienda', 'Hacienda\Presupuesto\PresupuestoController');
-	Route::get('hacienda/vigencia/create/{tipo}', 'Hacienda\Presupuesto\VigenciaController@create');
-	Route::resource('hacienda/vigencia', 'Hacienda\Presupuesto\VigenciaController');
-	Route::get('hacienda/level/create/{vigencia}', 'Hacienda\Presupuesto\LevelController@create');
-	Route::resource('hacienda/level', 'Hacienda\Presupuesto\LevelController');
-	Route::get('hacienda/registro/create/{vigencia}/{level}', 'Hacienda\Presupuesto\RegistroController@create');
-	Route::resource('hacienda/registro', 'Hacienda\Presupuesto\RegistroController');
-	Route::get('hacienda/font/create/{vigencia}', 'Hacienda\Presupuesto\FontsController@create');
-	Route::resource('hacienda/font', 'Hacienda\Presupuesto\FontsController');
-	Route::get('hacienda/rubro/create/{vigencia}', 'Hacienda\Presupuesto\RubrosController@create');
-	Route::resource('hacienda/rubro', 'Hacienda\Presupuesto\RubrosController');
-	Route::resource('hacienda/FontRubro', 'Hacienda\Presupuesto\FontRubroController');
-	Route::resource('hacienda/FontRubro/saldo', 'Hacienda\Presupuesto\FontRubroController@saldoFont');
+	Route::Resource('presupuesto', 'Hacienda\Presupuesto\PresupuestoController');
+	Route::get('presupuesto/vigencia/create/{tipo}', 'Hacienda\Presupuesto\VigenciaController@create');
+	Route::resource('presupuesto/vigencia', 'Hacienda\Presupuesto\VigenciaController');
+	Route::get('presupuesto/level/create/{vigencia}', 'Hacienda\Presupuesto\LevelController@create');
+	Route::resource('presupuesto/level', 'Hacienda\Presupuesto\LevelController');
+	Route::get('presupuesto/registro/create/{vigencia}/{level}', 'Hacienda\Presupuesto\RegistroController@create');
+	Route::resource('presupuesto/registro', 'Hacienda\Presupuesto\RegistroController');
+	Route::get('presupuesto/font/create/{vigencia}', 'Hacienda\Presupuesto\FontsController@create');
+	Route::resource('presupuesto/font', 'Hacienda\Presupuesto\FontsController');
+	Route::get('presupuesto/rubro/create/{vigencia}', 'Hacienda\Presupuesto\RubrosController@create');
+	Route::resource('presupuesto/rubro', 'Hacienda\Presupuesto\RubrosController');
+	Route::resource('presupuesto/FontRubro', 'Hacienda\Presupuesto\FontRubroController');
+	Route::resource('presupuesto/FontRubro/saldo', 'Hacienda\Presupuesto\FontRubroController@saldoFont');
 	
     ////// RUTAS PLAN DE DESARROLLO
 	Route::resource('pdd','Planeacion\Pdd\PdesarrolloController');

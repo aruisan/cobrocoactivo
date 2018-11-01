@@ -11,8 +11,9 @@
             <h4><b>Valor del CDP</b></h4>
         </center>
         <div class="text-center">
-            $0.00
+            $<?php echo number_format($cdp->valor,0) ?>
         </div>
+        <br>
         <center>
             <h4><b>Valores de los Rubros</b></h4>
         </center>
@@ -79,7 +80,7 @@
         <hr>
     <br>
     <div class="table-responsive">
-        @if($rubrosCdp == null)
+        @if($cdp->rubrosCdp->count() == 0 )
             <div class="col-md-12 align-self-center">
                 <div class="alert alert-danger text-center">
                     El CDP no tiene rubros asigandos.
@@ -89,7 +90,7 @@
         @endif
         <form action="{{url('/administrativo/rubrosCdp')}}" method="POST"  class="form" id="prog">
             {{ csrf_field() }}
-            <table id="tabla_programas" class="table table-bordered">
+            <table id="tabla_rubrosCdp" class="table table-bordered">
                 <thead>
                 <tr>
                     <th scope="col" class="text-center">Nombre del Rubro</th>
@@ -97,8 +98,19 @@
                 </tr>
                 </thead>
                 <tbody>
+                @foreach($cdp->rubrosCdp as $dato)
                 <tr>
                     <td class="text-center">
+                        <h4>
+                            <b>{{ $dato->rubros->name }}</b>
+                        </h4>
+                    </td>
+                    <td class="text-center"><button type="button" class="btn-sm btn-danger" v-on:click.prevent="eliminar({{ $dato->id }})" ><i class="fa fa-trash-o"></i></button></td>
+                </tr>
+                @endforeach
+                <tr>
+                    <td class="text-center">
+                        <input type="hidden" name="cdp_id" value="{{ $cdp->id }}">
                         <select name="rubro_id[]" class="form-group-lg" required>
                             @foreach($rubros as $rubro)
                                 <option value="{{ $rubro->id }}">{{ $rubro->name }}</option>
@@ -120,14 +132,10 @@
 @section('js')
     <script>
         $(document).ready(function() {
-            $('#tablaFuentesR').DataTable( {
+            $('#tabla_rubrosCdp').DataTable( {
                 responsive: true,
                 "searching": false,
-                "pageLength": 5,
-                dom: 'Bfrtip',
-                buttons: [
-                    'copy', 'csv', 'excel', 'print'
-                ]
+                "pageLength": 4
             } );
 
             $(document).on('click', '.borrar', function (event) {
@@ -138,16 +146,16 @@
             new Vue({
                 el: '#prog',
                 methods:{
-                    eliminarDatos2: function(dato2){
-                        var urlVigencia2 = '/pdd/programa/'+dato2;
-                        axios.delete(urlVigencia2).then(response => {
+                    eliminar: function(dato){
+                        var urlrubrosCdp = '/administrativo/rubrosCdp/'+dato;
+                        axios.delete(urlrubrosCdp).then(response => {
                             location.reload();
                     });
                     },
 
                     nuevaFilaPrograma: function(){
-                        var nivel=parseInt($("#tabla_programas tr").length);
-                        $('#tabla_programas tbody tr:first').before('<tr>\n' +
+                        var nivel=parseInt($("#tabla_rubrosCdp tr").length);
+                        $('#tabla_rubrosCdp tbody tr:last').before('<tr>\n' +
                             '                        <td class="text-center">\n' +
                             '                            <select name="rubro_id[]" required>\n' +
                             '                                @foreach($rubros as $rubro)\n' +

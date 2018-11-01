@@ -59,7 +59,7 @@
                                         @endif
                                     </span>
                                 </td>
-                                <td class="text-center">{{ $cdp->valor }}</td>
+                                <td class="text-center">$<?php echo number_format($cdp->valor,0) ?></td>
                                 <td class="text-center">
                                     <a href="{{ url('administrativo/cdp/'.$cdp->id) }}" title="Ingresar" class="btn btn-sm btn-primary"><i class="fa fa-sign-in"></i></a>
                                 </td>
