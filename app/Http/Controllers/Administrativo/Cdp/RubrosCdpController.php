@@ -56,9 +56,9 @@ class RubrosCdpController extends Controller
             $valor[] = $rubro->fontsRubro->sum('valor');
         }
 
-        $cdp = Cdp::findOrFail($cdp_id);
-        $cdp->valor = $cdp->valor + array_sum($valor);
-        $cdp->save();
+        //$cdp = Cdp::findOrFail($cdp_id);
+        //$cdp->valor = $cdp->valor + array_sum($valor);
+        //$cdp->save();
 
         Session::flash('success','Rubros asigandos correctamente');
 
@@ -112,7 +112,7 @@ class RubrosCdpController extends Controller
         $rubroCdp = RubrosCdp::find($id);
         $valorResta = $rubroCdp->rubros->fontsRubro->sum('valor');
         $cdp_id = $rubroCdp->cdp_id;
-        $this->restarDinero($cdp_id, $valorResta);
+        //$this->restarDinero($cdp_id, $valorResta);
         Session::flash('error','Rubro eliminado correctamente del CDP');
         $rubroCdp->delete();
     }

@@ -103,10 +103,9 @@ Route::group([ 'middleware' => 'auth'] ,function(){
         Route::resource('cdp', 'Administrativo\Cdp\CdpController');
         Route::Resource('rubrosCdp','Administrativo\Cdp\RubrosCdpController');
 
-
         Route::resource('marcas-herretes', 'Administrativo\MarcaHerrete\MarcaHerreteController');
         Route::get('persona-find/{identificador}', 'Cobro\PersonasController@personaFind');
-    		Route::post('persona/find-create', 'Cobro\PersonasController@PersonafindCreate');
+        Route::post('persona/find-create', 'Cobro\PersonasController@PersonafindCreate');
 	});
 
 

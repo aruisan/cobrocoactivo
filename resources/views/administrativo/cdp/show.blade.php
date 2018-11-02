@@ -93,22 +93,14 @@
             <table id="tabla_rubrosCdp" class="table table-bordered">
                 <thead>
                 <tr>
+                    <th>&nbsp;</th>
                     <th scope="col" class="text-center">Nombre del Rubro</th>
                     <th scope="col" class="text-center"><i class="fa fa-trash-o"></i></th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($cdp->rubrosCdp as $dato)
                 <tr>
-                    <td class="text-center">
-                        <h4>
-                            <b>{{ $dato->rubros->name }}</b>
-                        </h4>
-                    </td>
-                    <td class="text-center"><button type="button" class="btn-sm btn-danger" v-on:click.prevent="eliminar({{ $dato->id }})" ><i class="fa fa-trash-o"></i></button></td>
-                </tr>
-                @endforeach
-                <tr>
+                    <td>&nbsp;</td>
                     <td class="text-center">
                         <input type="hidden" name="cdp_id" value="{{ $cdp->id }}">
                         <select name="rubro_id[]" class="form-group-lg" required>
@@ -119,11 +111,48 @@
                     </td>
                     <td class="text-center"><button type="button" class="btn-sm btn-danger borrar">&nbsp;-&nbsp; </button></td>
                 </tr>
+                @for($i = 0; $i < $cdp->rubrosCdp->count(); $i++)
+                    <tr>
+                        <td class="text-center">
+                            <button type="button" class="btn-sm btn-success" onclick="ver('fuente{{$i}}')" ><i class="fa fa-arrow-down"></i></button>
+                        </td>
+                        <td class="text-center">
+                            <h4>
+                                <b>{{ $cdp->rubrosCdp[$i]->rubros->name }}</b>
+                            </h4>
+                        </td>
+                        <td class="text-center"><button type="button" class="btn-sm btn-danger" v-on:click.prevent="eliminar({{ $cdp->rubrosCdp[$i]->id }})" ><i class="fa fa-trash-o"></i></button></td>
+                    </tr>
+                    <tr id="fuente{{$i}}" style="display: none">
+                        <td style="vertical-align: middle">
+                            <b>Fuentes del rubro {{ $cdp->rubrosCdp[$i]->rubros->name }}</b>
+                        </td>
+                        <td>
+                            <div class="col-lg-12 text-center">
+                                @foreach($cdp->rubrosCdp[$i]->rubros->fontsRubro as $fuentesRubro)
+                                    <input type="hidden" name="fuenteId[]" value="{{ $fuentesRubro->id }}">
+                                    <div class="col-lg-6">
+                                        <li>
+                                            {{ $fuentesRubro->font->name }} : $<?php echo number_format( $fuentesRubro->valor,0) ?>
+                                        </li>
+                                    </div>
+                                    <div class="col-lg-6">
+                                            Dinero a usar de {{ $fuentesRubro->font->name }}:
+                                            <input type="number" required name="valorFuenteUsar[]" class="form-group-sm" value="0" max="{{ $fuentesRubro->valor }}" style="text-align: center">
+                                    </div>
+                                    <br>
+                                @endforeach
+                            </div>
+                        </td>
+                        <td></td>
+                    </tr>
+                @endfor
                 </tbody>
             </table><br>
             <center>
                 <button type="button" v-on:click.prevent="nuevaFilaPrograma" class="btn btn-success">Agregar Fila</button>
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="submit" class="btn btn-primary">Guardar Rubros</button>
+                <button type="submit" class="btn btn-success">Enviar CDP</button>
             </center>
         </form>
     </div>
@@ -131,11 +160,20 @@
     @stop
 @section('js')
     <script>
+        var visto = null;
+        function ver(num) {
+            obj = document.getElementById(num);
+            obj.style.display = (obj==visto) ? 'none' : '';
+            if (visto != null)
+                visto.style.display = 'none';
+            visto = (obj==visto) ? null : obj;
+        }
+
         $(document).ready(function() {
             $('#tabla_rubrosCdp').DataTable( {
                 responsive: true,
                 "searching": false,
-                "pageLength": 4
+                "ordering" : false
             } );
 
             $(document).on('click', '.borrar', function (event) {
@@ -145,7 +183,9 @@
 
             new Vue({
                 el: '#prog',
+
                 methods:{
+
                     eliminar: function(dato){
                         var urlrubrosCdp = '/administrativo/rubrosCdp/'+dato;
                         axios.delete(urlrubrosCdp).then(response => {

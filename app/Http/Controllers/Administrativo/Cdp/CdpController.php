@@ -51,7 +51,7 @@ class CdpController extends Controller
         $cdp->estado = $request->estado;
         $cdp->observacion = $request->observacion;
         $cdp->saldo = $request->saldo;
-        $cdp->rubro_id = $request->rubro_id;
+        $cdp->rubro_id = 2;
         $cdp->save();
         Session::flash('success','El CDP se ha creado exitosamente');
         return redirect('/administrativo/cdp');
