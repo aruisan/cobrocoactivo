@@ -7,7 +7,7 @@
                 <div class="modal-body">
                     <div class="row page-titles">
                         <div class="col-md-2 align-self-center">
-                            <center>
+                            <center>1q
                                 <button class="btn btn-primary" data-dismiss="modal">Cerrar</button>
                             </center>
                         </div>

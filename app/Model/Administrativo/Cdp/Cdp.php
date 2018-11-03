@@ -17,4 +17,8 @@ class Cdp extends Model
     public function rubrosCdp(){
         return $this->hasMany('App\Model\Administrativo\Cdp\RubrosCdp','cdp_id');
     }
+
+    public function rubrosCdpValor(){
+        return $this->hasMany('App\Model\Administrativo\Cdp\RubrosCdpValor','rubrosCdp_id');
+    }
 }

@@ -11,4 +11,8 @@ class RubrosCdp extends Model
     public function rubros(){
         return $this->hasOne('App\Model\Hacienda\Presupuesto\Rubro','id','rubro_id');
     }
+
+    public function rubrosCdpValor(){
+        return $this->hasMany('App\Model\Administrativo\Cdp\RubrosCdpValor','rubrosCdp_id');
+    }
 }

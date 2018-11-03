@@ -121,30 +121,60 @@
                                 <b>{{ $cdp->rubrosCdp[$i]->rubros->name }}</b>
                             </h4>
                         </td>
-                        <td class="text-center"><button type="button" class="btn-sm btn-danger" v-on:click.prevent="eliminar({{ $cdp->rubrosCdp[$i]->id }})" ><i class="fa fa-trash-o"></i></button></td>
+                        <td class="text-center">
+                            @if($cdp->rubrosCdp[$i]->rubrosCdpValor->count() == 0)
+                                <button type="button" class="btn-sm btn-danger" v-on:click.prevent="eliminar({{ $cdp->rubrosCdp[$i]->id }})" ><i class="fa fa-trash-o"></i></button>
+                            @else
+                            @endif
+                        </td>
                     </tr>
-                    <tr id="fuente{{$i}}" style="display: none">
+                    <tr id="fuente{{$i}}" style="">
                         <td style="vertical-align: middle">
                             <b>Fuentes del rubro {{ $cdp->rubrosCdp[$i]->rubros->name }}</b>
                         </td>
                         <td>
-                            <div class="col-lg-12 text-center">
+                            <div class="col-lg-12">
                                 @foreach($cdp->rubrosCdp[$i]->rubros->fontsRubro as $fuentesRubro)
-                                    <input type="hidden" name="fuenteId[]" value="{{ $fuentesRubro->id }}">
+
                                     <div class="col-lg-6">
-                                        <li>
+                                        <input type="hidden" name="fuente_id[]" value="{{ $fuentesRubro->id }}">
+                                        <input type="hidden" name="cdp_id" value="{{ $cdp->id }}">
+                                        <input type="hidden" name="rubros_cdp_id[]" value="{{ $cdp->rubrosCdp[$i]->id }}">
+                                        <li style="list-style-type: none;">
                                             {{ $fuentesRubro->font->name }} : $<?php echo number_format( $fuentesRubro->valor,0) ?>
                                         </li>
                                     </div>
                                     <div class="col-lg-6">
                                             Dinero a usar de {{ $fuentesRubro->font->name }}:
+                                        @if($fuentesRubro->rubrosCdpValor->count() != 0)
+                                            @foreach($fuentesRubro->rubrosCdpValor as  $valoresFR)
+                                                <input type="hidden" name="rubros_cdp_valor_id[]" value="{{ $valoresFR->id }}">
+                                                <input type="number" required name="valorFuenteUsar[]" id="id{{$fuentesRubro->font_id}}" class="valor{{ $valoresFR->rubrosCdp_id }}" value="{{ $valoresFR->valor }}" max="{{ $fuentesRubro->valor }}" style="text-align: center">
+                                            @endforeach
+                                        @else
+                                            <input type="hidden" name="rubros_cdp_valor_id[]" value="">
                                             <input type="number" required name="valorFuenteUsar[]" class="form-group-sm" value="0" max="{{ $fuentesRubro->valor }}" style="text-align: center">
+                                        @endif
                                     </div>
-                                    <br>
                                 @endforeach
                             </div>
                         </td>
-                        <td></td>
+                        <td class="text-center">
+                            <b>Valor</b>
+                            <br>
+                            <b class="valor{{ $cdp->rubrosCdp[$i]->rubrosCdpValor->first()->rubrosCdp_id }}">
+                                $0.00
+                            </b>
+                            <br>
+                            &nbsp;
+                            <br>
+                            @if($cdp->rubrosCdp[$i]->rubrosCdpValor->count() > 0)
+                                <b>Liberar Dinero</b>
+                                <br>
+                                <button type="button" class="btn-sm btn-danger" v-on:click.prevent="eliminarV({{ $cdp->rubrosCdp[$i]->rubrosCdpValor[$i]->rubrosCdp_id }})" ><i class="fa fa-money"></i></button>
+                            @else
+                            @endif
+                        </td>
                     </tr>
                 @endfor
                 </tbody>
@@ -193,9 +223,16 @@
                     });
                     },
 
+                    eliminarV: function(dato){
+                        var urlrubrosCdpValor = '/administrativo/rubrosCdp/valor/'+dato;
+                        axios.delete(urlrubrosCdpValor).then(response => {
+                            location.reload();
+                    });
+                    },
+
                     nuevaFilaPrograma: function(){
                         var nivel=parseInt($("#tabla_rubrosCdp tr").length);
-                        $('#tabla_rubrosCdp tbody tr:last').before('<tr>\n' +
+                        $('#tabla_rubrosCdp tbody tr:first').before('<tr><td></td>\n' +
                             '                        <td class="text-center">\n' +
                             '                            <select name="rubro_id[]" required>\n' +
                             '                                @foreach($rubros as $rubro)\n' +

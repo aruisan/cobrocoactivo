@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Administrativo\Cdp;
 
 use App\Model\Hacienda\Presupuesto\Rubro;
+use App\Model\Administrativo\Cdp\RubrosCdpValor;
 use App\Model\Administrativo\Cdp\RubrosCdp;
 use App\Model\Administrativo\Cdp\Cdp;
 use Illuminate\Http\Request;
@@ -42,6 +43,10 @@ class RubrosCdpController extends Controller
     {
         $cdp_id = $request->cdp_id;
         $rubros = $request->rubro_id;
+        $fuenteRubroId = $request->fuente_id;
+        $valorFuente = $request->valorFuenteUsar;
+        $rubrosCdpId = $request->rubros_cdp_id;
+        $rubrosCdpValorId = $request->rubros_cdp_valor_id;
 
         $count = count($rubros);
 
@@ -54,6 +59,26 @@ class RubrosCdpController extends Controller
 
             $rubro = Rubro::find($rubros[$i]);
             $valor[] = $rubro->fontsRubro->sum('valor');
+        }
+
+        if ($valorFuente != null){
+
+            $countV = count($valorFuente);
+
+            for($i = 0; $i < $countV; $i++){
+
+                if ($rubrosCdpValorId[$i]){
+                    $this->updateV($rubrosCdpValorId[$i], $valorFuente[$i]);
+                }else{
+                    $rubrosCdpValor = new RubrosCdpValor();
+                    $rubrosCdpValor->valor = $valorFuente[$i];
+                    $rubrosCdpValor->fontsRubro_id = $fuenteRubroId[$i];
+                    $rubrosCdpValor->cdp_id = $cdp_id;
+                    $rubrosCdpValor->rubrosCdp_id = $rubrosCdpId[$i];
+                    $rubrosCdpValor->save();
+                }
+            }
+
         }
 
         //$cdp = Cdp::findOrFail($cdp_id);
@@ -101,6 +126,13 @@ class RubrosCdpController extends Controller
         $rubrosCdp->save();
     }
 
+    public function updateV($id,$valor)
+    {
+        $cambiarValor = RubrosCdpValor::findOrFail($id);
+        $cambiarValor->valor = $valor;
+        $cambiarValor->save();
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -113,8 +145,10 @@ class RubrosCdpController extends Controller
         $valorResta = $rubroCdp->rubros->fontsRubro->sum('valor');
         $cdp_id = $rubroCdp->cdp_id;
         //$this->restarDinero($cdp_id, $valorResta);
+        $idValores = $rubroCdp->rubrosCdpValor;
         Session::flash('error','Rubro eliminado correctamente del CDP');
         $rubroCdp->delete();
+
     }
 
     public function restarDinero($id, $valor)
