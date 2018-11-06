@@ -11,7 +11,11 @@
             <h4><b>Valor del CDP</b></h4>
         </center>
         <div class="text-center">
-            $<?php echo number_format($cdp->valor,0) ?>
+            @if($cdp->rubrosCdpValor->count() > 0)
+                $<?php echo number_format($cdp->rubrosCdpValor->sum('valor'),0) ?>
+            @else
+                $0.00
+            @endif
         </div>
         <br>
         <center>
@@ -117,9 +121,23 @@
                             <button type="button" class="btn-sm btn-success" onclick="ver('fuente{{$i}}')" ><i class="fa fa-arrow-down"></i></button>
                         </td>
                         <td class="text-center">
-                            <h4>
-                                <b>{{ $cdp->rubrosCdp[$i]->rubros->name }}</b>
-                            </h4>
+                            <div class="col-lg-6">
+                                <h4>
+                                    <b>{{ $cdp->rubrosCdp[$i]->rubros->name }}</b>
+                                </h4>
+                            </div>
+                            <div class="col-lg-6">
+                                <h4>
+                                    <b>
+                                        Valor:
+                                        @if($cdp->rubrosCdp[$i]->rubrosCdpValor->count() > 0)
+                                            $<?php echo number_format( $cdp->rubrosCdp[$i]->rubrosCdpValor->sum('valor') ,0) ?>
+                                        @else
+                                            $0.00
+                                        @endif
+                                    </b>
+                                </h4>
+                            </div>
                         </td>
                         <td class="text-center">
                             @if($cdp->rubrosCdp[$i]->rubrosCdpValor->count() == 0)
@@ -128,7 +146,7 @@
                             @endif
                         </td>
                     </tr>
-                    <tr id="fuente{{$i}}" style="">
+                    <tr id="fuente{{$i}}" style="display: none">
                         <td style="vertical-align: middle">
                             <b>Fuentes del rubro {{ $cdp->rubrosCdp[$i]->rubros->name }}</b>
                         </td>
@@ -145,15 +163,15 @@
                                         </li>
                                     </div>
                                     <div class="col-lg-6">
-                                            Dinero a usar de {{ $fuentesRubro->font->name }}:
+                                            Valor de {{ $fuentesRubro->font->name }}:
                                         @if($fuentesRubro->rubrosCdpValor->count() != 0)
                                             @foreach($fuentesRubro->rubrosCdpValor as  $valoresFR)
                                                 <input type="hidden" name="rubros_cdp_valor_id[]" value="{{ $valoresFR->id }}">
-                                                <input type="number" required name="valorFuenteUsar[]" id="id{{$fuentesRubro->font_id}}" class="valor{{ $valoresFR->rubrosCdp_id }}" value="{{ $valoresFR->valor }}" max="{{ $fuentesRubro->valor }}" style="text-align: center">
+                                                <input type="number" required  onchange="suma{{ $i }}()" name="valorFuenteUsar[]" id="id{{$fuentesRubro->font_id}}" class="valor{{ $valoresFR->rubrosCdp_id }}" value="{{ $valoresFR->valor }}" max="{{ $fuentesRubro->valor }}" style="text-align: center">
                                             @endforeach
                                         @else
                                             <input type="hidden" name="rubros_cdp_valor_id[]" value="">
-                                            <input type="number" required name="valorFuenteUsar[]" class="form-group-sm" value="0" max="{{ $fuentesRubro->valor }}" style="text-align: center">
+                                            <input type="number" required onchange="suma{{ $i }}()" name="valorFuenteUsar[]" class="form-group-sm" value="0" max="{{ $fuentesRubro->valor }}" style="text-align: center">
                                         @endif
                                     </div>
                                 @endforeach
@@ -162,8 +180,12 @@
                         <td class="text-center">
                             <b>Valor</b>
                             <br>
-                            <b class="valor{{ $cdp->rubrosCdp[$i]->rubrosCdpValor->first()->rubrosCdp_id }}">
-                                $0.00
+                            <b>
+                                @if($cdp->rubrosCdp[$i]->rubrosCdpValor->count() > 0)
+                                    $<?php echo number_format( $cdp->rubrosCdp[$i]->rubrosCdpValor->sum('valor') ,0) ?>
+                                @else
+                                    $0.00
+                                @endif
                             </b>
                             <br>
                             &nbsp;
@@ -190,6 +212,48 @@
     @stop
 @section('js')
     <script>
+
+        var count1 = '<?php echo $cdp->rubrosCdp->count(); ?>';
+        var ciclo1 = JSON.parse('<?php echo json_encode($cdp->rubrosCdp); ?>');
+
+        for (i = 0; i < count1; i++) {
+            var r1 = ciclo1[i];
+            var fontsR = r1.rubros.fonts_rubro;
+            for (j = 0; j < fontsR.length; j++){
+                var fuenteR = fontsR[j].rubros_cdp_valor;
+                for (k = 0; k < fuenteR.length; k++){
+                    var idClass = '#valor'+fuenteR[k].rubrosCdp_id;
+                    var idId = '.id'+fontsR[j].font_id;
+                    var i = i;
+
+                    function suma0(){
+                        val1 = $('#id1').val();
+                        val2 = $('#id2').val();
+
+                        val1 = (val1 == null || val1 == undefined || val1 == "") ? 0 : val1;
+                        val2 = (val2 == null || val2 == undefined || val2 == "") ? 0 : val2;
+
+                        $(idClass).html( parseFloat(val1) + parseFloat(val2));
+                    }
+
+                    function suma1(){
+                        val1 = $('#id1').val();
+                        val2 = $('#id2').val();
+
+                        val1 = (val1 == null || val1 == undefined || val1 == "") ? 0 : val1;
+                        val2 = (val2 == null || val2 == undefined || val2 == "") ? 0 : val2;
+
+                        $(idClass).html( parseFloat(val1) + parseFloat(val2));
+                    }
+
+                    console.log(idClass);
+                }
+
+            }
+        };
+
+
+
         var visto = null;
         function ver(num) {
             obj = document.getElementById(num);
@@ -197,9 +261,14 @@
             if (visto != null)
                 visto.style.display = 'none';
             visto = (obj==visto) ? null : obj;
+            alert(prueba);
         }
 
         $(document).ready(function() {
+
+            suma0();
+            suma1();
+
             $('#tabla_rubrosCdp').DataTable( {
                 responsive: true,
                 "searching": false,

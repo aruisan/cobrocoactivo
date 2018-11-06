@@ -98,15 +98,11 @@ class CdpController extends Controller
     {
         $store= Cdp::findOrFail($idcdp);
         $store->name = $request->name;
-        $store->valor = $request->valor;
-        $store->estado = $request->estado;
         $store->observacion = $request->observacion;
-        $store->saldo = $request->saldo;
-        $store->rubro_id = $request->rubro_id;
         $store->save();
 
         Session::flash('success','El CDP '.$request->name.' se edito exitosamente.');
-        return  redirect('../presupuesto');
+        return  redirect('../administrativo/cdp');
     }
 
     /**
