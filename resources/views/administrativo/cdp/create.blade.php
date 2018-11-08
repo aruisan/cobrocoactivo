@@ -49,11 +49,8 @@
                     </div>
 
                     <input type="hidden" class="form-control" name="fecha" value="{{ Carbon\Carbon::today()->Format('Y-m-d')}}" min="{{ Carbon\Carbon::today()->Format('Y-m-d')}}">
-                    <input type="hidden" class="form-control" name="saldo" value="0">
-                    <input type="hidden" class="form-control" name="valor" value="0">
-                    <input type="hidden" class="form-control" name="rubro_id" value="1">
-                    <input type="hidden" class="form-control" name="estado" value="0">
                     <input type="hidden" class="form-control" name="dependencia_id" value="{{ $dependencia }}">
+                    <input type="hidden" class="form-control" name="secretaria_e" value="0">
                     <center>
                         <div class="form-group row">
                             <div class="col-lg-12 ml-auto">

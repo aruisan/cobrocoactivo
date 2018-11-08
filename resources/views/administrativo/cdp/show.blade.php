@@ -18,6 +18,7 @@
             @endif
         </div>
         <br>
+        @if($cdp->jefe_e != "3")
         <center>
             <h4><b>Valores de los Rubros</b></h4>
         </center>
@@ -34,6 +35,17 @@
                 </tbody>
             </table>
         </div>
+        @endif
+        @if($cdp->jefe_e == "1" and $cdp->motivo != null)
+            <br>
+            <center>
+                <h4><b>Motivo del Rechazo</b></h4>
+            </center>
+            <div class="text-center">
+                {{ $cdp->motivo }}
+            </div>
+            <br>
+        @endif
     </div>
 @stop
 @section('content')
@@ -52,9 +64,15 @@
                                     <td><textarea class="text-center" style="border: none; resize: none;" disabled>{{ $cdp->dependencia->name }}</textarea></td>
                                 </tr>
                                 <tr>
-                                    <td><b>Fecha:</b></td>
+                                    <td><b>Fecha de Creación:</b></td>
                                     <td>{{ $cdp->fecha }}</td>
                                 </tr>
+                                @if($cdp->secretaria_e == "3" and $cdp->jefe_e == "3")
+                                    <tr>
+                                        <td><b>Fecha de Envio por Secretaria:</b></td>
+                                        <td>{{ $cdp->ff_secretaria_e }}</td>
+                                    </tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -67,10 +85,25 @@
                             </tr>
                             <tr>
                                 <td><b>Saldo:</b></td>
-                                <td>{{ $cdp->saldo }}</td>
+                                <td>$<?php echo number_format($cdp->saldo,0) ?></td>
                             </tr>
+                            @if($cdp->secretaria_e == "3" and $cdp->jefe_e == "3")
+                                <tr>
+                                    <td><b>Fecha de Finalización:</b></td>
+                                    <td>{{ $cdp->ff_jefe_e }}</td>
+                                </tr>
+                            @endif
                             </tbody>
                         </table>
+                    </div>
+                    <div class="col-lg-12 text-center">
+                        <br>
+                        <b>
+                            @if($cdp->secretaria_e == "3" and $cdp->jefe_e == "0")
+                                Fecha de Envio por Secretaria:
+                                {{ $cdp->ff_secretaria_e }}
+                            @endif
+                        </b>
                     </div>
                 </form>
             </div>
@@ -83,38 +116,49 @@
         </center>
         <hr>
     <br>
-    <div class="table-responsive">
+    <div class="table-responsive" id="prog">
         @if($cdp->rubrosCdp->count() == 0 )
             <div class="col-md-12 align-self-center">
                 <div class="alert alert-danger text-center">
-                    El CDP no tiene rubros asigandos.
+                    El CDP no tiene rubros asigandos. Desea borrar el CDP? &nbsp;
+                    {!! Form::open(['method' => 'DELETE','route' => ['cdp.destroy', $cdp->id],'style'=>'display:inline']) !!}
+                    <button type="submit" class="btn btn-sm btn-danger">
+                        Borrar CDP
+                    </button>
+                    {!! Form::close() !!}
                 </div>
             </div>
         @else
         @endif
-        <form action="{{url('/administrativo/rubrosCdp')}}" method="POST"  class="form" id="prog">
+        <form action="{{url('/administrativo/rubrosCdp')}}" method="POST" class="form">
             {{ csrf_field() }}
             <table id="tabla_rubrosCdp" class="table table-bordered">
                 <thead>
                 <tr>
                     <th>&nbsp;</th>
-                    <th scope="col" class="text-center">Nombre del Rubro</th>
+                    <th scope="col" class="text-center">Rubros</th>
                     <th scope="col" class="text-center"><i class="fa fa-trash-o"></i></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>&nbsp;</td>
-                    <td class="text-center">
-                        <input type="hidden" name="cdp_id" value="{{ $cdp->id }}">
-                        <select name="rubro_id[]" class="form-group-lg" required>
-                            @foreach($rubros as $rubro)
-                                <option value="{{ $rubro->id }}">{{ $rubro->name }}</option>
-                            @endforeach
-                        </select>
-                    </td>
-                    <td class="text-center"><button type="button" class="btn-sm btn-danger borrar">&nbsp;-&nbsp; </button></td>
-                </tr>
+                @if($cdp->jefe_e != "3")
+                    @if($cdp->rubrosCdp->count() == 0)
+                        @if($rol == 2)
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td class="text-center">
+                                    <input type="hidden" name="cdp_id" value="{{ $cdp->id }}">
+                                    <select name="rubro_id[]" class="form-group-lg" required>
+                                        @foreach($rubros as $rubro)
+                                            <option value="{{ $rubro->id }}">{{ $rubro->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td class="text-center"><button type="button" class="btn-sm btn-danger borrar">&nbsp;-&nbsp; </button></td>
+                            </tr>
+                        @endif
+                    @endif
+                @endif
                 @for($i = 0; $i < $cdp->rubrosCdp->count(); $i++)
                     <tr>
                         <td class="text-center">
@@ -127,6 +171,7 @@
                                 </h4>
                             </div>
                             <div class="col-lg-6">
+                                @php( $valorT = $cdp->rubrosCdp[$i]->rubrosCdpValor->sum('valor') )
                                 <h4>
                                     <b>
                                         Valor:
@@ -140,9 +185,10 @@
                             </div>
                         </td>
                         <td class="text-center">
-                            @if($cdp->rubrosCdp[$i]->rubrosCdpValor->count() == 0)
-                                <button type="button" class="btn-sm btn-danger" v-on:click.prevent="eliminar({{ $cdp->rubrosCdp[$i]->id }})" ><i class="fa fa-trash-o"></i></button>
-                            @else
+                            @if($rol == 2)
+                                @if($cdp->rubrosCdp[$i]->rubrosCdpValor->count() == 0)
+                                    <button type="button" class="btn-sm btn-danger" v-on:click.prevent="eliminar({{ $cdp->rubrosCdp[$i]->id }})" ><i class="fa fa-trash-o"></i></button>
+                                @endif
                             @endif
                         </td>
                     </tr>
@@ -158,16 +204,21 @@
                                         <input type="hidden" name="fuente_id[]" value="{{ $fuentesRubro->id }}">
                                         <input type="hidden" name="cdp_id" value="{{ $cdp->id }}">
                                         <input type="hidden" name="rubros_cdp_id[]" value="{{ $cdp->rubrosCdp[$i]->id }}">
+                                        @php( $fechaActual = Carbon\Carbon::today()->Format('Y-m-d') )
                                         <li style="list-style-type: none;">
                                             {{ $fuentesRubro->font->name }} : $<?php echo number_format( $fuentesRubro->valor,0) ?>
                                         </li>
                                     </div>
                                     <div class="col-lg-6">
-                                            Valor de {{ $fuentesRubro->font->name }}:
+                                        Valor usado de {{ $fuentesRubro->font->name }}:
                                         @if($fuentesRubro->rubrosCdpValor->count() != 0)
                                             @foreach($fuentesRubro->rubrosCdpValor as  $valoresFR)
                                                 <input type="hidden" name="rubros_cdp_valor_id[]" value="{{ $valoresFR->id }}">
-                                                <input type="number" required  onchange="suma{{ $i }}()" name="valorFuenteUsar[]" id="id{{$fuentesRubro->font_id}}" class="valor{{ $valoresFR->rubrosCdp_id }}" value="{{ $valoresFR->valor }}" max="{{ $fuentesRubro->valor }}" style="text-align: center">
+                                                @if($cdp->secretaria_e == "0")
+                                                    <input type="number" required  onchange="suma{{ $i }}()" name="valorFuenteUsar[]" id="id{{$fuentesRubro->font_id}}" class="valor{{ $valoresFR->rubrosCdp_id }}" value="{{ $valoresFR->valor }}" max="{{ $fuentesRubro->valor }}" style="text-align: center">
+                                                @else
+                                                    $<?php echo number_format( $valoresFR->valor,0) ?>
+                                                @endif
                                             @endforeach
                                         @else
                                             <input type="hidden" name="rubros_cdp_valor_id[]" value="">
@@ -178,7 +229,7 @@
                             </div>
                         </td>
                         <td class="text-center">
-                            <b>Valor</b>
+                            <b>Valor Total</b>
                             <br>
                             <b>
                                 @if($cdp->rubrosCdp[$i]->rubrosCdpValor->count() > 0)
@@ -190,11 +241,15 @@
                             <br>
                             &nbsp;
                             <br>
-                            @if($cdp->rubrosCdp[$i]->rubrosCdpValor->count() > 0)
-                                <b>Liberar Dinero</b>
-                                <br>
-                                <button type="button" class="btn-sm btn-danger" v-on:click.prevent="eliminarV({{ $cdp->rubrosCdp[$i]->rubrosCdpValor[$i]->rubrosCdp_id }})" ><i class="fa fa-money"></i></button>
-                            @else
+                            @if($cdp->jefe_e != "3")
+                                @if($rol == 2)
+                                    @if($cdp->rubrosCdp[$i]->rubrosCdpValor->count() > 0)
+                                        <b>Liberar Dinero</b>
+                                        <br>
+                                        <button type="button" class="btn-sm btn-danger" v-on:click.prevent="eliminarV({{ $cdp->rubrosCdp[$i]->rubrosCdpValor[$i]->rubrosCdp_id }})" ><i class="fa fa-money"></i></button>
+                                    @else
+                                    @endif
+                                @endif
                             @endif
                         </td>
                     </tr>
@@ -202,13 +257,31 @@
                 </tbody>
             </table><br>
             <center>
-                <button type="button" v-on:click.prevent="nuevaFilaPrograma" class="btn btn-success">Agregar Fila</button>
-                <button type="submit" class="btn btn-primary">Guardar Rubros</button>
-                <button type="submit" class="btn btn-success">Enviar CDP</button>
+                @if($cdp->jefe_e != "3")
+                    @if($rol == 2)
+                        <button type="button" v-on:click.prevent="nuevaFilaPrograma" class="btn btn-success">Agregar Fila</button>
+                        <button type="submit" class="btn btn-primary">Guardar Rubros</button>
+                        @if($cdp->rubrosCdp->count() > 0 )
+                            <a href="{{url('/administrativo/cdp/'.$cdp->id.'/'.$rol.'/'.$fechaActual.'/'.$valorT.'/3')}}" class="btn btn-success">
+                                Enviar CDP
+                            </a>
+                        @endif
+                    @elseif($rol == 3)
+                        @if($cdp->rubrosCdp->count() > 0 )
+                            <a href="{{url('/administrativo/cdp/'.$cdp->id.'/'.$rol.'/'.$fechaActual.'/'.$valorT.'/3')}}" class="btn btn-success">
+                                Finalizar CDP
+                            </a>
+                            <a data-toggle="modal" data-target="#observacionCDP" class="btn btn-danger">
+                                Rechazar
+                            </a>
+                        @endif
+                    @endif
+                @endif
             </center>
         </form>
     </div>
     </div>
+    @include('modal.observacionCDP')
     @stop
 @section('js')
     <script>
@@ -225,34 +298,10 @@
                     var idClass = '#valor'+fuenteR[k].rubrosCdp_id;
                     var idId = '.id'+fontsR[j].font_id;
                     var i = i;
-
-                    function suma0(){
-                        val1 = $('#id1').val();
-                        val2 = $('#id2').val();
-
-                        val1 = (val1 == null || val1 == undefined || val1 == "") ? 0 : val1;
-                        val2 = (val2 == null || val2 == undefined || val2 == "") ? 0 : val2;
-
-                        $(idClass).html( parseFloat(val1) + parseFloat(val2));
-                    }
-
-                    function suma1(){
-                        val1 = $('#id1').val();
-                        val2 = $('#id2').val();
-
-                        val1 = (val1 == null || val1 == undefined || val1 == "") ? 0 : val1;
-                        val2 = (val2 == null || val2 == undefined || val2 == "") ? 0 : val2;
-
-                        $(idClass).html( parseFloat(val1) + parseFloat(val2));
-                    }
-
-                    console.log(idClass);
                 }
 
             }
         };
-
-
 
         var visto = null;
         function ver(num) {
@@ -265,9 +314,6 @@
         }
 
         $(document).ready(function() {
-
-            suma0();
-            suma1();
 
             $('#tabla_rubrosCdp').DataTable( {
                 responsive: true,
