@@ -70,7 +70,7 @@ class RegistrosController extends Controller
         $registro->objeto = $request->objeto;
         $registro->ff_expedicion = $request->fecha;
         $registro->ruta = $ruta;
-        $registro->valor = $request->valor;
+        $registro->valor = "0";
         $registro->persona_id = $request->persona_id;
         $registro->cdp_id = $request->cdp_id;
         $registro->contrato_id = $request->contrato_id;

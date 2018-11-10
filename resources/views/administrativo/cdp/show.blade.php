@@ -12,7 +12,7 @@
         </center>
         <div class="text-center">
             @if($cdp->rubrosCdpValor->count() > 0)
-                $<?php echo number_format($cdp->rubrosCdpValor->sum('valor'),0) ?>
+                $<?php echo number_format($cdp->rubrosCdpValor->sum('valor_disp'),0) ?>
             @else
                 $0.00
             @endif
@@ -150,7 +150,7 @@
                                     <input type="hidden" name="cdp_id" value="{{ $cdp->id }}">
                                     <select name="rubro_id[]" class="form-group-lg" required>
                                         @foreach($rubros as $rubro)
-                                            <option value="{{ $rubro->id }}">{{ $rubro->name }}</option>
+                                            <option value="{{ $rubro['id'] }}">{{ $rubro['name'] }}</option>
                                         @endforeach
                                     </select>
                                 </td>
@@ -160,6 +160,7 @@
                     @endif
                 @endif
                 @for($i = 0; $i < $cdp->rubrosCdp->count(); $i++)
+                    @php($rubrosCdpData = $cdp->rubrosCdp[$i] )
                     <tr>
                         <td class="text-center">
                             <button type="button" class="btn-sm btn-success" onclick="ver('fuente{{$i}}')" ><i class="fa fa-arrow-down"></i></button>
@@ -167,16 +168,16 @@
                         <td class="text-center">
                             <div class="col-lg-6">
                                 <h4>
-                                    <b>{{ $cdp->rubrosCdp[$i]->rubros->name }}</b>
+                                    <b>{{ $rubrosCdpData->rubros->name }}</b>
                                 </h4>
                             </div>
                             <div class="col-lg-6">
-                                @php( $valorT = $cdp->rubrosCdp[$i]->rubrosCdpValor->sum('valor') )
+                                @php( $valorT = $rubrosCdpData->rubrosCdpValor->sum('valor') )
                                 <h4>
                                     <b>
                                         Valor:
-                                        @if($cdp->rubrosCdp[$i]->rubrosCdpValor->count() > 0)
-                                            $<?php echo number_format( $cdp->rubrosCdp[$i]->rubrosCdpValor->sum('valor') ,0) ?>
+                                        @if($rubrosCdpData->rubrosCdpValor->count() > 0)
+                                            $<?php echo number_format( $rubrosCdpData->rubrosCdpValor->sum('valor') ,0) ?>
                                         @else
                                             $0.00
                                         @endif
@@ -186,43 +187,53 @@
                         </td>
                         <td class="text-center">
                             @if($rol == 2)
-                                @if($cdp->rubrosCdp[$i]->rubrosCdpValor->count() == 0)
-                                    <button type="button" class="btn-sm btn-danger" v-on:click.prevent="eliminar({{ $cdp->rubrosCdp[$i]->id }})" ><i class="fa fa-trash-o"></i></button>
+                                @if($rubrosCdpData->rubrosCdpValor->count() == 0)
+                                    <button type="button" class="btn-sm btn-danger" v-on:click.prevent="eliminar({{ $rubrosCdpData->id }})" ><i class="fa fa-trash-o"></i></button>
                                 @endif
                             @endif
                         </td>
                     </tr>
                     <tr id="fuente{{$i}}" style="display: none">
                         <td style="vertical-align: middle">
-                            <b>Fuentes del rubro {{ $cdp->rubrosCdp[$i]->rubros->name }}</b>
+                            <b>Fuentes del rubro {{ $rubrosCdpData->rubros->name }}</b>
                         </td>
                         <td>
                             <div class="col-lg-12">
-                                @foreach($cdp->rubrosCdp[$i]->rubros->fontsRubro as $fuentesRubro)
-
+                                @foreach($rubrosCdpData->rubros->fontsRubro as $fuentesRubro)
+                                    @if($fuentesRubro->valor_disp != 0)
+                                        <div class="col-lg-6">
+                                            <input type="hidden" name="fuente_id[]" value="{{ $fuentesRubro->id }}">
+                                            <input type="hidden" name="cdp_id" value="{{ $cdp->id }}">
+                                            <input type="hidden" name="rubros_cdp_id[]" value="{{ $rubrosCdpData->id }}">
+                                            @php( $fechaActual = Carbon\Carbon::today()->Format('Y-m-d') )
+                                            <li style="list-style-type: none;">
+                                                {{ $fuentesRubro->font->name }} : $<?php echo number_format( $fuentesRubro->valor_disp,0) ?>
+                                            </li>
+                                        </div>
+                                    @endif
                                     <div class="col-lg-6">
-                                        <input type="hidden" name="fuente_id[]" value="{{ $fuentesRubro->id }}">
-                                        <input type="hidden" name="cdp_id" value="{{ $cdp->id }}">
-                                        <input type="hidden" name="rubros_cdp_id[]" value="{{ $cdp->rubrosCdp[$i]->id }}">
-                                        @php( $fechaActual = Carbon\Carbon::today()->Format('Y-m-d') )
-                                        <li style="list-style-type: none;">
-                                            {{ $fuentesRubro->font->name }} : $<?php echo number_format( $fuentesRubro->valor,0) ?>
-                                        </li>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        Valor usado de {{ $fuentesRubro->font->name }}:
-                                        @if($fuentesRubro->rubrosCdpValor->count() != 0)
-                                            @foreach($fuentesRubro->rubrosCdpValor as  $valoresFR)
-                                                <input type="hidden" name="rubros_cdp_valor_id[]" value="{{ $valoresFR->id }}">
-                                                @if($cdp->secretaria_e == "0")
-                                                    <input type="number" required  onchange="suma{{ $i }}()" name="valorFuenteUsar[]" id="id{{$fuentesRubro->font_id}}" class="valor{{ $valoresFR->rubrosCdp_id }}" value="{{ $valoresFR->valor }}" max="{{ $fuentesRubro->valor }}" style="text-align: center">
-                                                @else
-                                                    $<?php echo number_format( $valoresFR->valor,0) ?>
-                                                @endif
-                                            @endforeach
-                                        @else
-                                            <input type="hidden" name="rubros_cdp_valor_id[]" value="">
-                                            <input type="number" required onchange="suma{{ $i }}()" name="valorFuenteUsar[]" class="form-group-sm" value="0" max="{{ $fuentesRubro->valor }}" style="text-align: center">
+                                        @if($fuentesRubro->valor_disp != 0)
+                                            Valor usado de {{ $fuentesRubro->font->name }}:
+                                            @if($fuentesRubro->rubrosCdpValor->count() != 0)
+                                                @foreach($fuentesRubro->rubrosCdpValor as  $valoresFR)
+                                                    @php($id_rubrosCdp = $rubrosCdpData->id )
+                                                    @if($valoresFR->cdp_id == $cdp->id)
+                                                        <input type="hidden" name="rubros_cdp_valor_id[]" value="{{ $valoresFR->id }}">
+                                                        @if($cdp->secretaria_e == "0")
+                                                            <input type="number" required  name="valorFuenteUsar[]" id="id{{$fuentesRubro->font_id}}" class="valor{{ $valoresFR->rubrosCdp_id }}" value="{{ $valoresFR->valor }}" max="{{ $fuentesRubro->valor_disp }}" style="text-align: center">
+                                                        @else
+                                                            $<?php echo number_format( $valoresFR->valor,0) ?>
+                                                        @endif
+                                                    @endif
+                                                @endforeach
+                                               @if($cdp->rubrosCdpValor->count() == 0)
+                                                        <input type="hidden" name="rubros_cdp_valor_id[]" value="">
+                                                        <input type="number" required  name="valorFuenteUsar[]" class="form-group-sm" value="0" max="{{ $fuentesRubro->valor_disp }}" style="text-align: center">
+                                               @endif
+                                            @else
+                                                <input type="hidden" name="rubros_cdp_valor_id[]" value="">
+                                                <input type="number" required  name="valorFuenteUsar[]" class="form-group-sm" value="0" max="{{ $fuentesRubro->valor_disp }}" style="text-align: center">
+                                            @endif
                                         @endif
                                     </div>
                                 @endforeach
@@ -232,8 +243,8 @@
                             <b>Valor Total</b>
                             <br>
                             <b>
-                                @if($cdp->rubrosCdp[$i]->rubrosCdpValor->count() > 0)
-                                    $<?php echo number_format( $cdp->rubrosCdp[$i]->rubrosCdpValor->sum('valor') ,0) ?>
+                                @if($rubrosCdpData->rubrosCdpValor->count() > 0)
+                                    $<?php echo number_format( $rubrosCdpData->rubrosCdpValor->sum('valor') ,0) ?>
                                 @else
                                     $0.00
                                 @endif
@@ -241,12 +252,13 @@
                             <br>
                             &nbsp;
                             <br>
+
                             @if($cdp->jefe_e != "3")
                                 @if($rol == 2)
-                                    @if($cdp->rubrosCdp[$i]->rubrosCdpValor->count() > 0)
+                                    @if($rubrosCdpData->rubrosCdpValor->count() > 0)
                                         <b>Liberar Dinero</b>
                                         <br>
-                                        <button type="button" class="btn-sm btn-danger" v-on:click.prevent="eliminarV({{ $cdp->rubrosCdp[$i]->rubrosCdpValor[$i]->rubrosCdp_id }})" ><i class="fa fa-money"></i></button>
+                                        <button type="button" class="btn-sm btn-danger" v-on:click.prevent="eliminarV({{ $rubrosCdpData->rubrosCdpValor->first()->rubrosCdp_id }})" ><i class="fa fa-money"></i></button>
                                     @else
                                     @endif
                                 @endif
@@ -347,16 +359,18 @@
 
                     nuevaFilaPrograma: function(){
                         var nivel=parseInt($("#tabla_rubrosCdp tr").length);
-                        $('#tabla_rubrosCdp tbody tr:first').before('<tr><td></td>\n' +
-                            '                        <td class="text-center">\n' +
-                            '                            <select name="rubro_id[]" required>\n' +
-                            '                                @foreach($rubros as $rubro)\n' +
-                            '                                    <option value="{{ $rubro->id }}">{{ $rubro->name }}</option>\n' +
-                            '                                @endforeach\n' +
-                            '                            </select>\n' +
-                            '                        </td>\n' +
-                            '                        <td class="text-center"><button type="button" class="btn-sm btn-danger borrar">&nbsp;-&nbsp; </button></td>\n' +
-                            '                    </tr>');
+                        $('#tabla_rubrosCdp tbody tr:first').before('<tr>\n' +
+                            '                                <td>&nbsp;</td>\n' +
+                            '                                <td class="text-center">\n' +
+                            '                                    <input type="hidden" name="cdp_id" value="{{ $cdp->id }}">\n' +
+                            '                                    <select name="rubro_id[]" class="form-group-lg" required>\n' +
+                            '                                        @foreach($rubros as $rubro)\n' +
+                            '                                            <option value="{{ $rubro['id'] }}">{{ $rubro['name'] }}</option>\n' +
+                            '                                        @endforeach\n' +
+                            '                                    </select>\n' +
+                            '                                </td>\n' +
+                            '                                <td class="text-center"><button type="button" class="btn-sm btn-danger borrar">&nbsp;-&nbsp; </button></td>\n' +
+                            '                            </tr>');
 
                     }
                 }

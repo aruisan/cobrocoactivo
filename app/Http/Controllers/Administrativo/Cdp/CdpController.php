@@ -87,10 +87,13 @@ class CdpController extends Controller
             $rol= $role->id;
         }
         $cdp = Cdp::findOrFail($id);
-        $rubros = Rubro::all();
-        foreach ($rubros as $rubro){
-            $valFuente = FontsRubro::where('rubro_id', $rubro->id)->sum('valor');
-            $valores[] = collect(['id_rubro' => $rubro->id, 'name' => $rubro->name, 'dinero' => $valFuente]);
+        $all_rubros = Rubro::all();
+        foreach ($all_rubros as $rubro){
+            if ($rubro->fontsRubro->sum('valor_disp') != 0){
+                $valFuente = FontsRubro::where('rubro_id', $rubro->id)->sum('valor_disp');
+                $valores[] = collect(['id_rubro' => $rubro->id, 'name' => $rubro->name, 'dinero' => $valFuente]);
+                $rubros[] = collect(['id' => $rubro->id, 'name' => $rubro->name]);
+            }
         }
         return view('administrativo.cdp..show', compact('cdp','rubros','valores','rubrosCdp','rol'));
     }
@@ -161,6 +164,8 @@ class CdpController extends Controller
                 $update->saldo = $valor;
                 $update->save();
 
+                $this->actualizarValorRubro($id);
+
                 Session::flash('success','El CDP ha sido finalizado con exito');
                 return redirect('/administrativo/cdp');
             }
@@ -179,6 +184,18 @@ class CdpController extends Controller
 
             Session::flash('error','El CDP ha sido rechazado');
             return redirect('/administrativo/cdp');
+        }
+    }
+
+    public function actualizarValorRubro($id)
+    {
+        $cdp = Cdp::findOrFail($id);
+        foreach ($cdp->rubrosCdpValor as $fuentes){
+            $valor = $fuentes->valor;
+            $total = $fuentes->fontsRubro->valor_disp - $valor;
+            $fontRubro = FontsRubro::findOrFail($fuentes->fontsRubro->id);
+            $fontRubro->valor_disp = $total;
+            $fontRubro->save();
         }
     }
 }

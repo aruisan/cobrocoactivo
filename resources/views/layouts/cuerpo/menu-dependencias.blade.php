@@ -8,6 +8,8 @@
     <li><a tabindex="-1" href="{{url('/dashboard/archivo')}}">Archivo</a></li>
     <li><a tabindex="-1" href="{{url('/almacen')}}">Almacen</a></li>
     <li><a tabindex="-1" href="{{url('/dashboard/boletines')}}">Boletines</a></li>
+    <li><a tabindex="-1" href="{{url('/administrativo/cdp')}}">CDP's</a></li>
+    <li><a tabindex="-1" href="{{url('/administrativo/registros')}}">Registros</a></li>
   </ul>
 </li>
 <li class="dropdown">

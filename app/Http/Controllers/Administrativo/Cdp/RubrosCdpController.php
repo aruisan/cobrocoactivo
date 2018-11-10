@@ -72,6 +72,7 @@ class RubrosCdpController extends Controller
                 }else{
                     $rubrosCdpValor = new RubrosCdpValor();
                     $rubrosCdpValor->valor = $valorFuente[$i];
+                    $rubrosCdpValor->valor_disp = $valorFuente[$i];
                     $rubrosCdpValor->fontsRubro_id = $fuenteRubroId[$i];
                     $rubrosCdpValor->cdp_id = $cdp_id;
                     $rubrosCdpValor->rubrosCdp_id = $rubrosCdpId[$i];
@@ -130,6 +131,7 @@ class RubrosCdpController extends Controller
     {
         $cambiarValor = RubrosCdpValor::findOrFail($id);
         $cambiarValor->valor = $valor;
+        $cambiarValor->valor_disp = $valor;
         $cambiarValor->save();
     }
 

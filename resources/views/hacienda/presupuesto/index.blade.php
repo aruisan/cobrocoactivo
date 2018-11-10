@@ -212,15 +212,18 @@
                     <div class="table-responsive">
                             @if(count($cdps) >= 1)
                             <br>
-                            <a href="{{ url('administrativo/cdp/create') }}" class="btn btn-primary btn-block m-b-12">Crear Nuevo CDP</a>
+                            <a href="{{ url('administrativo/cdp') }}" class="btn btn-primary btn-block m-b-12">CDP's</a>
                             <br>
                             <table class="table table-bordered" id="tabla_CDP">
                                 <thead>
                                 <tr>
                                     <th class="text-center">#</th>
-                                    <th class="text-center">Nombre</th>
-                                    <th class="text-center">Estado</th>
-                                    <th class="text-center">Acciones</th>
+                                    <th class="text-center">Objeto</th>
+                                    <th class="text-center">Valor</th>
+                                    <th class="text-center">Estado Secretaria</th>
+                                    <th class="text-center">Estado Jefe</th>
+                                    <th class="text-center">Ver</th>
+                                    <th class="text-center">Archivo</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -228,21 +231,42 @@
                                     <tr>
                                         <td class="text-center">{{ $cdp->id }}</td>
                                         <td class="text-center">{{ $cdp->name }}</td>
-                                        <td class="text-center"><span class="badge badge-pill badge-danger">
-                                                @if($cdp->estado == 0)
+                                        <td class="text-center">{{ $cdp->valor }}</td>
+                                        <td class="text-center">
+                                            <span class="badge badge-pill badge-danger">
+                                                @if($cdp->secretaria_e == "0")
                                                     Pendiente
-                                                @elseif($cdp->estado == 1)
+                                                @elseif($cdp->secretaria_e == "1")
                                                     Rechazado
-                                                @elseif($cdp->estado == 2)
+                                                @elseif($cdp->secretaria_e == "2")
                                                     Anulado
                                                 @else
-                                                    Aprobado
+                                                    Enviado
                                                 @endif
-                                            </span></td>
+                                            </span>
+                                                </td>
+                                                <td class="text-center">
+                                            <span class="badge badge-pill badge-danger">
+                                                @if($cdp->jefe_e == "0")
+                                                    Pendiente
+                                                @elseif($cdp->jefe_e == "1")
+                                                    Rechazado
+                                                @elseif($cdp->jefe_e == "2")
+                                                    Anulado
+                                                @elseif($cdp->jefe_e == "3")
+                                                    Finalizado
+                                                @else
+                                                    En Espera
+                                                @endif
+                                            </span>
+                                        </td>
                                         <td class="text-center">
-                                            <a href="{{ url('administrativo/cdp/'.$cdp->id.'/edit') }}" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
-                                            <a href="#" title="Aprobar" class="btn-sm btn-success"><i class="fa fa-check"></i></a>
-                                            <a href="#" title="Rechazar" class="btn-sm btn-danger"><i class="fa fa-times-circle"></i></a>
+                                            <a href="{{ url('administrativo/cdp/'.$cdp->id) }}" title="Ver" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                        </td>
+                                        <td class="text-center">
+                                            @if($cdp->ruta != null)
+                                            <a href="#" title="Archivo" class="btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i></a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -252,8 +276,7 @@
                                 <br><br>
                                 <div class="alert alert-danger">
                                     <center>
-                                        No hay CDP's, para crear uno nuevo de click al siguiente link:
-                                        <a href="{{ url('administrativo/cdp/create') }}" class="alert-link">Crear CDP</a>.
+                                        No hay CDP's.
                                     </center>
                                 </div>
                             @endif
@@ -379,11 +402,11 @@
     <script>
             $('#tabla_CDP').DataTable( {
                 responsive: true,
-                "searching": true,
+                "searching": false,
                 "pageLength": 5,
                 dom: 'Bfrtip',
                 buttons: [
-                    'pdf' ,'copy', 'csv', 'excel', 'print'
+                    'copy', 'csv', 'excel', 'print'
                 ]
             } );
 
