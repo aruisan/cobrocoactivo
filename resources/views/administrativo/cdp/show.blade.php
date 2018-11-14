@@ -274,13 +274,13 @@
                         <button type="button" v-on:click.prevent="nuevaFilaPrograma" class="btn btn-success">Agregar Fila</button>
                         <button type="submit" class="btn btn-primary">Guardar Rubros</button>
                         @if($cdp->rubrosCdp->count() > 0 )
-                            <a href="{{url('/administrativo/cdp/'.$cdp->id.'/'.$rol.'/'.$fechaActual.'/'.$valorT.'/3')}}" class="btn btn-success">
+                            <a href="{{url('/administrativo/cdp/'.$cdp->id.'/'.$rol.'/'.$fechaActual.'/'.$cdp->rubrosCdpValor->sum('valor_disp').'/3')}}" class="btn btn-success">
                                 Enviar CDP
                             </a>
                         @endif
                     @elseif($rol == 3)
                         @if($cdp->rubrosCdp->count() > 0 )
-                            <a href="{{url('/administrativo/cdp/'.$cdp->id.'/'.$rol.'/'.$fechaActual.'/'.$valorT.'/3')}}" class="btn btn-success">
+                            <a href="{{url('/administrativo/cdp/'.$cdp->id.'/'.$rol.'/'.$fechaActual.'/'.$cdp->rubrosCdpValor->sum('valor_disp').'/3')}}" class="btn btn-success">
                                 Finalizar CDP
                             </a>
                             <a data-toggle="modal" data-target="#observacionCDP" class="btn btn-danger">

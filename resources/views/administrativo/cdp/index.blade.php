@@ -177,7 +177,6 @@
         $('#tabla_CDP').DataTable( {
             responsive: true,
             "searching": false,
-            "pageLength": 5,
             dom: 'Bfrtip',
             buttons: [
                 'copy', 'csv', 'excel', 'print'
@@ -187,7 +186,6 @@
         $('#tabla_Historico').DataTable( {
             responsive: true,
             "searching": false,
-            "pageLength": 5,
             dom: 'Bfrtip',
             buttons: [
                 'copy', 'csv', 'excel', 'print'

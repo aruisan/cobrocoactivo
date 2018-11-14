@@ -4,10 +4,6 @@
 @stop
 @section('sidebar')
     @include('administrativo.registros.cuerpo.aside')
-    @include('administrativo.registros.cuerpo.estado')
-@stop
-@section('css')
-    @include('administrativo.registros.cuerpo.style')
 @stop
 @section('content')
 <div class="row">
@@ -24,36 +20,12 @@
             {{ csrf_field() }}
             <div class="row">
                 <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                    <label>Valor: </label>
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></span>
-                        <input type="number" class="form-control" name="valor" value="{{ $registro->valor }}">
-                    </div>
-                    <small class="form-text text-muted">Valor total del registro</small>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
                     <label>Datos persona: </label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></span>
                         <input type="text" name="persona_id" class="form-control" data-toggle="modal" data-target="#participante" value="{{ $registro->persona_id }}">
                     </div>
                     <small class="form-text text-muted">Relacionar persona</small>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                    <label>Cdp: </label>
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-file-o" aria-hidden="true"></i></span>
-                        <select name="cdp_id" class="form-control">
-                            @foreach($cdps as $cdp)
-                                <option value="{{ $cdp->id }}" @if($cdp->id == $registro->cdp_id) selected @endif>{{ $cdp->id }} - {{ $cdp->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <small class="form-text text-muted">CDP al que pertenece el registro</small>
                 </div>
             </div>
             <div class="row">
@@ -87,9 +59,9 @@
                             <span class="input-group-addon"><i class="fa fa-file-o" aria-hidden="true"></i></span>
                             @if( $registro->ruta == "")
                                 El registro no tiene un archivo asignado
-                                @else
+                            @else
                                 {{ $registro->ruta }}
-                                @endif
+                            @endif
                         </div>
                         <small class="form-text text-muted">Nombre del archivo al momento de la creación</small>
                     </div>

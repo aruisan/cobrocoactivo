@@ -10,10 +10,6 @@ class Cdp extends Model
         return $this->belongsTo('App\Model\Admin\Dependencia');
     }
 
-    public function registros(){
-        return $this->hasMany('App\Model\Administrativo\Registro','cdp_id');
-    }
-
     public function rubrosCdp(){
         return $this->hasMany('App\Model\Administrativo\Cdp\RubrosCdp','cdp_id');
     }

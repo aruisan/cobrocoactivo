@@ -30,20 +30,6 @@
     </div>
     <div class="row">
         <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <label>Cdp: </label>
-            <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-file-o" aria-hidden="true"></i></span>
-                <select name="cdp_id" class="form-control">
-                    @foreach($cdps as $cdp)
-                        <option value="{{ $cdp->id }}">{{ $cdp->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <small class="form-text text-muted">CDP al que pertenece el registro</small>
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <label>Objeto: </label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user-o" aria-hidden="true"></i></span>

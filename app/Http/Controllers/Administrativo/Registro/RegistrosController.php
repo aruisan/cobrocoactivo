@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Administrativo;
+namespace App\Http\Controllers\Administrativo\Registro;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Intervention\Image\Facades\Image;
-use App\Model\Administrativo\Registro;
+use App\Model\Administrativo\Registro\Registro;
 use App\Model\Administrativo\Cdp\Cdp;
 use App\Model\Administrativo\Contractuall\Contractual;
 use App\Traits\FileTraits;
 use Illuminate\Http\Response;
 
 use Session;
+
 class RegistrosController extends Controller
 {
     private $photos_path;
@@ -44,9 +45,14 @@ class RegistrosController extends Controller
      */
     public function create()
     {
-        $cdps = Cdp::all();
-        $contratos = Contractual::all();
-        return view('administrativo.registros.create', compact('cdps','contratos'));
+        $cdps = Cdp::all()->where('jefe_e','3')->count();
+        if($cdps > 0){
+            $contratos = Contractual::all();
+            return view('administrativo.registros.create', compact('contratos'));
+        }else{
+            Session::flash('error','Actualmente no existen CDPs disponibles para crear registros.');
+            return redirect('/administrativo/registros');
+        }
     }
  
     /**
@@ -72,20 +78,15 @@ class RegistrosController extends Controller
         $registro->ruta = $ruta;
         $registro->valor = "0";
         $registro->persona_id = $request->persona_id;
-        $registro->cdp_id = $request->cdp_id;
         $registro->contrato_id = $request->contrato_id;
         $registro->secretaria_e = $request->secretaria_e;
+        $registro->ff_secretaria_e = $request->fecha;
 
         $registro->save();
         Session::flash('success','El registro se ha creado exitosamente');
         return redirect('/administrativo/registros');
     }
- 
-    /**
-     * Remove the images from the storage.
-     *
-     * @param Request $request
-     */
+
     public function destroy($id)
     {
         $destroy = Registro::find($id);
@@ -128,20 +129,19 @@ class RegistrosController extends Controller
     {
         $registro = Registro::findOrFail($id);
         $roles = auth()->user()->roles;
+        $cdps = Cdp::where('saldo','>',0)->get();
         foreach ($roles as $role){
             $rol= $role->id;
         }
-        return view('administrativo.registros.show', compact('registro','rol'));
+        return view('administrativo.registros.show', compact('registro','rol','cdps'));
     }
 
     public function update(Request $request, $id)
     {
 
         $update = Registro::findOrFail($id);
-        $update->valor = $request->valor;
         $update->objeto = $request->objeto;
         $update->persona_id = $request->persona_id;
-        $update->cdp_id = $request->cdp_id;
         $update->contrato_id = $request->contrato_id;
         $update->save();
 

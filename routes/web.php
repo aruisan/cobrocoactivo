@@ -95,9 +95,11 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 	Route::group(['prefix' => 'administrativo'] ,function () 
 	{
 	    //Registros
-	    Route::resource('registros', 'Administrativo\RegistrosController');
-        Route::get('registros/{id}/{rol}/{estado}', 'Administrativo\RegistrosController@updateEstado');
-        Route::put('registros/r/{id}/{rol}/{estado}', 'Administrativo\RegistrosController@rechazar');
+	    Route::resource('registros', 'Administrativo\Registro\RegistrosController');
+        Route::get('registros/{id}/{rol}/{estado}', 'Administrativo\Registro\RegistrosController@updateEstado');
+        Route::put('registros/r/{id}/{rol}/{estado}', 'Administrativo\Registro\RegistrosController@rechazar');
+        Route::resource('cdpsRegistro','Administrativo\Registro\CdpsRegistroController');
+        Route::resource('cdpsRegistro/valor','Administrativo\Registro\CdpsRegistroValorController');
 
         //CDP's
         Route::resource('cdp', 'Administrativo\Cdp\CdpController');

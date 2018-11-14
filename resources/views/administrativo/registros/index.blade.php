@@ -20,45 +20,50 @@
     </li>
 @stop
 @section('content')
-<div class="row">
-    <div class="col-lg-12 margin-tb">
-        <br>
-            <h2 class="text-center">Registros</h2>
-        <br>
-        <hr>
+    <div class="breadcrumb text-center">
+        <strong>
+            <h4><b>Registros</b></h4>
+        </strong>
     </div>
-</div>
+    <div class="table-responsive">
 @if(count($registros) > 0)
-    <table class="table table-bordered">
+    <table class="table table-bordered" id="tabla_registros">
         <tr>
             <th class="text-center">No</th>
             <th class="text-center">Nombre Registro</th>
             <th class="text-center">Nombre Tercero</th>
-            <th class="text-center">Nombre CDP</th>
-            <th class="text-center">Archivo</th>
-            <th class="text-center">Acciones</th>
+            <th class="text-center">Valor</th>
+            <th class="text-center">Estado</th>
+            <th class="text-center"><i class="fa fa-usd"></i></th>
+            <th class="text-center"><i class="fa fa-edit"></i></th>
         </tr>
         @foreach ($registros as $key => $data)
             <tr>
                 <td class="text-center">{{ ++$i }}</td>
                 <td class="text-center">{{ $data->objeto }}</td>
                 <td class="text-center">{{ $data->persona->nombre }}</td>
-                <td class="text-center">{{ $data->cdp->name }}</td>
-                <td class="text-center">{{ $data->ruta }}</td>
+                <td class="text-center">$<?php echo number_format($data->valor,0) ?></td>
                 <td class="text-center">
+                    <span class="badge badge-pill badge-danger">
+                        @if($data->secretaria_e == "0")
+                            Pendiente
+                        @elseif($data->secretaria_e == "1")
+                            Rechazado
+                        @elseif($data->secretaria_e == "2")
+                            Anulado
+                        @else
+                            Enviado
+                        @endif
+                    </span>
+                </td>
+                <td class="text-center">
+                    <a href="{{ url('administrativo/registros',$data->id) }}" title="Asignar Dinero al Registro" class="btn btn-sm btn-primary"><i class="fa fa-usd"></i></a>
+                </td>                <td class="text-center">
                     @if($rol == 2)
                         @if($data->secretaria_e == 0)
-                            <a href="{{url('/administrativo/registros/'.$data->id.'/'.$rol.'/3')}}" title="Finalizar" class="btn btn-sm btn-success">
-                                <i class="fa fa-check"></i>
-                            </a>
                             <a href="{{ url('administrativo/registros/'.$data->id.'/edit') }}" class="btn btn-sm btn-info" title="Editar">
                                 <i class="fa fa-edit"></i>
                             </a>
-                            {!! Form::open(['method' => 'DELETE','route' => ['registros.destroy', $data->id],'style'=>'display:inline']) !!}
-                            <button type="submit" class="btn btn-sm btn-danger" title="Eliminar">
-                                <i class="fa fa-trash"></i>
-                            </button>
-                            {!! Form::close() !!}
                         @elseif($data->secretaria_e == 3)
                             <a href="{{ url('administrativo/registros',$data->id) }}" class="btn btn-sm btn-info" title="Visualizar">
                                 <i class="fa fa-eye"></i>
@@ -110,6 +115,7 @@
     </table>
     {!! $registros->render() !!}
 @else
+    </div>
     <div class="col-md-12 align-self-center">
         <div class="alert alert-danger text-center">
             Actualmente no hay registros creados, se recomienda crearlos.
@@ -119,9 +125,25 @@
 @endsection
 @section('js')
     <script>
+
+        $(document).ready(function() {
+
+            $('#tabla_registros').DataTable( {
+                responsive: true,
+                "searching": false,
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'print'
+                ]
+            } );
+
+        } );
+
         $(document).on('click', '.borrar', function (event) {
+
             event.preventDefault();
             $(this).closest('tr').remove();
+
         });
     </script>
 @endsection
