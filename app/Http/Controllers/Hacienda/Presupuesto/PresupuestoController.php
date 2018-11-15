@@ -13,6 +13,7 @@ use App\Model\Hacienda\Presupuesto\Vigencia;
 use App\Model\Hacienda\Presupuesto\Level;
 use App\Model\Hacienda\Presupuesto\Register;
 use App\Model\Administrativo\Cdp\Cdp;
+use App\Model\Administrativo\Registro\Registro;
 
 class PresupuestoController extends Controller
 {
@@ -187,13 +188,13 @@ class PresupuestoController extends Controller
                 }
             }
         }
+        //VALOR DE LOS CDPS DEL RUBRO
         foreach ($rubros as $R){
-            foreach ($R->rubrosCdp as $C){
-                $valores[] = $C->rubrosCdpValor->sum('valor');
-            }
+            $valoresCdp[] = collect(['id' => $R->id, 'name' => $R->name, 'valor' => $R->fontsRubro->sum('valor') - $R->fontsRubro->sum('valor_disp')]) ;
         }
-        //dd($valor = array_sum($valores));
-        return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros'));
+        //REGISTROS
+        $registros = Registro::all();
+        return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros'));
     }
 
     /**
