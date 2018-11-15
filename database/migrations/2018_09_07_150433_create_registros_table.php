@@ -28,8 +28,6 @@ class CreateRegistrosTable extends Migration
 
             $table->enum('secretaria_e', [0, 1, 2, 3]);
             $table->date('ff_secretaria_e');
-            $table->enum('jefe_e', [0, 1, 2, 3])->nullable();
-            $table->date('ff_jefe_e')->nullable();
 
             $table->text('observacion')->nullable();
 

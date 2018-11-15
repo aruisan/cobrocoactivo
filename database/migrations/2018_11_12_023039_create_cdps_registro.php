@@ -16,6 +16,7 @@ class CreateCdpsRegistro extends Migration
         Schema::create('cdps_registro', function (Blueprint $table) {
             $table->increments('id');
 
+            $table->integer('valor');
             $table->integer('cdp_id')->unsigned();
             $table->foreign('cdp_id')->references('id')->on('cdps');
             $table->integer('registro_id')->unsigned();

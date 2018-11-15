@@ -39,14 +39,10 @@ class CdpsRegistroController extends Controller
      */
     public function store(Request $request)
     {
-
         $registro_id = $request->registro_id;
         $cdps = $request->cdp_id;
-        $fuenteRubroId = $request->fuente_id;
-        $valorFuente = $request->valorFuenteUsar;
-        $rubrosCdpId = $request->rubros_cdp_id;
-        $rubrosCdpValorId = $request->rubros_cdp_valor_id;
-
+        $cdpsRegistroId = $request->cdps_registro_id;
+        $valor = $request->valor;
         $count = count($cdps);
 
         for($i = 0; $i < $count; $i++){
@@ -54,41 +50,22 @@ class CdpsRegistroController extends Controller
             $cdpsRegistro = new CdpsRegistro();
             $cdpsRegistro->registro_id = $registro_id;
             $cdpsRegistro->cdp_id = $cdps[$i];
+            $cdpsRegistro->valor = 0;
             $cdpsRegistro->save();
-
-            $cdp = Cdp::find($cdps[$i]);
-            $valor[] = $cdp->rubrosCdpValor->sum('valor_disp');
         }
 
-        if ($valorFuente != null){
+        if ($cdpsRegistroId != null){
 
-            $countV = count($valorFuente);
+            $countV = count($cdpsRegistroId);
 
             for($i = 0; $i < $countV; $i++){
-
-                if ($rubrosCdpValorId[$i]){
-                    $this->updateV($rubrosCdpValorId[$i], $valorFuente[$i]);
-                }else{
-                    $rubrosCdpValor = new RubrosCdpValor();
-                    $rubrosCdpValor->valor = $valorFuente[$i];
-                    $rubrosCdpValor->valor_disp = $valorFuente[$i];
-                    $rubrosCdpValor->fontsRubro_id = $fuenteRubroId[$i];
-                    $rubrosCdpValor->cdp_id = $cdp_id;
-                    $rubrosCdpValor->rubrosCdp_id = $rubrosCdpId[$i];
-                    $rubrosCdpValor->save();
-                }
+                $this->updateV($cdpsRegistroId[$i], $valor[$i]);
             }
 
         }
 
-        //$cdp = Cdp::findOrFail($cdp_id);
-        //$cdp->valor = $cdp->valor + array_sum($valor);
-        //$cdp->save();
-
         Session::flash('success','Cdps asignados correctamente');
-
         return  back();
-
     }
 
     /**
@@ -125,14 +102,17 @@ class CdpsRegistroController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\CdpsRegistro  $cdpsRegistro
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(CdpsRegistro $cdpsRegistro)
+    public function updateV($id,$valor)
     {
-        //
+        $cambiarValor = CdpsRegistro::findOrFail($id);
+        $cambiarValor->valor = $valor;
+        $cambiarValor->save();
+    }
+
+    public function destroy($id)
+    {
+        $cdpsRegistro = CdpsRegistro::find($id);
+        Session::flash('error','CDP eliminado correctamente del registro');
+        $cdpsRegistro->delete();
     }
 }

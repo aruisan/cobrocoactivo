@@ -114,7 +114,11 @@
                                 <th class="text-center">P. Inicial</th>
                                 <th class="text-center">Adición</th>
                                 <th class="text-center">Reducción</th>
-                                <th class="text-center">Modificación</th>
+                                <th class="text-center">Credito</th>
+                                <th class="text-center">CCredito</th>
+                                <th class="text-center">P.Definitivo</th>
+                                <th class="text-center">CDP's</th>
+                                <th class="text-center">Registros</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -124,14 +128,32 @@
                                     <td class="text-dark">{{ $codigo['name']}}</td>
                                     @foreach($valoresIniciales as $valorInicial)
                                         @if($valorInicial['id'] == $codigo['id'])
-                                            <td class="text-center text-dark">$ <?php echo number_format($valorInicial['valor'],0);?>.00</td>
+                                            <td class="text-center text-dark">$ <?php echo number_format($valorInicial['valor'],0);?></td>
                                         @endif
                                     @endforeach
                                     @if($codigo['valor'])
-                                        <td class="text-center text-dark">$ <?php echo number_format($codigo['valor'],0);?>.00</td>
+                                        <td class="text-center text-dark">$ <?php echo number_format($codigo['valor'],0);?></td>
                                     @endif
                                     <td>0</td>
                                     <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    @foreach($valoresIniciales as $valorInicial)
+                                        @if($valorInicial['id'] == $codigo['id'])
+                                            <td class="text-center text-dark">$ <?php echo number_format($valorInicial['valor'],0);?></td>
+                                        @endif
+                                    @endforeach
+                                    @if($codigo['valor'])
+                                        <td class="text-center text-dark">$ <?php echo number_format($codigo['valor'],0);?></td>
+                                    @endif
+                                    @foreach($valoresIniciales as $valorInicial)
+                                        @if($valorInicial['id'] == $codigo['id'])
+                                            <td class="text-center text-dark">$ <?php echo number_format($valorInicial['valor'],0);?></td>
+                                        @endif
+                                    @endforeach
+                                    @if($codigo['valor'])
+                                        <td class="text-center text-dark">$ <?php echo number_format($codigo['valor'],0);?></td>
+                                    @endif
                                     <td>0</td>
                                 </tr>
                             @endforeach
@@ -186,7 +208,8 @@
                             <tr>
                                 <th class="text-center">Rubro</th>
                                 <th class="text-center">Nombre</th>
-                                <th class="text-center">valor</th>
+                                <th class="text-center">Valor Inicial</th>
+                                <th class="text-center">Valor Disponible</th>
                                 <th class="text-center">Acciones</th>
                             </tr>
                             </thead>
@@ -196,6 +219,7 @@
                                 <td>{{ $Rubro['codigo'] }}</td>
                                 <td>{{ $Rubro['name'] }}</td>
                                 <td class="text-center">$ <?php echo number_format($Rubro['valor'],0);?>.00</td>
+                                <td class="text-center">$ <?php echo number_format($Rubro['valor_disp'],0);?>.00</td>
                                 <td class="text-center">
                                     <a href="{{ url('presupuesto/rubro/'.$Rubro['id_rubro']) }}" class="btn-sm btn-success"><i class="fa fa-info"></i></a>
                                 </td>

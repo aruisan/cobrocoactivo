@@ -9,8 +9,10 @@
             <li>
                 <a href="{{route('registros.index')}}" class="btn btn-primary text-left"><i class="material-icons md-12ss">list</i> Listar </a>
             </li>
+            @if( $rol == 2)
             <li>
                 <a href="{{route('registros.create')}}" class="btn btn-primary text-left"><i class="material-icons md-12ss">create</i> Crear</a>
             </li>
+            @endif
         </ul>
     </li>

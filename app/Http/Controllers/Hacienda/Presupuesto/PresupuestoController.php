@@ -134,7 +134,8 @@ class PresupuestoController extends Controller
                                             }
                                             $valFuent = FontsRubro::where('rubro_id', $rubro->id)->sum('valor');
                                             $codigos[] = collect(['id_rubro' => $rubro->id, 'id' => '', 'codigo' => $newCod, 'name' => $rubro->name, 'code' => $rubro->code, 'V' => $V, 'valor' => $valFuent, 'register_id' => $register->register_id]);
-                                            $Rubros[] = collect(['id_rubro' => $rubro->id, 'id' => '', 'codigo' => $newCod, 'name' => $rubro->name, 'code' => $rubro->code, 'V' => $V, 'valor' => $valFuent, 'register_id' => $register->register_id]);
+                                            $valDisp = FontsRubro::where('rubro_id', $rubro->id)->sum('valor_disp');
+                                            $Rubros[] = collect(['id_rubro' => $rubro->id, 'id' => '', 'codigo' => $newCod, 'name' => $rubro->name, 'code' => $rubro->code, 'V' => $V, 'valor' => $valFuent, 'register_id' => $register->register_id, 'valor_disp' => $valDisp]);
                                         }
                                     }
                                 }
@@ -185,8 +186,13 @@ class PresupuestoController extends Controller
                     }
                 }
             }
-            //
-    }
+        }
+        foreach ($rubros as $R){
+            foreach ($R->rubrosCdp as $C){
+                $valores[] = $C->rubrosCdpValor->sum('valor');
+            }
+        }
+        //dd($valor = array_sum($valores));
         return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros'));
     }
 
