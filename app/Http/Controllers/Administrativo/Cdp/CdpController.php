@@ -34,7 +34,7 @@ class CdpController extends Controller
             $cdps = Cdp::where('jefe_e','3')->orWhere('jefe_e','2')->get();
         } else
         {
-            $cdpTarea =null;
+            $cdpTarea = null;
             $cdps = null;
         }
         return view('administrativo.cdp.index', compact('cdps','rol', 'cdpTarea'));

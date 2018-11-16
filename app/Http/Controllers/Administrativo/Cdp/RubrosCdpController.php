@@ -48,17 +48,19 @@ class RubrosCdpController extends Controller
         $rubrosCdpId = $request->rubros_cdp_id;
         $rubrosCdpValorId = $request->rubros_cdp_valor_id;
 
-        $count = count($rubros);
+        if ($rubros != null){
+            $count = count($rubros);
 
-        for($i = 0; $i < $count; $i++){
+            for($i = 0; $i < $count; $i++){
 
-            $rubrosCdp = new RubrosCdp();
-            $rubrosCdp->cdp_id = $cdp_id;
-            $rubrosCdp->rubro_id = $rubros[$i];
-            $rubrosCdp->save();
+                $rubrosCdp = new RubrosCdp();
+                $rubrosCdp->cdp_id = $cdp_id;
+                $rubrosCdp->rubro_id = $rubros[$i];
+                $rubrosCdp->save();
 
-            $rubro = Rubro::find($rubros[$i]);
-            $valor[] = $rubro->fontsRubro->sum('valor');
+                $rubro = Rubro::find($rubros[$i]);
+                $valor[] = $rubro->fontsRubro->sum('valor');
+            }
         }
 
         if ($valorFuente != null){
@@ -81,10 +83,6 @@ class RubrosCdpController extends Controller
             }
 
         }
-
-        //$cdp = Cdp::findOrFail($cdp_id);
-        //$cdp->valor = $cdp->valor + array_sum($valor);
-        //$cdp->save();
 
         Session::flash('success','Rubros asignados correctamente');
 

@@ -43,7 +43,7 @@
         <div id="tabTareas" class="tab-pane active"><br>
             <br>
             <div class="table-responsive">
-                @if(count($cdpTarea) >= 1)
+                @if(count($cdpTarea) > 0)
                     <table class="table table-bordered" id="tabla_CDP">
                         <thead>
                         <tr>
@@ -128,7 +128,7 @@
             <br>
             <br>
             <div class="table-responsive">
-                @if(count($cdps) >= 1)
+                @if(count($cdps) > 0)
                     <table class="table table-bordered" id="tabla_Historico">
                         <thead>
                         <tr>
