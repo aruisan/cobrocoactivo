@@ -8,7 +8,7 @@
 @stop
 
 @section('sidebar')
-	<li><a href="{{url('admin/personas/create')}}" class="btn btn-success">Nuevo Funcionario</a></li>
+	<li><a href="{{route('personas.create')}}" class="btn btn-success">Nuevo Tercero</a></li>
 @stop
 
 @section('content')
@@ -37,7 +37,7 @@
 		    		<td>{{$persona->direccion}}</td>
 		    		<td>{{$persona->tipo}}</td>
 		    		<td>{{$persona->telefono}}</td>
-		    		<td><a href="{{ url("admin/personas/".$persona->id."/edit")}}" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
+		    		<td><a href="{{ route("personas.edit", $persona->id)}}" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
 		    		<td>
 		    		    @include('personas.delete', ['persona' => $persona])
 		    		</td>

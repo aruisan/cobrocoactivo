@@ -1,4 +1,4 @@
-{!! Form::Open(['url' => $url, 'method' => $method]) !!}
+{!! Form::Open(['route' => $route, 'method' => $method]) !!}
             <div class="form-group">
                 {{ Form::label('Nombre', 'Nombre')}}
                 {{ Form::text('nombre', $persona->nombre, ['class' => 'form-control', 'placeholder' => 'Nombre']) }}

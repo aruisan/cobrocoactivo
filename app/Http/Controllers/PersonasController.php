@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Cobro;
-use App\Model\Persona;
+namespace App\Http\Controllers;
 
+use App\Model\Persona;
 use Illuminate\Http\Request;
 
 class PersonasController extends Controller
@@ -41,22 +41,8 @@ class PersonasController extends Controller
     public function store(Request $request)
     {
         
-        $persona = new Persona;
-        
-        $persona->nombre = $request->nombre;
-        $persona->num_dc = $request->num_dc;
-        $persona->email = $request->email;
-        $persona->direccion = $request->direccion;
-        $persona->tipo = $request->tipo;
-        $persona->telefono = $request->telefono;
-
-        if($persona->save()){
-
-            return redirect('/admin/personas');
-
-        }else {
-        return view('admin/personas.create', ['persona' => $persona]);
-        }
+        $persona = Persona::create($request->all());
+        return redirect()->route('personas.index');
     }
 
     /**
@@ -92,23 +78,8 @@ class PersonasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $persona = Persona::findOrFail($id);
-
-        $persona->nombre = $request->nombre;
-        $persona->num_dc = $request->num_dc;
-        $persona->email = $request->email;
-        $persona->direccion = $request->direccion;
-        $persona->tipo = $request->tipo;
-        $persona->telefono = $request->telefono;
-
-        if($persona->save()){
-
-            return redirect('/admin/personas');
-
-        }else {
-        return view('admin/personas.create', ['persona' => $persona]);
-        }
-
+        $persona = Persona::find($id)->update($request->all());
+        return redirect()->route('personas.index');
     }
 
     /**
@@ -123,7 +94,7 @@ class PersonasController extends Controller
         $persona = Persona::findOrFail($id);
         $persona->delete();
 
-        return redirect('admin/personas');
+        return back();
     }
 
     public function personaFind($identificador){
@@ -136,7 +107,7 @@ class PersonasController extends Controller
     public function PersonafindCreate(Request $request){
         $persona = Persona::where('num_dc',$request->num_dc)->first();
 
-        if($persona) {
+        if($persona){
             return $persona;
         }
 

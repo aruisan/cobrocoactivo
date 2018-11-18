@@ -18,6 +18,12 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 	Route::get('dashboard', 'DashboardController@index');
 	Route::resource('predios', 'Hacienda\Cobro\Predial\PredioController');
 
+	//gestion de creacion y relacion de personas
+	Route::post('persona/relacionar', 'PersonasController@PersonafindCreate')->name('persona.relacionar');
+	Route::get('persona-identtificar/{identificador}', 'PersonasController@personaIdentificar')->name('persona.identificar');
+	Route::resource('personas', 'PersonasController');
+	//Route::get('usuarios-tipo/{id}', 'UserController@userstype');
+
 
 	////////////////////admin//////////////////
 	Route::group(['prefix' => 'dashboard'] ,function () 
@@ -29,6 +35,7 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 		Route::get('notificaciones-visibilidad/{id}', 'NotificationController@visibilidad')->name('notification.visibilidad');
 
 		
+		Route::resource('terceros', 'Administrativo\TercerosController');
 		Route::resource('contractual', 'Administrativo\Contractual\ContractualController');
 		Route::resource('administrativos', 'Sansonatorio\AdministrativoController');
 		Route::resource('comisariafamilia', 'Convivencia\ComisariaFamiliaController');
@@ -143,13 +150,6 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
 		Route::post('predio-asignar', 'PersonaPredioController@predioAsignarPersona');
 		*/
-		
-		//Route::get('persona-find/{identificador}', 'PersonasController@personaFind');
-		//Route::post('persona/find-create', 'PersonasController@PersonafindCreate');
-		//Route::resource('personas-predios', 'PersonaPredioController');
-		
-		Route::get('usuarios-tipo/{id}', 'UserController@userstype');
-
 		
 
 	    //Route::post('importar', 'ImportController@import')->name('importar');

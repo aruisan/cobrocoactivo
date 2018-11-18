@@ -8,14 +8,14 @@
 @stop
 
 @section('sidebar')
-	<li><a href="{{url('admin/personas/create')}}" class="btn btn-success">Nuevo Funcionario</a></li>
+	<li><a href="{{route('personas.index')}}" class="btn btn-success">Listar Terceros</a></li>
 @stop
 
 @section('content')
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
-				 @include('personas.partials._form', ['persona' => $persona, 'url' => 'admin/personas', 'method' => 'POST'])
+				 @include('personas.partials._form', ['persona' => $persona, 'route' => 'personas.store', 'method' => 'POST'])
 			</div>
 		</div>
 	</div>
