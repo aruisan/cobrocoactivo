@@ -95,12 +95,8 @@ class DependenciasController extends Controller
         if($destroy->subProyectos->count() > 0  || $destroy->users->count() > 0)
         {
         	return 'Se encontraron '.$destroy->subProyectos->count().' subproyectos y '.$destroy->users->count().' Usuarios con Dependencias';
-        	/*return redirect()->route('dependencias.index')
-        				->with('warning', 'Se encontraron'.$destroy->subProyectos->count().'subproyectos y '.$destroy->users->count().'con Dependencias');*/
         }   
         $destroy->delete();
         return 0;
-        /*return redirect()->route('dependencias.index')
-        				->with('error','Dependencia Borrada Exitosamente');*/
     }
 }

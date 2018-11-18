@@ -26,10 +26,10 @@ class FuncionariosController extends Controller
 
     function __construct()
     {
-         $this->middleware('permission:funcionario-list');
+         /*$this->middleware('permission:funcionario-list');
          $this->middleware('permission:funcionario-create', ['only' => ['create','store']]);
          $this->middleware('permission:funcionario-edit', ['only' => ['edit','update']]);
-         $this->middleware('permission:funcionario-delete', ['only' => ['destroy']]);
+         $this->middleware('permission:funcionario-delete', ['only' => ['destroy']]);*/
     }
 
 
@@ -78,7 +78,7 @@ class FuncionariosController extends Controller
 
 
         $user = User::create($input);
-        $user->assignRole($request->input('roles'));
+        $user->assignRole($request->roles);
 
         if($request->jefe)
         {
@@ -154,14 +154,9 @@ class FuncionariosController extends Controller
 
         //se llama al user
         $user = User::find($id);
-        //se actualiza el user
         $user->update($input);
-        //borran los roles
-        DB::table('model_has_roles')->where('model_id',$id)->delete();
-        //crean los nuevos roles
-        $user->assignRole($request->input('roles'));
-        
 
+        $user->syncRoles($request->roles);
 
         //verificacion de jefe vacio
         if($request->jefe && $user->user_boss)
