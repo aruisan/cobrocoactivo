@@ -114,7 +114,10 @@
                                 <th class="text-center">P. Inicial</th>
                                 <th class="text-center">Adición</th>
                                 <th class="text-center">Reducción</th>
-                                <th class="text-center">Modificación</th>
+                                <th class="text-center">Credito</th>
+                                <th class="text-center">CCredito</th>
+                                <th class="text-center">P.Definitivo</th>
+                                <th class="text-center">CDP's</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -124,15 +127,34 @@
                                     <td class="text-dark">{{ $codigo['name']}}</td>
                                     @foreach($valoresIniciales as $valorInicial)
                                         @if($valorInicial['id'] == $codigo['id'])
-                                            <td class="text-center text-dark">$ <?php echo number_format($valorInicial['valor'],0);?>.00</td>
+                                            <td class="text-center text-dark">$ <?php echo number_format($valorInicial['valor'],0);?></td>
                                         @endif
                                     @endforeach
                                     @if($codigo['valor'])
-                                        <td class="text-center text-dark">$ <?php echo number_format($codigo['valor'],0);?>.00</td>
+                                        <td class="text-center text-dark">$ <?php echo number_format($codigo['valor'],0);?></td>
                                     @endif
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
+                                    <td>$0</td>
+                                    <td>$0</td>
+                                    <td>$0</td>
+                                    <td>$0</td>
+                                    @foreach($valoresIniciales as $valorInicial)
+                                        @if($valorInicial['id'] == $codigo['id'])
+                                            <td class="text-center">$ <?php echo number_format($valorInicial['valor'],0);?></td>
+                                        @endif
+                                    @endforeach
+                                    @if($codigo['valor'])
+                                        <td class="text-center">$ <?php echo number_format($codigo['valor'],0);?></td>
+                                    @endif
+                                    @foreach($valoresIniciales as $valorInicial)
+                                        @if($valorInicial['id'] == $codigo['id'])
+                                            <td class="text-center text-dark">$ 0</td>
+                                        @endif
+                                    @endforeach
+                                    @foreach($valoresCdp as $valorCdp)
+                                        @if($codigo['id_rubro'] == $valorCdp['id'])
+                                            <td class="text-center text-dark">$ <?php echo number_format($valorCdp['valor'],0);?></td>
+                                        @endif
+                                    @endforeach
                                 </tr>
                             @endforeach
                             </tbody>
@@ -186,7 +208,8 @@
                             <tr>
                                 <th class="text-center">Rubro</th>
                                 <th class="text-center">Nombre</th>
-                                <th class="text-center">valor</th>
+                                <th class="text-center">Valor Inicial</th>
+                                <th class="text-center">Valor Disponible</th>
                                 <th class="text-center">Acciones</th>
                             </tr>
                             </thead>
@@ -196,6 +219,7 @@
                                 <td>{{ $Rubro['codigo'] }}</td>
                                 <td>{{ $Rubro['name'] }}</td>
                                 <td class="text-center">$ <?php echo number_format($Rubro['valor'],0);?>.00</td>
+                                <td class="text-center">$ <?php echo number_format($Rubro['valor_disp'],0);?>.00</td>
                                 <td class="text-center">
                                     <a href="{{ url('presupuesto/rubro/'.$Rubro['id_rubro']) }}" class="btn-sm btn-success"><i class="fa fa-info"></i></a>
                                 </td>
@@ -212,15 +236,18 @@
                     <div class="table-responsive">
                             @if(count($cdps) >= 1)
                             <br>
-                            <a href="{{ url('administrativo/cdp/create') }}" class="btn btn-primary btn-block m-b-12">Crear Nuevo CDP</a>
+                            <a href="{{ url('administrativo/cdp') }}" class="btn btn-primary btn-block m-b-12">CDP's</a>
                             <br>
                             <table class="table table-bordered" id="tabla_CDP">
                                 <thead>
                                 <tr>
                                     <th class="text-center">#</th>
-                                    <th class="text-center">Nombre</th>
-                                    <th class="text-center">Estado</th>
-                                    <th class="text-center">Acciones</th>
+                                    <th class="text-center">Objeto</th>
+                                    <th class="text-center">Valor</th>
+                                    <th class="text-center">Estado Secretaria</th>
+                                    <th class="text-center">Estado Jefe</th>
+                                    <th class="text-center">Ver</th>
+                                    <th class="text-center">Archivo</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -228,21 +255,42 @@
                                     <tr>
                                         <td class="text-center">{{ $cdp->id }}</td>
                                         <td class="text-center">{{ $cdp->name }}</td>
-                                        <td class="text-center"><span class="badge badge-pill badge-danger">
-                                                @if($cdp->estado == 0)
+                                        <td class="text-center">$ <?php echo number_format($cdp->valor,0);?>.00</td>
+                                        <td class="text-center">
+                                            <span class="badge badge-pill badge-danger">
+                                                @if($cdp->secretaria_e == "0")
                                                     Pendiente
-                                                @elseif($cdp->estado == 1)
+                                                @elseif($cdp->secretaria_e == "1")
                                                     Rechazado
-                                                @elseif($cdp->estado == 2)
+                                                @elseif($cdp->secretaria_e == "2")
                                                     Anulado
                                                 @else
-                                                    Aprobado
+                                                    Enviado
                                                 @endif
-                                            </span></td>
+                                            </span>
+                                                </td>
+                                                <td class="text-center">
+                                            <span class="badge badge-pill badge-danger">
+                                                @if($cdp->jefe_e == "0")
+                                                    Pendiente
+                                                @elseif($cdp->jefe_e == "1")
+                                                    Rechazado
+                                                @elseif($cdp->jefe_e == "2")
+                                                    Anulado
+                                                @elseif($cdp->jefe_e == "3")
+                                                    Finalizado
+                                                @else
+                                                    En Espera
+                                                @endif
+                                            </span>
+                                        </td>
                                         <td class="text-center">
-                                            <a href="{{ url('administrativo/cdp/'.$cdp->id.'/edit') }}" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
-                                            <a href="#" title="Aprobar" class="btn-sm btn-success"><i class="fa fa-check"></i></a>
-                                            <a href="#" title="Rechazar" class="btn-sm btn-danger"><i class="fa fa-times-circle"></i></a>
+                                            <a href="{{ url('administrativo/cdp/'.$cdp->id) }}" title="Ver" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                        </td>
+                                        <td class="text-center">
+                                            @if($cdp->ruta != null)
+                                            <a href="#" title="Archivo" class="btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i></a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -252,8 +300,7 @@
                                 <br><br>
                                 <div class="alert alert-danger">
                                     <center>
-                                        No hay CDP's, para crear uno nuevo de click al siguiente link:
-                                        <a href="{{ url('presupuesto/cdp/create') }}" class="alert-link">Crear CDP</a>.
+                                        No hay CDP's.
                                     </center>
                                 </div>
                             @endif
@@ -261,39 +308,61 @@
                 </div>
                 <div id="tabReg" class=" tab-pane fade"><br>
                     <div class="table-responsive">
-                        <br>
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th class="text-center">#</th>
-                                <th class="text-center">Nombre</th>
-                                <th class="text-center">Estado</th>
-                                <th class="text-center">Acciones</th>
-                            </tr>
-                            </thead>
-                            <tbody id="registros">
-                            <tr data-idalumno="1">
-                                <td>1</th>
-                                <td>Registro 1</td>
-                                <td><span class="badge badge-danger">Anulado</span></td>
-                                <td>
-                                    <button type="button" class="btn btn-success"><i class="fa fa-edit"></i></button>
-                                    <button type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
-                                </td>
-                            </tr>
-                            <tr data-idalumno="2">
-                                <th scope="row">2</th>
-                                <td>Registro 2</td>
-                                <td><span class="badge badge-success">Aprobado</span></td>
-                                <td>
-                                    <button type="button" class="btn btn-success"><i class="fa fa-edit"></i></button>
-                                    <button type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                        @if(count($registros) >= 1)
+                            <br>
+                            <a href="{{ url('administrativo/registros') }}" class="btn btn-primary btn-block m-b-12">Registros</a>
+                            <br>
+                            <table class="table table-bordered" id="tabla_Registros">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">Id</th>
+                                    <th class="text-center">Nombre Registro</th>
+                                    <th class="text-center">Nombre Tercero</th>
+                                    <th class="text-center">Valor</th>
+                                    <th class="text-center">Estado</th>
+                                    <th class="text-center"><i class="fa fa-eye"></i></th>
+                                    <th class="text-center">Archivo</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach ($registros as $key => $data)
+                                    <tr>
+                                        <td class="text-center">{{ $data->id }}</td>
+                                        <td class="text-center">{{ $data->objeto }}</td>
+                                        <td class="text-center">{{ $data->persona->nombre }}</td>
+                                        <td class="text-center">$<?php echo number_format($data->valor,0) ?></td>
+                                        <td class="text-center">
+                                    <span class="badge badge-pill badge-danger">
+                                        @if($data->secretaria_e == "0")
+                                            Pendiente
+                                        @elseif($data->secretaria_e == "1")
+                                            Rechazado
+                                        @elseif($data->secretaria_e == "2")
+                                            Anulado
+                                        @else
+                                            Finalizado
+                                        @endif
+                                    </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="{{ url('administrativo/registros',$data->id) }}" title="Ver Registro" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="{{ url('administrativo/registros',$data->id) }}" title="Ver Archivo" class="btn btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i></a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        @else
+                            <br><br>
+                            <div class="alert alert-danger">
+                                <center>
+                                    No hay Registros.
+                                </center>
+                            </div>
+                        @endif
                     </div>
-                    <button type="button" class="btn btn-primary btn-block m-b-10"><i class="fa fa-plus"></i></button>
                 </div>
                 <div id="tabAddIng" class=" tab-pane fade"><br>
                     <h2 class="text-center">Adiciones de Ingresos</h2>
@@ -377,53 +446,53 @@
 @stop
 @section('js')
     <script>
-            $('#tabla_CDP').DataTable( {
-                responsive: true,
-                "searching": true,
-                "pageLength": 5,
-                dom: 'Bfrtip',
-                buttons: [
-                    'pdf' ,'copy', 'csv', 'excel', 'print'
-                ]
-            } );
+        $('#tabla_Registros').DataTable( {
+            responsive: true,
+            "searching": false,
+            "pageLength": 5,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'print'
+            ]
+        } );
 
-            $('#tabla_Rubros').DataTable( {
-                responsive: true,
-                "searching": true,
-                "pageLength": 5,
-                dom: 'Bfrtip',
-                buttons: [
-                    'pdf' ,'copy', 'csv', 'excel', 'print'
-                ]
-            } );
+        $('#tabla_CDP').DataTable( {
+            responsive: true,
+            "searching": false,
+            "pageLength": 5,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'print'
+            ]
+        } );
 
-            $('#tabla_presupuesto').DataTable( {
-                responsive: true,
-                "searching": false,
-                "ordering": false,
-                dom: 'Bfrtip',
-                buttons: [
-                    'copy', 'csv', 'excel', 'print'
-                ]
-            } );
+        $('#tabla_Rubros').DataTable( {
+            responsive: true,
+            "searching": true,
+            "pageLength": 5,
+            dom: 'Bfrtip',
+            buttons: [
+                'pdf' ,'copy', 'csv', 'excel', 'print'
+            ]
+        } );
 
-            $('#tabla_fuentes').DataTable( {
-                responsive: true,
-                "searching": false,
-                dom: 'Bfrtip',
-                buttons: [
-                    'pdf' ,'copy', 'csv', 'excel', 'print'
-                ]
-            } );
+        $('#tabla_presupuesto').DataTable( {
+            responsive: true,
+            "searching": false,
+            "ordering": false,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'print'
+            ]
+        } );
 
-        $('#registros').on('click','tr td', function(evt){
-            var target;
-            target = $(event.target);
-            url ="/presupuesto/"+ target.parent().data('idalumno');
-            window.open(url, '_blank');
-            return false;
-        });
-
-        $('#registros').css("cursor","pointer");
+        $('#tabla_fuentes').DataTable( {
+            responsive: true,
+            "searching": false,
+            dom: 'Bfrtip',
+            buttons: [
+                'pdf' ,'copy', 'csv', 'excel', 'print'
+            ]
+        } );
     </script>
 @stop

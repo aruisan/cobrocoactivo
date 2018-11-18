@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Administrativo\GestionDocumental;
+namespace App\Http\Controllers\Administrativo\GestionDocumental\Acuerdos;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class AcuerdosController extends Controller
+
+class ActasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,7 @@ class AcuerdosController extends Controller
      */
     public function index()
     {
-        $V = "Vacio";
-        return view('administrativo.gestiondocumental.acuerdos.index', compact('V'));
+        //
     }
 
     /**
@@ -25,7 +25,7 @@ class AcuerdosController extends Controller
      */
     public function create()
     {
-        return view('administrativo.gestiondocumental.acuerdos.create');
+        return view('administrativo.gestiondocumental.acuerdos.createActas');
     }
 
     /**

@@ -23,14 +23,12 @@ class VisitanteController extends Controller
     public function index()
     {
         $vigens = Vigencia::where('vigencia', 2018)->where('tipo', 1)->get();
-        //dd($vigens);
-        //$vigens = null;
         $vigens = Vigencia::where('id', '>',0)->get();
         $count = count($vigens);
 
         if ($count < 1){
             $V = "Vacio";
-            return view('hacienda.presupuesto.index', compact('V'));
+            return view('visitante.index', compact('V'));
         } else {
             foreach ($vigens as $vigen) {
                 $V = $vigen->id;

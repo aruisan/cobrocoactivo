@@ -89,7 +89,7 @@
                                 <th scope="row"><input type="number" style="text-align:center" name="valor[]" value="{{ $dato->valor }}" required></th>
                                 <td class="text-center" style="vertical-align:middle;"><button type="button" class="btn-sm btn-danger" v-on:click.prevent="eliminarDatos({{ $dato->id }})" ><i class="fa fa-trash-o"></i></button></td>
                             </tr>
-                            @endforeach
+                    @endforeach
                             <tr>
                                 @if($rubro->vigencia->fonts)
                                 <td>

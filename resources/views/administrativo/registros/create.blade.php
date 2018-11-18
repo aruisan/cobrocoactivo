@@ -20,36 +20,12 @@
     <input type="hidden" name="secretaria_e" value="0">
     <div class="row">
         <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <label>Valor: </label>
-            <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></span>
-                <input type="number" class="form-control" name="valor" required>
-            </div>
-            <small class="form-text text-muted">Valor total del registro</small>
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <label>Datos persona: </label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></span>
                 <input type="text" name="persona_id" class="form-control" data-toggle="modal" data-target="#participante">
             </div>
             <small class="form-text text-muted">Relacionar persona</small>
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <label>Cdp: </label>
-            <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-file-o" aria-hidden="true"></i></span>
-                <select name="cdp_id" class="form-control">
-                    @foreach($cdps as $cdp)
-                        <option value="{{ $cdp->id }}">{{ $cdp->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <small class="form-text text-muted">CDP al que pertenece el registro</small>
         </div>
     </div>
     <div class="row">
@@ -64,6 +40,14 @@
     </div>
     <div class="row">
         <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <label>Subir Archivo: </label>
+            <div class="input-group">
+                <input type="file" name="file" accept="application/pdf" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <label>Contratos: </label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-file-o" aria-hidden="true"></i></span>
@@ -74,14 +58,6 @@
                 </select>
             </div>
             <small class="form-text text-muted">Contrato al que pertenece el registro</small>
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <label>Subir Archivo: </label>
-            <div class="input-group">
-                <input type="file" name="file" accept="application/pdf" class="form-control">
-            </div>
         </div>
     </div>
     <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">

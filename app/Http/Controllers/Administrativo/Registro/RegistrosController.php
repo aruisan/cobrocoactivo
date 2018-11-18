@@ -1,17 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Administrativo;
+namespace App\Http\Controllers\Administrativo\Registro;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Intervention\Image\Facades\Image;
-use App\Model\Administrativo\Registro;
+use App\Model\Administrativo\Registro\Registro;
+use App\Model\Administrativo\Registro\CdpsRegistro;
 use App\Model\Administrativo\Cdp\Cdp;
 use App\Model\Administrativo\Contractuall\Contractual;
 use App\Traits\FileTraits;
 use Illuminate\Http\Response;
 
 use Session;
+
 class RegistrosController extends Controller
 {
     private $photos_path;
@@ -32,8 +34,9 @@ class RegistrosController extends Controller
         foreach ($roles as $role){
             $rol= $role->id;
         }
-        $registros = Registro::orderBy('id','DESC')->paginate(5);
-        return view('administrativo.registros.index',compact('registros','rol'))
+        $registros = Registro::where('secretaria_e','!=','3')->orderBy('id','DESC')->paginate(5);
+        $registrosHistorico = Registro::where('secretaria_e','3')->orderBy('id','DESC')->paginate(5);
+        return view('administrativo.registros.index',compact('registros','rol', 'registrosHistorico'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
  
@@ -44,9 +47,18 @@ class RegistrosController extends Controller
      */
     public function create()
     {
-        $cdps = Cdp::all();
-        $contratos = Contractual::all();
-        return view('administrativo.registros.create', compact('cdps','contratos'));
+        $roles = auth()->user()->roles;
+        foreach ($roles as $role){
+            $rol= $role->id;
+        }
+        $cdps = Cdp::all()->where('jefe_e','3')->count();
+        if($cdps > 0){
+            $contratos = Contractual::all();
+            return view('administrativo.registros.create', compact('contratos','rol'));
+        }else{
+            Session::flash('error','Actualmente no existen CDPs disponibles para crear registros.');
+            return redirect('/administrativo/registros');
+        }
     }
  
     /**
@@ -70,22 +82,17 @@ class RegistrosController extends Controller
         $registro->objeto = $request->objeto;
         $registro->ff_expedicion = $request->fecha;
         $registro->ruta = $ruta;
-        $registro->valor = $request->valor;
+        $registro->valor = "0";
         $registro->persona_id = $request->persona_id;
-        $registro->cdp_id = $request->cdp_id;
         $registro->contrato_id = $request->contrato_id;
         $registro->secretaria_e = $request->secretaria_e;
+        $registro->ff_secretaria_e = $request->fecha;
 
         $registro->save();
         Session::flash('success','El registro se ha creado exitosamente');
         return redirect('/administrativo/registros');
     }
- 
-    /**
-     * Remove the images from the storage.
-     *
-     * @param Request $request
-     */
+
     public function destroy($id)
     {
         $destroy = Registro::find($id);
@@ -128,20 +135,19 @@ class RegistrosController extends Controller
     {
         $registro = Registro::findOrFail($id);
         $roles = auth()->user()->roles;
+        $cdps = Cdp::where('saldo','>',0)->get();
         foreach ($roles as $role){
             $rol= $role->id;
         }
-        return view('administrativo.registros.show', compact('registro','rol'));
+        return view('administrativo.registros.show', compact('registro','rol','cdps'));
     }
 
     public function update(Request $request, $id)
     {
 
         $update = Registro::findOrFail($id);
-        $update->valor = $request->valor;
         $update->objeto = $request->objeto;
         $update->persona_id = $request->persona_id;
-        $update->cdp_id = $request->cdp_id;
         $update->contrato_id = $request->contrato_id;
         $update->save();
 
@@ -149,46 +155,25 @@ class RegistrosController extends Controller
         return redirect('/administrativo/registros');
     }
 
-    public function updateEstado($id,$rol,$estado)
+    public function updateEstado($id,$fecha,$valor,$estado)
     {
         $update = Registro::findOrFail($id);
-        if ($rol == 2){
-            $update->secretaria_e = $estado;
-            $update->jcontratacion_e = "0";
-            $update->observacion = "";
-            $update->save();
 
-            Session::flash('success','Secretaria, su registro ha sido finalizado exitosamente');
-            return redirect('/administrativo/registros');
+        $update->secretaria_e = $estado;
+        $update->ff_secretaria_e = $fecha;
+        $update->valor = $valor;
+        $update->save();
+
+        $cdpsRegistro = CdpsRegistro::where('registro_id', $id)->get();
+        foreach ($cdpsRegistro as $data){
+            $cdp = Cdp::findOrFail($data->cdp_id);
+            $cdp->saldo = $cdp->saldo - $data->valor;
+            $cdp->save();
         }
-        if ($rol == 3){
-            if ($estado == 3){
-                $update->jcontratacion_e = $estado;
-                $update->jpresupesto_e = "0";
-                $update->observacion = "";
-                $update->save();
 
-                Session::flash('success','El registro ha sido aprobado satisfactoriamente');
-                return redirect('/administrativo/registros');
-            }
-        }
-        if ($rol == 4){
-            if ($estado == 2){
-                $update->jpresupuesto_e = $estado;
-                $update->save();
+        Session::flash('success','Secretaria, su registro ha sido finalizado exitosamente');
+        return redirect('/administrativo/registros');
 
-                Session::flash('error','El registro ha sido anulado');
-                return redirect('/administrativo/registros');
-            }
-            if ($estado == 3){
-                $update->jpresupuesto_e = $estado;
-                $update->observacion = "";
-                $update->save();
-
-                Session::flash('success','El registro ha sido aprobado satisfactoriamente');
-                return redirect('/administrativo/registros');
-            }
-        }
     }
 
     public function rechazar(Request $request, $id,$rol,$estado)

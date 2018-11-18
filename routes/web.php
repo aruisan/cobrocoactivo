@@ -1,9 +1,8 @@
 <?php
 
 
-Route::get('/', function(){
-	return view('visitante.index');
-});
+Route::get('/', 'VisitanteController@index');
+
 
 
 Route::get('/info', function(){
@@ -52,6 +51,24 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 		Route::get('correspondencia/create/{id}','Administrativo\GestionDocumental\CorrespondenciaController@create');
 		Route::resource('correspondencia', 'Administrativo\GestionDocumental\CorrespondenciaController');
 
+		//RUTAS ACUERDOS
+
+        Route::Resource('/acuerdos/','Administrativo\GestionDocumental\Acuerdos\AcuerdosController');
+        Route::Resource('/acuerdos/proyectos/','Administrativo\GestionDocumental\Acuerdos\ProyectosAcuerdoController');
+        Route::Resource('/acuerdos/actas/','Administrativo\GestionDocumental\Acuerdos\ActasController');
+        Route::Resource('/acuerdos/resoluciones/','Administrativo\GestionDocumental\Acuerdos\ResolucionesController');
+
+        //RUTAS COMISIONES
+
+        Route::get('/comision/{id}/','Administrativo\GestionDocumental\Comisiones\ComisionesController@index');
+
+        //RUTAS CONCEJALES
+
+        Route::Resource('/concejales/','Administrativo\GestionDocumental\ConcejalController');
+
+        //RUTAS MESA DIRECTIVA
+
+        Route::Resource('/mesaDir/','Administrativo\GestionDocumental\MesaDirectivaController');
 
 		Route::resource('demandante', 'Judicial\DemandanteController');
 		Route::resource('demandado', 'Judicial\DemandadoController');
@@ -78,17 +95,21 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 	Route::group(['prefix' => 'administrativo'] ,function () 
 	{
 	    //Registros
-	    Route::resource('registros', 'Administrativo\RegistrosController');
-        Route::get('registros/{id}/{rol}/{estado}', 'Administrativo\RegistrosController@updateEstado');
-        Route::put('registros/r/{id}/{rol}/{estado}', 'Administrativo\RegistrosController@rechazar');
+	    Route::resource('registros', 'Administrativo\Registro\RegistrosController');
+        Route::get('registros/{id}/{fecha}/{valor}/{estado}', 'Administrativo\Registro\RegistrosController@updateEstado');
+        //Route::put('registros/r/{id}/{rol}/{estado}', 'Administrativo\Registro\RegistrosController@rechazar');
+        Route::resource('cdpsRegistro','Administrativo\Registro\CdpsRegistroController');
 
         //CDP's
         Route::resource('cdp', 'Administrativo\Cdp\CdpController');
-
+        Route::Resource('rubrosCdp','Administrativo\Cdp\RubrosCdpController');
+        Route::Resource('rubrosCdp/valor','Administrativo\Cdp\RubrosCdpValorController');
+        Route::get('cdp/{id}/{rol}/{fecha}/{valor}/{estado}', 'Administrativo\Cdp\CdpController@updateEstado');
+        Route::put('cdp/r/{id}', 'Administrativo\Cdp\CdpController@rechazar');
 
         Route::resource('marcas-herretes', 'Administrativo\MarcaHerrete\MarcaHerreteController');
         Route::get('persona-find/{identificador}', 'Cobro\PersonasController@personaFind');
-    		Route::post('persona/find-create', 'Cobro\PersonasController@PersonafindCreate');
+        Route::post('persona/find-create', 'Cobro\PersonasController@PersonafindCreate');
 	});
 
 
@@ -106,15 +127,15 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 		Route::resource('dependencias', 'Admin\DependenciasController');
 		Route::get('dependencias/listar', 'Admin\DependenciasController@listar')->name('dependencias.listar');
 		
+        //RUTAS ORDEN DEL DIA
 
-
-
+        Route::resource('ordenDia','Admin\OrdenDiaController');
 
 		////////////////////////////////////////////////////
 		//Route::resource('personas', 'PersonasController');
 		//Route::get('asignar/{id}', 'AsignarController@index');
 		//Route::resource('asignar', 'AsignarController');
-/*
+		/*
 		Route::get('predios-sin-asignar', 'PredioController@predioSinAsignar')->name('unnassigned');
 		Route::get('predios-asignados', 'PredioController@predioAsignado')->name('assignor');
 		Route::post('predios-asignar', 'PredioController@predioAsignarAdministrativeStore')->name('assignor.store');
@@ -140,75 +161,55 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 	});
 
 	////// RUTAS PRESUPUESTO
-	Route::group(['prefix' => 'presupuesto'] ,function ()
-	{
-		Route::Resource('/', 'Hacienda\Presupuesto\PresupuestoController');
 
-		Route::get('vigencia/create/{tipo}', 'Hacienda\Presupuesto\VigenciaController@create');
-		Route::resource('vigencia', 'Hacienda\Presupuesto\VigenciaController');
 
-		Route::get('level/create/{vigencia}', 'Hacienda\Presupuesto\LevelController@create');
-		Route::resource('level', 'Hacienda\Presupuesto\LevelController');
-
-		Route::get('registro/create/{vigencia}/{level}', 'Hacienda\Presupuesto\RegistroController@create');
-		Route::resource('registro', 'Hacienda\Presupuesto\RegistroController');
-
-		Route::get('font/create/{vigencia}', 'Hacienda\Presupuesto\FontsController@create');
-		Route::resource('font', 'Hacienda\Presupuesto\FontsController');
-
-		Route::get('rubro/create/{vigencia}', 'Hacienda\Presupuesto\RubrosController@create');
-		Route::resource('rubro', 'Hacienda\Presupuesto\RubrosController');
-
-		Route::resource('FontRubro', 'Hacienda\Presupuesto\FontRubroController');
-		Route::resource('FontRubro/saldo', 'Hacienda\Presupuesto\FontRubroController@saldoFont');
-
-	});
-
+	Route::Resource('presupuesto', 'Hacienda\Presupuesto\PresupuestoController');
+	Route::get('presupuesto/vigencia/create/{tipo}', 'Hacienda\Presupuesto\VigenciaController@create');
+	Route::resource('presupuesto/vigencia', 'Hacienda\Presupuesto\VigenciaController');
+	Route::get('presupuesto/level/create/{vigencia}', 'Hacienda\Presupuesto\LevelController@create');
+	Route::resource('presupuesto/level', 'Hacienda\Presupuesto\LevelController');
+	Route::get('presupuesto/registro/create/{vigencia}/{level}', 'Hacienda\Presupuesto\RegistroController@create');
+	Route::resource('presupuesto/registro', 'Hacienda\Presupuesto\RegistroController');
+	Route::get('presupuesto/font/create/{vigencia}', 'Hacienda\Presupuesto\FontsController@create');
+	Route::resource('presupuesto/font', 'Hacienda\Presupuesto\FontsController');
+	Route::get('presupuesto/rubro/create/{vigencia}', 'Hacienda\Presupuesto\RubrosController@create');
+	Route::resource('presupuesto/rubro', 'Hacienda\Presupuesto\RubrosController');
+	Route::resource('presupuesto/FontRubro', 'Hacienda\Presupuesto\FontRubroController');
+	Route::resource('presupuesto/FontRubro/saldo', 'Hacienda\Presupuesto\FontRubroController@saldoFont');
+	
     ////// RUTAS PLAN DE DESARROLLO
-	Route::group(['prefix' => 'pdd'] ,function ()
-	{
-		Route::resource('/','Planeacion\Pdd\PdesarrolloController');
+	Route::resource('pdd','Planeacion\Pdd\PdesarrolloController');
+	Route::get('pdd/data/create/{pdd}','Planeacion\Pdd\EjesController@create');
+	Route::resource('pdd/eje','Planeacion\Pdd\EjesController');
+	Route::resource('pdd/programa','Planeacion\Pdd\ProgramasController');
+	Route::get('pdd/proyecto/create/{pdd}','Planeacion\Pdd\ProyectosController@create');
+	Route::resource('pdd/proyecto','Planeacion\Pdd\ProyectosController');
+	Route::get('pdd/subproyecto/create/{pdd}','Planeacion\Pdd\SubproyectosController@create');
+	Route::resource('pdd/subproyecto','Planeacion\Pdd\SubproyectosController');
+	Route::get('pdd/producto/create/{pdd}','Planeacion\Pdd\ProductoController@create');
+	Route::resource('pdd/producto','Planeacion\Pdd\ProductoController');
+	Route::get('pdd/periodo/create/{producto}','Planeacion\Pdd\PeriodoController@create');
+	Route::resource('pdd/periodo','Planeacion\Pdd\PeriodoController');
 
-		Route::get('data/create/{pdd}','Planeacion\Pdd\EjesController@create');
-		Route::resource('eje','Planeacion\Pdd\EjesController');
 
-		Route::resource('programa','Planeacion\Pdd\ProgramasController');
 
-		Route::get('proyecto/create/{pdd}','Planeacion\Pdd\ProyectosController@create');
-		Route::resource('proyecto','Planeacion\Pdd\ProyectosController');
+	////// RUTAS ALMACEN
 
-		Route::get('subproyecto/create/{pdd}','Planeacion\Pdd\SubproyectosController@create');
-		Route::resource('subproyecto','Planeacion\Pdd\SubproyectosController');
+	Route::get('almacen/nuevaEntrada','Hacienda\Almacen\AlmacenController@nuevaEntrada');
+	Route::get('almacen/inventarioEntradas','Hacienda\Almacen\AlmacenController@inventarioEntradas');
+	Route::get('almacen/inventarioSalidas','Hacienda\Almacen\AlmacenController@inventarioSalidas');
+	Route::get('almacen/entradas','Hacienda\Almacen\AlmacenController@entradas');
+	Route::get('almacen/salidas','Hacienda\Almacen\AlmacenController@salidas');
+	Route::Resource('almacen','Hacienda\Almacen\AlmacenController');
 
-		Route::get('producto/create/{pdd}','Planeacion\Pdd\ProductoController@create');
-		Route::resource('producto','Planeacion\Pdd\ProductoController');
+	////// RUTAS CONTRACTUAL
 
-		Route::get('periodo/create/{producto}','Planeacion\Pdd\PeriodoController@create');
-		Route::resource('periodo','Planeacion\Pdd\PeriodoController');
-
-	});
-
-});
-
-////// RUTAS ALMACEN
-Route::group(['prefix' => 'almacen'] ,function ()
-{
-	Route::get('/nuevaEntrada','Hacienda\Almacen\AlmacenController@nuevaEntrada');
-	Route::get('/inventarioEntradas','Hacienda\Almacen\AlmacenController@inventarioEntradas');
-	Route::get('/inventarioSalidas','Hacienda\Almacen\AlmacenController@inventarioSalidas');
-	Route::get('/entradas','Hacienda\Almacen\AlmacenController@entradas');
-	Route::get('/salidas','Hacienda\Almacen\AlmacenController@salidas');
-	Route::Resource('/','Hacienda\Almacen\AlmacenController');
-
-});
-
-////// RUTAS CONTRACTUAL
-Route::group(['prefix' => 'contractual'] ,function ()
-{
 	// Route::get('/nuevaEntrada','Hacienda\Almacen\AlmacenController@nuevaEntrada');
 	// Route::get('/inventarioEntradas','Hacienda\Almacen\AlmacenController@inventarioEntradas');
 	// Route::get('/inventarioSalidas','Hacienda\Almacen\AlmacenController@inventarioSalidas');
 	// Route::get('/entradas','Hacienda\Almacen\AlmacenController@entradas');
-	Route::get('/rubros','Administrativo\Contractual\VerRubrosController@index');
-	Route::Resource('/','Administrativo\Contractual\ContractualController');
+	Route::get('contractual/rubros','Administrativo\Contractual\VerRubrosController@index');
+	Route::Resource('contractual','Administrativo\Contractual\ContractualController');
+
+
 });

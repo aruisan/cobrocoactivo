@@ -5,15 +5,6 @@
             <i class="fa fa-plus"></i>
             <span class="hide-menu">Crear Contractual</span></a>
     </li>
-    <li>
-        <a href="{{ url('/presupuesto/rubro') }}" class="btn btn-primary">
-            <span class="hide-menu"> Presupuesto</span></a>
-    </li>
-    <li>
-        <a href="{{ url('/almacen') }}" class="btn btn-primary">
-            <i class="fa fa-inventory"></i>
-            <span class="hide-menu"> Almacen</span></a>
-    </li>
 @stop
 @section('content')
     <div class="col-md-12 align-self-center">

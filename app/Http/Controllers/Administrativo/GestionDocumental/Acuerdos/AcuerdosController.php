@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Administrativo\GestionDocumental\Acuerdos;
 
-use App\Concejal;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class ConcejalController extends Controller
+class AcuerdosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,8 @@ class ConcejalController extends Controller
      */
     public function index()
     {
-        //
+        $V = "Vacio";
+        return view('administrativo.gestiondocumental.acuerdos.index', compact('V'));
     }
 
     /**
@@ -24,7 +25,7 @@ class ConcejalController extends Controller
      */
     public function create()
     {
-        //
+        return view('administrativo.gestiondocumental.acuerdos.create');
     }
 
     /**
@@ -41,10 +42,10 @@ class ConcejalController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Concejal  $concejal
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Concejal $concejal)
+    public function show($id)
     {
         //
     }
@@ -52,10 +53,10 @@ class ConcejalController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Concejal  $concejal
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Concejal $concejal)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +65,10 @@ class ConcejalController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Concejal  $concejal
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Concejal $concejal)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +76,10 @@ class ConcejalController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Concejal  $concejal
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Concejal $concejal)
+    public function destroy($id)
     {
         //
     }

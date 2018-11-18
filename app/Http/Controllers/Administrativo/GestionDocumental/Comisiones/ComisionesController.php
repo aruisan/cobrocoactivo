@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Administrativo\GestionDocumental\Comisiones;
 
-use App\comisiones;
+use App\Model\Administrativo\GestionDocumental\Comisiones;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ComisionesController extends Controller
 {
@@ -12,9 +13,19 @@ class ComisionesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        if ($id == 1){
+            $comision = "Comisión del Plan";
+        } elseif ($id == 2){
+            $comision = "Comisión de Presupuesto";
+        } elseif ($id == 3){
+            $comision = "Comisión Administrativa";
+        } elseif ($id == 4){
+            $comision = "Comisiones Accidentales";
+        }
+        return view('administrativo.gestiondocumental.comisiones.index', compact('comision','id'));
+
     }
 
     /**
@@ -41,10 +52,10 @@ class ComisionesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\comisiones  $comisiones
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(comisiones $comisiones)
+    public function show($id)
     {
         //
     }
@@ -52,10 +63,10 @@ class ComisionesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\comisiones  $comisiones
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(comisiones $comisiones)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +75,10 @@ class ComisionesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\comisiones  $comisiones
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, comisiones $comisiones)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +86,10 @@ class ComisionesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\comisiones  $comisiones
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(comisiones $comisiones)
+    public function destroy($id)
     {
         //
     }

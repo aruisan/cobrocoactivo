@@ -5,15 +5,6 @@
             <i class="fa fa-file"></i>
             <span class="hide-menu"> Contractual</span></a>
     </li>
-    <li>
-        <a href="{{ url('/presupuesto/rubro') }}" class="btn btn-primary">
-            <span class="hide-menu"> Presupuesto</span></a>
-    </li>
-    <li>
-        <a href="{{ url('/almacen') }}" class="btn btn-primary">
-            <i class="fa fa-inventory"></i>
-            <span class="hide-menu"> Almacen</span></a>
-    </li>
 @stop
 @section('content')
 <br>

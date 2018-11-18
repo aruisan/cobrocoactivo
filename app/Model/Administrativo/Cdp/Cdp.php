@@ -10,11 +10,15 @@ class Cdp extends Model
         return $this->belongsTo('App\Model\Admin\Dependencia');
     }
 
-    public function rubros(){
-        return $this->hasMany('App\Model\Hacienda\Presupuesto\Rubro','rubro_id');
+    public function rubrosCdp(){
+        return $this->hasMany('App\Model\Administrativo\Cdp\RubrosCdp','cdp_id');
     }
 
-    public function registros(){
-        return $this->hasMany('App\Model\Administrativo\Registro','cdp_id');
+    public function rubrosCdpValor(){
+        return $this->hasMany('App\Model\Administrativo\Cdp\RubrosCdpValor','cdp_id');
+    }
+
+    public function cdpsRegistro(){
+        return $this->hasMany('App\Model\Administrativo\Registro\CdpsRegistro','cdp_id');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateRegistrosTable extends Migration
+class UpdateFontsRubroTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class UpdateRegistrosTable extends Migration
      */
     public function up()
     {
-        Schema::table('registros', function(Blueprint $table){
+        Schema::table('fonts_rubro', function (Blueprint $table) {
 
-            $table->text('observacion')->nullable()->after('valor');
+            $table->bigInteger('valor_disp')->nullable()->after('valor');
 
         });
     }
@@ -27,9 +27,9 @@ class UpdateRegistrosTable extends Migration
      */
     public function down()
     {
-        Schema::table('registros', function(Blueprint $table){
+        Schema::table('fonts_rubro', function (Blueprint $table) {
 
-            $table->dropColumn('observacion');
+            $table->dropColumn('valor_disp');
 
         });
     }

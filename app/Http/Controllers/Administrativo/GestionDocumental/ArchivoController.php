@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Administrativo\GestionDocumental;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-
 class ArchivoController extends Controller
 {
     /**

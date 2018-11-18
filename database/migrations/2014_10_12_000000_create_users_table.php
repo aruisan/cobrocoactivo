@@ -20,8 +20,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->enum('active', [1,0])->default(1);
 
-            //$table->integer('type_id')->nullable()->unsigned();
-            //$table->foreign('type_id')->references('id')->on('types');
+            $table->integer('type_id')->nullable()->unsigned();
+            $table->foreign('type_id')->references('id')->on('types');
             
             $table->integer('dependencia_id')->nullable()->unsigned();
             $table->foreign('dependencia_id')->references('id')->on('dependencias');

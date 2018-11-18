@@ -13,7 +13,7 @@ use App\Model\Hacienda\Presupuesto\Vigencia;
 use App\Model\Hacienda\Presupuesto\Level;
 use App\Model\Hacienda\Presupuesto\Register;
 use App\Model\Administrativo\Cdp\Cdp;
-
+use App\Model\Administrativo\Registro\Registro;
 
 class PresupuestoController extends Controller
 {
@@ -135,7 +135,8 @@ class PresupuestoController extends Controller
                                             }
                                             $valFuent = FontsRubro::where('rubro_id', $rubro->id)->sum('valor');
                                             $codigos[] = collect(['id_rubro' => $rubro->id, 'id' => '', 'codigo' => $newCod, 'name' => $rubro->name, 'code' => $rubro->code, 'V' => $V, 'valor' => $valFuent, 'register_id' => $register->register_id]);
-                                            $Rubros[] = collect(['id_rubro' => $rubro->id, 'id' => '', 'codigo' => $newCod, 'name' => $rubro->name, 'code' => $rubro->code, 'V' => $V, 'valor' => $valFuent, 'register_id' => $register->register_id]);
+                                            $valDisp = FontsRubro::where('rubro_id', $rubro->id)->sum('valor_disp');
+                                            $Rubros[] = collect(['id_rubro' => $rubro->id, 'id' => '', 'codigo' => $newCod, 'name' => $rubro->name, 'code' => $rubro->code, 'V' => $V, 'valor' => $valFuent, 'register_id' => $register->register_id, 'valor_disp' => $valDisp]);
                                         }
                                     }
                                 }
@@ -186,9 +187,14 @@ class PresupuestoController extends Controller
                     }
                 }
             }
-            //
-    }
-        return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros'));
+        }
+        //VALOR DE LOS CDPS DEL RUBRO
+        foreach ($rubros as $R){
+            $valoresCdp[] = collect(['id' => $R->id, 'name' => $R->name, 'valor' => $R->fontsRubro->sum('valor') - $R->fontsRubro->sum('valor_disp')]) ;
+        }
+        //REGISTROS
+        $registros = Registro::all();
+        return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros'));
     }
 
     /**

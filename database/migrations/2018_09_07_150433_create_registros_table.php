@@ -23,15 +23,13 @@ class CreateRegistrosTable extends Migration
             $table->integer('persona_id')->unsigned();
             $table->foreign('persona_id')->references('id')->on('personas');
 
-            $table->integer('cdp_id')->unsigned();
-            $table->foreign('cdp_id')->references('id')->on('cdps');
-
             $table->integer('contrato_id')->unsigned();
             $table->foreign('contrato_id')->references('id')->on('contractuales');
 
             $table->enum('secretaria_e', [0, 1, 2, 3]);
-            $table->enum('jcontratacion_e', [0, 1, 2, 3]);
-            $table->enum('jpresupuesto_e', [0, 1, 2, 3]);
+            $table->date('ff_secretaria_e');
+
+            $table->text('observacion')->nullable();
 
             $table->timestamps();
         });

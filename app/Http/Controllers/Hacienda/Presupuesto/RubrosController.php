@@ -103,7 +103,8 @@ class RubrosController extends Controller
         $fuentesR = $rubro->Fontsrubro;
         //dd($fuentesR);
         $valor = $fuentesR->sum('valor');
-        return view('hacienda.presupuesto.rubro.show', compact('rubro','fuentesR','valor'));
+        $valorDisp = $fuentesR->sum('valor_disp');
+        return view('hacienda.presupuesto.rubro.show', compact('rubro','fuentesR','valor','valorDisp'));
         
     }
 

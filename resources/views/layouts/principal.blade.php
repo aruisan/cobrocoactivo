@@ -154,7 +154,7 @@ box-shadow: -8px 12px 18px -6px rgba(0,0,0,0.75);
                         </a>
                         <ul class="dropdown-menu">
                             <li><a data-toggle="modal" data-target="#modal-md" href="">Mesa Directiva</a></li>
-                            <li><a data-toggle="modal" data-target="#modal-presupuesto" href="">Presupuesto</a></li>
+                            <li><a data-toggle="modal" data-target="#modal-pres" href="">Presupuesto</a></li>
                             <li><a data-toggle="modal" data-target="#modal-rc" href="">Rendición de Cuentas</a></li>
                             <li><a data-toggle="modal" data-target="#modal-le" href="">Lista de Empleados</a></li>
                             <li><a data-toggle="modal" data-target="#modal-lc" href="">Lista de Concejales</a></li>
@@ -226,9 +226,10 @@ box-shadow: -8px 12px 18px -6px rgba(0,0,0,0.75);
           @include('alertas.errors')
           @include('alertas.success')
           @include('alertas.request')    
-@yield('contenido')
-@include('visitante.modal.ingresar')
-@include('visitante.modal.modals')
+          @yield('contenido')
+          @include('visitante.modal.ingresar')
+          @include('visitante.modal.modals')
+          @include('visitante.modal.presupuesto')
 
   <footer id="myFooter">
         <div class="container-fluid">
