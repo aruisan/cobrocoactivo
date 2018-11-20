@@ -121,7 +121,7 @@
                                     @endforeach
                                 </select>
                             </td>
-                            <td class="text-center">Guarda el rubro para poder seleccionar el respectivo dinero.</td>
+                            <td class="text-center">Guarda el CDP para poder seleccionar el respectivo dinero.</td>
                             <td class="text-center"><button type="button" class="btn-sm btn-danger borrar">&nbsp;-&nbsp; </button></td>
                         </tr>
                     @endif
@@ -160,7 +160,7 @@
                 </table><br>
                 <center>
                     <button type="button" v-on:click.prevent="nuevaFilaPrograma" class="btn btn-success">Agregar Fila</button>
-                    <button type="submit" class="btn btn-primary">Guardar Rubros</button>
+                    <button type="submit" class="btn btn-primary">Guardar CDP's</button>
                     @if($registro->cdpsRegistro->sum('valor') > 0 )
                         <a href="{{url('/administrativo/registros/'.$registro->id.'/'.$fechaActual.'/'.$registro->cdpsRegistro->sum('valor').'/3')}}" class="btn btn-success">
                             Finalizar Registro

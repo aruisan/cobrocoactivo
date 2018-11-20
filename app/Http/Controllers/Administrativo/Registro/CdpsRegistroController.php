@@ -43,15 +43,18 @@ class CdpsRegistroController extends Controller
         $cdps = $request->cdp_id;
         $cdpsRegistroId = $request->cdps_registro_id;
         $valor = $request->valor;
-        $count = count($cdps);
 
-        for($i = 0; $i < $count; $i++){
+        if ($cdps != null) {
+            $count = count($cdps);
 
-            $cdpsRegistro = new CdpsRegistro();
-            $cdpsRegistro->registro_id = $registro_id;
-            $cdpsRegistro->cdp_id = $cdps[$i];
-            $cdpsRegistro->valor = 0;
-            $cdpsRegistro->save();
+            for($i = 0; $i < $count; $i++){
+
+                $cdpsRegistro = new CdpsRegistro();
+                $cdpsRegistro->registro_id = $registro_id;
+                $cdpsRegistro->cdp_id = $cdps[$i];
+                $cdpsRegistro->valor = 0;
+                $cdpsRegistro->save();
+            }
         }
 
         if ($cdpsRegistroId != null){
