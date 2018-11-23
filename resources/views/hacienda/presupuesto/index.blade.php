@@ -118,6 +118,7 @@
                                 <th class="text-center">CCredito</th>
                                 <th class="text-center">P.Definitivo</th>
                                 <th class="text-center">CDP's</th>
+                                <th class="text-center">Saldo Disponible</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -153,6 +154,18 @@
                                     @foreach($valoresCdp as $valorCdp)
                                         @if($codigo['id_rubro'] == $valorCdp['id'])
                                             <td class="text-center text-dark">$ <?php echo number_format($valorCdp['valor'],0);?></td>
+                                        @endif
+                                    @endforeach
+                                    @foreach($valorDisp as $vDisp)
+                                        @if($vDisp['id'] == $codigo['id'])
+                                            <td class="text-center">$ <?php echo number_format($vDisp['valor'],0);?></td>
+                                        @endif
+                                    @endforeach
+                                    @foreach($valoresCdp as $valorCdp)
+                                        @if($codigo['id_rubro'] == $valorCdp['id'])
+                                            @if($codigo['valor'])
+                                                <td class="text-center">$ <?php echo number_format($codigo['valor'] - $valorCdp['valor'],0);?></td>
+                                            @endif
                                         @endif
                                     @endforeach
                                 </tr>
@@ -347,9 +360,7 @@
                                         <td class="text-center">
                                             <a href="{{ url('administrativo/registros',$data->id) }}" title="Ver Registro" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                         </td>
-                                        <td class="text-center">
-                                            <a href="{{ url('administrativo/registros',$data->id) }}" title="Ver Archivo" class="btn btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i></a>
-                                        </td>
+                                        <td>&nbsp;</td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -384,55 +395,6 @@
                 </div>
                 <div id="tabOP" class=" tab-pane fade"><br>
                     <h2 class="text-center">Orden de Pago</h2>
-                </div>
-                <div id="tabTer" class=" tab-pane fade"><br>
-                    <div class="table-responsive m-t-40">
-                        <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
-                            <thead>
-                            <tr>
-                                <th class="text-center">#</th>
-                                <th class="text-center">Nombre</th>
-                                <th class="text-center">Identificación</th>
-                                <th class="text-center">Tipo</th>
-                                <th class="text-center">Dirección</th>
-                                <th class="text-center">Telefono</th>
-                                <th class="text-center">Email</th>
-                                <th class="text-center">Regimen</th>
-                                <th class="text-center">Descuentos Defectos</th>
-                                <th class="text-center">Descuentos Adicionales</th>
-                                <th class="text-center"><i class="fa fa-trash"></i></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Deivith</td>
-                                <td>1019128310</td>
-                                <td></td>
-                                <td>Girardot</td>
-                                <td>3212420644</td>
-                                <td>deivith.1@hotmail.com</td>
-                                <td>Común</td>
-                                <td>10%</td>
-                                <td>20%</td>
-                                <td><button type="button" class="btn btn-danger btn-block m-b-10"><i class="fa fa-trash"></i></button></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Deivith</td>
-                                <td>1019128310</td>
-                                <td></td>
-                                <td>Girardot</td>
-                                <td>3212420644</td>
-                                <td>deivith.1@hotmail.com</td>
-                                <td>Común</td>
-                                <td>10%</td>
-                                <td>20%</td>
-                                <td><button type="button" class="btn btn-danger btn-block m-b-10"><i class="fa fa-trash"></i></button></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
             </div>
         @else

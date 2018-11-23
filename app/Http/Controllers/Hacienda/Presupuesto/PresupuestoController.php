@@ -187,6 +187,39 @@ class PresupuestoController extends Controller
                     }
                 }
             }
+
+            //SUMA DE VALOR DISPONIBLE DEL RUBRO - CDP
+
+            foreach ($allRegisters as $allRegister){
+                if($allRegister->level_id == $lastLevel){
+                    $rubrosRegs = Rubro::where('register_id',$allRegister->id)->get();
+                    foreach ($rubrosRegs as $rubrosReg){
+                        $valFuent = FontsRubro::where('rubro_id', $rubrosReg->id)->sum('valor_disp');
+                        $ArraytotalFR[] = $valFuent;
+                    }
+                    if (isset($ArraytotalFR)){
+                        $totalFR = array_sum($ArraytotalFR);
+                        $valorDisp[] = collect(['id' => $allRegister->id, 'valor' => $totalFR, 'level_id' => $allRegister->level_id, 'register_id' => $allRegister->register_id]);
+                        unset($ArraytotalFR);
+                    }else{
+                        $valorDisp[] = collect(['id' => $allRegister->id, 'valor' => 0, 'level_id' => $allRegister->level_id, 'register_id' => $allRegister->register_id]);
+                    }
+                } else{
+                    for ($i=0;$i<sizeof($valorDisp);$i++){
+                        if ($valorDisp[$i]['register_id'] == $allRegister->id){
+                            $suma[] = $valorDisp[$i]['valor'];
+                        }
+                    }
+                    if (isset($suma)){
+                        $valSum = array_sum($suma);
+                        $valorDisp[] = collect(['id' => $allRegister->id, 'valor' => $valSum, 'level_id' => $allRegister->level_id, 'register_id' => $allRegister->register_id]);
+                        unset($suma);
+                    }else{
+                        $valorDisp[] = collect(['id' => $allRegister->id, 'valor' => 0, 'level_id' => $allRegister->level_id, 'register_id' => $allRegister->register_id]);
+                    }
+                }
+            }
+
         }
         //VALOR DE LOS CDPS DEL RUBRO
         foreach ($rubros as $R){
@@ -194,7 +227,10 @@ class PresupuestoController extends Controller
         }
         //REGISTROS
         $registros = Registro::all();
-        return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros'));
+
+        //dd($valorDisp, $valoresIniciales);
+
+        return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp'));
     }
 
     /**

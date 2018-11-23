@@ -18,7 +18,7 @@
 	<li> <a data-toggle="modal" data-target="#subProyectoModal" class="btn btn btn-primary"><i class="fa fa-plus"></i><span class="hide-menu">&nbsp;Nuevo SubProyecto</span></a></li>
 @stop
 @section('content')
-	<div class="col-md-12 align-self-center" id="crud">
+	<div class="col-md-12 align-self-center">
 		<center>
 			<h2>Proyecto: {{ $proyecto->name }}</h2>
 		</center>
@@ -32,17 +32,19 @@
 		@else
 		<center><h3>Sub Proyectos</h3></center>
             <br>
-            <div class="table-responsive">
-                <table id="tabla_subproyectos" class="table table-bordered">
+            <div class="table-responsive" id="crud">
+                <table id="tabla_subPr" class="table table-bordered">
                     <thead>
-                    <th class="text-center">Nombre</th>
-                    <th class="text-center">Linea base</th>
-                    <th class="text-center">Indicador</th>
-                    <th class="text-center">Tipo</th>
-                    <th class="text-center">Unidad de Medida</th>
-                    <th class="text-center">Dependencia</th>
-                    <th class="text-center"><i class="fa fa-pencil-square-o"></i></th>
-                    <th class="text-center"><i class="fa fa-trash"></i></th>
+                    <tr>
+                        <th class="text-center">Nombre</th>
+                        <th class="text-center">Linea base</th>
+                        <th class="text-center">Indicador</th>
+                        <th class="text-center">Tipo</th>
+                        <th class="text-center">Unidad de Medida</th>
+                        <th class="text-center">Dependencia</th>
+                        <th class="text-center"><i class="fa fa-pencil-square-o"></i></th>
+                        <th class="text-center"><i class="fa fa-trash"></i></th>
+                    </tr>
                     </thead>
                     <tbody>
                     @foreach($proyecto->subProyectos as $data)
@@ -66,50 +68,5 @@
                 @endif
             </div>
     </div>
-
     @include('planeacion.pdd.subproyectos.create')
-
-    
 @stop
-
-@section('js')
-
-	<script>
-
-        $(document).ready(function() {
-            $('#tabla_subproyectos').DataTable( {
-                responsive: true
-            } );
-        } );
-
-		 new Vue({
-		    el: '#crud',
-		   
-		    methods:{
-
-		        eliminarDatos: function(dato){
-		               location.reload();
-		            var urlVigencia = '/pdd/subproyecto/'+dato;
-		            axios.delete(urlVigencia).then(response => {
-		            });
-		        }
-
-		    
-		    }
-		});
-	</script>
-
-@stop
-
-
-
-
-
-
-
-
-
-
-
-
-

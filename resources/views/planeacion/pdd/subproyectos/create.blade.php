@@ -90,20 +90,20 @@
                                     <td><input type="number" class="cuMi" name="mi[]" id="MI4" required></td>
                                     <td id="cuMi" class="text-center text-dark">0</td>
                                 </tr>
-                                <tr>
+                                <tr style="display: none">
                                     <td class="text-dark">Modificación</td>
-                                    <td><input type="number" class="cuMod" name="mod[]" id="MOD1" required></td>
-                                    <td><input type="number" class="cuMod" name="mod[]" id="MOD2" required></td>
-                                    <td><input type="number" class="cuMod" name="mod[]" id="MOD3" required></td>
-                                    <td><input type="number" class="cuMod" name="mod[]" id="MOD4" required></td>
+                                    <td><input type="number" class="cuMod" name="mod[]" id="MOD1" value="0"></td>
+                                    <td><input type="number" class="cuMod" name="mod[]" id="MOD2" value="0"></td>
+                                    <td><input type="number" class="cuMod" name="mod[]" id="MOD3" value="0"></td>
+                                    <td><input type="number" class="cuMod" name="mod[]" id="MOD4" value="0"></td>
                                     <td id="cuMod" class="text-center text-dark">0</td>
                                 </tr>
-                                <tr>
+                                <tr style="display: none;">
                                     <td class="text-dark">M. Definitiva</td>
-                                    <td><input type="number" class="cuMd" name="md[]" id="MD1" required></td>
-                                    <td><input type="number" class="cuMd" name="md[]" id="MD2" required></td>
-                                    <td><input type="number" class="cuMd" name="md[]" id="MD3" required></td>
-                                    <td><input type="number" class="cuMd" name="md[]" id="MD4" required></td>
+                                    <td><input type="number" class="cuMd" name="md[]" id="MD1" value="0"></td>
+                                    <td><input type="number" class="cuMd" name="md[]" id="MD2" value="0"></td>
+                                    <td><input type="number" class="cuMd" name="md[]" id="MD3" value="0"></td>
+                                    <td><input type="number" class="cuMd" name="md[]" id="MD4" value="0"></td>
                                     <td id="cuMd" class="text-center text-dark">0</td>
                                 </tr>
                                 <tr>
@@ -127,6 +127,29 @@
 
 @section('js')
     <script>
+
+        $('#tabla_subPr').DataTable( {
+            responsive: true,
+            searching: false,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'print'
+            ]
+        } );
+
+        new Vue({
+            el: '#crud',
+
+            methods:{
+                eliminarDatos: function(dato){
+                    location.reload();
+                    var url = '/pdd/subproyecto/'+dato;
+                    axios.delete(url).then(response => {
+                    });
+                }
+            }
+        });
+
         $('.cuMi').change(function(){
             sumaMi();
         });

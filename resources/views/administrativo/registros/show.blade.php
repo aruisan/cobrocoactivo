@@ -88,86 +88,97 @@
     @if($registro->secretaria_e != 3)
     <div class="table-responsive" id="prog">
         @if($registro->cdpsRegistro->count() == 0 )
-            <div class="col-md-12 align-self-center">
-                <div class="alert alert-danger text-center">
-                    El registro no tiene cdps asigandos. Desea borrar el registro? &nbsp;
-                    {!! Form::open(['method' => 'DELETE','route' => ['registros.destroy', $registro->id],'style'=>'display:inline']) !!}
-                    <button type="submit" class="btn btn-sm btn-danger">
-                        Borrar Registro
-                    </button>
-                    {!! Form::close() !!}
+            @if($rol == 2)
+                <div class="col-md-12 align-self-center">
+                    <div class="alert alert-danger text-center">
+                        El registro no tiene cdps asigandos. Desea borrar el registro? &nbsp;
+                        {!! Form::open(['method' => 'DELETE','route' => ['registros.destroy', $registro->id],'style'=>'display:inline']) !!}
+                        <button type="submit" class="btn btn-sm btn-danger">
+                            Borrar Registro
+                        </button>
+                        {!! Form::close() !!}
+                    </div>
                 </div>
-            </div>
+                @else
+                <div class="col-md-12 align-self-center">
+                    <div class="alert alert-danger text-center">El registro no tiene CDP's asigandos.</div>
+                </div>
+            @endif
         @else
         @endif
-            <form class="form" action="{{url('/administrativo/cdpsRegistro')}}" method="POST" class="form">
-                {{ csrf_field() }}
-                <table id="tabla_rubrosCdp" class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th scope="col" class="text-center">Nombres CDP's</th>
-                        <th scope="col" class="text-center">Asignar Dinero</th>
-                        <th scope="col" class="text-center"><i class="fa fa-trash-o"></i></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @if($registro->cdpsRegistro->count() == 0)
+            @if($registro->cdpsRegistro->count() == 0 and $rol == 3)
+            @else
+                <form class="form" action="{{url('/administrativo/cdpsRegistro')}}" method="POST" class="form">
+                    {{ csrf_field() }}
+                    <table id="tabla_rubrosCdp" class="table table-bordered">
+                        <thead>
                         <tr>
-                            <td class="text-center">
-                                <input type="hidden" name="registro_id" value="{{ $registro->id }}">
-                                <select name="cdp_id[]" class="form-group-lg" required>
-                                    @foreach($cdps as $cdp)
-                                        <option value="{{ $cdp['id'] }}">{{ $cdp['name'] }}</option>
-                                    @endforeach
-                                </select>
-                            </td>
-                            <td class="text-center">Guarda el CDP para poder seleccionar el respectivo dinero.</td>
-                            <td class="text-center"><button type="button" class="btn-sm btn-danger borrar">&nbsp;-&nbsp; </button></td>
+                            <th scope="col" class="text-center">Nombres CDP's</th>
+                            <th scope="col" class="text-center">Asignar Dinero</th>
+                            <th scope="col" class="text-center"><i class="fa fa-trash-o"></i></th>
                         </tr>
-                    @endif
-                    @for($i = 0; $i < $registro->cdpsRegistro->count(); $i++)
-                        @php($cdpsRegistroData = $registro->cdpsRegistro[$i] )
-                        <tr>
-                            <td style="vertical-align: middle" class="text-center">
-                                <h4>
-                                    <b>{{ $cdpsRegistroData->cdp->name }}</b>
-                                </h4>
-                            </td>
-                            <td class="text-center">
-                                <div class="col-lg-6">
+                        </thead>
+                        <tbody>
+                        @if($registro->cdpsRegistro->count() == 0)
+                            <tr>
+                                <td class="text-center">
+                                    <input type="hidden" name="registro_id" value="{{ $registro->id }}">
+                                    <select name="cdp_id[]" class="form-group-lg" required>
+                                        @foreach($cdps as $cdp)
+                                            <option value="{{ $cdp['id'] }}">{{ $cdp['name'] }}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td class="text-center">Guarda el CDP para poder seleccionar el respectivo dinero.</td>
+                                <td class="text-center"><button type="button" class="btn-sm btn-danger borrar">&nbsp;-&nbsp; </button></td>
+                            </tr>
+                        @endif
+                        @for($i = 0; $i < $registro->cdpsRegistro->count(); $i++)
+                            @php($cdpsRegistroData = $registro->cdpsRegistro[$i] )
+                            <tr>
+                                <td style="vertical-align: middle" class="text-center">
                                     <h4>
-                                        Disponible:
-                                        <b>$<?php echo number_format($cdpsRegistroData->cdp->saldo,0) ?></b>
+                                        <b>{{ $cdpsRegistroData->cdp->name }}</b>
                                     </h4>
-                                </div>
-                                <div class="col-lg-6">
-                                    <h4>
-                                        <b>
-                                            Valor:
-                                            <input type="hidden" name="cdps_registro_id[]" value="{{ $cdpsRegistroData->id }}">
-                                            <input type="number" required  name="valor[]" value="{{ $cdpsRegistroData->valor }}" max="{{ $cdpsRegistroData->cdp->saldo }}" style="text-align: center">
-                                        </b>
-                                    </h4>
-                                </div>
-                            </td>
-                            <td style="vertical-align: middle" class="text-center">
-                                <button type="button" class="btn-sm btn-danger" v-on:click.prevent="eliminar({{ $cdpsRegistroData->id }})" ><i class="fa fa-trash-o"></i></button>
-                            </td>
-                        </tr>
-                        @php( $fechaActual = Carbon\Carbon::today()->Format('Y-m-d') )
-                    @endfor
-                    </tbody>
-                </table><br>
-                <center>
-                    <button type="button" v-on:click.prevent="nuevaFilaPrograma" class="btn btn-success">Agregar Fila</button>
-                    <button type="submit" class="btn btn-primary">Guardar CDP's</button>
-                    @if($registro->cdpsRegistro->sum('valor') > 0 )
-                        <a href="{{url('/administrativo/registros/'.$registro->id.'/'.$fechaActual.'/'.$registro->cdpsRegistro->sum('valor').'/3')}}" class="btn btn-success">
-                            Finalizar Registro
-                        </a>
-                    @endif
-                </center>
-            </form>
+                                </td>
+                                <td class="text-center">
+                                    <div class="col-lg-6">
+                                        <h4>
+                                            Disponible:
+                                            <b>$<?php echo number_format($cdpsRegistroData->cdp->saldo,0) ?></b>
+                                        </h4>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <h4>
+                                            <b>
+                                                Valor:
+                                                <input type="hidden" name="cdps_registro_id[]" value="{{ $cdpsRegistroData->id }}">
+                                                <input type="number" required  name="valor[]" value="{{ $cdpsRegistroData->valor }}" max="{{ $cdpsRegistroData->cdp->saldo }}" style="text-align: center">
+                                            </b>
+                                        </h4>
+                                    </div>
+                                </td>
+                                <td style="vertical-align: middle" class="text-center">
+                                    <button type="button" class="btn-sm btn-danger" v-on:click.prevent="eliminar({{ $cdpsRegistroData->id }})" ><i class="fa fa-trash-o"></i></button>
+                                </td>
+                            </tr>
+                            @php( $fechaActual = Carbon\Carbon::today()->Format('Y-m-d') )
+                        @endfor
+                        </tbody>
+                    </table><br>
+                    <center>
+                        @if($rol == 2)
+                            <button type="button" v-on:click.prevent="nuevaFilaPrograma" class="btn btn-success">Agregar Fila</button>
+                            <button type="submit" class="btn btn-primary">Guardar CDP's</button>
+                            @if($registro->cdpsRegistro->sum('valor') > 0 )
+                                <a href="{{url('/administrativo/registros/'.$registro->id.'/'.$fechaActual.'/'.$registro->cdpsRegistro->sum('valor').'/3')}}" class="btn btn-success">
+                                    Finalizar Registro
+                                </a>
+                            @endif
+                        @endif
+                    </center>
+                </form>
+            @endif
     </div>
     @else
         <table id="tabla_rubrosCdpFin" class="table table-bordered">

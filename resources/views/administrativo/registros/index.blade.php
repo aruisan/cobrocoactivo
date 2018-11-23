@@ -6,7 +6,6 @@
     @include('administrativo.registros.cuerpo.aside')
     <li>
         <a href="{{ url('/administrativo/cdp') }}" class="btn btn-primary">
-            <i class="fa fa-file"></i>
             <span class="hide-menu"> CDP's</span></a>
     </li>
     <li>

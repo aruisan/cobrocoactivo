@@ -116,7 +116,7 @@ class SubproyectosController extends Controller
     public function destroy($id)
     {
         $destroy = SubProyecto::find($id);
-        $periodos = Periodo::where('subproyecto_id', $id)->delete();
+        //$periodos = Periodo::where('subproyecto_id', $id)->delete();
         $destroy->delete();
         Session::flash('error','SubProyecto Eliminado correctamente');
     }
