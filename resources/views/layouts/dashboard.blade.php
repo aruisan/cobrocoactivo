@@ -87,11 +87,15 @@
                   </li>  
                   <li class="dropdown">
                     <a href="#" class="dropdown-toggle btn btn-raised btn-info" data-toggle="dropdown" >
-                      <i class="fa fa-user-circle" aria-hidden="true"></i> 
+                        {{Auth::user()->name }}&nbsp;
                       <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                      <li class="text-center">{{Auth::user()->name }}</li>
+                      <li class="text-center">Tipo:
+                          @foreach(Auth::user()->roles as $rol)
+                              {{ $rol->name }}
+                          @endforeach
+                      </li>
                       <li class="divider"></li>
                       <li><a href="{{url('kk')}}"><i class="material-icons md-18">settings</i> Editar Perfil</a></li>
                       <li class="divider"></li>

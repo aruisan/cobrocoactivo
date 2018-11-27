@@ -8,6 +8,10 @@
     <div class="card">
         <br>
         <center>
+            <h4><b>Número del CDP:</b>&nbsp;{{ $cdp->id }}</h4>
+        </center>
+        <br>
+        <center>
             <h4><b>Valor del CDP</b></h4>
         </center>
         <div class="text-center">

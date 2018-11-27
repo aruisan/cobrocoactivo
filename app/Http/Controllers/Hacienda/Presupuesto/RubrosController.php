@@ -99,12 +99,16 @@ class RubrosController extends Controller
      */
     public function show($id)
     {
+        $roles = auth()->user()->roles;
+        foreach ($roles as $role){
+            $rol= $role->id;
+        }
         $rubro = Rubro::findOrFail($id);
         $fuentesR = $rubro->Fontsrubro;
         //dd($fuentesR);
         $valor = $fuentesR->sum('valor');
         $valorDisp = $fuentesR->sum('valor_disp');
-        return view('hacienda.presupuesto.rubro.show', compact('rubro','fuentesR','valor','valorDisp'));
+        return view('hacienda.presupuesto.rubro.show', compact('rubro','fuentesR','valor','valorDisp','rol'));
         
     }
 

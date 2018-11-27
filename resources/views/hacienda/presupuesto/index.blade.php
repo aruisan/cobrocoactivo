@@ -124,7 +124,11 @@
                             <tbody>
                             @foreach($codigos as $codigo)
                                 <tr>
-                                    <td class="text-dark">{{ $codigo['codigo']}}</td>
+                                    @if($codigo['valor'])
+                                        <td class="text-dark"><a href="{{ url('presupuesto/rubro/'.$codigo['id_rubro']) }}">{{ $codigo['codigo']}}</a></td>
+                                    @else
+                                        <td class="text-dark">{{ $codigo['codigo']}}</td>
+                                    @endif
                                     <td class="text-dark">{{ $codigo['name']}}</td>
                                     @foreach($valoresIniciales as $valorInicial)
                                         @if($valorInicial['id'] == $codigo['id'])

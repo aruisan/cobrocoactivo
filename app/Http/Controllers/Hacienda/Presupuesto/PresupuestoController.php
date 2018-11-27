@@ -228,8 +228,6 @@ class PresupuestoController extends Controller
         //REGISTROS
         $registros = Registro::all();
 
-        //dd($valorDisp, $valoresIniciales);
-
         return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp'));
     }
 
