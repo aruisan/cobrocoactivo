@@ -29,7 +29,7 @@
         </a>
         <ul class="dropdown-menu dropdown-user">
             <li>
-                <a href="#" class="btn btn-primary text-left">Adición</a>
+                <a data-toggle="modal" data-target="#adicion" class="btn btn-primary text-left">Adición</a>
             </li>
             <li>
                 <a href="#" class="btn btn-primary text-left">Reducción</a>
@@ -185,6 +185,7 @@
             </table>
         </div>
     </div>
+    @include('modal.adicionRubro')
     @stop
 @section('js')
     <script>
@@ -219,5 +220,35 @@
                 ]
             } );
         } );
+
+        var visto = null;
+        function ver(num) {
+            obj = document.getElementById(num);
+            obj.style.display = (obj==visto) ? 'none' : '';
+            if (visto != null)
+                visto.style.display = 'none';
+            visto = (obj==visto) ? null : obj;
+        }
+
+        new Vue({
+            el: '#add',
+
+            methods:{
+
+                eliminar: function(dato){
+                    var urlrubrosCdp = '/administrativo/rubrosCdp/'+dato;
+                    axios.delete(urlrubrosCdp).then(response => {
+                        location.reload();
+                });
+                },
+
+                eliminarV: function(dato){
+                    var urlrubrosCdpValor = '/administrativo/rubrosCdp/valor/'+dato;
+                    axios.delete(urlrubrosCdpValor).then(response => {
+                        location.reload();
+                });
+                },
+            }
+        });
     </script>
 @stop

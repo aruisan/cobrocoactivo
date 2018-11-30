@@ -174,6 +174,7 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 	Route::resource('presupuesto/font', 'Hacienda\Presupuesto\FontsController');
 	Route::get('presupuesto/rubro/create/{vigencia}', 'Hacienda\Presupuesto\RubrosController@create');
 	Route::resource('presupuesto/rubro', 'Hacienda\Presupuesto\RubrosController');
+    Route::put('presupuesto/rubro/m/{m}/{id}', 'Hacienda\Presupuesto\RubrosController@movimiento');
 	Route::resource('presupuesto/FontRubro', 'Hacienda\Presupuesto\FontRubroController');
 	Route::resource('presupuesto/FontRubro/saldo', 'Hacienda\Presupuesto\FontRubroController@saldoFont');
 	

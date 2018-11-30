@@ -104,11 +104,12 @@ class RubrosController extends Controller
             $rol= $role->id;
         }
         $rubro = Rubro::findOrFail($id);
+        $rubros = Rubro::where('id', '!=', $id)->get();
         $fuentesR = $rubro->Fontsrubro;
-        //dd($fuentesR);
+        $fuentesAll = Font::all();
         $valor = $fuentesR->sum('valor');
         $valorDisp = $fuentesR->sum('valor_disp');
-        return view('hacienda.presupuesto.rubro.show', compact('rubro','fuentesR','valor','valorDisp','rol'));
+        return view('hacienda.presupuesto.rubro.show', compact('rubro','fuentesR','valor','valorDisp','rol','rubros','fuentesAll'));
         
     }
 
@@ -166,5 +167,38 @@ class RubrosController extends Controller
         }
 
         return view('administrativo.contractual.rubrosAsignados', compact('datas'));
+    }
+
+    public function movimiento(Request $request, $m, $id)
+    {
+        if ($m == 1){
+
+            $fuenteR_id = $request->fuenteR_id;
+            $valor_Red  = $request->valorRed;
+            $count = count($fuenteR_id);
+            $fuente_id_Add = $request->fuente_id;
+
+            for($i = 0; $i < $count; $i++){
+
+                $Frubro = FontsRubro::findOrFail($fuenteR_id[$i]);
+                $Frubro->reduccion = $Frubro->reduccion + $valor_Red[$i];
+                $Frubro->valor_disp = $Frubro->valor_disp - $valor_Red[$i];
+                $Frubro->save();
+
+                $FAdd = FontsRubro::where('rubro_id', $id)->get();
+                if ($FAdd[$i]->font_id == $fuente_id_Add[$i] ){
+                    $rubroEdit = FontsRubro::findOrFail($FAdd[$i]->id);
+                    $rubroEdit->adicion = $rubroEdit->adicion + $valor_Red[$i];
+                    $rubroEdit->valor_disp = $rubroEdit->valor_disp + $valor_Red[$i];
+                    $rubroEdit->save();
+                }
+            }
+
+            Session::flash('success','La adición se realizo correctamente');
+            return redirect('/presupuesto/rubro/',$id);
+
+        } elseif ($m == 2){
+            dd($request, $m, $id);
+        }
     }
 }
