@@ -17,6 +17,7 @@ class CreateRubrosCdpValorTable extends Migration
             $table->increments('id');
 
             $table->integer('valor');
+            $table->bigInteger('valor_disp')->nullable();
             $table->integer('fontsRubro_id')->unsigned();
             $table->foreign('fontsRubro_id')->references('id')->on('fonts_rubro');
             $table->integer('cdp_id')->unsigned();

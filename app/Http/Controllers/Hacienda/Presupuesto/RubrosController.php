@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
 use App\Model\Hacienda\Presupuesto\Rubro;
-use App\Model\Hacienda\Presupuesto\FontsRubro;
 use App\Model\Hacienda\Presupuesto\Font;
 use App\Model\Planeacion\Pdd\SubProyecto;
 use App\Model\Dependencia;
@@ -169,36 +168,4 @@ class RubrosController extends Controller
         return view('administrativo.contractual.rubrosAsignados', compact('datas'));
     }
 
-    public function movimiento(Request $request, $m, $id)
-    {
-        if ($m == 1){
-
-            $fuenteR_id = $request->fuenteR_id;
-            $valor_Red  = $request->valorRed;
-            $count = count($fuenteR_id);
-            $fuente_id_Add = $request->fuente_id;
-
-            for($i = 0; $i < $count; $i++){
-
-                $Frubro = FontsRubro::findOrFail($fuenteR_id[$i]);
-                $Frubro->reduccion = $Frubro->reduccion + $valor_Red[$i];
-                $Frubro->valor_disp = $Frubro->valor_disp - $valor_Red[$i];
-                $Frubro->save();
-
-                $FAdd = FontsRubro::where('rubro_id', $id)->get();
-                if ($FAdd[$i]->font_id == $fuente_id_Add[$i] ){
-                    $rubroEdit = FontsRubro::findOrFail($FAdd[$i]->id);
-                    $rubroEdit->adicion = $rubroEdit->adicion + $valor_Red[$i];
-                    $rubroEdit->valor_disp = $rubroEdit->valor_disp + $valor_Red[$i];
-                    $rubroEdit->save();
-                }
-            }
-
-            Session::flash('success','La adición se realizo correctamente');
-            return redirect('/presupuesto/rubro/',$id);
-
-        } elseif ($m == 2){
-            dd($request, $m, $id);
-        }
-    }
 }

@@ -15,4 +15,8 @@ class FontsRubro extends Model
     public function rubrosCdpValor(){
         return $this->hasMany('App\Model\Administrativo\Cdp\RubrosCdpValor','fontsRubro_id');
     }
+
+    public function rubrosMov(){
+        return $this->hasOne('App\Model\Hacienda\Presupuesto\RubrosMov','id','fonts_rubro_id');
+    }
 }

@@ -22,7 +22,11 @@ class CreateCdpsTable extends Migration
             $table->integer('dependencia_id')->unsigned();
             $table->foreign('dependencia_id')->references('id')->on('dependencias');
 
-            $table->enum('estado', [0, 1, 2, 3]);
+            $table->enum('secretaria_e', [0, 1, 2, 3]);
+            $table->date('ff_secretaria_e');
+            $table->enum('jefe_e', [0, 1, 2, 3])->nullable();
+            $table->date('ff_jefe_e')->nullable();
+            $table->text('motivo')->nullable();
             $table->text('observacion');
             $table->integer('saldo');
 
