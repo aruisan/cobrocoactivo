@@ -7,11 +7,11 @@
           <div class="modal-content">
               <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">Adición al Rubro</h4>
+                  <h4 class="modal-title">Adición al Rubro:  {{ $rubro->name }}</h4>
               </div>
               <div class="modal-body">
                   <div class="table-responsive" >
-                      @if($fuentesR->sum('adicion') == 0 )
+                      @if($rubro->rubrosMov->count() == 0 )
                           <div class="col-md-12 align-self-center">
                               <div class="alert alert-danger text-center">
                                   El rubro no ha recibido adiciones. &nbsp;
@@ -43,10 +43,14 @@
                                           <h4>
                                               <b>
                                                   Dinero Tomado:
-                                                  @if($valorRed > 0)
-                                                      $<?php echo number_format( $valorRed ,0) ?>
+                                                  @if($rubro->rubrosMov->count() > 0)
+                                                      @foreach($rubros[$i]->fontsRubro as $F)
+                                                          @php($val[] = $F->rubrosMov->sum('valor'))
+                                                      @endforeach
+                                                      $<?php echo number_format( array_sum($val) ,0) ?>
+                                                      @php( $val = null )
                                                   @else
-                                                      $0.00
+                                                      $0
                                                   @endif
                                               </b>
                                           </h4>
@@ -72,9 +76,9 @@
                                               <div class="col-lg-4">
                                                   @if($fuentesRubro->valor_disp != 0)
                                                       Valor usado de {{ $fuentesRubro->font->name }}:
-                                                      @if($fuentesRubro->reduccion != 0)
+                                                      @if($rubro->rubrosMov->count() > 0)
                                                           <input type="hidden" name="font_rubro_id[]" value="{{ $fuentesRubro->id }}">
-                                                          <input type="number" required  name="valorRed[]" value="{{ $fuentesRubro->reduccion }}" max="{{ $fuentesRubro->valor_disp }}" style="text-align: center">
+                                                          <input type="number" required  name="valorRed[]" value="@foreach($fuentesRubro->rubrosMov as $mov){{$mov->valor}}@endforeach" max="{{ $fuentesRubro->valor_disp }}" style="text-align: center">
                                                       @else
                                                           <input type="hidden" name="font_rubro_id[]" value="">
                                                           <input type="number" required  name="valorRed[]" class="form-group-sm" value="0" max="{{ $fuentesRubro->valor_disp }}" style="text-align: center">

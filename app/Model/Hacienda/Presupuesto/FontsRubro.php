@@ -17,6 +17,6 @@ class FontsRubro extends Model
     }
 
     public function rubrosMov(){
-        return $this->hasOne('App\Model\Hacienda\Presupuesto\RubrosMov','id','fonts_rubro_id');
+        return $this->hasMany('App\Model\Hacienda\Presupuesto\RubrosMov','fonts_rubro_id');
     }
 }

@@ -89,6 +89,8 @@ class RubrosMovController extends Controller
     {
         if ($m == 1){
 
+            dd($request);
+
             $fuenteR_id = $request->fuenteR_id;
             $valor_Red  = $request->valorRed;
             $count = count($fuenteR_id);
