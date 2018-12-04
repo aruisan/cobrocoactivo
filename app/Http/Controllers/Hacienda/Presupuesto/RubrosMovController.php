@@ -7,6 +7,8 @@ use App\Model\Hacienda\Presupuesto\RubrosMov;
 use App\Model\Hacienda\Presupuesto\FontsRubro;
 use Illuminate\Http\Request;
 
+use Session;
+
 class RubrosMovController extends Controller
 {
     /**
@@ -69,9 +71,13 @@ class RubrosMovController extends Controller
      * @param  \App\RubrosMov  $rubrosMov
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RubrosMov $rubrosMov)
+    public function update($id, $idF, $valor)
     {
-        //
+        $mov = RubrosMov::findOrFail($id);
+        $mov->fonts_id = $idF;
+        $mov->valor = $valor;
+        $mov->save();
+
     }
 
     /**
@@ -89,34 +95,41 @@ class RubrosMovController extends Controller
     {
         if ($m == 1){
 
-            dd($request);
-
             $fuenteR_id = $request->fuenteR_id;
             $valor_Red  = $request->valorRed;
             $count = count($fuenteR_id);
             $fuente_id_Add = $request->fuente_id;
+            $rubro_mov_id = $request->rubro_Mov_id;
 
             for($i = 0; $i < $count; $i++){
 
-                $Frubro = FontsRubro::findOrFail($fuenteR_id[$i]);
-                $Frubro->valor_disp = $Frubro->valor_disp - $valor_Red[$i];
-                //$Frubro->save();
+                if ($rubro_mov_id[$i]){
 
-                $rubrosMov = new RubrosMov();
-                $rubrosMov->valor = $valor_Red[$i];
-                $rubrosMov->fonts_rubro_id = $fuenteR_id[$i];
-                $rubrosMov->fonts_id = $fuente_id_Add[$i];
-                $rubrosMov->rubro_id = $id;
-                $rubrosMov->movimiento = $m;
-                //$rubrosMov->save();
+                    $this->update($rubro_mov_id[$i], $fuente_id_Add[$i], $valor_Red[$i]);
 
-                $FAdd = FontsRubro::where([['rubro_id', $id],['font_id', '=', $fuente_id_Add[$i]]])->get();
-                $count2 = $FAdd->count();
-                for($x = 0; $x < $count2; $x++){
-                    dd($FAdd);
-                    $FAdd->valor_disp = $FAdd->valor_disp + $valor_Red[$i];
-                    //$FAdd->save();
+                }else{
+
+                    $Frubro = FontsRubro::findOrFail($fuenteR_id[$i]);
+                    $Frubro->valor_disp = $Frubro->valor_disp - $valor_Red[$i];
+                    $Frubro->save();
+
+                    $rubrosMov = new RubrosMov();
+                    $rubrosMov->valor = $valor_Red[$i];
+                    $rubrosMov->fonts_rubro_id = $fuenteR_id[$i];
+                    $rubrosMov->fonts_id = $fuente_id_Add[$i];
+                    $rubrosMov->rubro_id = $id;
+                    $rubrosMov->movimiento = $m;
+                    $rubrosMov->save();
+
+                    $FAdd = FontsRubro::where([['rubro_id', $id],['font_id', '=', $fuente_id_Add[$i]]])->get();
+                    $count2 = $FAdd->count();
+                    for($x = 0; $x < $count2; $x++){
+                        $FAdd[$x]->valor_disp = $FAdd[$x]->valor_disp + $valor_Red[$i];
+                        $FAdd[$x]->save();
+                    }
+
                 }
+
             }
 
             Session::flash('success','La adición se realizo correctamente');

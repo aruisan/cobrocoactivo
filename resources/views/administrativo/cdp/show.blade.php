@@ -231,8 +231,8 @@
                                                     @endif
                                                 @endforeach
                                                @if($cdp->rubrosCdpValor->count() == 0)
-                                                        <input type="hidden" name="rubros_cdp_valor_id[]" value="">
-                                                        <input type="number" required  name="valorFuenteUsar[]" class="form-group-sm" value="0" max="{{ $fuentesRubro->valor_disp }}" style="text-align: center">
+                                                    <input type="hidden" name="rubros_cdp_valor_id[]" value="">
+                                                    <input type="number" required  name="valorFuenteUsar[]" class="form-group-sm" value="0" max="{{ $fuentesRubro->valor_disp }}" style="text-align: center">
                                                @endif
                                             @else
                                                 <input type="hidden" name="rubros_cdp_valor_id[]" value="">

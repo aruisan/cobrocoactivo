@@ -77,10 +77,10 @@
                                                   @if($fuentesRubro->valor_disp != 0)
                                                       Valor usado de {{ $fuentesRubro->font->name }}:
                                                       @if($rubro->rubrosMov->count() > 0)
-                                                          <input type="hidden" name="font_rubro_id[]" value="{{ $fuentesRubro->id }}">
+                                                          <input type="hidden" name="rubro_Mov_id[]" value="@foreach($fuentesRubro->rubrosMov as $mov){{$mov->id}}@endforeach">
                                                           <input type="number" required  name="valorRed[]" value="@foreach($fuentesRubro->rubrosMov as $mov){{$mov->valor}}@endforeach" max="{{ $fuentesRubro->valor_disp }}" style="text-align: center">
                                                       @else
-                                                          <input type="hidden" name="font_rubro_id[]" value="">
+                                                          <input type="hidden" name="rubro_Mov_id[]" value="">
                                                           <input type="number" required  name="valorRed[]" class="form-group-sm" value="0" max="{{ $fuentesRubro->valor_disp }}" style="text-align: center">
                                                       @endif
                                                   @endif
@@ -92,7 +92,7 @@
                                                   <br>
                                                   <select name="fuente_id[]" required>
                                                       @foreach($fuentesAll as $fonts)
-                                                          <option value="{{ $fonts['id'] }}">{{ $fonts['name'] }}</option>
+                                                          <option value="{{ $fonts['id'] }}" @foreach($fuentesRubro->rubrosMov as $mov) @if($mov->fonts_id == $fonts['id']) selected @endif @endforeach >{{ $fonts['name'] }}</option>
                                                       @endforeach
                                                   </select>
                                               </div>
