@@ -39,13 +39,18 @@
                                           </h4>
                                       </div>
                                       <div class="col-lg-6">
-                                          @php( $valorRed = $rubros[$i]->fontsRubro->sum('reduccion') )
                                           <h4>
                                               <b>
                                                   Dinero Tomado:
                                                   @if($rubro->rubrosMov->count() > 0)
                                                       @foreach($rubros[$i]->fontsRubro as $F)
-                                                          @php($val[] = $F->rubrosMov->sum('valor'))
+                                                          @foreach($F->rubrosMov as $validate)
+                                                                @if($validate->rubro_id == $rubro->id)
+                                                                    @php($val[] = $validate->valor)
+                                                                @else
+                                                                    @php($val[] = 0)
+                                                                @endif
+                                                          @endforeach
                                                       @endforeach
                                                       $<?php echo number_format( array_sum($val) ,0) ?>
                                                       @php( $val = null )
@@ -77,8 +82,8 @@
                                                   @if($fuentesRubro->valor_disp != 0)
                                                       Valor usado de {{ $fuentesRubro->font->name }}:
                                                       @if($rubro->rubrosMov->count() > 0)
-                                                          <input type="hidden" name="rubro_Mov_id[]" value="@foreach($fuentesRubro->rubrosMov as $mov){{$mov->id}}@endforeach">
-                                                          <input type="number" required  name="valorRed[]" value="@foreach($fuentesRubro->rubrosMov as $mov){{$mov->valor}}@endforeach" max="{{ $fuentesRubro->valor_disp }}" style="text-align: center">
+                                                          <input type="hidden" name="rubro_Mov_id[]" value="@foreach($fuentesRubro->rubrosMov as $mov) @if($mov->rubro_id == $rubro->id) {{  $mov->id }} @endif @endforeach">
+                                                          <input type="text" required  name="valorRed[]" value="@foreach($fuentesRubro->rubrosMov as $mov) @if($mov->rubro_id == $rubro->id) {{  $mov->valor }} @endif @endforeach" max="{{ $fuentesRubro->valor_disp }}" style="text-align: center">
                                                       @else
                                                           <input type="hidden" name="rubro_Mov_id[]" value="">
                                                           <input type="number" required  name="valorRed[]" class="form-group-sm" value="0" max="{{ $fuentesRubro->valor_disp }}" style="text-align: center">
@@ -92,7 +97,7 @@
                                                   <br>
                                                   <select name="fuente_id[]" required>
                                                       @foreach($fuentesAll as $fonts)
-                                                          <option value="{{ $fonts['id'] }}" @foreach($fuentesRubro->rubrosMov as $mov) @if($mov->fonts_id == $fonts['id']) selected @endif @endforeach >{{ $fonts['name'] }}</option>
+                                                          <option value="{{ $fonts['id'] }}" @foreach($fuentesRubro->rubrosMov as $mov) @if($mov->fonts_id == $fonts['id'] and $mov->rubro_id == $rubro->id ) selected @endif @endforeach >{{ $fonts['name'] }}</option>
                                                       @endforeach
                                                   </select>
                                               </div>
