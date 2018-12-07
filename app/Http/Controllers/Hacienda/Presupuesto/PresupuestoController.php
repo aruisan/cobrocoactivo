@@ -219,16 +219,47 @@ class PresupuestoController extends Controller
                     }
                 }
             }
-
         }
+
         //VALOR DE LOS CDPS DEL RUBRO
         foreach ($rubros as $R){
-            $valoresCdp[] = collect(['id' => $R->id, 'name' => $R->name, 'valor' => $R->fontsRubro->sum('valor') - $R->fontsRubro->sum('valor_disp')]) ;
+            if ($R->rubrosCdp->count() == 0){
+                $valoresCdp[] = collect(['id' => $R->id, 'name' => $R->name, 'valor' => 0 ]) ;
+            }
+            foreach ($R->rubrosCdp as $R2){
+                $valoresCdp[] = collect(['id' => $R->id, 'name' => $R->name, 'valor' => $R2->rubrosCdpValor->sum('valor')]) ;
+            }
         }
+
         //REGISTROS
         $registros = Registro::all();
 
-        return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp'));
+        //ADICION
+        foreach ($rubros as $R2){
+            $valoresAdd[] = collect(['id' => $R2->id, 'valor' => $R2->rubrosMov->sum('valor')]) ;
+        }
+
+        //REDUCCIÓN
+        foreach ($rubros as $R3){
+            foreach ($R3->fontsRubro as $FR){
+                $suma[] =  $FR->rubrosMov->sum('valor');
+            }
+            $valoresRed[] = collect(['id' => $R3->id, 'valor' => array_sum($suma)]);
+            unset($suma);
+        }
+
+        //PRESUPUESTO DEFINITIVO
+
+        foreach ($codigos as $codigo){
+            if ($codigo['valor']){
+                //dd($codigo['valor']);
+            }
+        }
+
+
+
+
+        return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed'));
     }
 
     /**

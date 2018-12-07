@@ -130,6 +130,7 @@
                                         <td class="text-dark">{{ $codigo['codigo']}}</td>
                                     @endif
                                     <td class="text-dark">{{ $codigo['name']}}</td>
+                                     <!-- PRESUPUESTO INICIAL-->
                                     @foreach($valoresIniciales as $valorInicial)
                                         @if($valorInicial['id'] == $codigo['id'])
                                             <td class="text-center text-dark">$ <?php echo number_format($valorInicial['valor'],0);?></td>
@@ -138,8 +139,28 @@
                                     @if($codigo['valor'])
                                         <td class="text-center text-dark">$ <?php echo number_format($codigo['valor'],0);?></td>
                                     @endif
-                                    <td>$0</td>
-                                    <td>$0</td>
+                                    <!-- ADICIÓN -->
+                                    @foreach($valoresIniciales as $valorInicial)
+                                        @if($valorInicial['id'] == $codigo['id'])
+                                            <td class="text-center text-dark">$ 0</td>
+                                        @endif
+                                    @endforeach
+                                    @foreach($valoresAdd as $valorAdd)
+                                        @if($codigo['id_rubro'] == $valorAdd['id'])
+                                            <td class="text-center text-dark">$ <?php echo number_format($valorAdd['valor'],0);?></td>
+                                        @endif
+                                    @endforeach
+                                    <!-- REDUCCIÓN -->
+                                    @foreach($valoresIniciales as $valorInicial)
+                                        @if($valorInicial['id'] == $codigo['id'])
+                                            <td class="text-center text-dark">$ 0</td>
+                                        @endif
+                                    @endforeach
+                                    @foreach($valoresRed as $valorRed)
+                                        @if($codigo['id_rubro'] == $valorRed['id'])
+                                            <td class="text-center text-dark">$ <?php echo number_format($valorRed['valor'],0);?></td>
+                                        @endif
+                                    @endforeach
                                     <td>$0</td>
                                     <td>$0</td>
                                     @foreach($valoresIniciales as $valorInicial)
