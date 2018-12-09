@@ -163,14 +163,18 @@
                                     @endforeach
                                     <td>$0</td>
                                     <td>$0</td>
-                                    @foreach($valoresIniciales as $valorInicial)
-                                        @if($valorInicial['id'] == $codigo['id'])
-                                            <td class="text-center">$ <?php echo number_format($valorInicial['valor'],0);?></td>
+                                    <!-- PRESUPUESTO DEFINITIVO -->
+                                    @foreach($valoresDisp as $valorDisponible)
+                                        @if($valorDisponible['id'] == $codigo['id'])
+                                            <td class="text-center">$ <?php echo number_format($valorDisponible['valor'],0);?></td>
                                         @endif
                                     @endforeach
-                                    @if($codigo['valor'])
-                                        <td class="text-center">$ <?php echo number_format($codigo['valor'],0);?></td>
-                                    @endif
+                                    @foreach($ArrayDispon as $valorPD)
+                                        @if($codigo['id_rubro'] == $valorPD['id'])
+                                            <td class="text-center text-dark">$ <?php echo number_format($valorPD['valor'],0);?></td>
+                                        @endif
+                                    @endforeach
+                                    <!-- CDP'S -->
                                     @foreach($valoresIniciales as $valorInicial)
                                         @if($valorInicial['id'] == $codigo['id'])
                                             <td class="text-center text-dark">$ 0</td>
@@ -181,16 +185,15 @@
                                             <td class="text-center text-dark">$ <?php echo number_format($valorCdp['valor'],0);?></td>
                                         @endif
                                     @endforeach
+                                    <!-- SALDO DISPONIBLE -->
                                     @foreach($valorDisp as $vDisp)
                                         @if($vDisp['id'] == $codigo['id'])
                                             <td class="text-center">$ <?php echo number_format($vDisp['valor'],0);?></td>
                                         @endif
                                     @endforeach
-                                    @foreach($valoresCdp as $valorCdp)
-                                        @if($codigo['id_rubro'] == $valorCdp['id'])
-                                            @if($codigo['valor'])
-                                                <td class="text-center">$ <?php echo number_format($codigo['valor'] - $valorCdp['valor'],0);?></td>
-                                            @endif
+                                    @foreach($saldoDisp as $salD)
+                                        @if($codigo['id_rubro'] == $salD['id'])
+                                            <td class="text-center text-dark">$ <?php echo number_format($salD['valor'],0);?></td>
                                         @endif
                                     @endforeach
                                 </tr>
@@ -316,7 +319,7 @@
                                                 @elseif($cdp->jefe_e == "2")
                                                     Anulado
                                                 @elseif($cdp->jefe_e == "3")
-                                                    Finalizado
+                                                    Aprobado
                                                 @else
                                                     En Espera
                                                 @endif
@@ -378,7 +381,7 @@
                                         @elseif($data->secretaria_e == "2")
                                             Anulado
                                         @else
-                                            Finalizado
+                                            Aprobado
                                         @endif
                                     </span>
                                         </td>

@@ -6,11 +6,7 @@
   <ul class="dropdown-menu">
     <li><a tabindex="-1" href="{{url('/dashboard/correspondencia')}}">Correspondencia</a></li>
     <li><a tabindex="-1" href="{{url('/dashboard/archivo')}}">Archivo</a></li>
-    <li><a tabindex="-1" href="{{url('/almacen')}}">Almacen</a></li>
     <li><a tabindex="-1" href="{{url('/dashboard/boletines')}}">Boletines</a></li>
-    <li><a tabindex="-1" href="{{url('/administrativo/cdp')}}">CDP's</a></li>
-    <li><a tabindex="-1" href="{{url('/administrativo/registros')}}">Registros</a></li>
-    <li><a tabindex="-1" href="{{route('personas.index')}}">Terceros</a></li>
   </ul>
 </li>
 <li class="dropdown">
@@ -24,35 +20,14 @@
     </a>
 </li>
 <li class="dropdown">
-    <a class="btn btn-default btn-sm" href="{{ url('/dashboard/acuerdos') }}">
-        ACUERDOS
-    </a>
-</li>
-<li class="dropdown">
     <a class="btn btn-default btn-sm" href="{{ url('/admin/ordenDia') }}">
         ORDEN DEL DÍA
     </a>
 </li>
-<li class="dropdown">
-    <a class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
-        COMISIONES
-        <span class="caret"></span>
-    </a>
-    <ul class="dropdown-menu">
-        <li><a tabindex="-1" href="{{ url('/dashboard/comision/1') }}">Comisión del Plan</a></li>
-        <li><a tabindex="-1" href="{{ url('/dashboard/comision/2') }}">Comisión de Presupuesto</a></li>
-        <li><a tabindex="-1" href="{{ url('/dashboard/comision/3') }}">Comisión Administrativa</a></li>
-        <li><a tabindex="-1" href="{{ url('/dashboard/comision/4') }}">Comisiones Accidentales</a></li>
-    </ul>
-</li>
+
 <li class="dropdown">
     <a class="btn btn-default btn-sm" href="{{ url('/dashboard/concejales') }}">
         CONCEJALES
-    </a>
-</li>
-<li class="dropdown">
-    <a class="btn btn-default btn-sm" href="{{ url('/dashboard/mesaDir') }}">
-        MESA DIRECTIVA
     </a>
 </li>
 <li class="dropdown">
@@ -71,5 +46,6 @@
     @can('role-list')
     <li><a tabindex="-1" href="{{ route('roles.index') }}">Gestión de Roles</a></li>
     @endcan
+    <li><a tabindex="-1" href="{{route('personas.index')}}">Terceros</a></li>
   </ul>
 </li>

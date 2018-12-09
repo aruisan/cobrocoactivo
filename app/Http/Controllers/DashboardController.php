@@ -12,7 +12,7 @@ class DashboardController extends Controller
     { 
     	
     	if(Auth::user()->type_id > 4){
-    		return redirect()->route('contractual.index');
+    		return redirect()->route('presupuesto.index');
     	}else{
     		return redirect()->route('notificaciones.index');
     	

@@ -88,7 +88,7 @@
                                         @elseif($cdp->jefe_e == "2")
                                             Anulado
                                         @elseif($cdp->jefe_e == "3")
-                                            Finalizado
+                                            Aprobado
                                         @else
                                             En Espera
                                         @endif
@@ -147,7 +147,7 @@
                                 <td class="text-center">{{ $cdp->name }}</td>
                                 <td class="text-center">
                                     <span class="badge badge-pill badge-danger">
-                                        Finalizado
+                                        Aprobado
                                     </span>
                                 </td>
                                 <td class="text-center">$<?php echo number_format($cdp->valor,0) ?></td>

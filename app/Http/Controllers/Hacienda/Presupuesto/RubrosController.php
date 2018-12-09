@@ -108,7 +108,36 @@ class RubrosController extends Controller
         $fuentesAll = Font::all();
         $valor = $fuentesR->sum('valor');
         $valorDisp = $fuentesR->sum('valor_disp');
-        return view('hacienda.presupuesto.rubro.show', compact('rubro','fuentesR','valor','valorDisp','rol','rubros','fuentesAll'));
+
+        foreach ($fuentesR as $fuente){
+            if ($rubro->rubrosMov->count() > 0){
+                foreach($rubro->rubrosMov as $RM){
+                    if ($RM->fonts_id == $fuente->font_id){
+                        $suma[] = $RM->valor;
+                    } else{
+                        $suma[] = 0;
+                    }
+                }
+            } else{
+                $suma[] = 0;
+            }
+            $val = array_sum($suma);
+            if ($fuente->rubrosMov->count() > 0){
+                foreach ($fuente->rubrosMov as $item) {
+                    $resta[] = $item->valor;
+                }
+            }else{
+                $resta[] = 0;
+            }
+            $val2 = array_sum($resta);
+            $valores[] = collect(['id' => $fuente->font_id , 'adicion' => $val, 'reduccion' => $val2]);
+            unset($suma);
+            unset($resta);
+        }
+
+        //dd($fuentesR);
+
+        return view('hacienda.presupuesto.rubro.show', compact('rubro','fuentesR','valor','valorDisp','rol','rubros','fuentesAll','valores'));
         
     }
 

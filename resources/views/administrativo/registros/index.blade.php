@@ -66,7 +66,7 @@
                                 @elseif($data->secretaria_e == "2")
                                     Anulado
                                 @else
-                                    Finalizado
+                                    Aprobado
                                 @endif
                             </span>
                         </td>
@@ -132,7 +132,7 @@
                                         @elseif($data->secretaria_e == "2")
                                             Anulado
                                         @else
-                                            Finalizado
+                                            Aprobado
                                         @endif
                                     </span>
                                 </td>
