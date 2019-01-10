@@ -170,12 +170,21 @@
                             <button type="button" class="btn-sm btn-success" onclick="ver('fuente{{$i}}')" ><i class="fa fa-arrow-down"></i></button>
                         </td>
                         <td class="text-center">
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <h4>
                                     <b>{{ $rubrosCdpData->rubros->name }}</b>
                                 </h4>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
+                                <h4>
+                                    @foreach($infoRubro as $infoR)
+                                        @if($infoR['id_rubro'] == $rubrosCdpData->rubros->id)
+                                            <b>Rubro: {{ $infoR['codigo'] }}</b>
+                                        @endif
+                                    @endforeach
+                                </h4>
+                            </div>
+                            <div class="col-lg-4">
                                 @php( $valorT = $rubrosCdpData->rubrosCdpValor->sum('valor') )
                                 <h4>
                                     <b>
