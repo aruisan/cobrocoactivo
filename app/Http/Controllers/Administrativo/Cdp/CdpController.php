@@ -13,6 +13,7 @@ use App\Model\Hacienda\Presupuesto\Font;
 use App\Model\Hacienda\Presupuesto\Vigencia;
 use App\Model\Hacienda\Presupuesto\Level;
 use App\Model\Hacienda\Presupuesto\Register;
+use PDF;
 
 
 use Session;
@@ -158,7 +159,7 @@ class CdpController extends Controller
                 $codigoLast = $codigoEnd;
             }
         }
-        return view('administrativo.cdp..show', compact('cdp','rubros','valores','rubrosCdp','rol','infoRubro'));
+        return view('administrativo.cdp.show', compact('cdp','rubros','valores','rol','infoRubro'));
     }
 
     /**
@@ -260,5 +261,83 @@ class CdpController extends Controller
             $fontRubro->valor_disp = $total;
             $fontRubro->save();
         }
+    }
+
+
+    public function pdf($id)
+    {
+        $roles = auth()->user()->roles;
+        foreach ($roles as $role){
+            $rol= $role->id;
+        }
+        $cdp = Cdp::findOrFail($id);
+        $all_rubros = Rubro::all();
+        foreach ($all_rubros as $rubro){
+            if ($rubro->fontsRubro->sum('valor_disp') != 0){
+                $valFuente = FontsRubro::where('rubro_id', $rubro->id)->sum('valor_disp');
+                $valores[] = collect(['id_rubro' => $rubro->id, 'name' => $rubro->name, 'dinero' => $valFuente]);
+                $rubros[] = collect(['id' => $rubro->id, 'name' => $rubro->name]);
+            }
+        }
+
+        //codigo de rubros
+
+        $vigens = Vigencia::where('id', '>',0)->get();
+        foreach ($vigens as $vigen) {
+            $V = $vigen->id;
+        }
+        $vigencia_id = $V;
+
+        $ultimoLevel = Level::where('vigencia_id', $vigencia_id)->get()->last();
+        $registers = Register::where('level_id', $ultimoLevel->id)->get();
+        $registers2 = Register::where('level_id', '<', $ultimoLevel->id)->get();
+        $ultimoLevel2 = Register::where('level_id', '<', $ultimoLevel->id)->get()->last();
+        $rubroz = Rubro::where('vigencia_id', $vigencia_id)->get();
+
+        global $lastLevel;
+        $lastLevel = $ultimoLevel->id;
+        $lastLevel2 = $ultimoLevel2->level_id;
+        foreach ($registers2 as $register2) {
+            global $codigoLast;
+            if ($register2->register_id == null) {
+                $codigoEnd = $register2->code;
+            } elseif ($codigoLast > 0) {
+                if ($lastLevel2 == $register2->level_id) {
+                    $codigo = $register2->code;
+                    $codigoEnd = "$codigoLast$codigo";
+                    foreach ($registers as $register) {
+                        if ($register2->id == $register->register_id) {
+                            $register_id = $register->code_padre->registers->id;
+                            $code = $register->code_padre->registers->code . $register->code;
+                            $ultimo = $register->code_padre->registers->level->level;
+                            while ($ultimo > 1) {
+                                $registro = Register::findOrFail($register_id);
+                                $register_id = $registro->code_padre->registers->id;
+                                $code = $registro->code_padre->registers->code . $code;
+
+                                $ultimo = $registro->code_padre->registers->level->level;
+                            }
+                            if ($register->level_id == $lastLevel) {
+                                foreach ($rubroz as $rub) {
+                                    if ($register->id == $rub->register_id) {
+                                        $newCod = "$code$rub->cod";
+                                        $infoRubro[] = collect(['id_rubro' => $rub->id, 'id' => '', 'codigo' => $newCod, 'name' => $rub->name, 'code' => $rub->code]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }else {
+                $codigo = $register2->code;
+                $newRegisters = Register::findOrFail($register2->register_id);
+                $codigoNew = $newRegisters->code;
+                $codigoEnd = "$codigoNew$codigo";
+                $codigoLast = $codigoEnd;
+            }
+        }
+
+        $pdf = PDF::loadView('administrativo.cdp.pdf', compact('cdp','rubros','valores','rol','infoRubro'))->setOptions(['images' => true]);
+        return $pdf->stream();
     }
 }

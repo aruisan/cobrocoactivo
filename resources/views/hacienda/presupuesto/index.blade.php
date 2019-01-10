@@ -329,9 +329,7 @@
                                             <a href="{{ url('administrativo/cdp/'.$cdp->id) }}" title="Ver" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                         </td>
                                         <td class="text-center">
-                                            @if($cdp->ruta != null)
-                                            <a href="#" title="Archivo" class="btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i></a>
-                                            @endif
+                                            <a href="{{ route('cpd-pdf', $cdp->id) }}" title="certificado" class="btn-sm btn-danger"><i class="fa fa-file-pdf-o"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

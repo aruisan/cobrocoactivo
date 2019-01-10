@@ -3,6 +3,9 @@
 
 Route::get('/', 'VisitanteController@index');
 
+//pdf
+Route::get('/cdp/pdf/{id}', 'Administrativo\Cdp\CdpController@pdf')->name('cpd-pdf');
+
 
 
 Route::get('/info', function(){
