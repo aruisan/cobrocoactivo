@@ -231,6 +231,7 @@ class PresupuestoController extends Controller
                     $suma2[] = $R3->rubrosCdpValor->sum('valor');
                 }
                 $valoresCdp[] = collect(['id' => $R->id, 'name' => $R->name, 'valor' => array_sum($suma2)]) ;
+                unset($suma2);
             }else{
                 foreach ($R->rubrosCdp as $R2){
                     $valoresCdp[] = collect(['id' => $R->id, 'name' => $R->name, 'valor' => $R2->rubrosCdpValor->sum('valor')]) ;

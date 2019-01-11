@@ -225,7 +225,7 @@
                                         </div>
                                     @endif
                                     <div class="col-lg-6">
-                                        @if($fuentesRubro->valor_disp != 0)
+                                        @if($cdp->jefe_e == "3")
                                             Valor usado de {{ $fuentesRubro->font->name }}:
                                             @if($fuentesRubro->rubrosCdpValor->count() != 0)
                                                 @foreach($fuentesRubro->rubrosCdpValor as  $valoresFR)
@@ -239,10 +239,32 @@
                                                         @endif
                                                     @endif
                                                 @endforeach
-                                               @if($cdp->rubrosCdpValor->count() == 0)
+                                                @if($cdp->rubrosCdpValor->count() == 0)
                                                     <input type="hidden" name="rubros_cdp_valor_id[]" value="">
                                                     <input type="number" required  name="valorFuenteUsar[]" class="form-group-sm" value="0" max="{{ $fuentesRubro->valor_disp }}" style="text-align: center">
-                                               @endif
+                                                @endif
+                                            @else
+                                                <input type="hidden" name="rubros_cdp_valor_id[]" value="">
+                                                <input type="number" required  name="valorFuenteUsar[]" class="form-group-sm" value="0" max="{{ $fuentesRubro->valor_disp }}" style="text-align: center">
+                                            @endif
+                                        @elseif($fuentesRubro->valor_disp != 0)
+                                            Valor usado de {{ $fuentesRubro->font->name }}:
+                                            @if($fuentesRubro->rubrosCdpValor->count() != 0)
+                                                @foreach($fuentesRubro->rubrosCdpValor as  $valoresFR)
+                                                    @php($id_rubrosCdp = $rubrosCdpData->id )
+                                                    @if($valoresFR->cdp_id == $cdp->id)
+                                                        <input type="hidden" name="rubros_cdp_valor_id[]" value="{{ $valoresFR->id }}">
+                                                        @if($cdp->secretaria_e == "0")
+                                                            <input type="number" required  name="valorFuenteUsar[]" id="id{{$fuentesRubro->font_id}}" class="valor{{ $valoresFR->rubrosCdp_id }}" value="{{ $valoresFR->valor }}" max="{{ $fuentesRubro->valor_disp }}" style="text-align: center">
+                                                        @else
+                                                            $<?php echo number_format( $valoresFR->valor,0) ?>
+                                                        @endif
+                                                    @endif
+                                                @endforeach
+                                                @if($cdp->rubrosCdpValor->count() == 0)
+                                                    <input type="hidden" name="rubros_cdp_valor_id[]" value="">
+                                                    <input type="number" required  name="valorFuenteUsar[]" class="form-group-sm" value="0" max="{{ $fuentesRubro->valor_disp }}" style="text-align: center">
+                                                @endif
                                             @else
                                                 <input type="hidden" name="rubros_cdp_valor_id[]" value="">
                                                 <input type="number" required  name="valorFuenteUsar[]" class="form-group-sm" value="0" max="{{ $fuentesRubro->valor_disp }}" style="text-align: center">
@@ -335,7 +357,6 @@
             if (visto != null)
                 visto.style.display = 'none';
             visto = (obj==visto) ? null : obj;
-            alert(prueba);
         }
 
         $(document).ready(function() {

@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @section('titulo')
-    Presupuesto - 2018
+    Presupuesto - 2019
 @stop
 @section('sidebar')
     @if($V != "Vacio")
@@ -42,7 +42,7 @@
         @if($V != "Vacio")
         <div class="breadcrumb text-center">
             <strong>
-                <h4><b>Presupuesto Año 2018</b></h4>
+                <h4><b>Presupuesto Año 2019</b></h4>
                 <div class="form-check-inline">
                     <a href="{{ asset('#') }}" class="btn-sm btn btn-success"><i class="fa fa-check"></i><span class="hide-menu">&nbsp; Aprobar Presupuesto</span></a>
                 </div>
