@@ -21,4 +21,12 @@ class Cdp extends Model
     public function cdpsRegistro(){
         return $this->hasMany('App\Model\Administrativo\Registro\CdpsRegistro','cdp_id');
     }
+
+    public function cdpsDependencia(){
+        return $this->belongsTo('App\Model\Admin\Dependenciao','dependencia_id');
+    }
+
+    public function cdpsSecretaria(){
+        return $this->belongsTo('App\User','secretaria_e');
+    }
 }

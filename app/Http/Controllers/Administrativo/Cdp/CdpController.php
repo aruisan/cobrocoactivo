@@ -287,6 +287,7 @@ class CdpController extends Controller
             $V = $vigen->id;
         }
         $vigencia_id = $V;
+        $vigencia = Vigencia::find($vigencia_id);
 
         $ultimoLevel = Level::where('vigencia_id', $vigencia_id)->get()->last();
         $registers = Register::where('level_id', $ultimoLevel->id)->get();
@@ -337,7 +338,9 @@ class CdpController extends Controller
             }
         }
 
-        $pdf = PDF::loadView('administrativo.cdp.pdf', compact('cdp','rubros','valores','rol','infoRubro'))->setOptions(['images' => true]);
+        //dd();
+
+        $pdf = PDF::loadView('administrativo.cdp.pdf', compact('cdp','rubros','valores','rol','infoRubro', 'vigencia'))->setOptions(['images' => true,'isRemoteEnabled' => true]);
         return $pdf->stream();
     }
 }
