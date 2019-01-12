@@ -13,6 +13,7 @@ use App\Traits\FileTraits;
 use Illuminate\Http\Response;
 
 use Session;
+use App\Model\Hacienda\Presupuesto\Vigencia;
 
 class RegistrosController extends Controller
 {
@@ -203,4 +204,19 @@ class RegistrosController extends Controller
             }
         }
     }
+
+    public function pdf($id){
+        $registro = Registro::findOrFail($id);
+
+         $vigens = Vigencia::where('id', '>',0)->get();
+        foreach ($vigens as $vigen) {
+            $V = $vigen->id;
+        }
+        $vigencia_id = $V;
+        $vigencia = Vigencia::find($vigencia_id);
+
+        $pdf = \PDF::loadView('administrativo.registros.pdf', compact('registro', 'vigencia'))->setOptions(['images' => true,'isRemoteEnabled' => true]);
+            return $pdf->stream();
+    }
 }
+

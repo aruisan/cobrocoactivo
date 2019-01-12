@@ -386,7 +386,9 @@
                                         <td class="text-center">
                                             <a href="{{ url('administrativo/registros',$data->id) }}" title="Ver Registro" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                         </td>
-                                        <td>&nbsp;</td>
+                                        <td>
+                                            <a href="{{ route('registro-pdf', $data->id) }}" title="certificado-registro" class="btn-sm btn-danger"><i class="fa fa-file-pdf-o"></i></a>
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>

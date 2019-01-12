@@ -3,8 +3,7 @@
 
 Route::get('/', 'VisitanteController@index');
 
-//pdf
-Route::get('/cdp/pdf/{id}', 'Administrativo\Cdp\CdpController@pdf')->name('cpd-pdf');
+
 
 
 
@@ -109,13 +108,18 @@ Route::group([ 'middleware' => 'auth'] ,function(){
         Route::get('registros/{id}/{fecha}/{valor}/{estado}', 'Administrativo\Registro\RegistrosController@updateEstado');
         //Route::put('registros/r/{id}/{rol}/{estado}', 'Administrativo\Registro\RegistrosController@rechazar');
         Route::resource('cdpsRegistro','Administrativo\Registro\CdpsRegistroController');
+        //pdf registros
+		Route::get('/registro/pdf/{id}', 'Administrativo\Registro\RegistrosController@pdf')->name('registro-pdf');
 
         //CDP's
+
         Route::resource('cdp', 'Administrativo\Cdp\CdpController');
         Route::Resource('rubrosCdp','Administrativo\Cdp\RubrosCdpController');
         Route::Resource('rubrosCdp/valor','Administrativo\Cdp\RubrosCdpValorController');
         Route::get('cdp/{id}/{rol}/{fecha}/{valor}/{estado}', 'Administrativo\Cdp\CdpController@updateEstado');
         Route::put('cdp/r/{id}', 'Administrativo\Cdp\CdpController@rechazar');
+        //pdf cdp
+		Route::get('/cdp/pdf/{id}', 'Administrativo\Cdp\CdpController@pdf')->name('cpd-pdf');
 
         Route::resource('marcas-herretes', 'Administrativo\MarcaHerrete\MarcaHerreteController');
         Route::get('persona-find/{identificador}', 'Cobro\PersonasController@personaFind');
