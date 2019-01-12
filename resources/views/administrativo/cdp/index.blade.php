@@ -54,7 +54,7 @@
                             <th class="text-center">Valor</th>
                             @if($rol == 2)
                                 <th class="text-center"><i class="fa fa-usd"></i></th>
-                                <th class="text-center">Editar</th>
+                                <th class="text-center"><i class="fa fa-edit"></i></th>
                             @elseif ($rol == 3)
                                 <th class="text-center">Aprobar</th>
                                 <th class="text-center"><i class="fa fa-eye"></i></th>
@@ -97,10 +97,10 @@
                                 <td class="text-center">$<?php echo number_format($cdp->valor,0) ?></td>
                                 @if($rol == 2)
                                 <td class="text-center">
-                                    <a href="{{ url('administrativo/cdp/'.$cdp->id) }}" title="Ingresar Dinero al CDP" class="btn btn-sm btn-primary"><i class="fa fa-usd"></i></a>
+                                    <a href="{{ url('administrativo/cdp/'.$cdp->id) }}" title="Ingresar Dinero al CDP" class="btn-sm btn-primary"><i class="fa fa-usd"></i></a>
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ url('administrativo/cdp/'.$cdp->id.'/edit') }}" title="Editar CDP" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                                    <a href="{{ url('administrativo/cdp/'.$cdp->id.'/edit') }}" title="Editar CDP" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                 </td>
                                 @elseif($rol == 3)
                                     <td class="text-center">
@@ -152,10 +152,10 @@
                                 </td>
                                 <td class="text-center">$<?php echo number_format($cdp->valor,0) ?></td>
                                 <td class="text-center">
-                                    <a href="{{ url('administrativo/cdp/'.$cdp->id) }}" title="Ver CDP" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                    <a href="{{ url('administrativo/cdp/'.$cdp->id) }}" title="Ver CDP" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ url('administrativo/cdp/'.$cdp->id) }}" title="File" class="btn btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i></a>
+                                    <a href="{{ url('administrativo/cdp/'.$cdp->id) }}" title="File" class="btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i></a>
                                 </td>
                             </tr>
                         @endforeach

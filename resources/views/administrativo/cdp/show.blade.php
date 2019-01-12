@@ -213,7 +213,17 @@
                         <td>
                             <div class="col-lg-12">
                                 @foreach($rubrosCdpData->rubros->fontsRubro as $fuentesRubro)
-                                    @if($fuentesRubro->valor_disp != 0)
+                                    @if($cdp->jefe_e == "3")
+                                        <div class="col-lg-6">
+                                            <input type="hidden" name="fuente_id[]" value="{{ $fuentesRubro->id }}">
+                                            <input type="hidden" name="cdp_id" value="{{ $cdp->id }}">
+                                            <input type="hidden" name="rubros_cdp_id[]" value="{{ $rubrosCdpData->id }}">
+                                            @php( $fechaActual = Carbon\Carbon::today()->Format('Y-m-d') )
+                                            <li style="list-style-type: none;">
+                                                {{ $fuentesRubro->font->name }} : $<?php echo number_format( $fuentesRubro->valor_disp,0) ?>
+                                            </li>
+                                        </div>
+                                    @elseif($fuentesRubro->valor_disp != 0)
                                         <div class="col-lg-6">
                                             <input type="hidden" name="fuente_id[]" value="{{ $fuentesRubro->id }}">
                                             <input type="hidden" name="cdp_id" value="{{ $cdp->id }}">

@@ -43,9 +43,11 @@
         <div class="breadcrumb text-center">
             <strong>
                 <h4><b>Presupuesto Año 2019</b></h4>
-                <div class="form-check-inline">
-                    <a href="{{ asset('#') }}" class="btn-sm btn btn-success"><i class="fa fa-check"></i><span class="hide-menu">&nbsp; Aprobar Presupuesto</span></a>
-                </div>
+                @if($rol == 3)
+                    <div class="form-check-inline">
+                        <a href="{{ asset('#') }}" class="btn-sm btn btn-success"><i class="fa fa-check"></i><span class="hide-menu">&nbsp; Aprobar Presupuesto</span></a>
+                    </div>
+                @endif
             </strong>
         </div>
             <ul class="nav nav-pills">
@@ -384,9 +386,9 @@
                                     </span>
                                         </td>
                                         <td class="text-center">
-                                            <a href="{{ url('administrativo/registros',$data->id) }}" title="Ver Registro" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                            <a href="{{ url('administrativo/registros',$data->id) }}" title="Ver Registro" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                         </td>
-                                        <td>
+                                        <td class="text-center">
                                             <a href="{{ route('registro-pdf', $data->id) }}" title="certificado-registro" class="btn-sm btn-danger"><i class="fa fa-file-pdf-o"></i></a>
                                         </td>
                                     </tr>
