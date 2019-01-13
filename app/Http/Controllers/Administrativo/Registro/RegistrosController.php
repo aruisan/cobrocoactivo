@@ -215,7 +215,12 @@ class RegistrosController extends Controller
         $vigencia_id = $V;
         $vigencia = Vigencia::find($vigencia_id);
 
-        $pdf = \PDF::loadView('administrativo.registros.pdf', compact('registro', 'vigencia'))->setOptions(['images' => true,'isRemoteEnabled' => true]);
+    $dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
+    $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+
+
+
+        $pdf = \PDF::loadView('administrativo.registros.pdf', compact('registro', 'vigencia', 'dias', 'meses'))->setOptions(['images' => true,'isRemoteEnabled' => true]);
             return $pdf->stream();
     }
 }

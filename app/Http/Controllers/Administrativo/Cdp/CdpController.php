@@ -338,9 +338,11 @@ class CdpController extends Controller
             }
         }
 
-        //dd();
+        
+    $dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
+    $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 
-        $pdf = PDF::loadView('administrativo.cdp.pdf', compact('cdp','rubros','valores','rol','infoRubro', 'vigencia'))->setOptions(['images' => true,'isRemoteEnabled' => true]);
+        $pdf = PDF::loadView('administrativo.cdp.pdf', compact('cdp','rubros','valores','rol','infoRubro', 'vigencia', 'dias', 'meses'))->setOptions(['images' => true,'isRemoteEnabled' => true]);
         return $pdf->stream();
     }
 }
