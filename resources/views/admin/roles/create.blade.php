@@ -36,7 +36,7 @@
                                 {{ $modulo->name }}</label><br>
                             @foreach($modulo->permisos as $value)
                                 <label class="permisos">{{ Form::checkbox('permission[]', $value->id, false, array('class' => $modulo->name)) }}
-                                {{ $value->alias }}</label>
+                                {{ $value->name }}</label>
                             <br/>
                             @endforeach
                             <br>
