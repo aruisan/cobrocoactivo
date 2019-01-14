@@ -45,7 +45,6 @@ class ProgramasController extends Controller
     public function destroy($id)
     {
         $destroy = Programa::find($id);
-        dd($id);
 
          if($destroy->proyectos->count() > 0){
             Session::flash('warning', 'tiene '.$destroy->proyectos->count().' Proyectos Relacionados a este Programa.');

@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Model\Administrativo\Contractuall\Contractual;
 use App\File;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Session;
 
 class ContractualController extends Controller
 {
@@ -41,7 +43,7 @@ class ContractualController extends Controller
     public function create()
     {
         return view('administrativo.contractual.create');
-        ;}
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -62,5 +64,37 @@ class ContractualController extends Controller
         return redirect()->route('contractual.index')
         ->with('success','El contractual con responsable: '.$request->responsable.' y valor $'.$request->valor.' se ha creado satisfactoriamente');
 
+    }
+
+    public function edit($id)
+    {
+        $data = Contractual::findOrFail($id);
+        return view('administrativo.contractual.edit', compact('data','id'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $store= Contractual::findOrFail($id);
+        $store->responsable = $request->responsable;
+        $store->valor = $request->valor;
+        $store->asunto = $request->asunto;
+        $store->save();
+
+        Session::flash('success','El contrato de '.$request->responsable.' se edito exitosamente.');
+        return  redirect('../contractual/');
+    }
+
+    public function destroy($id)
+    {
+        $data = Contractual::find($id);
+
+        if($data->registro != null){
+            Session::flash('warning', 'Tiene '.$data->registro->count().' Registros Relacionados a este Contrato.');
+            return redirect('/contractual');
+        }else{
+            $data->delete();
+            Session::flash('error','Contrato borrado correctamente');
+            return redirect('/contractual');
+        }
     }
 }

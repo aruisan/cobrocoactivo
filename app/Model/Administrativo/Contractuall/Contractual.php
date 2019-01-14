@@ -8,8 +8,8 @@ class Contractual extends Model
 {
 	protected $table = 'contractuales';
 
-	public function users()
+	public function registro()
 	{
-		
+        return $this->belongsTo('App\Model\Administrativo\Registro\Registro','id');
 	}  
 }

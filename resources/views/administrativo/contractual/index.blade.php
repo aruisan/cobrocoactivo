@@ -1,7 +1,10 @@
 @extends('layouts.dashboard')
+@section('titulo')
+    Contratación
+@stop
 @section('sidebar')
     <li>
-        <a href="{{ url('/dashboard/contractual/create') }}" class="btn btn-success">
+        <a href="{{ url('/contractual/create') }}" class="btn btn-success">
             <i class="fa fa-plus"></i>
             <span class="hide-menu">Crear Contractual</span></a>
     </li>
@@ -20,8 +23,8 @@
                 <th>RESPONSABLE</th>
                 <th>VALOR</th>
                 <th>ASUNTO</th>
-                <th><i class="fa fa-pencil-square-o text-success"></i></th>
-                <th>ver</th>
+                <th>ACCIONES</th>
+
             </thead>
             <tbody>
                 @foreach($consulta as $data )
@@ -29,10 +32,11 @@
                 <tr>
                     <td>{{$data->modulo}}</td>
                     <td>{{$data->responsable}}</td>
-                    <td>{{$data->valor}}</td>
+                    <td>$ <?php echo number_format($data->valor,0);?></td>
                     <td>{{$data->asunto}}</td>
-                    <td><a href="contractual/{{$data->id}}/edit " class="btn btn-success"><span class="glyphicon glyphicon-edit"></span></a></td>
-                    <td><a href="{{route('subirArchivoContractual.show', $data->id)}}" class="btn btn-warning">ver</a></td>
+                    <td class="text-center">
+                        <a href="contractual/{{$data->id}}/edit " class="btn-sm btn-success" title="Editar"><span class="glyphicon glyphicon-edit"></span></a>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

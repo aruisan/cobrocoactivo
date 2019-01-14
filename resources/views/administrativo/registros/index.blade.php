@@ -71,14 +71,14 @@
                             </span>
                         </td>
                         <td class="text-center">
-                            <a href="{{ url('administrativo/registros',$data->id) }}" title="Asignar Dinero al Registro" class="btn btn-sm btn-primary"><i class="fa fa-usd"></i></a>
+                            <a href="{{ url('administrativo/registros',$data->id) }}" title="Asignar Dinero al Registro" class="btn-sm btn-primary"><i class="fa fa-usd"></i></a>
                         </td>                <td class="text-center">
                             @if($data->secretaria_e == 0)
-                                <a href="{{ url('administrativo/registros/'.$data->id.'/edit') }}" class="btn btn-sm btn-info" title="Editar">
+                                <a href="{{ url('administrativo/registros/'.$data->id.'/edit') }}" class="btn-sm btn-info" title="Editar">
                                     <i class="fa fa-edit"></i>
                                 </a>
                             @elseif($data->secretaria_e == 3)
-                                <a href="{{ url('administrativo/registros',$data->id) }}" class="btn btn-sm btn-info" title="Visualizar">
+                                <a href="{{ url('administrativo/registros',$data->id) }}" class="btn-sm btn-info" title="Visualizar">
                                     <i class="fa fa-eye"></i>
                                 </a>
                                 {!! Form::close() !!}
