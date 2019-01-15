@@ -4,9 +4,16 @@
 		<div class="row">
 			<center><h3>CERTIFICADO DE DISPONIBILIDAD PRESUPUESTAL</h3></center>
 		</div>
-		<hr class="hrFecha br-black-1">
-			<h4>Fecha: <?=$dias[date('w')]." ".date('d')." de ".$meses[date('n')-1]. " del ".date('Y')?></h4>
-		<hr class="hrFecha br-black-1">
+		<div style="border:1px solid black;">
+			<div style="width: 78%;   display: inline-block; margin-left: 3%">
+				<h4>Fecha: <?=$dias[date('w')]." ".date('d')." de ".$meses[date('n')-1]. " del ".date('Y')?></h4>
+			</div>
+			
+			<div style="width: 12%;  display: inline-block; border:1px solid black; margin: 6px 0px 0px 0px;" class="col-md-2">
+				<h4>Número {{$cdp->id}}</h4>
+			</div> 
+		</div>
+				
 		<div class="br-black-1">
 			<br>
 			<center>
@@ -35,7 +42,7 @@
 						<td> {{number_format($rubrosCdp->rubrosCdpValor->sum('valor'))}}</td>
 					</tr>
 					<tr style="font-size: 16px;">
-						<td style="width: 30px;">Objeto: </td>
+						<td style="width: 30px;">Rubro: </td>
 						<td> {{$rubrosCdp->rubros->name}}</td>
 					</tr>
 				</tbody>
@@ -49,6 +56,10 @@
 					<tr style="font-size: 16px;">
 						<td style="width: 30px;">VALOR TOTAL: </td>
 						<td> {{number_format($sumRubros)}} ({{\NumerosEnLetras::convertir($sumRubros)}})</td>
+					</tr>
+					<tr style="font-size: 16px;">
+						<td style="width: 30px;">Objeto: </td>
+						<td>{{$cdp->name}}</td>
 					</tr>
 					<tr style="font-size: 16px;">
 						<td style="width: 30px;">SOLICITADO POR: </td>

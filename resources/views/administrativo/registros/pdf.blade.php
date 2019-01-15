@@ -4,9 +4,15 @@
 		<div class="row">
 			<center><h3>REGISTRO PRESUPUESTAL</h3></center>
 		</div>
-		<hr class="hrFecha br-black-1">
-			<h4>Fecha: <?=$dias[date('w')]." ".date('d')." de ".$meses[date('n')-1]. " del ".date('Y')?></h4>
-		<hr class="hrFecha br-black-1">
+		<div style="border:1px solid black;">
+			<div style="width: 78%;   display: inline-block; margin-left: 3%">
+				<h4>Fecha: <?=$dias[date('w')]." ".date('d')." de ".$meses[date('n')-1]. " del ".date('Y')?></h4>
+			</div>
+			
+			<div style="width: 12%;  display: inline-block; border:1px solid black; margin: 6px 0px 0px 0px;" class="col-md-2">
+				<h4>Número {{$registro->id}}</h4>
+			</div> 
+		</div>
 		<div class="br-black-1">
 			<br>
 			<center>
