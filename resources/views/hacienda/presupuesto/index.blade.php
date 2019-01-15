@@ -6,7 +6,7 @@
     @if($V != "Vacio")
         <li> <a href="{{ url('/presupuesto/level/create/'.$V) }}" class="btn btn-success"><i class="fa fa-edit"></i><span class="hide-menu">&nbsp;Editar Presupuesto</span></a></li>
         <li class="dropdown">
-            <a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown" href="#">
+            <a class="dropdown-toggle btn btn btn-primary disabled" data-toggle="dropdown" href="#">
                 <i class="fa fa-calendar-check-o"></i>
                 <span class="hide-menu">Vigencia Actual</span>
                 &nbsp;
@@ -21,11 +21,11 @@
                 </li>
             </ul>
         </li>
-        <li> <a href="#" class="btn btn-primary"><i class="fa fa-edit"></i><span class="hide-menu">&nbsp; Cambiar Vigencia</span></a></li>
+        <li> <a href="#" class="btn btn-primary disabled"><i class="fa fa-edit"></i><span class="hide-menu">&nbsp; Cambiar Vigencia</span></a></li>
     @else
     @endif
     <li>
-        <a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown" href="#">
+        <a class="dropdown-toggle btn btn btn-primary disabled" data-toggle="dropdown" href="#">
             <i class="fa fa-plus"></i>
             <span class="hide-menu">Nuevo Presupuesto</span>
             &nbsp;
@@ -61,7 +61,7 @@
                     <a class="nav-link" data-toggle="pill" href="#tabRubros">Rubros</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#tabPAC">PAC</a>
+                    <a class="nav-link disabled" data-toggle="pill" href="#tabPAC">PAC</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="pill" href="#tabCert">CDP's</a>
@@ -70,7 +70,7 @@
                     <a class="nav-link" data-toggle="pill" href="#tabReg">Registros</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                         Adiciones &nbsp;
                         <i class="fa fa-caret-down"></i>
                     </a>
@@ -82,7 +82,7 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                         Reducciones &nbsp;
                         <i class="fa fa-caret-down"></i>
                     </a>
@@ -94,13 +94,13 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#tabCre">Creditos</a>
+                    <a class="nav-link disabled" data-toggle="pill" href="#tabCre">Creditos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#tabApl">Aplazamientos</a>
+                    <a class="nav-link disabled" data-toggle="pill" href="#tabApl">Aplazamientos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#tabOP">Orden de Pago</a>
+                    <a class="nav-link disabled" data-toggle="pill" href="#tabOP">Orden de Pago</a>
                 </li>
             </ul>
             <br>
@@ -342,6 +342,7 @@
                                 <div class="alert alert-danger">
                                     <center>
                                         No hay CDP's.
+                                        <a href="{{ url('administrativo/cdp/create') }}" class="btn btn-success btn-block">Crear CDP</a>
                                     </center>
                                 </div>
                             @endif
@@ -396,10 +397,11 @@
                                 </tbody>
                             </table>
                         @else
-                            <br><br>
+                            <br>
                             <div class="alert alert-danger">
                                 <center>
                                     No hay Registros.
+                                    <a href="{{ url('administrativo/registros/create') }}" class="btn btn-success btn-block">Crear Registro</a>
                                 </center>
                             </div>
                         @endif

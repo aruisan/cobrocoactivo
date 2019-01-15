@@ -32,13 +32,13 @@
                 <a data-toggle="modal" data-target="#adicion" class="btn btn-primary text-left">Adición</a>
             </li>
             <li>
-                <a href="#" class="btn btn-primary text-left">Reducción</a>
+                <a href="#" class="btn btn-primary text-left disabled">Reducción</a>
             </li>
             <li>
-                <a href="#" class="btn btn-primary text-left">Credito</a>
+                <a href="#" class="btn btn-primary text-left disabled">Credito</a>
             </li>
             <li>
-                <a href="#" class="btn btn-primary text-left">Contra Credito</a>
+                <a href="#" class="btn btn-primary text-left disabled">Contra Credito</a>
             </li>
         </ul>
     </li>
