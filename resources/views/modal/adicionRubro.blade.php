@@ -52,7 +52,11 @@
                                                                 @endif
                                                           @endforeach
                                                       @endforeach
+                                                      @if($val == null)
+                                                      $ 0.00
+                                                      @else
                                                       $<?php echo number_format( array_sum($val) ,0) ?>
+                                                      @endif
                                                       @php( $val = null )
                                                   @else
                                                       $0
