@@ -135,9 +135,9 @@ box-shadow: -8px 12px 18px -6px rgba(0,0,0,0.75);
     <nav class="navbar navbar-custom " style="background:rgb(9,99,90);">
         <div class="lema">
             <marquee><h4 class="text-center text-white">
-                    Mesa Directiva: Presidente: Javier Rafael Rodriguez Archbold  - Primer Vicepresidente: Ana Newball Taylor  - Alcalde Municipal: Bernardo Bent
+                    Mesa Directiva: Presidente: Javier Rafael Rodriguez Archbold  - Primer Vicepresidente: Evis Livingston Howard  - Segundo Vicepresidente: Elsa Robinson Hawkins
                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                    Mesa Directiva: Presidente: Javier Rafael Rodriguez Archbold  - Primer Vicepresidente: Ana Newball Taylor  - Alcalde Municipal: Bernardo Bent
+                    Mesa Directiva: Presidente: Javier Rafael Rodriguez Archbold  - Primer Vicepresidente: Evis Livingston Howard  - Segundo Vicepresidente: Elsa Robinson Hawkins
                 </h4></marquee>
         </div>
         <div class="container">
