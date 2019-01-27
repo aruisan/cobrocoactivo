@@ -19,7 +19,6 @@ class CreateDocumentosTable extends Migration
             $table->timestamps();
         });
 
-
         Schema::create('documents', function (Blueprint $table) {
             $table->increments('id');
             $table->date('ff_document');

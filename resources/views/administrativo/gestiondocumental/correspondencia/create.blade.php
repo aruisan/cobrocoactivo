@@ -12,18 +12,23 @@
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
         <br>
         <hr>
-        {!! Form::open(array('route' => 'registros.store','method'=>'POST','enctype'=>'multipart/form-data')) !!}
+        {!! Form::open(array('route' => 'correspondencia.store','method'=>'POST','enctype'=>'multipart/form-data')) !!}
         <input type="hidden" name="fecha" value="{{ Carbon\Carbon::today()->Format('Y-m-d')}}">
         <input type="hidden" name="secretaria_e" value="0">
         <input type="hidden" name="tipo_doc" value="{{ $id }}">
         <div class="row">
             <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                <label>Nombre: </label>
+                <label>Usuario: </label>
                 <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-file" aria-hidden="true"></i></span>
-                    <input type="number" class="form-control" name="valor" required>
-                </div>
-                <small class="form-text text-muted">Nombre que se desee asignar a la correspondencia</small>
+                    <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                    <select class="form-control" name="user">
+                        @foreach($users as $user)
+                            <option value="{{$user->id}}">{{$user->name}}</option>
+                        @endforeach
+                    </select>
+                </div>ach
+                </select>
+                <small class="form-text text-muted">Usuario que se desee asignar a la correspondencia</small>
             </div>
         </div>
         <div class="row">
@@ -31,7 +36,11 @@
                 <label>Tercero: </label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                    <input type="text" name="persona_id" class="form-control" data-toggle="modal" data-target="#participante">
+                    <select class="form-control" name="tercero">
+                        @foreach($terceros as $tercero)
+                            <option value="{{$tercero->id}}">{{$tercero->num_dc}} - {{$tercero->nombre}}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <small class="form-text text-muted">Relacionar persona</small>
             </div>

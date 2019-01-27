@@ -26,7 +26,6 @@
                     <thead>
                     <tr>
                         <th class="text-center">Id</th>
-                        <th class="text-center">Nombre</th>
                         <th class="text-center">Fecha de Entrada</th>
                         <th class="text-center">Fecha de Vencimiento</th>
                         <th class="text-center">Estado</th>
@@ -35,19 +34,22 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td class="text-dark">0</td>
-                        <td class="text-dark">0</td>
-                        <td class="text-center text-dark">0</td>
-                        <td class="text-center text-dark">0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td class="text-center">
-                            <a href="#" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
-                            <a href="#" title="Aprobar" class="btn-sm btn-success"><i class="fa fa-check"></i></a>
-                            <a href="#" title="Rechazar" class="btn-sm btn-danger"><i class="fa fa-times-circle"></i></a>
-                        </td>
-                    </tr>
+                        @foreach($datos as $data)
+                            <tr>
+                                <td class="text-dark">{{$data->id}}</td>
+                                <td class="text-center text-dark">0</td>
+                                <td class="text-dark">{{$data->fecha_vencimiento}}</td>
+                                <td class="text-center text-dark">0</td>
+                                <td>{{$data->persona->nombre}}</td>
+                                <td class="text-center">
+
+                                    <a href="{{Storage::url($data->resource->ruta)}}" title="Ver" class="btn-sm btn-warning">Ver</a>
+                                    <a href="#" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                                    <a href="#" title="Aprobar" class="btn-sm btn-success"><i class="fa fa-check"></i></a>
+                                    <a href="#" title="Rechazar" class="btn-sm btn-danger"><i class="fa fa-times-circle"></i></a>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
