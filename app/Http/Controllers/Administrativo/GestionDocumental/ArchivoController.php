@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Administrativo\GestionDocumental;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\User;
+use App\Model\Persona;
 
 class ArchivoController extends Controller
 {
@@ -25,7 +27,9 @@ class ArchivoController extends Controller
      */
     public function create()
     {
-        return view('administrativo.gestiondocumental.archivo.create');
+        $users = User::all();
+        $terceros = Persona::all();
+        return view('administrativo.gestiondocumental.archivo.create', compact('terceros','users'));
     }
 
     /**

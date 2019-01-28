@@ -37,7 +37,7 @@
                         @foreach($datos as $data)
                             <tr>
                                 <td class="text-dark">{{$data->id}}</td>
-                                <td class="text-center text-dark">0</td>
+                                <td class="text-center text-dark">{{$data->created_at}}</td>
                                 <td class="text-dark">{{$data->fecha_vencimiento}}</td>
                                 <td class="text-center text-dark">0</td>
                                 <td>{{$data->persona->nombre}}</td>

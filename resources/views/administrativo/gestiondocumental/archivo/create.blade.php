@@ -15,7 +15,7 @@
 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
     <br>
     <hr>
-    {!! Form::open(array('route' => 'registros.store','method'=>'POST','enctype'=>'multipart/form-data')) !!}
+    {!! Form::open(array('route' => 'archivo.store','method'=>'POST','enctype'=>'multipart/form-data')) !!}
     <input type="hidden" name="fecha" value="{{ Carbon\Carbon::today()->Format('Y-m-d')}}">
     <input type="hidden" name="secretaria_e" value="0">
     <div class="row">
@@ -33,7 +33,11 @@
             <label>Tercero: </label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                <input type="text" name="persona_id" class="form-control" data-toggle="modal" data-target="#participante">
+                <select class="form-control" name="tercero">
+                    @foreach($terceros as $tercero)
+                        <option value="{{$tercero->id}}">{{$tercero->num_dc}} - {{$tercero->nombre}}</option>
+                    @endforeach
+                </select>
             </div>
             <small class="form-text text-muted">Relacionar persona</small>
         </div>

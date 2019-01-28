@@ -26,8 +26,7 @@
                             <option value="{{$user->id}}">{{$user->name}}</option>
                         @endforeach
                     </select>
-                </div>ach
-                </select>
+                </div>
                 <small class="form-text text-muted">Usuario que se desee asignar a la correspondencia</small>
             </div>
         </div>

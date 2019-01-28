@@ -52,7 +52,7 @@ Route::group([ 'middleware' => 'auth'] ,function(){
         //RUTAS ARCHIVO
 
         Route::get('/archivo/create','Administrativo\GestionDocumental\ArchivoController@create');
-        Route::Resource('/archivo/','Administrativo\GestionDocumental\ArchivoController');
+        Route::Resource('archivo','Administrativo\GestionDocumental\ArchivoController');
         Route::Resource('/archivo/manual','Administrativo\GestionDocumental\ManualContratController');
         Route::Resource('/archivo/plan','Administrativo\GestionDocumental\PlanAdquiController');
 
