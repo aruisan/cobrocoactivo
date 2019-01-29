@@ -34,7 +34,7 @@
                         <label class="col-lg-4 col-form-label text-right" for="vigencia">Año de Vigencia <span class="text-danger">*</span></label>
                         <div class="col-lg-6">
                             <input type="hidden" name="tipo" value="{{ $tipo }}">
-                            <input type="number" class="form-control" name="vigencia" min="2018" max="2100" value="2018">
+                            <input type="number" class="form-control" name="vigencia" min="2018" max="2100" value="2019">
                         </div>
                     </div>
                     <div class="form-group">

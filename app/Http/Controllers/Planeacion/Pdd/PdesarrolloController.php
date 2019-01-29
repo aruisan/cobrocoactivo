@@ -30,7 +30,11 @@ class PdesarrolloController extends Controller
             $programas = Programa::all();
             $ejes = Eje::all();
         }
-        $pdd = Pdd::all()->first();
+        if ($pdd == null){
+            $ps = null;
+            $sps = null;
+            $programas = null;
+        }
         return view('planeacion.pdd.index',compact('pdd','ps','sps','programas'));
         
     }

@@ -4,9 +4,9 @@
 @stop
 @section('sidebar')
     @if($V != "Vacio")
-        <li> <a href="{{ url('/presupuesto/level/create/'.$V) }}" class="btn btn-success"><i class="fa fa-edit"></i><span class="hide-menu">&nbsp;Editar Presupuesto</span></a></li>
+        <li> <a href="{{ url('/presupuesto/level/create/'.$V) }}" class="btn btn-success hidden"><i class="fa fa-edit"></i><span class="hide-menu">&nbsp;Editar Presupuesto</span></a></li>
         <li class="dropdown">
-            <a class="dropdown-toggle btn btn btn-primary disabled" data-toggle="dropdown" href="#">
+            <a class="dropdown-toggle btn btn btn-primary hidden" data-toggle="dropdown" href="#">
                 <i class="fa fa-calendar-check-o"></i>
                 <span class="hide-menu">Vigencia Actual</span>
                 &nbsp;
@@ -21,11 +21,15 @@
                 </li>
             </ul>
         </li>
-        <li> <a href="#" class="btn btn-primary disabled"><i class="fa fa-edit"></i><span class="hide-menu">&nbsp; Cambiar Vigencia</span></a></li>
+        <li> <a href="#" class="btn btn-primary hidden"><i class="fa fa-edit"></i><span class="hide-menu">&nbsp; Cambiar Vigencia</span></a></li>
     @else
     @endif
     <li>
-        <a class="dropdown-toggle btn btn btn-primary disabled" data-toggle="dropdown" href="#">
+        @if($V != "Vacio")
+            <a class="dropdown-toggle btn btn btn-primary hidden" data-toggle="dropdown" href="#">
+        @else
+            <a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown" href="#">
+        @endif
             <i class="fa fa-plus"></i>
             <span class="hide-menu">Nuevo Presupuesto</span>
             &nbsp;
@@ -43,11 +47,6 @@
         <div class="breadcrumb text-center">
             <strong>
                 <h4><b>Presupuesto Año 2019</b></h4>
-                @if($rol == 3)
-                    <div class="form-check-inline">
-                        <a href="{{ asset('#') }}" class="btn-sm btn btn-success"><i class="fa fa-check"></i><span class="hide-menu">&nbsp; Aprobar Presupuesto</span></a>
-                    </div>
-                @endif
             </strong>
         </div>
             <ul class="nav nav-pills">

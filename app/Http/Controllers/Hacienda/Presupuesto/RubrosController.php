@@ -110,33 +110,51 @@ class RubrosController extends Controller
         $valorDisp = $fuentesR->sum('valor_disp');
 
         foreach ($fuentesR as $fuente){
+            $suma[] = null;
+            $sumaC[] = null;
+            $resta[] = null;
+            $restaC[] = null;
+
             if ($rubro->rubrosMov->count() > 0){
                 foreach($rubro->rubrosMov as $RM){
                     if ($RM->fonts_id == $fuente->font_id){
-                        $suma[] = $RM->valor;
+                        if ($RM->movimiento == 1){
+                            $suma[] = $RM->valor;
+                        } elseif($RM->movimiento == 2){
+                            $sumaC[] = $RM->valor;
+                        }
                     } else{
-                        $suma[] = 0;
+                        if ($RM->movimiento == 1){
+                            $suma[] = 0;
+                        } elseif($RM->movimiento == 2){
+                            $sumaC[] = 0;
+                        }
                     }
                 }
             } else{
                 $suma[] = 0;
+                $sumaC[] = 0;
             }
             $val = array_sum($suma);
+            $Cred = array_sum($sumaC);
             if ($fuente->rubrosMov->count() > 0){
                 foreach ($fuente->rubrosMov as $item) {
-                    $resta[] = $item->valor;
+                    if ($item->movimiento == 1){
+                        $resta[] = $item->valor;
+                    } elseif($item->movimiento == 2){
+                        $restaC[] = $item->valor;
+                    }
                 }
             }else{
                 $resta[] = 0;
+                $restaC[] = 0;
             }
             $val2 = array_sum($resta);
-            $valores[] = collect(['id' => $fuente->font_id , 'adicion' => $val, 'reduccion' => $val2]);
-            unset($suma);
-            unset($resta);
+            $CCred = array_sum($restaC);
+            $valores[] = collect(['id' => $fuente->font_id , 'credito' => $val, 'ccredito' => $val2, 'adicion' => $Cred, 'reduccion' => $CCred]);
+            unset($suma, $resta, $Cred, $CCred);
         }
-
-        //dd($fuentesR);
-
+//dd($fuentesR);
         return view('hacienda.presupuesto.rubro.show', compact('rubro','fuentesR','valor','valorDisp','rol','rubros','fuentesAll','valores'));
         
     }

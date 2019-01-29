@@ -7,6 +7,7 @@
     <li><a tabindex="-1" href="{{url('/dashboard/correspondencia')}}">Correspondencia</a></li>
     <li><a tabindex="-1" href="{{url('/dashboard/archivo')}}">Archivo</a></li>
     <li><a tabindex="-1" href="{{url('/dashboard/boletines')}}">Boletines</a></li>
+    <li><a tabindex="-1" href="{{url('/dashboard/acuerdos')}}">Acuerdos</a></li>
   </ul>
 </li>
 <li class="dropdown">

@@ -32,13 +32,10 @@
                 <a data-toggle="modal" data-target="#adicion" class="btn btn-primary text-left">Adición</a>
             </li>
             <li>
-                <a href="#" class="btn btn-primary text-left disabled">Reducción</a>
+                <a data-toggle="modal" data-target="#adicion" class="btn btn-primary text-left">Reducción</a>
             </li>
             <li>
-                <a href="#" class="btn btn-primary text-left disabled">Credito</a>
-            </li>
-            <li>
-                <a href="#" class="btn btn-primary text-left disabled">Contra Credito</a>
+                <a data-toggle="modal" data-target="#credito" class="btn btn-primary text-left">Credito</a>
             </li>
         </ul>
     </li>
@@ -173,22 +170,22 @@
                         <td>{{ $fuentes->id }}</td>
                         <td>{{ $fuentes->font->name }}</td>
                         <td class="text-center">$ <?php echo number_format($fuentes['valor'],0);?>.00</td>
-                        <td class="text-center">
-                            @foreach($valores as $valAdd)
-                                @if($fuentes->font_id == $valAdd['id'])
-                                    $ <?php echo number_format($valAdd['adicion'],0);?>.00
-                                @endif
-                            @endforeach
-                        </td>
-                        <td class="text-center">
-                            @foreach($valores as $valAdd)
-                                @if($fuentes->font_id == $valAdd['id'])
-                                    $ <?php echo number_format($valAdd['reduccion'],0);?>.00
-                                @endif
-                            @endforeach
-                        </td>
                         <td class="text-center">$ <?php echo number_format($fuentes['credito'],0);?>.00</td>
                         <td class="text-center">$ <?php echo number_format($fuentes['ccredito'],0);?>.00</td>
+                        <td class="text-center">
+                            @foreach($valores as $valAdd)
+                                @if($fuentes->font_id == $valAdd['id'])
+                                    $ <?php echo number_format($valAdd['credito'],0);?>.00
+                                @endif
+                            @endforeach
+                        </td>
+                        <td class="text-center">
+                            @foreach($valores as $valAdd)
+                                @if($fuentes->font_id == $valAdd['id'])
+                                    $ <?php echo number_format($valAdd['ccredito'],0);?>.00
+                                @endif
+                            @endforeach
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -196,8 +193,10 @@
         </div>
     </div>
     @include('modal.adicionRubro')
+    @include('modal.creditoRubro')
     @stop
 @section('js')
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
         $(document).ready(function() {
             $('#tablaFuentesR').DataTable( {
@@ -258,6 +257,31 @@
                         location.reload();
                 });
                 },
+            },
+        });
+
+        new Vue({
+            el: '#prog',
+            methods:{
+                eliminarDatos2: function(dato2){
+                    var urlVigencia2 = '/pdd/programa/'+dato2;
+                    axios.delete(urlVigencia2).then(response => {
+                        location.reload();
+                    });
+                },
+
+                nuevaFilaPrograma: function(){
+                    var nivel=parseInt($("#tabla_rubrosCdp tr").length);
+                    $('#tabla_rubrosCdp tbody tr:first').before('<td>\n' +
+                        '                                  <div class="col-lg-12">\n' +
+                        '                                      @foreach($fuentesR as $fuentesRubro)\n' +
+                '                                                  <input type="hidden" name="rubro_Mov_id[]" value="{{ $fuentesRubro->id }}">\n' +
+                '                                                  <input type="number" required  name="valorRed{{ $fuentesRubro->id }}[]" class="form-group-sm" value="0" style="text-align: center">\n' +
+                        '                                      @endforeach\n' +
+                        '                                  </div>\n' +
+                        '                              </td>');
+
+                }
             }
         });
     </script>
