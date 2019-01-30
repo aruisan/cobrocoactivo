@@ -141,7 +141,7 @@ class RubrosController extends Controller
                 foreach ($fuente->rubrosMov as $item) {
                     if ($item->movimiento == 1){
                         $resta[] = $item->valor;
-                    } elseif($item->movimiento == 2){
+                    } elseif($item->movimiento == 3){
                         $restaC[] = $item->valor;
                     }
                 }
@@ -154,7 +154,7 @@ class RubrosController extends Controller
             $valores[] = collect(['id' => $fuente->font_id , 'credito' => $val, 'ccredito' => $val2, 'adicion' => $Cred, 'reduccion' => $CCred]);
             unset($suma, $resta, $Cred, $CCred);
         }
-//dd($fuentesR);
+
         return view('hacienda.presupuesto.rubro.show', compact('rubro','fuentesR','valor','valorDisp','rol','rubros','fuentesAll','valores'));
         
     }

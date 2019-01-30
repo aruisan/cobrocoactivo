@@ -3,7 +3,7 @@
     Concejales
 @stop
 @section('sidebar')
-    <li> <a href="{{ asset('/dashboard/concejales/create') }}" class="btn btn-primary disabled"><i class="fa fa-plus"></i><span class="hide-menu">&nbsp; Agregar Concejales</span></a></li>
+    <li> <a href="{{ asset('/dashboard/concejales/create') }}" class="btn btn-primary"><i class="fa fa-plus"></i><span class="hide-menu">&nbsp; Agregar Concejales</span></a></li>
 @stop
 @section('content')
     <div class="col-md-12 align-self-center">
@@ -23,7 +23,7 @@
                     <div class="recent-meaasge">
                         <div class="media">
                             <div class="col-lg-2">
-                                <a href="#"><img src="{{ asset('img/user.png')}}" class="card-img-top" width="80%"></a>
+                                <a href="#"><img src="{{ asset('img/concejales/5.png')}}" class="card-img-top" width="100%"></a>
                             </div>
                             <div class="col-lg-10">
                                 <h4 class="media-heading"><b>JONATHAN LEE ARCHBOLD</b></h4>
@@ -33,7 +33,7 @@
                         <hr>
                         <div class="media">
                             <div class="col-lg-2">
-                                <a href="#"><img src="{{ asset('img/user.png')}}" class="card-img-top" width="100%"></a>
+                                <a href="#"><img src="{{ asset('img/concejales/1.png')}}" class="card-img-top" width="100%"></a>
                             </div>
                             <div class="col-lg-10">
                                 <h4 class="media-heading"><b>LERI ANISETO HENRY TAYLOR</b></h4>
@@ -43,7 +43,7 @@
                         <hr>
                         <div class="media">
                             <div class="col-lg-2">
-                                <a href="#"><img src="{{ asset('img/user.png')}}" class="card-img-top" width="100%"></a>
+                                <a href="#"><img src="{{ asset('img/concejales/3.png')}}" class="card-img-top" width="100%"></a>
                             </div>
                             <div class="col-lg-10">
                                 <h4 class="media-heading"><b>EVIS EULALIA LIVINGSTON HOWARD</b></h4>
@@ -53,7 +53,7 @@
                         <hr>
                         <div class="media">
                             <div class="col-lg-2">
-                                <a href="#"><img src="{{ asset('img/user.png')}}" class="card-img-top" width="100%"></a>
+                                <a href="#"><img src="{{ asset('img/concejales/6.png')}}" class="card-img-top" width="100%"></a>
                             </div>
                             <div class="col-lg-10">
                                 <h4 class="media-heading"><b>ARTURO VICENTE NEWBALL BRITTON</b></h4>
@@ -63,7 +63,7 @@
                         <hr>
                         <div class="media">
                             <div class="col-lg-2">
-                                <a href="#"><img src="{{ asset('img/user.png')}}" class="card-img-top" width="100%"></a>
+                                <a href="#"><img src="{{ asset('img/concejales/7.png')}}" class="card-img-top" width="100%"></a>
                             </div>
                             <div class="col-lg-10">
                                 <h4 class="media-heading"><b>ANA MERCEDES NEWBALL TAYLOR</b></h4>
@@ -73,7 +73,7 @@
                         <hr>
                         <div class="media">
                             <div class="col-lg-2">
-                                <a href="#"><img src="{{ asset('img/user.png')}}" class="card-img-top" width="100%"></a>
+                                <a href="#"><img src="{{ asset('img/concejales/4.png')}}" class="card-img-top" width="100%"></a>
                             </div>
                             <div class="col-lg-10">
                                 <h4 class="media-heading"><b>ELSA HERMINIA ROBINSON HAWKINS</b></h4>
@@ -83,7 +83,7 @@
                         <hr>
                         <div class="media">
                             <div class="col-lg-2">
-                                <a href="#"><img src="{{ asset('img/user.png')}}" class="card-img-top" width="100%"></a>
+                                <a href="#"><img src="{{ asset('img/concejales/2.png')}}" class="card-img-top" width="100%"></a>
                             </div>
                             <div class="col-lg-10">
                                 <h4 class="media-heading"><b>JAVIER RAFAEL RODRIGUEZ ARCHBOLD</b></h4>

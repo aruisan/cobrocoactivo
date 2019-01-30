@@ -32,7 +32,7 @@
                 <a data-toggle="modal" data-target="#adicion" class="btn btn-primary text-left">Adición</a>
             </li>
             <li>
-                <a data-toggle="modal" data-target="#adicion" class="btn btn-primary text-left">Reducción</a>
+                <a data-toggle="modal" data-target="#reduccion" class="btn btn-primary text-left">Reducción</a>
             </li>
             <li>
                 <a data-toggle="modal" data-target="#credito" class="btn btn-primary text-left">Credito</a>
@@ -170,8 +170,20 @@
                         <td>{{ $fuentes->id }}</td>
                         <td>{{ $fuentes->font->name }}</td>
                         <td class="text-center">$ <?php echo number_format($fuentes['valor'],0);?>.00</td>
-                        <td class="text-center">$ <?php echo number_format($fuentes['credito'],0);?>.00</td>
-                        <td class="text-center">$ <?php echo number_format($fuentes['ccredito'],0);?>.00</td>
+                        <td class="text-center">
+                            @foreach($valores as $valAdd)
+                                @if($fuentes->font_id == $valAdd['id'])
+                                    $ <?php echo number_format($valAdd['adicion'],0);?>.00
+                                @endif
+                            @endforeach
+                        </td>
+                        <td class="text-center">
+                            @foreach($valores as $valAdd)
+                                @if($fuentes->font_id == $valAdd['id'])
+                                    $ <?php echo number_format($valAdd['reduccion'],0);?>.00
+                                @endif
+                            @endforeach
+                        </td>
                         <td class="text-center">
                             @foreach($valores as $valAdd)
                                 @if($fuentes->font_id == $valAdd['id'])
@@ -193,6 +205,7 @@
         </div>
     </div>
     @include('modal.adicionRubro')
+    @include('modal.reduccionRubro')
     @include('modal.creditoRubro')
     @stop
 @section('js')

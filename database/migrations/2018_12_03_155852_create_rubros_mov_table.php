@@ -24,6 +24,8 @@ class CreateRubrosMovTable extends Migration
             $table->foreign('fonts_id')->references('id')->on('fonts');
             $table->integer('rubro_id')->unsigned();
             $table->foreign('rubro_id')->references('id')->on('rubros');
+            $table->integer('resource_id')->unsigned();
+            $table->foreign('resource_id')->references('id')->on('resources');
 
             $table->enum('movimiento', [0, 1, 2, 3]);
 

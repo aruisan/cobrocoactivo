@@ -9,9 +9,9 @@
                  </h4>
              </div>
              <div class="modal-body">
-                 <li>Presidente: <b>Leri Aniseto Henry Taylor</b> </li>
-                 <li>Primer Vicepresidente: <b>Ana Newball Taylor</b> </li>
-                 <li>Alcalde Municipal: <b> Bernardo Bent</b> </li>
+                 <li>Presidente: <b>Javier Rodríguez Archbold </b> </li>
+                 <li>Vicepresidenta Primera: <b>Evis Livingston Howard</b> </li>
+                 <li>Vicepresidenta Segunda: <b> Elsa Robinson Hawkins</b> </li>
              </div>
              <div class="modal-footer">
                  <div class="row">

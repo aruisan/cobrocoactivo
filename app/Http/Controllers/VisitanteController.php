@@ -12,6 +12,7 @@ use App\Model\Hacienda\Presupuesto\Vigencia;
 use App\Model\Hacienda\Presupuesto\Level;
 use App\Model\Hacienda\Presupuesto\Register;
 use App\Model\Administrativo\Cdp\Cdp;
+use App\Model\Administrativo\Registro\Registro;
 
 class VisitanteController extends Controller
 {
@@ -131,7 +132,8 @@ class VisitanteController extends Controller
                                             }
                                             $valFuent = FontsRubro::where('rubro_id', $rubro->id)->sum('valor');
                                             $codigos[] = collect(['id_rubro' => $rubro->id, 'id' => '', 'codigo' => $newCod, 'name' => $rubro->name, 'code' => $rubro->code, 'V' => $V, 'valor' => $valFuent, 'register_id' => $register->register_id]);
-                                            $Rubros[] = collect(['id_rubro' => $rubro->id, 'id' => '', 'codigo' => $newCod, 'name' => $rubro->name, 'code' => $rubro->code, 'V' => $V, 'valor' => $valFuent, 'register_id' => $register->register_id]);
+                                            $valDisp = FontsRubro::where('rubro_id', $rubro->id)->sum('valor_disp');
+                                            $Rubros[] = collect(['id_rubro' => $rubro->id, 'id' => '', 'codigo' => $newCod, 'name' => $rubro->name, 'code' => $rubro->code, 'V' => $V, 'valor' => $valFuent, 'register_id' => $register->register_id, 'valor_disp' => $valDisp]);
                                         }
                                     }
                                 }
@@ -182,9 +184,148 @@ class VisitanteController extends Controller
                     }
                 }
             }
+
+            //SUMA DE VALOR DISPONIBLE DEL RUBRO - CDP
+
+            foreach ($allRegisters as $allRegister){
+                if($allRegister->level_id == $lastLevel){
+                    $rubrosRegs = Rubro::where('register_id',$allRegister->id)->get();
+                    foreach ($rubrosRegs as $rubrosReg){
+                        $valFuent = FontsRubro::where('rubro_id', $rubrosReg->id)->sum('valor_disp');
+                        $ArraytotalFR[] = $valFuent;
+                    }
+                    if (isset($ArraytotalFR)){
+                        $totalFR = array_sum($ArraytotalFR);
+                        $valorDisp[] = collect(['id' => $allRegister->id, 'valor' => $totalFR, 'level_id' => $allRegister->level_id, 'register_id' => $allRegister->register_id]);
+                        unset($ArraytotalFR);
+                    }else{
+                        $valorDisp[] = collect(['id' => $allRegister->id, 'valor' => 0, 'level_id' => $allRegister->level_id, 'register_id' => $allRegister->register_id]);
+                    }
+                } else{
+                    for ($i=0;$i<sizeof($valorDisp);$i++){
+                        if ($valorDisp[$i]['register_id'] == $allRegister->id){
+                            $suma[] = $valorDisp[$i]['valor'];
+                        }
+                    }
+                    if (isset($suma)){
+                        $valSum = array_sum($suma);
+                        $valorDisp[] = collect(['id' => $allRegister->id, 'valor' => $valSum, 'level_id' => $allRegister->level_id, 'register_id' => $allRegister->register_id]);
+                        unset($suma);
+                    }else{
+                        $valorDisp[] = collect(['id' => $allRegister->id, 'valor' => 0, 'level_id' => $allRegister->level_id, 'register_id' => $allRegister->register_id]);
+                    }
+                }
+            }
             //
         }
-        return view('visitante.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros'));
+
+        //VALOR DE LOS CDPS DEL RUBRO
+        foreach ($rubros as $R){
+            if ($R->rubrosCdp->count() == 0){
+                $valoresCdp[] = collect(['id' => $R->id, 'name' => $R->name, 'valor' => 0 ]) ;
+            }
+            if ($R->rubrosCdp->count() > 1){
+                foreach ($R->rubrosCdp as $R3){
+                    $suma2[] = $R3->rubrosCdpValor->sum('valor');
+                }
+                $valoresCdp[] = collect(['id' => $R->id, 'name' => $R->name, 'valor' => array_sum($suma2)]) ;
+                unset($suma2);
+            }else{
+                foreach ($R->rubrosCdp as $R2){
+                    $valoresCdp[] = collect(['id' => $R->id, 'name' => $R->name, 'valor' => $R2->rubrosCdpValor->sum('valor')]) ;
+                }
+            }
+
+        }
+
+        //REGISTROS
+        $registros = Registro::all();
+
+        //ADICION
+        foreach ($rubros as $R2){
+            $valoresAdd[] = collect(['id' => $R2->id, 'valor' => $R2->rubrosMov->sum('valor')]) ;
+        }
+
+        //REDUCCIÓN
+        foreach ($rubros as $R3){
+            foreach ($R3->fontsRubro as $FR){
+                $suma[] =  $FR->rubrosMov->sum('valor');
+            }
+            $valoresRed[] = collect(['id' => $R3->id, 'valor' => array_sum($suma)]);
+            unset($suma);
+        }
+
+        //PRESUPUESTO DEFINITIVO
+
+        foreach ($allRegisters as $allRegister){
+            if($allRegister->level_id == $lastLevel){
+                $rubrosRegs = Rubro::where('register_id',$allRegister->id)->get();
+                foreach ($rubrosRegs as $rubrosReg){
+                    $valFuent = FontsRubro::where('rubro_id', $rubrosReg->id)->sum('valor');
+                    foreach ($valoresAdd as $valAdd){
+                        if ($rubrosReg->id == $valAdd["id"]){
+                            $valAdicion = $valAdd["valor"];
+                        }
+                    }
+                    foreach ($valoresRed as $valRed){
+                        if ($rubrosReg->id == $valRed["id"]){
+                            $valReduccion = $valRed["valor"];
+                        }
+                    }
+                    $ArraytotalFR[] = $valFuent + $valAdicion - $valReduccion;
+                }
+                if (isset($ArraytotalFR)){
+                    $totalFR = array_sum($ArraytotalFR);
+                    $valoresDisp[] = collect(['id' => $allRegister->id, 'valor' => $totalFR, 'level_id' => $allRegister->level_id, 'register_id' => $allRegister->register_id]);
+                    unset($ArraytotalFR);
+                }else{
+                    $valoresDisp[] = collect(['id' => $allRegister->id, 'valor' => 0, 'level_id' => $allRegister->level_id, 'register_id' => $allRegister->register_id]);
+                }
+            } else{
+                for ($i=0;$i<sizeof($valoresDisp);$i++){
+                    if ($valoresDisp[$i]['register_id'] == $allRegister->id){
+                        $suma[] = $valoresDisp[$i]['valor'];
+                    }
+                }
+                if (isset($suma)){
+                    $valSum = array_sum($suma);
+                    $valoresDisp[] = collect(['id' => $allRegister->id, 'valor' => $valSum, 'level_id' => $allRegister->level_id, 'register_id' => $allRegister->register_id]);
+                    unset($suma);
+                }else{
+                    $valoresDisp[] = collect(['id' => $allRegister->id, 'valor' => 0, 'level_id' => $allRegister->level_id, 'register_id' => $allRegister->register_id]);
+                }
+            }
+        }
+
+        foreach ($codigos as $cod){
+            if ($cod['valor']){
+                foreach ($valoresAdd as $valores1){
+                    if ($cod['id_rubro'] == $valores1['id']){
+                        $valAd1 = $valores1['valor'];
+                    }
+                }
+                foreach ($valoresRed as $valores2){
+                    if ($cod['id_rubro'] == $valores2['id']){
+                        $valRed1 = $valores2['valor'];
+                    }
+                }
+                $AD = $cod['valor'] + $valAd1 - $valRed1;
+                $ArrayDispon[] = collect(['id' => $cod['id_rubro'], 'valor' => $AD]);
+            }
+        }
+
+        //SALDO DISPONIBLE
+
+        foreach ($ArrayDispon as $valDisp){
+            foreach ($valoresCdp as $valCdp){
+                if ($valCdp['id'] == $valDisp['id']){
+                    $valrest = $valCdp['valor'];
+                }
+            }
+            $saldoDisp[] = collect(['id' => $valDisp['id'], 'valor' => $valDisp['valor'] - $valrest]);
+        }
+
+        return view('visitante.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp'));
     }
 
     /**

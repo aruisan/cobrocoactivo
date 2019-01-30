@@ -1,21 +1,24 @@
 
 <div id="credito" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
-        <form class="form" action="{{url('/presupuesto/rubro/m/1/'.$rubro->id)}}" method="POST" id="add">
+        <form class="form" action="{{url('/presupuesto/rubro/m/1/'.$rubro->id)}}" method="POST" id="add" enctype="multipart/form-data">
             {!! method_field('PUT') !!}
             {{ csrf_field() }}
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Adición al Rubro:  {{ $rubro->name }}</h4>
+                    <h4 class="modal-title">Credito al Rubro:  {{ $rubro->name }}</h4>
                 </div>
                 <div class="modal-body">
                     <div class="table-responsive" >
                         @if($rubro->rubrosMov->count() == 0 )
                             <div class="col-md-12 align-self-center">
                                 <div class="alert alert-danger text-center">
-                                    El rubro no ha recibido adiciones. &nbsp;
+                                    El rubro no ha recibido creditos. &nbsp;
                                 </div>
+                            </div>
+                            <div class="form-group-sm">
+                                <input type="file" required name="file" accept="application/pdf" class="form-control">
                             </div>
                         @else
                         @endif
@@ -118,7 +121,7 @@
                 <div class="modal-footer">
                     <center>
                         @if($rol == 2)
-                            <button type="submit" class="btn-sm btn-primary">Guardar Adición</button>
+                            <button type="submit" class="btn-sm btn-primary">Guardar Credito</button>
                         @endif
                     </center>
                 </div>
