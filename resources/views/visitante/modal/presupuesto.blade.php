@@ -49,8 +49,6 @@
                                   @if($codigo['valor'])
                                       <td class="text-center text-dark">$ <?php echo number_format($codigo['valor'],0);?></td>
                                   @endif
-                                      <td>$0</td>
-                                      <td>$0</td>
                               <!-- ADICIÓN -->
                                   @foreach($valoresIniciales as $valorInicial)
                                       @if($valorInicial['id'] == $codigo['id'])
@@ -73,7 +71,29 @@
                                           <td class="text-center text-dark">$ <?php echo number_format($valorRed['valor'],0);?></td>
                                       @endif
                                   @endforeach
-                                  <!-- PRESUPUESTO DEFINITIVO -->
+                              <!-- CREDITO -->
+                                  @foreach($valoresIniciales as $valorInicial)
+                                      @if($valorInicial['id'] == $codigo['id'])
+                                          <td class="text-center text-dark">$ 0</td>
+                                      @endif
+                                  @endforeach
+                                  @foreach($valoresCred as $valorCred)
+                                      @if($codigo['id_rubro'] == $valorCred['id'])
+                                          <td class="text-center text-dark">$ <?php echo number_format($valorCred['valor'],0);?></td>
+                                      @endif
+                                  @endforeach
+                              <!-- CONTRACREDITO -->
+                                  @foreach($valoresIniciales as $valorInicial)
+                                      @if($valorInicial['id'] == $codigo['id'])
+                                          <td class="text-center text-dark">$ 0</td>
+                                      @endif
+                                  @endforeach
+                                  @foreach($valoresCcred as $valorCcred)
+                                      @if($codigo['id_rubro'] == $valorCcred['id'])
+                                          <td class="text-center text-dark">$ <?php echo number_format($valorCcred['valor'],0);?></td>
+                                      @endif
+                                  @endforeach
+                              <!-- PRESUPUESTO DEFINITIVO -->
                                   @foreach($valoresDisp as $valorDisponible)
                                       @if($valorDisponible['id'] == $codigo['id'])
                                           <td class="text-center">$ <?php echo number_format($valorDisponible['valor'],0);?></td>

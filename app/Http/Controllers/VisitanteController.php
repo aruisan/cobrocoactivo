@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Model\Hacienda\Presupuesto\FontsRubro;
 use Illuminate\Support\Facades\DB;
 use App\Model\Hacienda\Presupuesto\Rubro;
+use App\Model\Hacienda\Presupuesto\RubrosMov;
 use App\Model\Hacienda\Presupuesto\Font;
 use App\Model\Admin\Dependencia;
 use App\Model\Hacienda\Presupuesto\Vigencia;
@@ -243,16 +244,56 @@ class VisitanteController extends Controller
 
         //ADICION
         foreach ($rubros as $R2){
-            $valoresAdd[] = collect(['id' => $R2->id, 'valor' => $R2->rubrosMov->sum('valor')]) ;
+            $ad = RubrosMov::where([['rubro_id', $R2->id],['movimiento', '=', '2']])->get();
+            if ($ad->count() > 0){
+                $valoresAdd[] = collect(['id' => $R2->id, 'valor' => $ad->sum('valor')]) ;
+            } else{
+                $valoresAdd[] = collect(['id' => $R2->id, 'valor' => 0]) ;
+            }
         }
+
 
         //REDUCCIÓN
         foreach ($rubros as $R3){
-            foreach ($R3->fontsRubro as $FR){
-                $suma[] =  $FR->rubrosMov->sum('valor');
+            $red = RubrosMov::where([['rubro_id', $R3->id],['movimiento', '=', '3']])->get();
+            if ($red->count() > 0){
+                $valoresRed[] = collect(['id' => $R3->id, 'valor' => $red->sum('valor')]) ;
+            } else{
+                $valoresRed[] = collect(['id' => $R3->id, 'valor' => 0]) ;
             }
-            $valoresRed[] = collect(['id' => $R3->id, 'valor' => array_sum($suma)]);
+        }
+
+
+        //CREDITO
+        foreach ($rubros as $R4){
+            $cred = RubrosMov::where([['rubro_id', $R4->id],['movimiento', '=', '1']])->get();
+            if ($cred->count() > 0){
+                $valoresCred[] = collect(['id' => $R4->id, 'valor' => $cred->sum('valor')]) ;
+            }else{
+                $valoresCred[] = collect(['id' => $R4->id, 'valor' => 0]) ;
+            }
+        }
+
+        //CONTRACREDITO
+        foreach ($rubros as $R5){
+            foreach ($R5->fontsRubro as $FR){
+                foreach ($FR->rubrosMov as $movR) {
+                    if ($movR->movimiento == 1){
+                        $suma[] = $movR->valor;
+                    }
+                }
+            }
+            $valoresCcred[] = collect(['id' => $R5->id, 'valor' => array_sum($suma)]);
             unset($suma);
+        }
+
+
+        //CREDITO Y CONTRACREDITO
+
+        for ($i=0;$i<sizeof($valoresCcred);$i++){
+            if ($valoresCcred[$i]['id'] == $valoresCred[$i]['id']){
+                $valoresCyC[] = collect(['id' => $valoresCcred[$i]['id'], 'valorC' => $valoresCred[$i]['valor'], 'valorCC' => $valoresCcred[$i]['valor']]) ;
+            }
         }
 
         //PRESUPUESTO DEFINITIVO
@@ -272,7 +313,22 @@ class VisitanteController extends Controller
                             $valReduccion = $valRed["valor"];
                         }
                     }
-                    $ArraytotalFR[] = $valFuent + $valAdicion - $valReduccion;
+                    foreach ($valoresCred as $valCred){
+                        if ($rubrosReg->id == $valCred["id"]){
+                            $valCredito = $valCred["valor"];
+                        }
+                    }
+                    foreach ($valoresCcred as $valCcred){
+                        if ($rubrosReg->id == $valCcred["id"]){
+                            $valCcredito = $valCcred["valor"];
+                        }
+                    }
+                    if (isset($valAdicion) and isset($valReduccion)){
+                        $ArraytotalFR[] = $valFuent +  $valAdicion - $valReduccion + $valCredito - $valCcredito;
+                    } else{
+                        $ArraytotalFR[] = $valFuent + $valCredito - $valCcredito;
+                    }
+
                 }
                 if (isset($ArraytotalFR)){
                     $totalFR = array_sum($ArraytotalFR);
@@ -309,7 +365,21 @@ class VisitanteController extends Controller
                         $valRed1 = $valores2['valor'];
                     }
                 }
-                $AD = $cod['valor'] + $valAd1 - $valRed1;
+                foreach ($valoresCred as $valores3){
+                    if ($cod['id_rubro'] == $valores3['id']){
+                        $valCred1 = $valores3['valor'];
+                    }
+                }
+                foreach ($valoresCcred as $valores4){
+                    if ($cod['id_rubro'] == $valores4['id']){
+                        $valCcred1 = $valores4['valor'];
+                    }
+                }
+                if (isset($valAd1) and isset($valRed1)){
+                    $AD = $cod['valor'] + $valAd1 - $valRed1 + $valCred1 - $valCcred1;
+                } else{
+                    $AD = $cod['valor'] + $valCred1 - $valCcred1;
+                }
                 $ArrayDispon[] = collect(['id' => $cod['id_rubro'], 'valor' => $AD]);
             }
         }
@@ -325,7 +395,8 @@ class VisitanteController extends Controller
             $saldoDisp[] = collect(['id' => $valDisp['id'], 'valor' => $valDisp['valor'] - $valrest]);
         }
 
-        return view('visitante.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp'));
+
+        return view('visitante.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','valoresCred', 'valoresCcred','valoresCyC'));
     }
 
     /**
