@@ -41,6 +41,7 @@
                                 <th class="text-center">Fecha de Vencimiento</th>
                                 <th class="text-center">Estado</th>
                                 <th class="text-center">Responsable</th>
+                                <th class="text-center">Tercero</th>
                                 <th class="text-center">Acciones</th>
                             </tr>
                             </thead>
@@ -55,7 +56,9 @@
                                     <td>0</td>
                                     <td>0</td>
                                     <td>0</td>
+                                    <td>0</td>
                                     <td class="text-center">
+                                        <a href="#" title="Ver" class="btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i></a>
                                         <a href="#" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                     </td>
                                 </tr>

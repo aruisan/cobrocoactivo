@@ -46,7 +46,8 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
         //RUTAS BOLETINES
 
-        Route::Resource('/boletines/','Administrativo\GestionDocumental\BoletinesController');
+        Route::Resource('boletines','Administrativo\GestionDocumental\BoletinesController');
+        Route::get('/boletines/create','Administrativo\GestionDocumental\BoletinesController@create');
 
 
         //RUTAS ARCHIVO
@@ -54,7 +55,10 @@ Route::group([ 'middleware' => 'auth'] ,function(){
         Route::get('/archivo/create','Administrativo\GestionDocumental\ArchivoController@create');
         Route::Resource('archivo','Administrativo\GestionDocumental\ArchivoController');
         Route::Resource('/archivo/manual','Administrativo\GestionDocumental\ManualContratController');
+        Route::get('/archivo/manual/create','Administrativo\GestionDocumental\ManualContratController@create');
         Route::Resource('/archivo/plan','Administrativo\GestionDocumental\PlanAdquiController');
+        Route::get('/archivo/plan/create','Administrativo\GestionDocumental\PlanAdquiController@create');
+
 
         //RUTAS CORRESPONDENCIA
 		Route::get('correspondencia/create/{id}','Administrativo\GestionDocumental\CorrespondenciaController@create');

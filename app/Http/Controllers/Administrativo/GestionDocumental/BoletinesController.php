@@ -36,7 +36,7 @@ class BoletinesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request, "entro a boletines");
     }
 
     /**

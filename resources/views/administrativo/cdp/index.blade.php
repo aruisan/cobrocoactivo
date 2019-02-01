@@ -18,11 +18,6 @@
         <a href="{{ url('/dashboard/contractual') }}" class="btn btn-primary">
             <span class="hide-menu">Contractual</span></a>
     </li>
-    <li>
-        <a href="{{ url('/almacen') }}" class="btn btn-primary">
-            <i class="fa fa-inventory"></i>
-            <span class="hide-menu">Almacen</span></a>
-    </li>
 @stop
 @section('content')
     <div class="breadcrumb text-center">
