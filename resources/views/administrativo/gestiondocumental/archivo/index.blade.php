@@ -29,6 +29,7 @@
                 <div id="tabArchivo" class="tab-pane active"><br>
                     <div class="table-responsive">
                         <br>
+                        @if(count($Documents) > 0)
                         <table class="table table-hover table-bordered" align="100%" id="tabla_corrE">
                             <thead>
                             <tr>
@@ -46,24 +47,43 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="text-dark">0</td>
-                                    <td class="text-dark">0</td>
-                                    <td class="text-center text-dark">0</td>
-                                    <td class="text-center text-dark">0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td class="text-center">
-                                        <a href="#" title="Ver" class="btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i></a>
-                                        <a href="#" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                            @foreach ($Documents as $key => $data)
+                                <tr class="text-center">
+                                    <td>{{ $data->id }}</td>
+                                    <td>{{ $data->ff_document }}</td>
+                                    <td>{{ $data->created_at }}</td>
+                                    <td>{{ $data->type }}</td>
+                                    <td>{{ $data->name }}</td>
+                                    <td>{{ $data->number_doc }}</td>
+                                    <td>{{ $data->ff_vence }}</td>
+                                    <td>
+                                        @if($data->estado == "0")
+                                            Pendiente
+                                        @elseif($data->estado == "1")
+                                            Aprobado
+                                        @elseif($data->estado == "2")
+                                            Rechazado
+                                        @else
+                                            Archivado
+                                        @endif
+                                    </td>
+                                    <td>{{ $data->user->name }}</td>
+                                    <td>{{ $data->tercero_id }}</td>
+                                    <td>
+                                        <a href="{{Storage::url($data->resource->ruta)}}" title="Ver" class="btn-sm btn-success"><i class="fa fa-file-pdf-o"></i></a>
+                                        <a href="{{ url('dashboard/archivo/'.$data->id.'/edit') }}" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                     </td>
                                 </tr>
+                            @endforeach
                             </tbody>
                         </table>
+                        @else
+                            <div class="col-md-12 align-self-center">
+                                <div class="alert alert-danger text-center">
+                                    Actualmente no hay archivos almacenados.
+                                </div>
+                            </div>
+                        @endif
                     </div>
                     <center>
                         <a href="{{ url('/dashboard/archivo/create') }}" title="Editar" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp; Nuevo Archivo</a>
