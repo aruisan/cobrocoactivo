@@ -16,12 +16,12 @@
     <br>
     <hr>
     {!! Form::open(array('route' => 'manual.store','method'=>'POST','enctype'=>'multipart/form-data')) !!}
-    <input type="hidden" name="fecha" value="{{ Carbon\Carbon::today()->Format('Y-m-d')}}">
     <div class="row">
         <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <label>Fecha del Manual: </label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                <input type="hidden" name="id_resp" value="{{ $idResp }}">
                 <input type="date" name="ff_doc" class="form-control">
             </div>
             <small class="form-text text-muted">Fecha asignada al manual de contratación</small>
