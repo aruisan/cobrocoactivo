@@ -119,7 +119,7 @@
         @endif
         <div class="form-group col-xs-6 col-sm-12 col-md-12 col-lg-12 text-center">
             <br>
-            <button class="btn btn-primary btn-raised btn-lg" id="storeRegistro">Guardar</button>
+            <button class="btn btn-primary btn-raised btn-lg">Guardar</button>
             <form action="{{ asset('/dashboard/archivo/'.$Document->id) }}" method="post">
                 {!! method_field('DELETE') !!}
                 <button class="btn btn-danger btn-raised btn-lg">Eliminar</button>

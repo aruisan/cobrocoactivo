@@ -22,7 +22,9 @@ class ArchivoController extends Controller
     public function index()
     {
         $Documents = Documents::where('type','=','Otros documentos')->get();
-        return view('administrativo.gestiondocumental.archivo.index', compact('Documents'));
+        $ManualC = Documents::where('type','=','Manual de contratación')->get();
+        $PlanA = Documents::where('type','=','Plan de adquisiones')->get();
+        return view('administrativo.gestiondocumental.archivo.index', compact('Documents','ManualC','PlanA'));
     }
 
     /**

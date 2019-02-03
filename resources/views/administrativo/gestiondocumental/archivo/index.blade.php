@@ -3,7 +3,7 @@
     Archivos
 @stop
 @section('sidebar')
-    <li> <a data-toggle="modal" data-target="#modal-busquedaArchivos" class="btn btn-primary"><i class="fa fa-search"></i><span class="hide-menu">&nbsp; Buscar</span></a></li>
+    <li> <a data-toggle="modal" data-target="#modal-busquedaArchivos" class="btn btn-primary hidden"><i class="fa fa-search"></i><span class="hide-menu">&nbsp; Buscar</span></a></li>
 @stop
 @section('content')
     <div class="col-md-12 align-self-center">
@@ -93,32 +93,37 @@
                     <br>
                     <div class="table-responsive">
                         <br>
+                        @if(count($ManualC) > 0)
                         <table class="table table-hover table-bordered" align="100%" id="tabla_corrS">
                             <thead>
                             <tr>
                                 <th class="text-center">Id</th>
-                                <th class="text-center">Año</th>
+                                <th class="text-center">Fecha del Manual</th>
                                 <th class="text-center">Nombre</th>
-                                <th class="text-center">Archivo</th>
                                 <th class="text-center">Acciones</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td class="text-dark text-center">1</td>
-                                <td class="text-dark text-center">2017</td>
-                                <td class="text-center text-dark">Manual de Contratación</td>
-                                <td class="text-center">
-                                    <a href="#" title="Archivo" class="btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i></a>
-                                </td>
-                                <td class="text-center">
-                                    <a href="#" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
-                                    <a href="#" title="Aprobar" class="btn-sm btn-success"><i class="fa fa-check"></i></a>
-                                    <a href="#" title="Rechazar" class="btn-sm btn-danger"><i class="fa fa-times-circle"></i></a>
-                                </td>
-                            </tr>
+                            @foreach ($ManualC as $key => $manual)
+                                <tr class="text-center">
+                                    <td>{{ $manual->id }}</td>
+                                    <td>{{ $manual->ff_document }}</td>
+                                    <td>{{ $manual->name }}</td>
+                                    <td>
+                                        <a href="{{Storage::url($manual->resource->ruta)}}" title="Archivo" class="btn-sm btn-success"><i class="fa fa-file-pdf-o"></i></a>
+                                        <a href="{{ asset('/dashboard/archivo/manual/'.$manual->id) }}" title="Ver" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                    </td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
+                        @else
+                            <div class="col-md-12 align-self-center">
+                                <div class="alert alert-danger text-center">
+                                    Actualmente no hay manuales de contratación almacenados.
+                                </div>
+                            </div>
+                        @endif
                     </div>
                     <center>
                         <a href="{{ url('/dashboard/archivo/manual/create') }}" title="Agregar" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp; Agregar Manual de Contratación</a>
@@ -127,32 +132,37 @@
                 <div id="tabPA" class="tab-pane fade"><br>
                     <div class="table-responsive">
                         <br>
+                        @if(count($PlanA) > 0)
                         <table class="table table-hover table-bordered" align="100%" id="tabla_PA">
                             <thead>
                             <tr>
                                 <th class="text-center">Id</th>
-                                <th class="text-center">Año</th>
+                                <th class="text-center">Fecha del plan</th>
                                 <th class="text-center">Nombre</th>
-                                <th class="text-center">Archivo</th>
                                 <th class="text-center">Acciones</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td class="text-dark text-center">1</td>
-                                <td class="text-dark text-center">2017</td>
-                                <td class="text-center text-dark">Plan de Adquisiciones</td>
-                                <td class="text-center">
-                                    <a href="#" title="Archivo" class="btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i></a>
-                                </td>
-                                <td class="text-center">
-                                    <a href="#" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
-                                    <a href="#" title="Aprobar" class="btn-sm btn-success"><i class="fa fa-check"></i></a>
-                                    <a href="#" title="Rechazar" class="btn-sm btn-danger"><i class="fa fa-times-circle"></i></a>
-                                </td>
-                            </tr>
+                            @foreach ($PlanA as $key => $plan)
+                                <tr class="text-center">
+                                    <td>{{ $plan->id }}</td>
+                                    <td>{{ $plan->ff_document }}</td>
+                                    <td>{{ $plan->name}}</td>
+                                    <td>
+                                        <a href="{{Storage::url($plan->resource->ruta)}}" title="Archivo" class="btn-sm btn-success"><i class="fa fa-file-pdf-o"></i></a>
+                                        <a href="{{ asset('/dashboard/archivo/plan/'.$plan->id) }}" title="Ver" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                    </td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
+                        @else
+                            <div class="col-md-12 align-self-center">
+                                <div class="alert alert-danger text-center">
+                                    Actualmente no hay planes de adquisiciones almacenados.
+                                </div>
+                            </div>
+                        @endif
                     </div>
                     <center>
                         <a href="{{ url('/dashboard/archivo/plan/create') }}" title="Nuevo" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp; Nuevo Plan de Adquisiciones</a>
@@ -190,15 +200,5 @@
                     'copy', 'csv', 'excel', 'print'
                 ]
             } );
-
-        $('#registros').on('click','tr td', function(evt){
-            var target;
-            target = $(event.target);
-            url ="/presupuesto/"+ target.parent().data('idalumno');
-            window.open(url, '_blank');
-            return false;
-        });
-
-        $('#registros').css("cursor","pointer");
     </script>
 @stop

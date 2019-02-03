@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Administrativo\GestionDocumental;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Resource;
-use App\Model\Persona;
 use App\Traits\ResourceTraits;
 use App\Model\Administrativo\GestionDocumental\Documents;
 use Illuminate\Support\Facades\Storage;
@@ -46,11 +45,11 @@ class ManualContratController extends Controller
         $file = new ResourceTraits;
         $resource = $file->resource($request, 'public/ManualContratacion');
 
+        $user_id    = $request->id_resp;
         $ff_doc = $request->ff_doc;
         $año = substr($ff_doc, 0, 4);
         $type       = 'Manual de contratación';
         $name    = "Manual de contratación del $año";
-        $resource_id   = $resource;
 
         $Documents = new Documents();
         $Documents->ff_document = $ff_doc;
@@ -63,16 +62,15 @@ class ManualContratController extends Controller
         $Documents->type = $type;
         $Documents->cc_id = 0;
         $Documents->name = $name;
-        $Documents->respuesta = $name;
+        $Documents->respuesta = 0;
         $Documents->number_doc = 0;
-        $Documents->estado = 0;
-        $Documents->resource_id = $resource_id;
+        $Documents->estado = '0';
+        $Documents->resource_id = $resource;
         $Documents->user_id = $user_id;
-        $Documents->tercero_id = $tercero_id;
         $Documents->save();
 
-        Session::flash('success','El archivo se ha almacenado exitosamente');
-        return redirect('/dashboard/archivo/');
+        Session::flash('success','El manual de contratación se ha almacenado exitosamente');
+        return redirect('/dashboard/archivo');
     }
 
     /**
@@ -83,7 +81,8 @@ class ManualContratController extends Controller
      */
     public function show($id)
     {
-        //
+        $Manual = Documents::findOrFail($id);
+        return view('administrativo.gestiondocumental.archivo.showMC', compact('Manual'));
     }
 
     /**
@@ -117,6 +116,13 @@ class ManualContratController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $Document = Documents::findOrFail($id);
+        $archivo = Resource::findOrFail($Document->resource_id);
+        Storage::delete($archivo->ruta);
+        $Document->delete();
+        $archivo->delete();
+
+        Session::flash('error','El manual de contratación se ha eliminado exitosamente');
+        return redirect('/dashboard/archivo/');
     }
 }
