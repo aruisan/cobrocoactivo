@@ -286,10 +286,13 @@ class PresupuestoController extends Controller
                     }
                 }
             }
-            $valoresCcred[] = collect(['id' => $R5->id, 'valor' => array_sum($suma)]);
-            unset($suma);
+            if (isset($suma)){
+                $valoresCcred[] = collect(['id' => $R5->id, 'valor' => array_sum($suma)]);
+                unset($suma);
+            } else{
+                $valoresCcred[] = collect(['id' => $R5->id, 'valor' => 0]);
+            }
         }
-
 
         //CREDITO Y CONTRACREDITO
 
