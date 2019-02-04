@@ -215,7 +215,7 @@
 
     <!-- Translate-->
     <script src="{{ asset('//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit') }}"></script>
-    <script src="{{asset('js/myJS.js')}}"></script>
+    <script src="{{asset('js/myJs.js')}}"></script>
 @yield('js')
 
     
