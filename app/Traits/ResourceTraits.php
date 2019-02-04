@@ -1,15 +1,15 @@
 <?php
 namespace App\Traits;
 use App\Resource;
-
+//App\Traits\ResourceTraits
 
 Class ResourceTraits
 {
-	public function resource($request, $carpeta){
-
-		 $ruta = $request->file('file')->store($carpeta);
+	public function resource($documents, $carpeta){
+		 $ruta = $documents->store($carpeta);
      	 $file = new Resource; 
      	 $file->ruta = $ruta;
-	     return $file->save();
+	     $file->save();
+	     return $file->id;
 	}
 }

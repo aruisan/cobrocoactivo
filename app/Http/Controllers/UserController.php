@@ -6,6 +6,7 @@ use App\User;
 use App\Model\Cobro\UserBoss;
 use App\Model\Cobro\Type;
 use Illuminate\Http\Request;
+use App\Http\Requests\editPasswordRequest;
 
 class UserController extends Controller
 {
@@ -151,5 +152,29 @@ class UserController extends Controller
         }
     }
 
+    public function editPassword(editPasswordRequest $request)
+    {
+       // dd($request->passwordActual);
+       // dd(\Hash::check($request->passwordActual, \Auth::user()->password));
+        if(\Hash::check($request->passwordActual, \Auth::user()->password))
+        {
+            $user = User::find(\Auth::user()->id);
+            $user->password = bcrypt($request->password);
+            $user->save(); 
+        }else{
+            \Session::flash('error','contraseña actual incorrecta');
+        }
+        return back();
+    }
+
+    public function editAvatar(Request $request)
+    {
+        $ruta = $request->file('avatar')->store('public/avatar');
+        $user = User::find(\Auth::user()->id);
+        $user->avatar = $ruta;
+        $user->save();
+
+        return back();
+    }
 
 }

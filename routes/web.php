@@ -24,8 +24,9 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 	Route::post('persona/relacionar', 'PersonasController@PersonafindCreate')->name('persona.relacionar');
 	Route::get('persona-identtificar/{identificador}', 'PersonasController@personaIdentificar')->name('persona.identificar');
 	Route::resource('personas', 'PersonasController');
+	Route::post('avatar', 'UserController@editAvatar')->name('user-avatar');
+	Route::post('password', 'UserController@editPassword')->name('user-password');
 	//Route::get('usuarios-tipo/{id}', 'UserController@userstype');
-
 
 	////////////////////admin//////////////////
 	Route::group(['prefix' => 'dashboard'] ,function () 

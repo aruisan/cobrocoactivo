@@ -49,6 +49,52 @@
 
     @yield('css')
 
+    <style>
+    .caption {
+    position:absolute;
+    top:0;
+    right:0;
+    background:rgba(66, 139, 202, 0.75);
+    width:100%;
+    height:100%;
+    padding:2%;
+    display: none;
+    text-align:center;
+    color:#fff !important;
+    z-index:2;
+}
+
+.avatarThumbnail {
+    position:relative;
+    overflow:hidden;
+}
+ 
+.avatarCaption {
+    position:absolute;
+    top:0;
+    right:0;
+    background:rgba(66, 139, 202, 0.75);
+    width:100%;
+    height:100%;
+    padding:2%;
+    display: none;
+    text-align:center;
+
+    z-index:2;
+}
+ .avatarCaption button{
+ 	margin: 0;
+ }
+
+.avatarCaption .fa-cloud-upload,.avatarCaption .fa-user-circle{
+	color:white;
+}
+
+.caption button {
+	color: black;
+}
+    </style>
+
 
 </head>
 
@@ -86,28 +132,7 @@
                     </a>
                   </li>  
                   <li class="dropdown">
-                    <a href="#" class="dropdown-toggle btn btn-raised btn-info" data-toggle="dropdown" >
-                        {{Auth::user()->name }}&nbsp;
-                      <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li class="text-center">Tipo:
-                          @foreach(Auth::user()->roles as $rol)
-                              {{ $rol->name }}
-                          @endforeach
-                      </li>
-                      <li class="divider"></li>
-                      <li><a href="{{url('kk')}}"><i class="material-icons md-18">settings</i> Editar Perfil</a></li>
-                      <li class="divider"></li>
-                      <li>
-                        <a href="#"  onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                          <i class="material-icons md-18">input</i> Salir
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                          {{ csrf_field() }}
-                        </form>
-                      </li>
-                    </ul>
+                    @include('layouts.cuerpo.perfil')
                   </li>
                 </ul>
               </div>
@@ -118,21 +143,22 @@
         </nav>
         <div class="navbar-default sidebar" role="navigation">
           <div class="sidebar-nav">
-                    <ul class="nav" id="side-menu">
-                          @yield('sidebar')     
-                    </ul>
-                </div>
+            <ul class="nav" id="side-menu">
+              @yield('sidebar')     
+            </ul>
+          </div>
                 <!-- /.sidebar-collapse -->
-            </div>
+        </div>
 
         <div id="page-wrapper">
-           
+          @include('alertas.request') 
           @yield('content')
            
         </div>
         <!-- /#page-wrapper -->
         {{-- modales--}}
         @include('modal.participantes')
+        @include('modal.password')
         @include('administrativo.gestiondocumental.correspondencia.modals.modals')
         @include('administrativo.gestiondocumental.archivo.modals.modals')
         @include('administrativo.gestiondocumental.boletines.modals.modals')
@@ -149,9 +175,6 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="{{asset('/assets/bootstrap/js/bootstrap.min.js')}}"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.2/js/mdb.min.js"></script>
-    <script type="text/javascript">
-        $('#myModal').on('shown.bs.modal', function(){$('#myInput').focus(); });
-    </script>
 
     <!-- Material Design for Bootstrap -->
 
@@ -192,27 +215,7 @@
 
     <!-- Translate-->
     <script src="{{ asset('//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit') }}"></script>
-
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'es',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-                autoDisplay: false
-            }, 'google_translate_element');
-        }
-    </script>
-<script>
-
-$(document).ready(function(){
-  $('.dropdown-toggle').dropdown();
-  $('.dropdown-submenu a.test').on("click", function(e){
-    $(this).next('ul').toggle();
-    e.stopPropagation();
-    e.preventDefault();
-  });
-});
-</script>
+    <script src="{{asset('js/myJS.js')}}"></script>
 @yield('js')
 
     
