@@ -67,10 +67,15 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
 		//RUTAS ACUERDOS
 
-        Route::Resource('/acuerdos/','Administrativo\GestionDocumental\Acuerdos\AcuerdosController');
-        Route::Resource('/acuerdos/proyectos/','Administrativo\GestionDocumental\Acuerdos\ProyectosAcuerdoController');
-        Route::Resource('/acuerdos/actas/','Administrativo\GestionDocumental\Acuerdos\ActasController');
-        Route::Resource('/acuerdos/resoluciones/','Administrativo\GestionDocumental\Acuerdos\ResolucionesController');
+        Route::Resource('acuerdos','Administrativo\GestionDocumental\Acuerdos\AcuerdosController');
+        Route::get('/acuerdos/create','Administrativo\GestionDocumental\Acuerdos\AcuerdosController@create');
+        Route::Resource('/acuerdos/proyectos','Administrativo\GestionDocumental\Acuerdos\ProyectosAcuerdoController');
+        Route::get('/acuerdos/proyectos/create','Administrativo\GestionDocumental\Acuerdos\ProyectosAcuerdoController@create');
+        Route::Resource('/acuerdos/actas','Administrativo\GestionDocumental\Acuerdos\ActasController');
+        Route::get('/acuerdos/actas/create','Administrativo\GestionDocumental\Acuerdos\ActasController@create');
+        Route::Resource('/acuerdos/resoluciones','Administrativo\GestionDocumental\Acuerdos\ResolucionesController');
+        Route::get('/acuerdos/resoluciones/create','Administrativo\GestionDocumental\Acuerdos\ResolucionesController@create');
+
 
         //RUTAS COMISIONES
 

@@ -42,7 +42,7 @@ class PlanAdquiController extends Controller
     public function store(Request $request)
     {
         $file = new ResourceTraits;
-        $resource = $file->resource($request, 'public/PlanAdquisiciones');
+        $resource = $file->resource($request->filePlanA, 'public/PlanAdquisiciones');
 
         $user_id    = $request->id_resp;
         $ff_doc = $request->ff_doc;

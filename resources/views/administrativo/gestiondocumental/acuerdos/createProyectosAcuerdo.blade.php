@@ -13,15 +13,13 @@
 </div>
 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
     <hr>
-    {!! Form::open(array('route' => 'registros.store','method'=>'POST','enctype'=>'multipart/form-data')) !!}
-    <input type="hidden" name="fecha" value="{{ Carbon\Carbon::today()->Format('Y-m-d')}}">
-    <input type="hidden" name="secretaria_e" value="0">
+    {!! Form::open(array('route' => 'proyectos.store','method'=>'POST','enctype'=>'multipart/form-data')) !!}
     <div class="row">
         <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <label>Nombre: </label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-file" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" name="valor" required>
+                <input type="text" class="form-control" name="name" required>
             </div>
             <small class="form-text text-muted">Nombre que se desee asignar al archivo</small>
         </div>
@@ -31,29 +29,9 @@
             <label>Fecha del Documento: </label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                <input type="date" name="fecha_doc" class="form-control">
+                <input type="date" name="ff_doc" class="form-control" required>
             </div>
             <small class="form-text text-muted">Fecha del Documento</small>
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <label>Número: </label>
-            <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-hashtag" aria-hidden="true"></i></span>
-                <input type="number" name="numero" class="form-control">
-            </div>
-            <small class="form-text text-muted">Consecutivo asignado al proyecto de acuerdo</small>
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <label>Fecha de Salida: </label>
-            <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                <input type="date" name="fecha_salida" class="form-control">
-            </div>
-            <small class="form-text text-muted">Fecha de salida del proyecto de acuerdo</small>
         </div>
     </div>
     <div class="row">
@@ -61,13 +39,48 @@
             <label>Comisión: </label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-building" aria-hidden="true"></i></span>
-                <select name="comision" class="form-control">
-                    <option value="">1</option>
-                    <option value="">2</option>
-                    <option value="">3</option>
+                <select class="form-control" name="comision_id">
+                    @foreach($Comisiones as $comision)
+                        <option value="{{$comision->id}}">{{$comision->id}} - {{$comision->name}}</option>
+                    @endforeach
                 </select>
             </div>
-            <small class="form-text text-muted">Comisión del proyecto de acuerdo</small>
+            <small class="form-text text-muted">Comisión asignada al acuerdo</small>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <label>Consecutivo: </label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-hashtag" aria-hidden="true"></i></span>
+                <input type="number" name="cc_id" class="form-control" required>
+            </div>
+            <small class="form-text text-muted">Consecutivo asignado al proyecto de acuerdo</small>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <label>Estado actual del proyecto de acuerdo: </label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-check" aria-hidden="true"></i></span>
+                <select class="form-control" name="estado">
+                    <option value="0">Pendiente</option>
+                    <option value="1">Aprovado</option>
+                    <option value="2">Rechazado</option>
+                    <option value="3">Archivado</option>
+                </select>
+            </div>
+            <small class="form-text text-muted">Seleccionar el estado en el que se encuentra el proyecto de acuerdo</small>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <label>Fecha de Salida: </label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                <input type="date" name="ff_salida" class="form-control" required>
+            </div>
+            <small class="form-text text-muted">Fecha de salida del proyecto de acuerdo</small>
         </div>
     </div>
     <div class="row">
@@ -75,7 +88,7 @@
             <label>Fecha de 1er debate: </label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                <input type="date" name="fecha_primerDebate" class="form-control">
+                <input type="date" name="ff_primerdbt" class="form-control" required>
             </div>
             <small class="form-text text-muted">Fecha del primer debate</small>
         </div>
@@ -85,7 +98,7 @@
             <label>Fecha del 2do debate: </label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                <input type="date" name="fecha_segundoDebate" class="form-control">
+                <input type="date" name="ff_segundodbt" class="form-control" required>
             </div>
             <small class="form-text text-muted">Fecha del segundo debate</small>
         </div>
@@ -95,10 +108,24 @@
             <label>Concejal Ponente: </label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                <select name="concejal_ponente" class="form-control">
-                    <option value="">1</option>
-                    <option value="">2</option>
-                    <option value="">3</option>
+                <select class="form-control" name="ponente_id">
+                    @foreach($Concejales as $concejal)
+                        <option value="{{$concejal->id}}">{{$concejal->persona->nombre}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <small class="form-text text-muted">Concejal ponente</small>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <label>Concejal: </label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                <select class="form-control" name="concejal_id">
+                    @foreach($Concejales as $concejal)
+                        <option value="{{$concejal->id}}">{{$concejal->persona->nombre}}</option>
+                    @endforeach
                 </select>
             </div>
             <small class="form-text text-muted">Concejal ponente</small>
@@ -107,13 +134,15 @@
     <div class="row">
         <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
             <label>Subir Archivo: </label>
-            <div class="input-group text-center">
-                <input type="file" name="file" accept="application/pdf" class="form-group-lg" style="padding-left: 175px ">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></span>
+                <input type="file" name="fileProyA" accept="application/pdf" class="form-control" required>
             </div>
+            <small class="form-text text-muted">Archivo correspondiente al proyecto de acuerdo</small>
         </div>
     </div>
     <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-        <button class="btn btn-primary btn-raised btn-lg" id="storeRegistro">Agregar</button>
+        <button class="btn btn-primary btn-raised btn-lg">Agregar</button>
     </div>
     {!! Form::close() !!}
 </div>

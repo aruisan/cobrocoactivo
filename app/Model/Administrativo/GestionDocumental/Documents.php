@@ -20,4 +20,19 @@ class Documents extends Model
     {
         return $this->belongsTo('App\Resource', 'resource_id');
     }
+
+    public function comision()
+    {
+        return $this->belongsTo('App\Model\Administrativo\GestionDocumental\Comisiones','comision_id');
+    }
+
+    public function concejalesPonentes()
+    {
+        return $this->belongsTo('App\Model\Administrativo\GestionDocumental\Concejal','ponente_id');
+    }
+
+    public function Concejales()
+    {
+        return $this->belongsTo('App\Model\Administrativo\GestionDocumental\Concejal','concejal_id');
+    }
 }

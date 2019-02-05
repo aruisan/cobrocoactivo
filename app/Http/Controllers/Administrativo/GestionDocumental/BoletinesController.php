@@ -19,8 +19,9 @@ class BoletinesController extends Controller
      */
     public function index()
     {
-        $V = "Vacio";
-        return view('administrativo.gestiondocumental.boletines.index', compact('V'));
+        //Se debe cambiar el type a Boletines
+        $Boletines = Documents::where('type','=','Otros documentos')->get();
+        return view('administrativo.gestiondocumental.boletines.index', compact('Boletines'));
     }
 
     /**
@@ -43,13 +44,14 @@ class BoletinesController extends Controller
     public function store(Request $request)
     {
         $file = new ResourceTraits;
-        $resource = $file->resource($request, 'public/Boletines');
+        $resource = $file->resource($request->fileBoletines, 'public/Boletines');
 
         $user_id = $request->id_resp;
+        //Se debe cambiar el type a boletines
         $type = "Otros documentos";
         $name = $request->name;
-        $ff_doc = $request->fecha_doc;
-        $estado   = 0;
+        $ff_doc = $request->ff_doc;
+        $estado   = '0';
         $cc_id = $request->consecutivo;
         $resource_id   = $resource;
 
@@ -94,7 +96,8 @@ class BoletinesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $Document = Documents::findOrFail($id);
+        return view('administrativo.gestiondocumental.boletines.edit', compact('Document'));
     }
 
     /**
@@ -106,7 +109,18 @@ class BoletinesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $name = $request->name;
+        $ff_doc = $request->ff_doc;
+        $cc_id = $request->consecutivo;
+
+        $Documents = Documents::findOrFail($id);
+        $Documents->ff_document = $ff_doc;
+        $Documents->cc_id = $cc_id;
+        $Documents->name = $name;
+        $Documents->save();
+
+        Session::flash('success','El boletin se ha actualizado exitosamente');
+        return redirect('/dashboard/boletines/');
     }
 
     /**
@@ -117,6 +131,14 @@ class BoletinesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $Document = Documents::findOrFail($id);
+        $archivo = Resource::findOrFail($Document->resource_id);
+        Storage::delete($archivo->ruta);
+        $Document->delete();
+        $archivo->delete();
+
+
+        Session::flash('error','El boletin se ha eliminado exitosamente');
+        return redirect('/dashboard/boletines/');
     }
 }

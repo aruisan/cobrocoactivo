@@ -52,7 +52,7 @@
             <label>Subir Archivo: </label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></span>
-                <input type="file" name="file" accept="application/pdf" class="form-control" required>
+                <input type="file" name="fileBoletines" accept="application/pdf" class="form-control" required>
             </div>
             <small class="form-text text-muted">Archivo del boletín</small>
         </div>

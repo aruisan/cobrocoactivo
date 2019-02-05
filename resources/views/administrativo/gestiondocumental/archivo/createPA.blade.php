@@ -31,7 +31,7 @@
         <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <label>Subir Archivo: </label>
             <div class="input-group">
-                <input type="file" name="file" accept="application/pdf" class="form-control">
+                <input type="file" name="filePlanA" accept="application/pdf" class="form-control">
             </div>
         </div>
     </div>

@@ -31,9 +31,10 @@ class CorrespondenciaController extends Controller
             $tipo = "Salida";
         }
 
+        $idResp = auth()->user()->id;
         $users = User::all();
         $terceros = Persona::all();
-        return view('administrativo.gestiondocumental.correspondencia.create',compact('id','tipo', 'terceros', 'users'));
+        return view('administrativo.gestiondocumental.correspondencia.create',compact('id','tipo', 'terceros', 'users','idResp'));
     }
 
     /**
@@ -44,6 +45,8 @@ class CorrespondenciaController extends Controller
      */
     public function store(Request $request)
     {
+
+        dd($request);
         Correspondencia::store($request);
        
         return redirect()->route('correspondencia.index')

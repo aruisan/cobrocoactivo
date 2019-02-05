@@ -49,7 +49,7 @@ class ArchivoController extends Controller
     public function store(Request $request)
     {
         $file = new ResourceTraits;
-        $resource = $file->resource($request, 'public/Archivo');
+        $resource = $file->resource($request->fileArchivo, 'public/Archivo');
 
         $user_id    = $request->id_resp;
         $type       = $request->type;
@@ -119,12 +119,12 @@ class ArchivoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $name    = $request->name;
-        $ff_doc       = $request->fecha_doc;
-        $tercero_id   = $request->tercero;
-        $number_doc   = $request->num_doc;
-        $ff_vence   = $request->ff_vence;
-        $estado   = $request->estado;
+        $name = $request->name;
+        $ff_doc = $request->fecha_doc;
+        $tercero_id = $request->tercero;
+        $number_doc = $request->num_doc;
+        $ff_vence = $request->ff_vence;
+        $estado = $request->estado;
         $cc_id = $request->consecutivo;
 
         $Documents = Documents::findOrFail($id);
@@ -154,7 +154,6 @@ class ArchivoController extends Controller
         Storage::delete($archivo->ruta);
         $Document->delete();
         $archivo->delete();
-
 
         Session::flash('error','El archivo se ha eliminado exitosamente');
         return redirect('/dashboard/archivo/');

@@ -97,7 +97,7 @@
                 <small class="form-text text-muted">Seleccionar el estado en el que se encuentra el documento</small>
             </div>
         </div>
-        @if($Document->resoult =! null)
+        @if($Document->resource_id =! null)
             <div class="row">
                 <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     <label>Archivo: </label>

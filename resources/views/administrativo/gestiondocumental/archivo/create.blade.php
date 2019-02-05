@@ -98,13 +98,12 @@
             <small class="form-text text-muted">Seleccionar el estado en el que se encuentra el documento</small>
         </div>
     </div>
-
     <div class="row">
         <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
             <label>Subir Archivo: </label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></span>
-                <input type="file" name="file" accept="application/pdf" class="form-control" required>
+                <input type="file" name="fileArchivo" accept="application/pdf" class="form-control" required>
             </div>
         </div>
     </div>

@@ -142,7 +142,7 @@ class RubrosMovController extends Controller
             $idResourceD = $mov->resource_id;
 
             $file = new ResourceTraits;
-            $resource = $file->resource($request, 'public/AdicionyRed');
+            $resource = $file->resource($request->fileAdicion, 'public/AdicionyRed');
 
             $fuenteB_id = $request->fuenteBase_id;
             $fuenteR_id = $request->fuenteR_id;
@@ -171,7 +171,7 @@ class RubrosMovController extends Controller
             $idResourceD = $mov->resource_id;
 
             $file = new ResourceTraits;
-            $resource = $file->resource($request, 'public/AdicionyRed');
+            $resource = $file->resource($request->fileReduccion, 'public/AdicionyRed');
 
             $fuenteB_id = $request->fuenteBase_id;
             $fuenteR_id = $request->fuenteR_id;
@@ -220,7 +220,7 @@ class RubrosMovController extends Controller
                     $Frubro->save();
 
                     $file = new ResourceTraits;
-                    $resource = $file->resource($request, 'public/CreditoyCC');
+                    $resource = $file->resource($request->fileCyC, 'public/CreditoyCC');
 
                     $rubrosMov = new RubrosMov();
                     $rubrosMov->valor = $valor_Red[$i];
@@ -265,7 +265,7 @@ class RubrosMovController extends Controller
 
 
                     $file = new ResourceTraits;
-                    $resource = $file->resource($request, 'public/AdicionyRed');
+                    $resource = $file->resource($request->fileAdicion, 'public/AdicionyRed');
 
                     $rubrosMov = new RubrosMov();
                     $rubrosMov->valor = $valor[$i];
@@ -301,7 +301,7 @@ class RubrosMovController extends Controller
                     $FontRubro->save();
 
                     $file = new ResourceTraits;
-                    $resource = $file->resource($request, 'public/AdicionyRed');
+                    $resource = $file->resource($request->fileReduccion, 'public/AdicionyRed');
 
                     $rubrosMov = new RubrosMov();
                     $rubrosMov->valor = $valor[$i];
