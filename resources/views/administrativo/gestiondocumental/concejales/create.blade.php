@@ -15,17 +15,19 @@
 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
     <br>
     <hr>
-    {!! Form::open(array('route' => 'registros.store','method'=>'POST','enctype'=>'multipart/form-data')) !!}
-    <input type="hidden" name="fecha" value="{{ Carbon\Carbon::today()->Format('Y-m-d')}}">
-    <input type="hidden" name="secretaria_e" value="0">
+    {!! Form::open(array('route' => 'concejales.store','method'=>'POST','enctype'=>'multipart/form-data')) !!}
     <div class="row">
         <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <label>Nombre: </label>
+            <label>Usuario: </label>
             <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" name="name" required>
+                <span class="input-group-addon"><i class="fa fa-building" aria-hidden="true"></i></span>
+                <select class="form-control" name="dato_id">
+                    @foreach($Usuarios as $usuario)
+                        <option value="{{$usuario['id']}}">{{$usuario['name']}}</option>
+                    @endforeach
+                </select>
             </div>
-            <small class="form-text text-muted">Nombre completo del concejal</small>
+            <small class="form-text text-muted">Comisión asignada al acuerdo</small>
         </div>
     </div>
     <div class="row">
@@ -40,9 +42,19 @@
     </div>
     <div class="row">
         <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <label>Periodo: </label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                <input type="text" name="periodo" class="form-control" required>
+            </div>
+            <small class="form-text text-muted">Periodo del concejal</small>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <label>Foto del Concejal: </label>
             <div class="input-group">
-                <input type="file" name="file" accept="image/png" class="form-control">
+                <input type="file" name="file" accept="image/png" class="form-control" required>
             </div>
         </div>
     </div>

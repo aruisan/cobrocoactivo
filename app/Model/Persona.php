@@ -15,4 +15,9 @@ class Persona extends Model
      public function predios(){
         return $this->belongsToMany('App\Model\Cobro\Predio');
     }
+
+    public function concejal()
+    {
+        return $this->hasOne('App\Model\Administrativo\GestionDocumental\Concejal', 'dato_id');
+    }
 }

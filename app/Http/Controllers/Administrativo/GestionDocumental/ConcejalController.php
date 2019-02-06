@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Administrativo\GestionDocumental;
 use App\Model\Administrativo\GestionDocumental\Concejal;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\Persona;
+use App\Traits\FileTraits;
+use Session;
+
 
 class ConcejalController extends Controller
 {
@@ -15,7 +19,8 @@ class ConcejalController extends Controller
      */
     public function index()
     {
-        return view('administrativo.gestiondocumental.concejales.index');
+        $Concejales = Concejal::all();
+        return view('administrativo.gestiondocumental.concejales.index', compact('Concejales'));
     }
 
     /**
@@ -25,7 +30,13 @@ class ConcejalController extends Controller
      */
     public function create()
     {
-        return view('administrativo.gestiondocumental.concejales.create');
+        $Personas = Persona::all();
+        foreach ($Personas as $persona){
+            if ($persona->concejal == null){
+                $Usuarios[] = collect(['id' => $persona->id, 'name' => $persona->nombre]);
+            }
+        }
+        return view('administrativo.gestiondocumental.concejales.create', compact('Usuarios'));
     }
 
     /**
@@ -36,7 +47,18 @@ class ConcejalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $persona = Persona::findOrFail($request->dato_id);
+        $file = new FileTraits;
+        $ruta = $file->Img($request->file('file'), 'concejales', $persona->num_dc);
+
+        $Concejal = new Concejal();
+        $Concejal->partido = $request->partido;
+        $Concejal->periodo = $request->periodo;
+        $Concejal->dato_id = $request->dato_id;
+        $Concejal->save();
+
+        Session::flash('success','El concejal se ha creado exitosamente');
+        return redirect('dashboard/concejales');
     }
 
     /**
@@ -45,7 +67,7 @@ class ConcejalController extends Controller
      * @param  \App\Concejal  $concejal
      * @return \Illuminate\Http\Response
      */
-    public function show(Concejal $concejal)
+    public function show($id)
     {
         //
     }
@@ -56,9 +78,11 @@ class ConcejalController extends Controller
      * @param  \App\Concejal  $concejal
      * @return \Illuminate\Http\Response
      */
-    public function edit(Concejal $concejal)
+    public function edit($id)
     {
-        //
+        $concejal = Concejal::findOrFail($id);
+        $datos = Persona::findOrFail($concejal->dato_id);
+        return view('administrativo.gestiondocumental.concejales.edit', compact('concejal','datos'));
     }
 
     /**
@@ -68,9 +92,26 @@ class ConcejalController extends Controller
      * @param  \App\Concejal  $concejal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Concejal $concejal)
+    public function update(Request $request, $id)
     {
-        //
+        $concejal = Concejal::findOrFail($id);
+        $datos = Persona::findOrFail($concejal->dato_id);
+
+        if ($request->file){
+            $file = new FileTraits;
+            $ruta = $file->Img($request->file('file'), 'concejales', $datos->num_dc);
+        }
+
+        $concejal->partido = $request->partido;
+        $concejal->periodo = $request->periodo;
+        $concejal->save();
+        $datos->email = $request->email;
+        $datos->direccion = $request->direccion;
+        $datos->telefono = $request->telefono;
+        $datos->save();
+
+        Session::flash('success','La información del concejal '.$datos->nombre.' se ha actualizado exitosamente');
+        return redirect('/dashboard/concejales/'.$concejal->id.'/edit');
     }
 
     /**
@@ -79,8 +120,12 @@ class ConcejalController extends Controller
      * @param  \App\Concejal  $concejal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Concejal $concejal)
+    public function destroy($id)
     {
-        //
+        $concejal = Concejal::findOrFail($id);
+        $concejal->delete();
+
+        Session::flash('error','El concejal se ha eliminado exitosamente, recuerde que el usuario aun existe en el modulo de terceros');
+        return redirect('/dashboard/concejales/');
     }
 }

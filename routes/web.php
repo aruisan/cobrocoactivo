@@ -83,7 +83,8 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
         //RUTAS CONCEJALES
 
-        Route::Resource('/concejales/','Administrativo\GestionDocumental\ConcejalController');
+        Route::Resource('concejales','Administrativo\GestionDocumental\ConcejalController');
+        Route::get('/concejales/create','Administrativo\GestionDocumental\ConcejalController@create');
 
         //RUTAS MESA DIRECTIVA
 
