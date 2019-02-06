@@ -97,7 +97,7 @@
                 <label>Fecha de Salida: </label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                    <input type="date" name="ff_salida" class="form-control">
+                    <input type="date" name="ff_salida" class="form-control" required>
                 </div>
                 <small class="form-text text-muted">Fecha de Salida de la Correspondencia</small>
             </div>
@@ -109,7 +109,7 @@
                     <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
                     <select class="form-control" name="tercero">
                         @foreach($terceros as $tercero)
-                            <option value="{{$tercero->id}}">{{$tercero->num_dc}} - {{$tercero->nombre}}</option>
+                            <option value="{{$tercero->id}}">{{$tercero->name}}</option>
                         @endforeach
                     </select>
                 </div>

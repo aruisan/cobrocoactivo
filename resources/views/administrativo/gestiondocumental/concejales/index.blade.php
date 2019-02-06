@@ -36,7 +36,7 @@
                                 <a href="#"><img src="{{ asset('img/concejales/1.png')}}" class="card-img-top" width="100%"></a>
                             </div>
                             <div class="col-lg-10">
-                                <h4 class="media-heading"><b>LERI ANISETO HENRY TAYLOR</b></h4>
+                                <h4 class="media-heading"><b>LERI ANICETO HENRY TAYLOR</b></h4>
                                 <p class="f-s-12">No C.C 18.005.378 </p>
                             </div>
                         </div>

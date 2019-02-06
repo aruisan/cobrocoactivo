@@ -60,7 +60,7 @@
                     <a class="nav-link" data-toggle="pill" href="#tabRubros">Rubros</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" data-toggle="pill" href="#tabPAC">PAC</a>
+                    <a class="nav-link hidden" data-toggle="pill" href="#tabPAC">PAC</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="pill" href="#tabCert">CDP's</a>
@@ -100,10 +100,10 @@
                     <a class="nav-link" data-toggle="pill" href="#tabCre">Creditos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" data-toggle="pill" href="#tabApl">Aplazamientos</a>
+                    <a class="nav-link disabled hidden" data-toggle="pill" href="#tabApl">Aplazamientos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" data-toggle="pill" href="#tabOP">Orden de Pago</a>
+                    <a class="nav-link disabled hidden" data-toggle="pill" href="#tabOP">Orden de Pago</a>
                 </li>
             </ul>
             <br>

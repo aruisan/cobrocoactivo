@@ -46,7 +46,7 @@
                 <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
                 <select class="form-control" name="tercero">
                     @foreach($terceros as $tercero)
-                        <option value="{{$tercero->id}}">{{$tercero->num_dc}} - {{$tercero->nombre}}</option>
+                        <option value="{{$tercero->id}}">{{$tercero->name}}</option>
                     @endforeach
                 </select>
             </div>

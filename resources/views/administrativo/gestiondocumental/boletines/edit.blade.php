@@ -58,11 +58,16 @@
         </div>
         <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
             <button class="btn btn-primary btn-raised btn-lg">Guardar</button>
-            <form action="{{ asset('/dashboard/boletines/'.$Document->id) }}" method="post">
-                {!! method_field('DELETE') !!}
-                <button class="btn btn-danger btn-raised btn-lg">Eliminar</button>
-            </form>
         </div>
     </form>
+    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+        <form action="{{ asset('/dashboard/boletines/'.$Document->id) }}" method="post">
+            {!! method_field('DELETE') !!}
+            {{ csrf_field() }}
+            <button class="btn btn-danger btn-raised btn-lg">Eliminar</button>
+        </form>
+    </div>
+
+
 </div>
 @endsection

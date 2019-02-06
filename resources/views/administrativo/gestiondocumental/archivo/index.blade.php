@@ -68,7 +68,7 @@
                                         @endif
                                     </td>
                                     <td>{{ $data->user->name }}</td>
-                                    <td>{{ $data->tercero_id }}</td>
+                                    <td>{{ $data->tercero->name }}</td>
                                     <td>
                                         <a href="{{Storage::url($data->resource->ruta)}}" title="Ver" class="btn-sm btn-success"><i class="fa fa-file-pdf-o"></i></a>
                                         <a href="{{ url('dashboard/archivo/'.$data->id.'/edit') }}" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>

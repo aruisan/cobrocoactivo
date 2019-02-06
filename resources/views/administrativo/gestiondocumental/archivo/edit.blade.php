@@ -45,7 +45,7 @@
                     <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
                     <select class="form-control" name="tercero">
                         @foreach($terceros as $tercero)
-                            <option value="{{$tercero->id}}" @if($tercero->id == $Document->tercero_id) selected @endif>{{$tercero->num_dc}} - {{$tercero->nombre}}</option>
+                            <option value="{{$tercero->id}}" @if($tercero->id == $Document->tercero_id) selected @endif>{{$tercero->name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -97,34 +97,26 @@
                 <small class="form-text text-muted">Seleccionar el estado en el que se encuentra el documento</small>
             </div>
         </div>
-        @if($Document->resource_id =! null)
-            <div class="row">
-                <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                    <label>Archivo: </label>
-                    <div class="input-group">
-                        <a href="{{Storage::url($Document->resource->ruta)}}" title="Ver" class="btn btn-success"><i class="fa fa-file-pdf-o"></i></a>
-                    </div>
+        <div class="row">
+            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <label>Archivo: </label>
+                <div class="input-group">
+                    <a href="{{Storage::url($Document->resource->ruta)}}" title="Ver" class="btn btn-success"><i class="fa fa-file-pdf-o"></i></a>
                 </div>
             </div>
-        @else
-            <div class="row">
-                <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                    <label>Subir Archivo: </label>
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></span>
-                        <input type="file" name="file" accept="application/pdf" class="form-control">
-                    </div>
-                </div>
-            </div>
-        @endif
+        </div>
         <div class="form-group col-xs-6 col-sm-12 col-md-12 col-lg-12 text-center">
             <br>
             <button class="btn btn-primary btn-raised btn-lg">Guardar</button>
-            <form action="{{ asset('/dashboard/archivo/'.$Document->id) }}" method="post">
-                {!! method_field('DELETE') !!}
-                <button class="btn btn-danger btn-raised btn-lg">Eliminar</button>
-            </form>
         </div>
     </form>
+    <div class="form-group col-xs-6 col-sm-12 col-md-12 col-lg-12 text-center">
+        <form action="{{ asset('/dashboard/archivo/'.$Document->id) }}" method="post">
+            {!! method_field('DELETE') !!}
+            {{ csrf_field() }}
+            <button class="btn btn-danger btn-raised btn-lg">Eliminar</button>
+        </form>
+    </div>
+
 </div>
 @endsection

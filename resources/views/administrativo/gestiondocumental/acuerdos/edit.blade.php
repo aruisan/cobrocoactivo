@@ -130,11 +130,15 @@
         <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
             <a href="{{Storage::url($Acuerdo->resource->ruta)}}" title="Ver" class="btn btn-success"><i class="fa fa-file-pdf-o"></i></a>
             <button class="btn btn-primary btn-raised btn-lg" id="storeRegistro">Guardar</button>
-            <form action="{{ asset('/dashboard/acuerdos/'.$Acuerdo->id) }}" method="post">
-                {!! method_field('DELETE') !!}
-                <button class="btn btn-danger btn-raised btn-lg">Eliminar</button>
-            </form>
         </div>
     </form>
+    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+        <form action="{{ asset('/dashboard/acuerdos/'.$Acuerdo->id) }}" method="post">
+            {!! method_field('DELETE') !!}
+            {{ csrf_field() }}
+            <button class="btn btn-danger btn-raised btn-lg">Eliminar</button>
+        </form>
+    </div>
+
 </div>
 @endsection

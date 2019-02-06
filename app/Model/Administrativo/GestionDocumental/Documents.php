@@ -35,4 +35,8 @@ class Documents extends Model
     {
         return $this->belongsTo('App\Model\Administrativo\GestionDocumental\Concejal','concejal_id');
     }
+
+    public function tercero(){
+        return $this->belongsTo('App\User', 'tercero_id');
+    }
 }
