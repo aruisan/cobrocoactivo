@@ -3,7 +3,7 @@
     Correspondencia
 @stop
 @section('sidebar')
-    <li> <a data-toggle="modal" data-target="#modal-busqueda" class="btn btn-primary"><i class="fa fa-search"></i><span class="hide-menu">&nbsp; Buscar</span></a></li>
+    <li> <a data-toggle="modal" data-target="#modal-busqueda" class="btn btn-primary hidden"><i class="fa fa-search"></i><span class="hide-menu">&nbsp; Buscar</span></a></li>
 @stop
 @section('content')
 
@@ -60,7 +60,7 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{Storage::url($data->resource->ruta)}}" title="Ver" class="btn-sm btn-success"><i class="fa fa-file-pdf-o"></i></a>
+                                <a href="{{Storage::url($data->resource->ruta)}}" target="_blank" title="Ver" class="btn-sm btn-success"><i class="fa fa-file-pdf-o"></i></a>
                                 <a href="{{ url('dashboard/correspondencia/'.$data->id.'/edit') }}" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                 <a href="{{ url('dashboard/correspondencia/'.$data->id) }}" title="Ver" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                             </td>
@@ -119,7 +119,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{Storage::url($data2->resource->ruta)}}" title="Ver" class="btn-sm btn-success"><i class="fa fa-file-pdf-o"></i></a>
+                                    <a href="{{Storage::url($data2->resource->ruta)}}" target="_blank" title="Ver" class="btn-sm btn-success"><i class="fa fa-file-pdf-o"></i></a>
                                     <a href="{{ url('dashboard/correspondencia/'.$data2->id.'/edit') }}" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                     <a href="{{ url('dashboard/correspondencia/'.$data2->id) }}" title="Ver" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                 </td>

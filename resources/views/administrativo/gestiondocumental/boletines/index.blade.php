@@ -37,7 +37,7 @@
                                 <td>{{ $data->cc_id }}</td>
                                 <td>{{ $data->user->name }}</td>
                                 <td>
-                                    <a href="{{Storage::url($data->resource->ruta)}}" title="Ver" class="btn-sm btn-success"><i class="fa fa-file-pdf-o"></i></a>
+                                    <a href="{{Storage::url($data->resource->ruta)}}" target="_blank" title="Ver" class="btn-sm btn-success"><i class="fa fa-file-pdf-o"></i></a>
                                     <a href="{{ url('dashboard/boletines/'.$data->id.'/edit') }}" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                 </td>
                             </tr>

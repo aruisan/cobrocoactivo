@@ -92,7 +92,6 @@
             <table class="table table-bordered" id="tablaFuentesR">
                 <thead>
                 <tr>
-                    <th class="text-center">Id</th>
                     <th class="text-center">Codigo</th>
                     <th class="text-center">Nombre</th>
                     <th class="text-center">Valor Inicial</th>
@@ -102,7 +101,6 @@
                 <tbody>
                 @foreach($fuentesR as  $fuentes)
                     <tr>
-                        <td>{{ $fuentes->id }}</td>
                         <td>{{ $fuentes->font->code }}</td>
                         <td>{{ $fuentes->font->name }}</td>
                         <td class="text-center">$ <?php echo number_format($fuentes['valor'],0);?>.00</td>

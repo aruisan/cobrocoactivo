@@ -73,7 +73,7 @@
                                     <td>{{ $data->ff_aprobacion }}</td>
                                     <td>{{ $data->ff_sancion }}</td>
                                     <td>
-                                        <a href="{{Storage::url($data->resource->ruta)}}" title="Ver" class="btn-sm btn-success"><i class="fa fa-file-pdf-o"></i></a>
+                                        <a href="{{Storage::url($data->resource->ruta)}}" target="_blank" title="Ver" class="btn-sm btn-success"><i class="fa fa-file-pdf-o"></i></a>
                                         <a href="{{ url('dashboard/acuerdos/'.$data->id.'/edit') }}" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                     </td>
                                 </tr>
@@ -140,7 +140,7 @@
                                         <td>{{ $data2->concejalesPonentes->persona->nombre}}</td>
                                         <td>{{ $data2->Concejales->persona->nombre}}</td>
                                         <td>
-                                            <a href="{{Storage::url($data2->resource->ruta)}}" title="Ver" class="btn-sm btn-success"><i class="fa fa-file-pdf-o"></i></a>
+                                            <a href="{{Storage::url($data2->resource->ruta)}}" target="_blank" title="Ver" class="btn-sm btn-success"><i class="fa fa-file-pdf-o"></i></a>
                                             <a href="{{ url('dashboard/acuerdos/proyectos/'.$data2->id.'/edit') }}" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                         </td>
                                     </tr>
@@ -196,7 +196,7 @@
                                         <td>{{ $data3->comision->name }}</td>
                                         <td>{{ $data3->ff_aprobacion }}</td>
                                         <td>
-                                            <a href="{{Storage::url($data3->resource->ruta)}}" title="Ver" class="btn-sm btn-success"><i class="fa fa-file-pdf-o"></i></a>
+                                            <a href="{{Storage::url($data3->resource->ruta)}}" target="_blank" title="Ver" class="btn-sm btn-success"><i class="fa fa-file-pdf-o"></i></a>
                                             <a href="{{ url('dashboard/acuerdos/actas/'.$data3->id.'/edit') }}" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                         </td>
                                     </tr>
@@ -239,7 +239,7 @@
                                         <td>{{ $data4->cc_id }}</td>
                                         <td>{{ $data4->comision->name }}</td>
                                         <td>
-                                            <a href="{{Storage::url($data4->resource->ruta)}}" title="Ver" class="btn-sm btn-success"><i class="fa fa-file-pdf-o"></i></a>
+                                            <a href="{{Storage::url($data4->resource->ruta)}}" target="_blank" title="Ver" class="btn-sm btn-success"><i class="fa fa-file-pdf-o"></i></a>
                                             <a href="{{ url('dashboard/acuerdos/resoluciones/'.$data4->id.'/edit') }}" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                         </td>
                                     </tr>
