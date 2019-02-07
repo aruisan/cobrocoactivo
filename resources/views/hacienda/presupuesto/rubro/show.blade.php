@@ -201,6 +201,28 @@
                 </tbody>
             </table>
         </div>
+        <hr>
+        @if($files != 0)
+            <center>
+                <h3>Archivios Correspondientes a los Movimientos del Rubro</h3>
+            </center>
+            <hr>
+            <br>
+            <div class="input-group">
+                <div class="row text-center">
+                    @foreach($files as $file)
+                        @if($file['mov'] == 1)
+                            <a href="{{Storage::url($file['ruta'])}}" title="Ver" class="btn btn-success"><i class="fa fa-file-pdf-o"></i>&nbsp; Credito y Contracredito</a>
+                        @elseif($file['mov'] == 2)
+                            <a href="{{Storage::url($file['ruta'])}}" title="Ver" class="btn btn-success"><i class="fa fa-file-pdf-o">&nbsp; Adición</i></a>
+                        @elseif($file['mov'] == 3)
+                            <a href="{{Storage::url($file['ruta'])}}" title="Ver" class="btn btn-success"><i class="fa fa-file-pdf-o">&nbsp; Reducción</i></a>
+                        @endif
+
+                    @endforeach
+                </div>
+            </div>
+        @endif
     </div>
     @include('modal.adicionRubro')
     @include('modal.reduccionRubro')
