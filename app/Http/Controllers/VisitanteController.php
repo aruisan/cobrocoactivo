@@ -14,6 +14,9 @@ use App\Model\Hacienda\Presupuesto\Level;
 use App\Model\Hacienda\Presupuesto\Register;
 use App\Model\Administrativo\Cdp\Cdp;
 use App\Model\Administrativo\Registro\Registro;
+use App\Model\Administrativo\GestionDocumental\Concejal;
+use App\Model\Administrativo\GestionDocumental\Documents;
+
 
 class VisitanteController extends Controller
 {
@@ -399,8 +402,35 @@ class VisitanteController extends Controller
             $saldoDisp[] = collect(['id' => $valDisp['id'], 'valor' => $valDisp['valor'] - $valrest]);
         }
 
+        //MODAL DE CONCEJALES
 
-        return view('visitante.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','valoresCred', 'valoresCcred','valoresCyC'));
+        $Concejales = Concejal::all();
+
+        //MODAL DE BOLETINES
+
+        $Boletines = Documents::where('type','=','Boletines')->get();
+
+        //MODAL DE ACUERDOS
+
+        $Acuerdos = Documents::where('type','=','Acuerdos')->get();
+
+        //MODAL DE ACTAS
+
+        $Actas = Documents::where('type','=','Actas')->get();
+
+        //MODAL DE RESOLUCIONES
+
+        $Resoluciones = Documents::where('type','=','Resoluciones')->get();
+
+        //MODAL MANUAL DE CONTRATACIÓN
+
+        $ManualC = Documents::where('type','=','Manual de contratación')->get();
+
+        //MODAL PLAN DE ADQUISICIONES
+
+        $PlanA = Documents::where('type','=','Plan de adquisiones')->get();
+
+        return view('visitante.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','valoresCred', 'valoresCcred','valoresCyC','Concejales','Acuerdos','Actas','Resoluciones','PlanA','ManualC','Boletines'));
     }
 
     /**

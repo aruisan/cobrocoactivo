@@ -156,10 +156,10 @@ box-shadow: -8px 12px 18px -6px rgba(0,0,0,0.75);
                         <ul class="dropdown-menu">
                             <li><a data-toggle="modal" data-target="#modal-md" href="">Mesa Directiva</a></li>
                             <li><a data-toggle="modal" data-target="#modal-pres" href="">Presupuesto</a></li>
-                            <li><a data-toggle="modal" data-target="#modal-rc" href="">Rendición de Cuentas</a></li>
-                            <li><a data-toggle="modal" data-target="#modal-le" href="">Lista de Empleados</a></li>
+                            <!-- <li><a data-toggle="modal" data-target="#modal-rc" href="">Rendición de Cuentas</a></li> -->
+                            <!-- <li><a data-toggle="modal" data-target="#modal-le" href="">Lista de Empleados</a></li> -->
                             <li><a data-toggle="modal" data-target="#modal-lc" href="">Lista de Concejales</a></li>
-                            <li><a data-toggle="modal" data-target="#modal-lc" href="">Boletines</a></li>
+                            <li><a data-toggle="modal" data-target="#modal-boletines" href="">Boletines</a></li>
                         </ul>
                     </li>
                     <li class="page-scroll">
@@ -179,9 +179,9 @@ box-shadow: -8px 12px 18px -6px rgba(0,0,0,0.75);
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a tabindex="-1" href="#">Manual de Contratación</a></li>
-                            <li><a tabindex="-1" href="#">Plan de Adquisiciones</a></li>
-                            <li><a data-toggle="modal" data-target="#modal-pc" href="">Procesos de Contratación</a></li>
+                            <li><a data-toggle="modal" data-target="#modal-manualcon" href="">Manual de Contratación</a></li>
+                            <li><a data-toggle="modal" data-target="#modal-adquisiciones" href="">Plan de Adquisiciones</a></li>
+                            <!-- <li><a data-toggle="modal" data-target="#modal-pc" href="">Procesos de Contratación</a></li> -->
                         </ul>
                     </li>
                     <li class="page-scroll">
@@ -191,8 +191,8 @@ box-shadow: -8px 12px 18px -6px rgba(0,0,0,0.75);
                         </a>
                         <ul class="dropdown-menu">
                             <li><a data-toggle="modal" data-target="#modal-contacto" href="">Contactenos</a></li>
-                            <li><a tabindex="-1" href="#">Información de Contactos</a></li>
-                            <li><a tabindex="-1" href="#">Notificaciones</a></li>
+                            <!-- <li><a tabindex="-1" href="#">Información de Contactos</a></li> -->
+                            <!-- <li><a tabindex="-1" href="#">Notificaciones</a></li> -->
                         </ul>
                     </li>
                 </ul>
@@ -305,6 +305,56 @@ $(document).ready(function(){
         responsive: true,
         "searching": false,
         "ordering": false,
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'print'
+        ]
+    } );
+
+    $('#tabla_Actas').DataTable( {
+        responsive: true,
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'print'
+        ]
+    } );
+
+    $('#tabla_Proy').DataTable( {
+        responsive: true,
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'print'
+        ]
+    } );
+
+    $('#tabla_Acuerdos').DataTable( {
+        responsive: true,
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'print'
+        ]
+    } );
+
+    $('#tabla_Res').DataTable( {
+        responsive: true,
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'print'
+        ]
+    } );
+
+    $('#tabla_corrS').DataTable( {
+        responsive: true,
+        "searching": true,
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'print'
+        ]
+    } );
+
+    $('#tabla_PA').DataTable( {
+        responsive: true,
+        "searching": true,
         dom: 'Bfrtip',
         buttons: [
             'copy', 'csv', 'excel', 'print'

@@ -296,15 +296,5 @@
                     'copy', 'csv', 'excel', 'print'
                 ]
             } );
-
-        $('#registros').on('click','tr td', function(evt){
-            var target;
-            target = $(event.target);
-            url ="/presupuesto/"+ target.parent().data('idalumno');
-            window.open(url, '_blank');
-            return false;
-        });
-
-        $('#registros').css("cursor","pointer");
     </script>
 @stop
