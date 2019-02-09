@@ -19,8 +19,7 @@ class BoletinesController extends Controller
      */
     public function index()
     {
-        //Se debe cambiar el type a Boletines
-        $Boletines = Documents::where('type','=','Otros documentos')->get();
+        $Boletines = Documents::where('type','=','Boletines')->get();
         return view('administrativo.gestiondocumental.boletines.index', compact('Boletines'));
     }
 
@@ -47,8 +46,7 @@ class BoletinesController extends Controller
         $resource = $file->resource($request->fileBoletines, 'public/Boletines');
 
         $user_id = $request->id_resp;
-        //Se debe cambiar el type a boletines
-        $type = "Otros documentos";
+        $type = "Boletines";
         $name = $request->name;
         $ff_doc = $request->ff_doc;
         $estado   = '0';
