@@ -16,81 +16,29 @@
     <div class="row">
         <div class="col-lg-12 text-center">
             <div class="card">
-                <div class="card-title text-center">
-                    &nbsp;
-                </div>
+                <div class="card-title text-center">&nbsp;</div>
                 <div class="card-body" style="background-color: white">
                     <div class="recent-meaasge">
-                        <div class="media">
-                            <div class="col-lg-2">
-                                <a href="#"><img src="{{ asset('img/concejales/5.png')}}" class="card-img-top" width="100%"></a>
+                        @if(count($Concejales) > 0)
+                            @foreach ($Concejales as $key => $data)
+                                <div class="media">
+                                    <div class="col-lg-2">
+                                        <a href="{{ asset('/dashboard/concejales/'.$data->id.'/edit') }}"><img src="{{ asset('img/concejales/'.$data->persona->num_dc.'.png')}}" class="card-img-top" width="100%"></a>
+                                    </div>
+                                    <div class="col-lg-10">
+                                        <h4 class="media-heading"><b>{{ $data->persona->nombre }}</b></h4>
+                                        <p class="f-s-12">No C.C {{ $data->persona->num_dc }} </p>
+                                    </div>
+                                </div>
+                                <hr>
+                            @endforeach
+                        @else
+                            <div class="col-md-12 align-self-center">
+                                <div class="alert alert-danger text-center">
+                                    Actualmente no hay concejales almacenados.
+                                </div>
                             </div>
-                            <div class="col-lg-10">
-                                <h4 class="media-heading"><b>JONATHAN LEE ARCHBOLD</b></h4>
-                                <p class="f-s-12">No C.C 18.011.306 </p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="media">
-                            <div class="col-lg-2">
-                                <a href="#"><img src="{{ asset('img/concejales/1.png')}}" class="card-img-top" width="100%"></a>
-                            </div>
-                            <div class="col-lg-10">
-                                <h4 class="media-heading"><b>LERI ANISETO HENRY TAYLOR</b></h4>
-                                <p class="f-s-12">No C.C 18.005.378 </p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="media">
-                            <div class="col-lg-2">
-                                <a href="#"><img src="{{ asset('img/concejales/3.png')}}" class="card-img-top" width="100%"></a>
-                            </div>
-                            <div class="col-lg-10">
-                                <h4 class="media-heading"><b>EVIS EULALIA LIVINGSTON HOWARD</b></h4>
-                                <p class="f-s-12">No C.C 23.249.277 </p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="media">
-                            <div class="col-lg-2">
-                                <a href="#"><img src="{{ asset('img/concejales/6.png')}}" class="card-img-top" width="100%"></a>
-                            </div>
-                            <div class="col-lg-10">
-                                <h4 class="media-heading"><b>ARTURO VICENTE NEWBALL BRITTON</b></h4>
-                                <p class="f-s-12">No C.C 18.005.318 </p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="media">
-                            <div class="col-lg-2">
-                                <a href="#"><img src="{{ asset('img/concejales/7.png')}}" class="card-img-top" width="100%"></a>
-                            </div>
-                            <div class="col-lg-10">
-                                <h4 class="media-heading"><b>ANA MERCEDES NEWBALL TAYLOR</b></h4>
-                                <p class="f-s-12">No C.C 23.248.837 </p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="media">
-                            <div class="col-lg-2">
-                                <a href="#"><img src="{{ asset('img/concejales/4.png')}}" class="card-img-top" width="100%"></a>
-                            </div>
-                            <div class="col-lg-10">
-                                <h4 class="media-heading"><b>ELSA HERMINIA ROBINSON HAWKINS</b></h4>
-                                <p class="f-s-12">No C.C 23.248.781 </p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="media">
-                            <div class="col-lg-2">
-                                <a href="#"><img src="{{ asset('img/concejales/2.png')}}" class="card-img-top" width="100%"></a>
-                            </div>
-                            <div class="col-lg-10">
-                                <h4 class="media-heading"><b>JAVIER RAFAEL RODRIGUEZ ARCHBOLD</b></h4>
-                                <p class="f-s-12">No C.C 18.005.265 </p>
-                            </div>
-                        </div>
-                        <hr>
+                        @endif
                     </div>
                 </div>
             </div>

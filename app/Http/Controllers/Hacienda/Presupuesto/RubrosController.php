@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Hacienda\Presupuesto;
 
 use App\Http\Controllers\Controller;
+use App\Model\Hacienda\Presupuesto\RubrosMov;
 use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
 use App\Model\Hacienda\Presupuesto\Rubro;
@@ -155,7 +156,24 @@ class RubrosController extends Controller
             unset($suma, $resta, $Cred, $CCred);
         }
 
-        return view('hacienda.presupuesto.rubro.show', compact('rubro','fuentesR','valor','valorDisp','rol','rubros','fuentesAll','valores'));
+
+        $RubrosM = RubrosMov::where([['rubro_id','=',$rubro->id],['valor','>','0']])->get();
+        foreach ($RubrosM as $data){
+            $files[] = collect(['idResource' => $data->resource_id , 'ruta' => $data->Resource->ruta, 'mov' => $data->movimiento]);
+        }
+        if (!isset($files)){
+            foreach ($rubro->fontsRubro as $fr){
+                $RubrosMov = RubrosMov::where([['fonts_rubro_id','=',$fr->id],['valor','>','0']])->get();
+                foreach ($RubrosMov as $data2){
+                    $files[] = collect(['idResource' => $data2->resource_id , 'ruta' => $data2->Resource->ruta, 'mov' => $data2->movimiento]);
+                }
+            }
+            if (!isset($files)){
+                $files = 0;
+            }
+        }
+
+        return view('hacienda.presupuesto.rubro.show', compact('rubro','fuentesR','valor','valorDisp','rol','rubros','fuentesAll','valores','files'));
         
     }
 

@@ -43,7 +43,7 @@ class ManualContratController extends Controller
     public function store(Request $request)
     {
         $file = new ResourceTraits;
-        $resource = $file->resource($request, 'public/ManualContratacion');
+        $resource = $file->resource($request->fileManualC, 'public/ManualContratacion');
 
         $user_id    = $request->id_resp;
         $ff_doc = $request->ff_doc;

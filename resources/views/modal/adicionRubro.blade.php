@@ -41,7 +41,7 @@
                                 @endforeach
                                 <td>
                                     <div class="form-group-sm">
-                                        <input type="file" required name="file" accept="application/pdf" class="form-control">
+                                        <input type="file" required name="fileAdicion" accept="application/pdf" class="form-control">
                                     </div>
                                 </td>
                             </tr>

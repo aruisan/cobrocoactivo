@@ -60,7 +60,7 @@
                     <a class="nav-link" data-toggle="pill" href="#tabRubros">Rubros</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" data-toggle="pill" href="#tabPAC">PAC</a>
+                    <a class="nav-link hidden" data-toggle="pill" href="#tabPAC">PAC</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="pill" href="#tabCert">CDP's</a>
@@ -100,10 +100,10 @@
                     <a class="nav-link" data-toggle="pill" href="#tabCre">Creditos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" data-toggle="pill" href="#tabApl">Aplazamientos</a>
+                    <a class="nav-link disabled hidden" data-toggle="pill" href="#tabApl">Aplazamientos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" data-toggle="pill" href="#tabOP">Orden de Pago</a>
+                    <a class="nav-link disabled hidden" data-toggle="pill" href="#tabOP">Orden de Pago</a>
                 </li>
             </ul>
             <br>
@@ -366,7 +366,7 @@
                                             <a href="{{ url('administrativo/cdp/'.$cdp->id) }}" title="Ver" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                         </td>
                                         <td class="text-center">
-                                            <a href="{{ route('cpd-pdf', $cdp->id) }}" title="certificado" class="btn-sm btn-danger"><i class="fa fa-file-pdf-o"></i></a>
+                                            <a href="{{ route('cpd-pdf', $cdp->id) }}" target="_blank" title="certificado" class="btn-sm btn-danger"><i class="fa fa-file-pdf-o"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -428,7 +428,7 @@
                                             <a href="{{ url('administrativo/registros',$data->id) }}" title="Ver Registro" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                         </td>
                                         <td class="text-center">
-                                            <a href="{{ route('registro-pdf', $data->id) }}" title="certificado-registro" class="btn-sm btn-danger"><i class="fa fa-file-pdf-o"></i></a>
+                                            <a href="{{ route('registro-pdf', $data->id) }}" target="_blank" title="certificado-registro" class="btn-sm btn-danger"><i class="fa fa-file-pdf-o"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

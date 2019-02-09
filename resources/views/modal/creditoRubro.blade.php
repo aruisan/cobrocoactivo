@@ -18,7 +18,7 @@
                                 </div>
                             </div>
                             <div class="form-group-sm">
-                                <input type="file" required name="file" accept="application/pdf" class="form-control">
+                                <input type="file" required name="fileCyC" accept="application/pdf" class="form-control">
                             </div>
                         @else
                         @endif
