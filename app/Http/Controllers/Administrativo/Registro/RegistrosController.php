@@ -14,6 +14,7 @@ use Illuminate\Http\Response;
 
 use Session;
 use App\Model\Hacienda\Presupuesto\Vigencia;
+use Carbon\Carbon;
 
 class RegistrosController extends Controller
 {
@@ -218,9 +219,9 @@ class RegistrosController extends Controller
     $dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
     $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 
+    $fecha = Carbon::createFromTimeString($cdp->created_at);
 
-
-        $pdf = \PDF::loadView('administrativo.registros.pdf', compact('registro', 'vigencia', 'dias', 'meses'))->setOptions(['images' => true,'isRemoteEnabled' => true]);
+        $pdf = \PDF::loadView('administrativo.registros.pdf', compact('registro', 'vigencia', 'dias', 'meses', 'fecha'))->setOptions(['images' => true,'isRemoteEnabled' => true]);
             return $pdf->stream();
     }
 }
