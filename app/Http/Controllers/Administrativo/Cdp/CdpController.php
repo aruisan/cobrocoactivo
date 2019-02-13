@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Administrativo\Cdp;
 
 use App\Model\Hacienda\Presupuesto\FontsRubro;
+use App\Model\Administrativo\Registro\CdpsRegistro;
 use App\Model\Administrativo\Cdp\Cdp;
 use App\Model\Hacienda\Presupuesto\Rubro;
+use App\Model\Administrativo\Cdp\RubrosCdp;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
-
 use App\Model\Hacienda\Presupuesto\Font;
 use App\Model\Hacienda\Presupuesto\Vigencia;
 use App\Model\Hacienda\Presupuesto\Level;
@@ -58,6 +59,35 @@ class CdpController extends Controller
         $rubros = Rubro::all();
         $dependencia = auth()->user()->dependencia_id;
         return view('administrativo.cdp.create', compact('dependencia','rubros'));
+    }
+
+    public function anular($id){
+        $cdp = Cdp::findOrFail($id);
+        $cdpsRegistro = CdpsRegistro::where('cdp_id','=',$id)->get();
+        if (count($cdpsRegistro) > 0){
+            Session::flash('warning', 'Tiene '.count($cdpsRegistro).' Registros Relacionados a este CDP. Elimine los registros para poder anular el CDP');
+            return redirect('/administrativo/cdp/'.$id);
+        }else{
+            $valor = $cdp->valor;
+            $cdp->saldo = 0;
+            $cdp->jefe_e = '2';
+            $cdp->save();
+
+            $rubrosCdp = RubrosCdp::where('cdp_id','=',$id)->get();
+            foreach ($rubrosCdp as $rubroCdp){
+                $id_rubro = $rubroCdp->rubro_id;
+            }
+            $rubro = FontsRubro::where('rubro_id','=',$id_rubro)->get();
+            foreach ($rubro as $data){
+                $idFontRubro = $data->id;
+            }
+            $cambio = FontsRubro::findOrFail($idFontRubro);
+            $cambio->valor_disp = $cambio->valor_disp + $valor;
+            $cambio->save();
+
+            Session::flash('error','El CDP ha sido anulado');
+            return redirect('/administrativo/cdp/'.$id);
+        }
     }
 
     /**

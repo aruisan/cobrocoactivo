@@ -129,6 +129,7 @@ Route::group([ 'middleware' => 'auth'] ,function(){
         Route::Resource('rubrosCdp/valor','Administrativo\Cdp\RubrosCdpValorController');
         Route::get('cdp/{id}/{rol}/{fecha}/{valor}/{estado}', 'Administrativo\Cdp\CdpController@updateEstado');
         Route::put('cdp/r/{id}', 'Administrativo\Cdp\CdpController@rechazar');
+        Route::post('cdp/{id}/anular', 'Administrativo\Cdp\CdpController@anular');
         //pdf cdp
 		Route::get('/cdp/pdf/{id}', 'Administrativo\Cdp\CdpController@pdf')->name('cpd-pdf');
 
@@ -229,6 +230,14 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 	// Route::get('/entradas','Hacienda\Almacen\AlmacenController@entradas');
 	Route::get('contractual/rubros','Administrativo\Contractual\VerRubrosController@index');
 	Route::Resource('contractual','Administrativo\Contractual\ContractualController');
+    Route::get('contractual/{id}/anexos', 'Administrativo\Contractual\ContractualController@anexos')->name('contractual.anexos');
+    Route::get('contractual/{id}/anexos/create', 'Administrativo\Contractual\ContractualController@anexosCreate')->name('contractual.anexosCreate');
+    Route::post('contractual/{id}/anexos', 'Administrativo\Contractual\ContractualController@anexosStore');
+    Route::get('contractual/anexos/{id}/edit', 'Administrativo\Contractual\ContractualController@anexosEdit')->name('contractual.anexosEdit');
+    Route::post('contractual/anexos/{id}', 'Administrativo\Contractual\ContractualController@anexosUpdate');
+    Route::delete('contractual/anexos/{id}', 'Administrativo\Contractual\ContractualController@anexosDelete');
+
+
 
 
 });

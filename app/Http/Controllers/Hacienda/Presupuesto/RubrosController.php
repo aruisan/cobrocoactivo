@@ -106,6 +106,8 @@ class RubrosController extends Controller
         $rubro = Rubro::findOrFail($id);
         $rubros = Rubro::where('id', '!=', $id)->get();
         $fuentesR = $rubro->Fontsrubro;
+        $add = rubrosMov::where([['rubro_id','=',$id],['movimiento','=','2']])->get();
+        $red = rubrosMov::where([['rubro_id','=',$id],['movimiento','=','3']])->get();
         $fuentesAll = Font::all();
         $valor = $fuentesR->sum('valor');
         $valorDisp = $fuentesR->sum('valor_disp');
@@ -173,7 +175,7 @@ class RubrosController extends Controller
             }
         }
 
-        return view('hacienda.presupuesto.rubro.show', compact('rubro','fuentesR','valor','valorDisp','rol','rubros','fuentesAll','valores','files'));
+        return view('hacienda.presupuesto.rubro.show', compact('rubro','fuentesR','valor','valorDisp','rol','rubros','fuentesAll','valores','files','add','red'));
         
     }
 

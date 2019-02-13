@@ -37,6 +37,6 @@ class Documents extends Model
     }
 
     public function tercero(){
-        return $this->belongsTo('App\User', 'tercero_id');
+        return $this->belongsTo('App\Model\Persona', 'tercero_id');
     }
 }

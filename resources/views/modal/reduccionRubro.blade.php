@@ -26,10 +26,12 @@
                                     <input type="hidden" name="fuenteR_id[]" value="{{ $fuentesRubro->id }}">
                                     <td>
                                         <div class="col-lg-12">
-                                            @if($rubro->rubrosMov->count() > 0)
+                                            @if($red->count() > 0)
+                                            <!--
                                                 <input type="hidden" name="fuente_id[]" value="@foreach($fuentesRubro->rubrosMov as $mov) @if($mov->rubro_id == $rubro->id and $mov->movimiento == 3) {{  $mov->fonts_id }}@endif @endforeach">
                                                 <input type="hidden" name="fuenteBase_id[]" value="{{ $fuentesRubro->Font->id }}">
-                                                <input type="hidden" name="mov_id[]" value="@foreach($fuentesRubro->rubrosMov as $mov) @if($mov->rubro_id == $rubro->id and $mov->movimiento == 3) {{  $mov->id }} @endif @endforeach">
+                                            -->
+                                                <input type="hidden" name="mov_id[]" value="@foreach($red as $mov) @if($mov->rubro_id == $rubro->id and $mov->movimiento == 3) {{  $mov->id }} @endif @endforeach">
                                                 <input type="text" required  name="valorCred[]" value="@foreach($fuentesRubro->rubrosMov as $mov) @if($mov->rubro_id == $rubro->id and $mov->movimiento == 3) {{  $mov->valor }} @endif @endforeach" style="text-align: center">
                                             @else
                                                 <input type="hidden" name="fuente_id[]" value="{{ $fuentesRubro->Font->id }}">

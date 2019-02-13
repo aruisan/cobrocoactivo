@@ -45,7 +45,7 @@
                     <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
                     <select class="form-control" name="tercero">
                         @foreach($terceros as $tercero)
-                            <option value="{{$tercero->id}}" @if($tercero->id == $Document->tercero_id) selected @endif>{{$tercero->name}}</option>
+                            <option value="{{$tercero->id}}" @if($tercero->id == $Document->tercero_id) selected @endif>{{$tercero->nombre}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -89,7 +89,7 @@
                     <span class="input-group-addon"><i class="fa fa-check" aria-hidden="true"></i></span>
                     <select class="form-control" name="estado">
                             <option value="0" @if($Document->estado == 0) selected @endif>Pendiente</option>
-                            <option value="1" @if($Document->estado == 1) selected @endif>Aprovado</option>
+                            <option value="1" @if($Document->estado == 1) selected @endif>Aprobado</option>
                             <option value="2" @if($Document->estado == 2) selected @endif>Rechazado</option>
                             <option value="3" @if($Document->estado == 3) selected @endif>Archivado</option>
                     </select>

@@ -114,7 +114,7 @@
                 <label>Tercero: </label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                    <input type="text" name="tercero" class="form-control" value="{{ $CorrespondenciaE->tercero->name }}" disabled>
+                    <input type="text" name="tercero" class="form-control" value="{{ $CorrespondenciaE->tercero->nombre }}" disabled>
                 </div>
             </div>
         </div>

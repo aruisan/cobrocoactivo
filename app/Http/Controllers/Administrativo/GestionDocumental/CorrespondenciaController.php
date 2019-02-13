@@ -9,6 +9,7 @@ use App\User;
 use App\Resource;
 use App\Correspondencia;
 use App\Model\Administrativo\GestionDocumental\Documents;
+use App\Model\Persona;
 use Session;
 
 class CorrespondenciaController extends Controller
@@ -35,7 +36,7 @@ class CorrespondenciaController extends Controller
 
         $idResp = auth()->user()->id;
         $users = User::all();
-        $terceros = User::all();
+        $terceros = Persona::all();
         return view('administrativo.gestiondocumental.correspondencia.create',compact('id','tipo', 'terceros', 'users','idResp'));
     }
 
@@ -70,7 +71,7 @@ class CorrespondenciaController extends Controller
     public function edit($id)
     {
         $users = User::all();
-        $terceros = User::all();
+        $terceros = Persona::all();
         $CorrespondenciaE = Documents::findOrFail($id);
         return view('administrativo.gestiondocumental.correspondencia.edit',compact('terceros', 'users','CorrespondenciaE'));
     }

@@ -314,29 +314,48 @@
                 </tbody>
             </table><br>
             <center>
-                @if($cdp->jefe_e != "3")
-                    @if($rol == 2)
-                        <button type="button" v-on:click.prevent="nuevaFilaPrograma" class="btn btn-success">Agregar Fila</button>
-                        <button type="submit" class="btn btn-primary">Guardar Rubros</button>
-                        @if($cdp->rubrosCdp->count() > 0 )
-                            <a href="{{url('/administrativo/cdp/'.$cdp->id.'/'.$rol.'/'.$fechaActual.'/'.$cdp->rubrosCdpValor->sum('valor_disp').'/3')}}" class="btn btn-success">
-                                Enviar CDP
-                            </a>
-                        @endif
-                    @elseif($rol == 3)
-                        @if($cdp->rubrosCdp->count() > 0 )
-                            <a href="{{url('/administrativo/cdp/'.$cdp->id.'/'.$rol.'/'.$fechaActual.'/'.$cdp->rubrosCdpValor->sum('valor_disp').'/3')}}" class="btn btn-success">
-                                Finalizar CDP
-                            </a>
-                            <a data-toggle="modal" data-target="#observacionCDP" class="btn btn-danger">
-                                Rechazar
-                            </a>
+                @if($cdp->jefe_e == "2" and $cdp->secretaria_e == "3")
+                    <div class="col-md-12 align-self-center">
+                        <div class="alert alert-danger text-center">
+                            El CDP ha sido anulado.
+                        </div>
+                    </div>
+                @else
+                    @if($cdp->jefe_e != "3")
+                        @if($rol == 2)
+                            <button type="button" v-on:click.prevent="nuevaFilaPrograma" class="btn btn-success">Agregar Fila</button>
+                            <button type="submit" class="btn btn-primary">Guardar Rubros</button>
+                            @if($cdp->rubrosCdp->count() > 0 )
+                                <a href="{{url('/administrativo/cdp/'.$cdp->id.'/'.$rol.'/'.$fechaActual.'/'.$cdp->rubrosCdpValor->sum('valor_disp').'/3')}}" class="btn btn-success">
+                                    Enviar CDP
+                                </a>
+                            @endif
+                        @elseif($rol == 3)
+                            @if($cdp->rubrosCdp->count() > 0 )
+                                <a href="{{url('/administrativo/cdp/'.$cdp->id.'/'.$rol.'/'.$fechaActual.'/'.$cdp->rubrosCdpValor->sum('valor_disp').'/3')}}" class="btn btn-success">
+                                    Finalizar CDP
+                                </a>
+                                <a data-toggle="modal" data-target="#observacionCDP" class="btn btn-danger">
+                                    Rechazar
+                                </a>
+                            @endif
                         @endif
                     @endif
                 @endif
             </center>
         </form>
     </div>
+        @if($cdp->jefe_e == "3" and $cdp->secretaria_e == "3")
+            <div class="row">
+                <div class="form-group text-center">
+                    <form action="{{url('/administrativo/cdp/'.$cdp->id.'/anular')}}" method="POST">
+                        {{method_field('POST')}}
+                        {{ csrf_field() }}
+                        <button class="btn btn-danger btn-lg" type="submit" title="Al anular el CDP se retorna el dinero al rubro">Anular CDP</button>
+                    </form>
+                </div>
+            </div>
+        @endif
     </div>
     @include('modal.observacionCDP')
     @stop

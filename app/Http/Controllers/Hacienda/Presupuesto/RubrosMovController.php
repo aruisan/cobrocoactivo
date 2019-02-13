@@ -144,7 +144,6 @@ class RubrosMovController extends Controller
             $file = new ResourceTraits;
             $resource = $file->resource($request->fileAdicion, 'public/AdicionyRed');
 
-            $fuenteB_id = $request->fuenteBase_id;
             $fuenteR_id = $request->fuenteR_id;
 
             for($i = 0; $i < count( $fuenteR_id); $i++){
@@ -163,7 +162,7 @@ class RubrosMovController extends Controller
             $archivo->delete();
 
             Session::flash('success','La adición se actualizó correctamente');
-            return redirect()->action('Hacienda\Presupuesto\RubrosController@show', [$id]);
+            return redirect('/presupuesto/rubro/'.$id);
 
         }elseif ($m == 3){
 
@@ -247,12 +246,10 @@ class RubrosMovController extends Controller
 
         } elseif ($m == 2){
 
-            $fuenteB_id = $request->fuenteBase_id;
-            $fuente_id = $request->fuente_id;
             $fuenteR_id = $request->fuenteR_id;
             $valor = $request->valorCred;
             $mov_id = $request->mov_id;
-            $count = count($fuente_id);
+            $count = count($fuenteR_id);
 
             for($i = 0; $i < $count; $i++){
 
@@ -263,18 +260,17 @@ class RubrosMovController extends Controller
                     $FontRubro->valor_disp = $FontRubro->valor_disp + $valor[$i];
                     $FontRubro->save();
 
-
                     $file = new ResourceTraits;
                     $resource = $file->resource($request->fileAdicion, 'public/AdicionyRed');
 
-                    $rubrosMov = new RubrosMov();
-                    $rubrosMov->valor = $valor[$i];
-                    $rubrosMov->fonts_rubro_id = $fuenteR_id[$i];
-                    $rubrosMov->fonts_id = $fuenteB_id[$i];
-                    $rubrosMov->rubro_id = $id;
-                    $rubrosMov->movimiento = $m;
-                    $rubrosMov->resource_id = $resource;
-                    $rubrosMov->save();
+                    $rubrosMov2 = new RubrosMov();
+                    $rubrosMov2->valor = $valor[$i];
+                    $rubrosMov2->fonts_rubro_id = $fuenteR_id[$i];
+                    $rubrosMov2->fonts_id = 1;
+                    $rubrosMov2->rubro_id = $id;
+                    $rubrosMov2->movimiento = $m;
+                    $rubrosMov2->resource_id = $resource;
+                    $rubrosMov2->save();
 
                 }
             }
@@ -284,34 +280,31 @@ class RubrosMovController extends Controller
 
         } elseif ($m == 3){
 
-            $fuenteB_id = $request->fuenteBase_id;
-            $fuente_id = $request->fuente_id;
-            $fuenteR_id = $request->fuenteR_id;
-            $valor = $request->valorCred;
-            $mov_id = $request->mov_id;
-            $count = count($fuente_id);
+            $fuenteR2_id = $request->fuenteR_id;
+            $valor2 = $request->valorCred;
+            $mov_id2 = $request->mov_id;
+            $count2 = count($fuenteR2_id);
 
-            for($i = 0; $i < $count; $i++){
+            for($i = 0; $i < $count2; $i++){
 
-                if ($mov_id[$i]){
-                    $this->updateMov($mov_id[$i], $valor[$i], $request, $id, $m);
+                if ($mov_id2[$i]){
+                    $this->updateMov($mov_id2[$i], $valor2[$i], $request, $id, $m);
                 }else{
-                    $FontRubro = FontsRubro::findOrFail($fuenteR_id[$i]);
-                    $FontRubro->valor_disp = $FontRubro->valor_disp - $valor[$i];
-                    $FontRubro->save();
+                    $FontRubro2 = FontsRubro::findOrFail($fuenteR2_id[$i]);
+                    $FontRubro2->valor_disp = $FontRubro2->valor_disp - $valor2[$i];
+                    $FontRubro2->save();
 
-                    $file = new ResourceTraits;
-                    $resource = $file->resource($request->fileReduccion, 'public/AdicionyRed');
+                    $file2 = new ResourceTraits;
+                    $resource2 = $file2->resource($request->fileReduccion, 'public/AdicionyRed');
 
-                    $rubrosMov = new RubrosMov();
-                    $rubrosMov->valor = $valor[$i];
-                    $rubrosMov->fonts_rubro_id = $fuenteR_id[$i];
-                    $rubrosMov->fonts_id = $fuenteB_id[$i];
-                    $rubrosMov->rubro_id = $id;
-                    $rubrosMov->movimiento = $m;
-                    $rubrosMov->resource_id = $resource;
-                    $rubrosMov->save();
-
+                    $rubrosMov3 = new RubrosMov();
+                    $rubrosMov3->valor = $valor2[$i];
+                    $rubrosMov3->fonts_rubro_id = $fuenteR2_id[$i];
+                    $rubrosMov3->fonts_id = 1;
+                    $rubrosMov3->rubro_id = $id;
+                    $rubrosMov3->movimiento = $m;
+                    $rubrosMov3->resource_id = $resource2;
+                    $rubrosMov3->save();
                 }
             }
 

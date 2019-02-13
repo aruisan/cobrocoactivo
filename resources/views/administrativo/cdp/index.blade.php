@@ -142,7 +142,17 @@
                                 <td class="text-center">{{ $cdp->name }}</td>
                                 <td class="text-center">
                                     <span class="badge badge-pill badge-danger">
-                                        Aprobado
+                                        @if($cdp->jefe_e == "0")
+                                            Pendiente
+                                        @elseif($cdp->jefe_e == "1")
+                                            Rechazado
+                                        @elseif($cdp->jefe_e == "2")
+                                            Anulado
+                                        @elseif($cdp->jefe_e == "3")
+                                            Aprobado
+                                        @else
+                                            En Espera
+                                        @endif
                                     </span>
                                 </td>
                                 <td class="text-center">$<?php echo number_format($cdp->valor,0) ?></td>
@@ -150,7 +160,7 @@
                                     <a href="{{ url('administrativo/cdp/'.$cdp->id) }}" title="Ver CDP" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ url('administrativo/cdp/'.$cdp->id) }}" title="File" class="btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i></a>
+                                    <a href="{{ route('cpd-pdf', $cdp->id) }}" title="File" class="btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -171,7 +181,7 @@
     <script>
         $('#tabla_CDP').DataTable( {
             responsive: true,
-            "searching": false,
+            "searching": true,
             dom: 'Bfrtip',
             buttons: [
                 'copy', 'csv', 'excel', 'print'
@@ -180,7 +190,7 @@
 
         $('#tabla_Historico').DataTable( {
             responsive: true,
-            "searching": false,
+            "searching": true,
             dom: 'Bfrtip',
             buttons: [
                 'copy', 'csv', 'excel', 'print'

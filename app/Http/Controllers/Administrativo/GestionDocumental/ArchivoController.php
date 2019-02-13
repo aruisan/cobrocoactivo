@@ -9,6 +9,7 @@ use App\User;
 use App\Resource;
 use App\Traits\ResourceTraits;
 use App\Model\Administrativo\GestionDocumental\Documents;
+use App\Model\Persona;
 use Session;
 
 class ArchivoController extends Controller
@@ -35,7 +36,7 @@ class ArchivoController extends Controller
     {
         $idResp = auth()->user()->id;
         $users = User::all();
-        $terceros = User::all();
+        $terceros = Persona::all();
         return view('administrativo.gestiondocumental.archivo.create', compact('terceros','users','idResp'));
     }
 
@@ -105,7 +106,7 @@ class ArchivoController extends Controller
     public function edit($id)
     {
         $Document = Documents::findOrFail($id);
-        $terceros = User::all();
+        $terceros = Persona::all();
 
        // dd($Document->resource->ruta);
 

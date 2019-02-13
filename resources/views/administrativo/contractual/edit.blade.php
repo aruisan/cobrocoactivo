@@ -45,13 +45,17 @@
         <div class="row">
             <div class="form-group text-center">
                 <button class="btn btn-primary" type="submit">Actualizar</button>
-                <form action="{{url('/contractual/'.$id)}}" method="POST">
-                    {{method_field('DELETE')}}
-                    {{ csrf_field() }}
-                    <button class="btn btn-danger" type="submit">Eliminar</button>
-                </form>
             </div>
         </div>
     </form>
+    <div class="row">
+        <div class="form-group text-center">
+            <form action="{{url('/contractual/'.$id)}}" method="POST">
+                {{method_field('DELETE')}}
+                {{ csrf_field() }}
+                <button class="btn btn-danger btn-lg" type="submit">Eliminar</button>
+            </form>
+        </div>
+    </div>
 </div>
 @stop
