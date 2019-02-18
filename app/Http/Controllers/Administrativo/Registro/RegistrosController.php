@@ -50,7 +50,7 @@ class RegistrosController extends Controller
      */
     public function create()
     {
-        $persona = Persona::all();
+        $personas = Persona::all();
         $roles = auth()->user()->roles;
         foreach ($roles as $role){
             $rol= $role->id;
@@ -58,7 +58,7 @@ class RegistrosController extends Controller
         $cdps = Cdp::all()->where('jefe_e','3')->count();
         if($cdps > 0){
             $contratos = Contractual::all();
-            return view('administrativo.registros.create', compact('contratos','rol','persona'));
+            return view('administrativo.registros.create', compact('contratos','rol','personas'));
         }else{
             Session::flash('error','Actualmente no existen CDPs disponibles para crear registros.');
             return redirect('/administrativo/registros');
@@ -125,7 +125,7 @@ class RegistrosController extends Controller
 
     public function edit($id)
     {
-        $persona = Persona::all();
+        $personas = Persona::all();
         $registro = Registro::findOrFail($id);
         $cdps = Cdp::all();
         $contratos = Contractual::all();
@@ -133,7 +133,7 @@ class RegistrosController extends Controller
         foreach ($roles as $role){
             $rol= $role->id;
         }
-        return view('administrativo.registros.edit', compact('registro','cdps','contratos','rol','persona'));
+        return view('administrativo.registros.edit', compact('registro','cdps','contratos','rol','personas'));
     }
 
     public function show($id)

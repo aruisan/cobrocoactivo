@@ -20,10 +20,14 @@
     <input type="hidden" name="secretaria_e" value="0">
     <div class="row">
         <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <label>Datos persona: </label>
+            <label>Tercero: </label>
             <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></span>
-                <input type="text" name="persona_id" class="form-control" data-toggle="modal" data-target="#participante">
+                <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                <select class="form-control" name="persona_id">
+                    @foreach($personas as $persona)
+                        <option value="{{$persona->id}}">{{$persona->nombre}}</option>
+                    @endforeach
+                </select>
             </div>
             <small class="form-text text-muted">Relacionar persona</small>
         </div>
@@ -42,6 +46,7 @@
         <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <label>Subir Archivo: </label>
             <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-file" aria-hidden="true"></i></span>
                 <input type="file" name="file" accept="application/pdf" class="form-control">
             </div>
         </div>
