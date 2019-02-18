@@ -7,6 +7,10 @@ use App\Http\Controllers\Controller;
 
 class OrdenDiaController extends Controller
 {
+     function __construct()
+    {
+         $this->middleware('permission:ordenDias-list');
+    }
     /**
      * Display a listing of the resource.
      *

@@ -18,6 +18,10 @@ use App\Model\Administrativo\Registro\Registro;
 
 class PresupuestoController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:presupuesto-list');
+    }
     /**
      * Display a listing of the resource.
      *

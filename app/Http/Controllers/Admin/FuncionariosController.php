@@ -26,10 +26,10 @@ class FuncionariosController extends Controller
 
     function __construct()
     {
-         /*$this->middleware('permission:funcionario-list');
+         $this->middleware('permission:funcionario-list');
          $this->middleware('permission:funcionario-create', ['only' => ['create','store']]);
          $this->middleware('permission:funcionario-edit', ['only' => ['edit','update']]);
-         $this->middleware('permission:funcionario-delete', ['only' => ['destroy']]);*/
+         $this->middleware('permission:funcionario-delete', ['only' => ['destroy']]);
     }
 
 

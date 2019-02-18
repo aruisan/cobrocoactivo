@@ -17,6 +17,15 @@ use App\Model\Administrativo\Registro\Registro;
 
 class ContractualController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:contractual-list');
+         $this->middleware('permission:contractual-create', ['only' => ['create','store']]);
+         $this->middleware('permission:contractual-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:contractual-delete', ['only' => ['destroy']]);
+    }  
+
+
     public function index()
     {
         $dependencia = auth()->user()->dependencia_id;

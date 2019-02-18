@@ -8,6 +8,7 @@ use App\Model\Administrativo\GestionDocumental\Documents;
 
 class Correspondencia extends Model
 {
+
      static function store($request)
      {
          if ($request->tipo_doc == 0){

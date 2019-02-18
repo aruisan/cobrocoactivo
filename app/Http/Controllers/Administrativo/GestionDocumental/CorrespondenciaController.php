@@ -14,6 +14,15 @@ use Session;
 
 class CorrespondenciaController extends Controller
 {
+     function __construct()
+    {
+         $this->middleware('permission:correspondencias-list');
+         $this->middleware('permission:correspondencias-create', ['only' => ['create','store']]);
+         $this->middleware('permission:correspondencias-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:correspondencias-delete', ['only' => ['destroy']]);
+    }
+
+
     public function index()
     {
         $CorrespondenciaE = Documents::where('type','=','Correspondencia entrada')->get();

@@ -15,10 +15,10 @@
         </div>
             <ul class="nav nav-pills">
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#tabArchivo">ARCHIVO</a>
+                    <a class="nav-link" data-toggle="pill" href="@can('archivos-list') #tabArchivo @endcan">ARCHIVO</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#tabMC">MANUAL DE CONTRATACIÓN</a>
+                    <a class="nav-link" data-toggle="pill" href="@can('manualContrataciones-list') #tabMC @endcan">MANUAL DE CONTRATACIÓN</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="pill" href="#tabPA">PLAN DE ADQUISICIONES</a>

@@ -12,6 +12,13 @@ use Session;
 
 class ConcejalController extends Controller
 {
+     function __construct()
+    {
+         $this->middleware('permission:concejales-list');
+         $this->middleware('permission:concejales-create', ['only' => ['create','store']]);
+         $this->middleware('permission:concejales-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:concejales-delete', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *

@@ -25,11 +25,11 @@
         <div class="form-group">
             <center><h3>Permisos:</h3></center>
             <br/>
-            @foreach ($modulos->chunk(3) as $chunk)
+            @foreach ($modulos->chunk(4) as $chunk)
             <hr>
             <div class="row">
                 @foreach($chunk as $modulo)
-                <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="col-xs-12 col-sm-6 col-md-3">
                     <div class="panel">
                         <div class="panel-body">
                             <label>{{ Form::checkbox('modulo[]', $modulo->id, false, array('class' => 'modulo', 'id' => $modulo->name)) }}

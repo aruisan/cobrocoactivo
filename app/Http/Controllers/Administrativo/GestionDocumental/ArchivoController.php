@@ -14,6 +14,13 @@ use Session;
 
 class ArchivoController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:archivos-list');
+         $this->middleware('permission:archivos-create', ['only' => ['create','store']]);
+         $this->middleware('permission:archivos-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:archivos-delete', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *

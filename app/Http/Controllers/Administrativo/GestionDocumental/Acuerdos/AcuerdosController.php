@@ -13,6 +13,13 @@ use Session;
 
 class AcuerdosController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:acuerdos-list');
+         $this->middleware('permission:acuerdos-create', ['only' => ['create','store']]);
+         $this->middleware('permission:acuerdos-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:acuerdos-delete', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *

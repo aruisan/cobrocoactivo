@@ -13,6 +13,12 @@ use Session;
 
 class ManualContratController extends Controller
 {
+     function __construct()
+    {
+         $this->middleware('permission:manualContrataciones-create', ['only' => ['create','store']]);
+         $this->middleware('permission:manualContrataciones-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:manualContrataciones-delete', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
