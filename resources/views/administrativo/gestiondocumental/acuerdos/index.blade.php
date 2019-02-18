@@ -15,16 +15,16 @@
         </div>
             <ul class="nav nav-pills">
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#tabAcuerdos">ACUERDOS</a>
+                    <a class="nav-link" data-toggle="pill" href="@can('acuerdos-list') #tabAcuerdos @endcan">ACUERDOS</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#tabProy">PROYECTOS DE ACUERDO</a>
+                    <a class="nav-link" data-toggle="pill" href="@can('proyectosAcuerdos-list') #tabProy @endcan">PROYECTOS DE ACUERDO</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#tabActas">ACTAS</a>
+                    <a class="nav-link" data-toggle="pill" href="@can('actas-list') #tabActas @endcan">ACTAS</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#tabRes">RESOLUCIONES</a>
+                    <a class="nav-link" data-toggle="pill" href="@can('resoluciones-list') #tabRes @endcan">RESOLUCIONES</a>
                 </li>
             </ul>
         <br>

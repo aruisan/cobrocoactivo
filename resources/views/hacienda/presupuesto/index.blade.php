@@ -73,6 +73,7 @@
                         Adiciones &nbsp;
                         <i class="fa fa-caret-down"></i>
                     </a>
+                    @can('adiciones-list')
                     <div class="dropdown-menu text-center">
                         <center>
                             <!---
@@ -81,12 +82,14 @@
                         <h5><a type="button" class="dropdown-item btn btn-primary" data-toggle="pill" href="#tabAddEgr">Egresos</a></h5>
                         </center>
                     </div>
+                    @endcan
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                         Reducciones &nbsp;
                         <i class="fa fa-caret-down"></i>
                     </a>
+                    @can('reducciones-list')
                     <div class="dropdown-menu text-center">
                         <center>
                             <!--
@@ -95,9 +98,10 @@
                         <h5><a type="button" class="dropdown-item btn btn-primary" data-toggle="pill" href="#tabRedEgr">Egresos</a></h5>
                         </center>
                     </div>
+                    @endcan
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#tabCre">Creditos</a>
+                    <a class="nav-link" data-toggle="pill" href="@can('creditos-list') #tabCre @endcan">Creditos</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled hidden" data-toggle="pill" href="#tabApl">Aplazamientos</a>

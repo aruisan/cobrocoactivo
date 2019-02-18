@@ -12,6 +12,12 @@ use Session;
 
 class PlanAdquiController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:planAdquisiciones-create', ['only' => ['create','store']]);
+         $this->middleware('permission:planAdquisiciones-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:planAdquisiciones-delete', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *

@@ -14,6 +14,12 @@ use Session;
 
 class ProyectosAcuerdoController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:proyectosAcuerdos-create', ['only' => ['create','store']]);
+         $this->middleware('permission:proyectosAcuerdos-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:proyectosAcuerdos-delete', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *

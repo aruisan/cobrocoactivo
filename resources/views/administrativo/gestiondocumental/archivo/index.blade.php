@@ -21,7 +21,7 @@
                     <a class="nav-link" data-toggle="pill" href="@can('manualContrataciones-list') #tabMC @endcan">MANUAL DE CONTRATACIÓN</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#tabPA">PLAN DE ADQUISICIONES</a>
+                    <a class="nav-link" data-toggle="pill" href="@can('planAdquisiciones-list') #tabPA @endcan">PLAN DE ADQUISICIONES</a>
                 </li>
             </ul>
         <br>
