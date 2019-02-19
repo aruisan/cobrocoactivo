@@ -66,7 +66,6 @@
 				</p>
 			</div>
 			<div class="col-md-6 s17">
-				<img src="{{ public_path('img/masporlasislas.png') }}" height="60">
 			</div>
 		</div>
 
@@ -79,9 +78,6 @@
 			</center>
 		</div>
 		<hr class="hrFecha br-black-1" style="margin-bottom: 0px;">
-			<center>
-				<h4>MAS POR LAS ISLAS.</h4>
-			</center>
 	</div>
 
 </body>

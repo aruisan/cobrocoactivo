@@ -10,6 +10,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use DB;
 use App\Model\Admin\Modulo;
+use App\TabsPermission;
 
 
 class RolesController extends Controller
@@ -100,13 +101,13 @@ class RolesController extends Controller
     public function edit($id)
     {
         $role = Role::find($id);
-        $modulos = Modulo::all();
+        $tabs = TabsPermission::all();
         $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
             ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
             ->all();
 
 
-        return view('admin.roles.edit',compact('role','modulos','rolePermissions'));
+        return view('admin.roles.edit',compact('role','tabs','rolePermissions'));
     }
 
 

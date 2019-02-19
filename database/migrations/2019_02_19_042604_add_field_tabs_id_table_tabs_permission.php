@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ModificationsAddNewColumnsTableDocuments extends Migration
+class AddFieldTabsIdTableTabsPermission extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,12 @@ class ModificationsAddNewColumnsTableDocuments extends Migration
      * @return void
      */
     public function up()
-    {/*
-        Schema::table('documents', function ($table) {
-           $table->enum('estado',[0,1,2,4])->default(1);
-           $table->foreign('tercero_id')->references('id')->on('personas');
+    {
+        Schema::table('modulos', function ($table) {
+           $table->integer('tabs_permission_id')->nullable()->unsigned();
+            $table->foreign('tabs_permission_id')->references('id')->on('tabs_permissions');
         });
-        */
+        
     }
 
     /**
