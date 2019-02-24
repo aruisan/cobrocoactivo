@@ -14,6 +14,13 @@
           $<?php echo number_format($registro->cdpsRegistro->sum('valor'),0) ?>
       </div>
       <br>
+      <center>
+          <h4><b>Valor Disponible del Registro</b></h4>
+      </center>
+      <div class="text-center">
+          $<?php echo number_format($registro->saldo,0) ?>
+      </div>
+      <br>
       @if($registro->secretaria_e != 3)
       <center>
           <h4><b>Dinero en los CDP's</b></h4>

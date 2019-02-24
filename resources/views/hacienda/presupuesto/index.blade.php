@@ -106,9 +106,11 @@
                 <li class="nav-item">
                     <a class="nav-link disabled hidden" data-toggle="pill" href="#tabApl">Aplazamientos</a>
                 </li>
+                @if($rol == 1)
                 <li class="nav-item">
-                    <a class="nav-link disabled hidden" data-toggle="pill" href="#tabOP">Orden de Pago</a>
+                    <a class="nav-link" data-toggle="pill" href="#tabOP">Orden de Pago</a>
                 </li>
+                @endif
             </ul>
             <br>
             <div class="tab-content" style="background-color: white">
@@ -316,75 +318,75 @@
 
                 <div id="tabCert" class=" tab-pane fade"><br>
                     <div class="table-responsive">
-                            @if(count($cdps) >= 1)
-                            <br>
-                            <a href="{{ url('administrativo/cdp') }}" class="btn btn-primary btn-block m-b-12">CDP's</a>
-                            <br>
-                            <table class="table table-bordered" id="tabla_CDP">
-                                <thead>
+                        @if(count($cdps) >= 1)
+                        <br>
+                        <a href="{{ url('administrativo/cdp') }}" class="btn btn-primary btn-block m-b-12">CDP's</a>
+                        <br>
+                        <table class="table table-bordered" id="tabla_CDP">
+                            <thead>
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th class="text-center">Objeto</th>
+                                <th class="text-center">Valor</th>
+                                <th class="text-center">Estado Secretaria</th>
+                                <th class="text-center">Estado Jefe</th>
+                                <th class="text-center">Ver</th>
+                                <th class="text-center">Archivo</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($cdps as $cdp)
                                 <tr>
-                                    <th class="text-center">#</th>
-                                    <th class="text-center">Objeto</th>
-                                    <th class="text-center">Valor</th>
-                                    <th class="text-center">Estado Secretaria</th>
-                                    <th class="text-center">Estado Jefe</th>
-                                    <th class="text-center">Ver</th>
-                                    <th class="text-center">Archivo</th>
+                                    <td class="text-center">{{ $cdp->id }}</td>
+                                    <td class="text-center">{{ $cdp->name }}</td>
+                                    <td class="text-center">$ <?php echo number_format($cdp->valor,0);?>.00</td>
+                                    <td class="text-center">
+                                        <span class="badge badge-pill badge-danger">
+                                            @if($cdp->secretaria_e == "0")
+                                                Pendiente
+                                            @elseif($cdp->secretaria_e == "1")
+                                                Rechazado
+                                            @elseif($cdp->secretaria_e == "2")
+                                                Anulado
+                                            @else
+                                                Enviado
+                                            @endif
+                                        </span>
+                                            </td>
+                                            <td class="text-center">
+                                        <span class="badge badge-pill badge-danger">
+                                            @if($cdp->jefe_e == "0")
+                                                Pendiente
+                                            @elseif($cdp->jefe_e == "1")
+                                                Rechazado
+                                            @elseif($cdp->jefe_e == "2")
+                                                Anulado
+                                            @elseif($cdp->jefe_e == "3")
+                                                Aprobado
+                                            @else
+                                                En Espera
+                                            @endif
+                                        </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ url('administrativo/cdp/'.$cdp->id) }}" title="Ver" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ route('cpd-pdf', $cdp->id) }}" target="_blank" title="certificado" class="btn-sm btn-danger"><i class="fa fa-file-pdf-o"></i></a>
+                                    </td>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($cdps as $cdp)
-                                    <tr>
-                                        <td class="text-center">{{ $cdp->id }}</td>
-                                        <td class="text-center">{{ $cdp->name }}</td>
-                                        <td class="text-center">$ <?php echo number_format($cdp->valor,0);?>.00</td>
-                                        <td class="text-center">
-                                            <span class="badge badge-pill badge-danger">
-                                                @if($cdp->secretaria_e == "0")
-                                                    Pendiente
-                                                @elseif($cdp->secretaria_e == "1")
-                                                    Rechazado
-                                                @elseif($cdp->secretaria_e == "2")
-                                                    Anulado
-                                                @else
-                                                    Enviado
-                                                @endif
-                                            </span>
-                                                </td>
-                                                <td class="text-center">
-                                            <span class="badge badge-pill badge-danger">
-                                                @if($cdp->jefe_e == "0")
-                                                    Pendiente
-                                                @elseif($cdp->jefe_e == "1")
-                                                    Rechazado
-                                                @elseif($cdp->jefe_e == "2")
-                                                    Anulado
-                                                @elseif($cdp->jefe_e == "3")
-                                                    Aprobado
-                                                @else
-                                                    En Espera
-                                                @endif
-                                            </span>
-                                        </td>
-                                        <td class="text-center">
-                                            <a href="{{ url('administrativo/cdp/'.$cdp->id) }}" title="Ver" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
-                                        </td>
-                                        <td class="text-center">
-                                            <a href="{{ route('cpd-pdf', $cdp->id) }}" target="_blank" title="certificado" class="btn-sm btn-danger"><i class="fa fa-file-pdf-o"></i></a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                                @else
-                                <br><br>
-                                <div class="alert alert-danger">
-                                    <center>
-                                        No hay CDP's.
-                                        <a href="{{ url('administrativo/cdp/create') }}" class="btn btn-success btn-block">Crear CDP</a>
-                                    </center>
-                                </div>
-                            @endif
+                            @endforeach
+                            </tbody>
+                        </table>
+                            @else
+                            <br><br>
+                            <div class="alert alert-danger">
+                                <center>
+                                    No hay CDP's.
+                                    <a href="{{ url('administrativo/cdp/create') }}" class="btn btn-success btn-block">Crear CDP</a>
+                                </center>
+                            </div>
+                        @endif
                     </div>
                 </div>
 
@@ -569,8 +571,58 @@
                 <div id="tabApl" class=" tab-pane fade"><br>
                     <h2 class="text-center">Aplazamientos</h2>
                 </div>
-                <div id="tabOP" class=" tab-pane fade"><br>
-                    <h2 class="text-center">Orden de Pago</h2>
+                <div id="tabOP" class=" tab-pane fade">
+                    <div class="table-responsive">
+                        @if(count($ordenPagos) >= 1)
+                            <br>
+                            <a href="{{ url('administrativo/ordenPagos') }}" class="btn btn-primary btn-block m-b-12">Ordenes de Pago</a>
+                            <br>
+                            <table class="table table-bordered" id="tabla_OrdenPago">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">Id</th>
+                                    <th class="text-center">Nombre</th>
+                                    <th class="text-center">Valor</th>
+                                    <th class="text-center">Tercero</th>
+                                    <th class="text-center">Estado</th>
+                                    <th class="text-center"><i class="fa fa-eye"></i></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach ($ordenPagos as $key => $data)
+                                    <tr>
+                                        <td class="text-center">{{ $data->id }}</td>
+                                        <td class="text-center">{{ $data->nombre }}</td>
+                                        <td class="text-center">$<?php echo number_format($data->valor,0) ?></td>
+                                        <td class="text-center">{{ $data->registros->persona->nombre }}</td>
+                                        <td class="text-center">
+                                    <span class="badge badge-pill badge-danger">
+                                        @if($data->estado == "0")
+                                            Pendiente
+                                        @elseif($data->estado == "1")
+                                            Pagado
+                                        @else
+                                            Anulado
+                                        @endif
+                                    </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="{{ url('administrativo/ordenPagos',$data->id) }}" title="Ver Orden de Pago" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        @else
+                            <br>
+                            <div class="alert alert-danger">
+                                <center>
+                                    No hay ordenes de pagos realizadas.
+                                    <a href="{{ url('administrativo/ordenPagos/create') }}" class="btn btn-success btn-block">Crear Orden de Pago</a>
+                                </center>
+                            </div>
+                        @endif
+                    </div>
                 </div>
             </div>
         @else
@@ -662,5 +714,16 @@
                 'pdf' ,'copy', 'csv', 'excel', 'print'
             ]
         } );
+
+        $('#tabla_OrdenPago').DataTable( {
+            responsive: true,
+            "searching": true,
+            "pageLength": 5,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'print'
+            ]
+        } );
+
     </script>
 @stop

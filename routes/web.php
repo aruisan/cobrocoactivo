@@ -136,6 +136,15 @@ Route::group([ 'middleware' => 'auth'] ,function(){
         Route::resource('marcas-herretes', 'Administrativo\MarcaHerrete\MarcaHerreteController');
         Route::get('persona-find/{identificador}', 'Cobro\PersonasController@personaFind');
         Route::post('persona/find-create', 'Cobro\PersonasController@PersonafindCreate');
+
+        //ORDENES DE PAGO
+
+        Route::resource('ordenPagos','Administrativo\OrdenPago\OrdenPagosController');
+        Route::put('ordenPagos/fin/{id}','Administrativo\OrdenPago\OrdenPagosController@fin');
+        Route::get('ordenPagos/descuento/create/{id}','Administrativo\OrdenPago\OrdenPagosDescuentosController@create');
+        Route::resource('ordenPagos/descuento','Administrativo\OrdenPago\OrdenPagosDescuentosController');
+        Route::get('ordenPagos/fechas/create/{id}','Administrativo\OrdenPago\OrdenPagosFechasController@create');
+        Route::resource('ordenPagos/fechas','Administrativo\OrdenPago\OrdenPagosFechasController');
 	});
 
 

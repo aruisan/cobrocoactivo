@@ -3,9 +3,12 @@
 namespace App\Model\Planeacion\Pdd;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Pdd extends Model
+class Pdd extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
+
     protected $table = 'pdds';
 
     public function fonts(){

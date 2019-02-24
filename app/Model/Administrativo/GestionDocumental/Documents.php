@@ -3,9 +3,12 @@
 namespace App\Model\Administrativo\GestionDocumental;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Documents extends Model
+class Documents extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
+
     protected $table = 'documents';
 
     public function user(){

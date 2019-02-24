@@ -3,9 +3,12 @@
 namespace App\Model\Administrativo\Registro;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class CdpsRegistro extends Model
+class CdpsRegistro extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
+
     protected $table = 'cdps_registro';
 
     public function registro(){

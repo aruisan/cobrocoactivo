@@ -8,26 +8,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-   
 
-    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.css') }}">
 
-    <!-- DataTables CSS -->
     <link href="{{asset('/assets/datatables-plugins/dataTables.bootstrap.css')}}" rel="stylesheet">
     <link href=" https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/buttons/1.3.1/css/buttons.dataTables.min.css" rel="stylesheet">
-
-    <!-- DataTables Responsive CSS -->
     <link href="{{asset('/assets/datatables-responsive/dataTables.responsive.css')}}" rel="stylesheet">
-
     <link rel="stylesheet" href="{{ asset('/assets/font-awesome/css/font-awesome.min.css') }}">
-     <link rel="stylesheet" href="{{ asset('/css/footer.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/footer.css') }}">
 
-    <!-- Custom Fonts -->
- 
-    <!--   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">-->
+    <link rel="shortcut icon" href="{{ asset('/img/logoSiex.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('/img/logoSiex.png') }}" type="image/x-icon">
 
 <style type="text/css">
   

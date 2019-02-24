@@ -106,6 +106,7 @@
                             <th class="text-center">Nombre Registro</th>
                             <th class="text-center">Nombre Tercero</th>
                             <th class="text-center">Valor</th>
+                            <th class="text-center">Saldo</th>
                             <th class="text-center">Estado</th>
                             <th class="text-center"><i class="fa fa-eye"></i></th>
                             <th class="text-center">Archivo</th>
@@ -118,6 +119,7 @@
                                 <td class="text-center">{{ $data->objeto }}</td>
                                 <td class="text-center">{{ $data->persona->nombre }}</td>
                                 <td class="text-center">$<?php echo number_format($data->valor,0) ?></td>
+                                <td class="text-center">$<?php echo number_format($data->saldo,0) ?></td>
                                 <td class="text-center">
                                     <span class="badge badge-pill badge-danger">
                                         @if($data->secretaria_e == "0")

@@ -87,6 +87,7 @@ class RegistrosController extends Controller
         $registro->ff_expedicion = $request->fecha;
         $registro->ruta = $ruta;
         $registro->valor = "0";
+        $registro->saldo = "0";
         $registro->persona_id = $request->persona_id;
         $registro->contrato_id = $request->contrato_id;
         $registro->secretaria_e = $request->secretaria_e;
@@ -167,6 +168,7 @@ class RegistrosController extends Controller
         $update->secretaria_e = $estado;
         $update->ff_secretaria_e = $fecha;
         $update->valor = $valor;
+        $update->saldo = $valor;
         $update->save();
 
         $cdpsRegistro = CdpsRegistro::where('registro_id', $id)->get();

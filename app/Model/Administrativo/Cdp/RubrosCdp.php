@@ -3,9 +3,12 @@
 namespace App\Model\Administrativo\Cdp;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class RubrosCdp extends Model
+class RubrosCdp extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
+
     protected $table = 'rubros_cdp';
 
     public function rubros(){
