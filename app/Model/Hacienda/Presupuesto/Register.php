@@ -3,9 +3,11 @@
 namespace App\Model\Hacienda\Presupuesto;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Register extends Model
+class Register extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
 
     public function level()
     {

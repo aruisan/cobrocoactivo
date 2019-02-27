@@ -20,8 +20,8 @@
      <!-- Dropdown.js -->
     <!-- <link href="//cdn.rawgit.com/FezVrasta/dropdown.js/master/jquery.dropdown.css" rel="stylesheet">-->
 
-    <!-- MetisMenu CSS -->
-   
+    <link rel="shortcut icon" href="{{ asset('/img/logoSiex.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('/img/logoSiex.png') }}" type="image/x-icon">
 
      <!-- DataTables CSS -->
     <link href="{{asset('/assets/datatables-plugins/dataTables.bootstrap.css')}}" rel="stylesheet">

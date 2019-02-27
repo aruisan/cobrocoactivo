@@ -3,9 +3,12 @@
 namespace App\Model\Hacienda\Presupuesto;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Rubro extends Model
+class Rubro extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
+
     public function dependencia(){
 		return $this->hasOne('App\Model\Dependencia','id', 'dependencia_id');
 	}

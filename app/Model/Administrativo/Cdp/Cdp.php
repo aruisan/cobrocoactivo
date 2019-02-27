@@ -3,9 +3,12 @@
 namespace App\Model\Administrativo\Cdp;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Cdp extends Model
+class Cdp extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
+
     public function dependencia(){
         return $this->belongsTo('App\Model\Admin\Dependencia');
     }
