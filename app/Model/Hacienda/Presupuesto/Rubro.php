@@ -34,6 +34,10 @@ class Rubro extends Model implements Auditable
         return $this->hasMany('App\Model\Administrativo\Cdp\RubrosCdp','rubro_id');
     }
 
+    public function cdpRegistroValor(){
+        return $this->hasMany('App\Model\Administrativo\Registro\CdpsRegistroValor','rubro_id');
+    }
+
     public function rubrosMov(){
         return $this->hasMany('App\Model\Hacienda\Presupuesto\RubrosMov','rubro_id');
     }

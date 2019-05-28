@@ -218,7 +218,6 @@
     <script src="{{asset('js/myJs.js')}}"></script>
 @yield('js')
 
-    
 </body>
 
 </html>

@@ -18,4 +18,8 @@ class CdpsRegistro extends Model implements Auditable
     public function cdp(){
         return $this->hasOne('App\Model\Administrativo\Cdp\Cdp','id','cdp_id');
     }
+
+    public function cdpRegistroValor(){
+        return $this->hasMany('App\Model\Administrativo\Registro\CdpsRegistroValor','cdps_registro_id');
+    }
 }

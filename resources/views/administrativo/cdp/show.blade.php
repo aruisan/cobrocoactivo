@@ -298,7 +298,7 @@
                             &nbsp;
                             <br>
 
-                            @if($cdp->jefe_e != "3")
+                            @if($cdp->jefe_e != "3" and $cdp->jefe_e != "2")
                                 @if($rol == 2)
                                     @if($rubrosCdpData->rubrosCdpValor->count() > 0)
                                         <b>Liberar Dinero</b>

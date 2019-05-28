@@ -17,6 +17,8 @@ class CreateOrdenPagosDescuentosTable extends Migration
             $table->increments('id');
 
             $table->text('nombre');
+            $table->integer('porcent');
+            $table->integer('base');
             $table->integer('valor');
 
             $table->integer('orden_pagos_id')->unsigned();

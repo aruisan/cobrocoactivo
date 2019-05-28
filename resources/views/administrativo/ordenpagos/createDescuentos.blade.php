@@ -4,36 +4,26 @@
 @stop
 @section('sidebar')
     <li>
-        <a href="{{ url('/administrativo/ordenPagos/'.$ordenPago->id) }}" class="btn btn-success">
-            <span class="hide-menu">Orden de Pago</span></a>
+        <a href="{{ url('/administrativo/ordenPagos') }}" class="btn btn-success">
+            <span class="hide-menu">Ordenes de Pago</span></a>
     </li>
     <br>
     <div class="card">
         <br>
         <center>
-            <h4><b>Estado Presupuestal Orden de Pago</b></h4>
+            <h4><b>Estado Actual del Registro</b></h4>
+            <br>
+            Valor Total: $<?php echo number_format($ordenPago->registros->valor,0) ?>
+            <br>
+            Valor Disponible: $<?php echo number_format($ordenPago->registros->saldo,0) ?>
         </center>
         <br>
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <tbody>
-                    <tr>
-                        <td>Valor Orden de Pago</td>
-                        <td>$<?php echo number_format($ordenPago->valor,0) ?></td>
-                    </tr>
-                    <tr>
-                        <td>Dinero Disponible Orden de Pago</td>
-                        <td>$<?php echo number_format($ordenPago->saldo,0) ?></td>
-                    </tr>
-                </tbody>
-            </table>
+        <center>
+            <h4><b>Valor Total de Descuentos</b></h4>
             <br>
-            <center>
-                <h4><b>Valor Actual de Descuentos</b></h4>
-                <br>
-                $<?php echo number_format($ordenPago->descuentos->sum('valor'),0) ?>
-            </center>
-
+            $<?php echo number_format($ordenPago->descuentos->sum('valor'),0) ?>
+        </center>
+        <br>
         </div>
     </div>
 @stop
@@ -59,25 +49,30 @@
                     <div class="table-responsive">
                         <table class="table table-bordered" id="tabla">
                             <thead>
-                            <th class="text-center">Nombre</th>
-                            <th class="text-center">Valor</th>
+                            <th class="text-center">Concepto</th>
+                            <th class="text-center">%</th>
+                            <th class="text-center">Base</th>
+                            <th class="text-center">Valor/Descuento</th>
                             <th class="text-center"><i class="fa fa-trash-o"></i></th>
                             </thead>
                             <tbody>
                             <tr v-for="dato in datos">
                                 <input type="hidden" name="id[]" v-model="dato.id">
                                 <th scope="row"><input type="text" name="nombre[]" style="text-align:center" v-model="dato.nombre"></th>
-                                <th scope="row"><input type="number" name="valor[]" style="text-align:center" v-model="dato.valor" required></th>
+                                <th scope="row"><input type="number" name="porcent[]" style="text-align:center" v-model="dato.porcent" required></th>
+                                <th scope="row"><input type="number" name="base[]" style="text-align:center" v-model="dato.base" required></th>
+                                <th scope="row"><input type="number" style="text-align:center" v-model="dato.valor" disabled></th>
+                                <input type="hidden" name="valor[]" style="text-align:center" v-model="dato.valor">
                                 <td class="text-center"><button type="button" class="btn-sm btn-danger" v-on:click.prevent="eliminarDatos(dato.id)" ><i class="fa fa-trash-o"></i></button></td>
                             </tr>
-                            @for($i=0;$i < 1 ;$i++)
-                                <tr>
-                                    <input type="hidden" name="id[]">
-                                    <td><input type="text" name="nombre[]" required></td>
-                                    <td><input type="number" name="valor[]"  required></td>
-                                    <td class="text-center"><input type="button" class="borrar btn-sm btn-danger" value=" - " /></td>
-                                </tr>
-                            @endfor
+                            <tr>
+                                <input type="hidden" name="id[]">
+                                <td><input type="text" name="nombre[]" required></td>
+                                <td><input type="number" name="porcent[]"  required></td>
+                                <td><input type="number" name="base[]"  required max="{{ $ordenPago->registros->saldo }}"></td>
+                                <td><input type="number" name="valor[]" style="text-align:center" disabled placeholder="Al guardar el descuento surge el valor"></td>
+                                <td class="text-center"><input type="button" class="borrar btn-sm btn-danger" value=" - " /></td>
+                            </tr>
                             </tbody>
                         </table>
                     </div><br><center>
@@ -94,7 +89,7 @@
         $(document).ready(function() {
             $('#tabla').DataTable( {
                 responsive: true,
-                "searching": true,
+                "searching": false,
                 "oLanguage": {"sZeroRecords": "", "sEmptyTable": ""}
             } );
         } );
@@ -131,7 +126,9 @@
 
                 nuevaFila: function(){
 
-                    $('#tabla tr:last').after('<tr><input type="hidden" name="id[]"><td><input type="text" name="nombre[]" required></td><td><input type="number" name="valor[]" required></td><td class="text-center"><input type="button" class="borrar btn-sm btn-danger" value=" - " /></td></tr>');
+                    $('#tabla tr:last').after('<tr><input type="hidden" name="id[]"><td><input type="text" name="nombre[]" required></td><td><input type="number" name="porcent[]"  required></td>\n' +
+                        '                                <td><input type="number" name="base[]"  required></td>\n' +
+                        '                                <td><input type="number" name="valor[]" style="text-align:center" disabled placeholder="Al guardar el descuento surge el valor"></td><td class="text-center"><input type="button" class="borrar btn-sm btn-danger" value=" - " /></td></tr>');
                 }
             }
         });

@@ -116,11 +116,14 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 	{
 	    //Registros
 	    Route::resource('registros', 'Administrativo\Registro\RegistrosController');
+        Route::resource('cdpsRegistro','Administrativo\Registro\CdpsRegistroController');
+        Route::resource('cdpsRegistro/valor','Administrativo\Registro\CdpsRegistroValorController');
         Route::get('registros/{id}/{fecha}/{valor}/{estado}', 'Administrativo\Registro\RegistrosController@updateEstado');
         //Route::put('registros/r/{id}/{rol}/{estado}', 'Administrativo\Registro\RegistrosController@rechazar');
-        Route::resource('cdpsRegistro','Administrativo\Registro\CdpsRegistroController');
-        //pdf registros
+
+            //pdf registros
 		Route::get('/registro/pdf/{id}', 'Administrativo\Registro\RegistrosController@pdf')->name('registro-pdf');
+
 
         //CDP's
 
@@ -140,16 +143,18 @@ Route::group([ 'middleware' => 'auth'] ,function(){
         //ORDENES DE PAGO
 
         Route::resource('ordenPagos','Administrativo\OrdenPago\OrdenPagosController');
-        Route::put('ordenPagos/fin/{id}','Administrativo\OrdenPago\OrdenPagosController@fin');
+        Route::get('ordenPagos/liquidacion/create/{id}','Administrativo\OrdenPago\OrdenPagosController@liquidacion');
+        Route::put('ordenPagos/liquidacion/store','Administrativo\OrdenPago\OrdenPagosController@liquidar');
         Route::get('ordenPagos/descuento/create/{id}','Administrativo\OrdenPago\OrdenPagosDescuentosController@create');
         Route::resource('ordenPagos/descuento','Administrativo\OrdenPago\OrdenPagosDescuentosController');
-        Route::get('ordenPagos/fechas/create/{id}','Administrativo\OrdenPago\OrdenPagosFechasController@create');
-        Route::resource('ordenPagos/fechas','Administrativo\OrdenPago\OrdenPagosFechasController');
 	});
 
 
 	Route::group(['prefix' => 'admin'] ,function () 
 	{
+
+	    //AUDITS
+        Route::resource('audits','Admin\AuditsController');
 
 		//crud funcionarios
 		Route::get('funcionarios/jefes/{id}', 'Admin\FuncionariosController@jefe');

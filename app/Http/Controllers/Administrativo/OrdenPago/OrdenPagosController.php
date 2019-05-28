@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Administrativo\OrdenPago;
 
 use App\Model\Administrativo\OrdenPago\OrdenPagos;
-use App\Model\Administrativo\OrdenPago\OrdenPagosFechas;
 use App\Model\Administrativo\OrdenPago\OrdenPagosDescuentos;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -33,11 +32,12 @@ class OrdenPagosController extends Controller
     public function create()
     {
         $Registros = Registro::where([['secretaria_e', '3'],['saldo','>', 0]])->get();
+        $numOP = count(OrdenPagos::all());
         if ($Registros == null){
             Session::flash('warning','No hay registros disponibles para crear la orden de pago, debe crear un nuevo registro. ');
             return redirect('/administrativo/ordenPagos');
         }else{
-            return view('administrativo.ordenpagos.create', compact('Registros'));
+            return view('administrativo.ordenpagos.create', compact('Registros','numOP'));
         }
     }
 
@@ -49,24 +49,47 @@ class OrdenPagosController extends Controller
      */
     public function store(Request $request)
     {
-        $registro_id = Registro::findOrFail($request->registro_id);
+        $registro_id = Registro::findOrFail($request->IdR);
 
-        if ($registro_id->saldo < $request->valor){
+        if ($registro_id->saldo <= 0){
             Session::flash('warning','El valor no puede ser superior al valor disponible del registro seleccionado: '.$registro_id->saldo);
             return redirect('/administrativo/ordenPagos/create');
         } else{
             $ordenPago = new OrdenPagos();
-            $ordenPago->nombre = $request->nombre;
-            $ordenPago->valor = $request->valor;
-            $ordenPago->saldo = $request->valor;
+            $ordenPago->nombre = $request->concepto;
+            $ordenPago->valor = 0;
+            $ordenPago->saldo = 0;
             $ordenPago->estado = $request->estado;
-            $ordenPago->registros_id = $request->registro_id;
+            $ordenPago->registros_id = $request->IdR;
             $ordenPago->user_id = auth()->user()->id;
             $ordenPago->save();
 
             Session::flash('success','La orden de pago se ha creado exitosamente');
             return redirect('/administrativo/ordenPagos');
         }
+    }
+
+    public function liquidacion($id)
+    {
+        $ordenPago = OrdenPagos::findOrfail($id);
+        $registro = Registro::findOrFail($ordenPago->registros_id);
+        $Pagos = OrdenPagos::where('estado','=',1);
+        $SumPagos = $Pagos->sum('valor');
+        return view('administrativo.ordenpagos.createLiquidacion', compact('ordenPago','registro','SumPagos'));
+    }
+
+    public function liquidar(Request $request)
+    {
+        $ordenPago = OrdenPagos::findOrFail($request->ordenPago_id);
+        $registro = Registro::findOrFail($ordenPago->registros_id);
+        $registro->saldo = $registro->saldo - $request->valor;
+        $registro->save();
+        $ordenPago->estado = "1";
+        $ordenPago->valor = $request->valor;
+        $ordenPago->saldo = $request->valor;
+        $ordenPago->save();
+        Session::flash('success','La orden de pago se ha liquidado exitosamente');
+        return redirect('/administrativo/ordenPagos');
     }
 
     /**
@@ -79,9 +102,8 @@ class OrdenPagosController extends Controller
     {
         $OrdenPago = OrdenPagos::findOrFail($id);
         $OrdenPagoDescuentos = OrdenPagosDescuentos::where('orden_pagos_id', $id)->get();
-        $OrdenPagoFechas = OrdenPagosFechas::where('orden_pagos_id', $id)->get();
 
-        return view('administrativo.ordenpagos.show', compact('OrdenPago','OrdenPagoDescuentos', 'OrdenPagoFechas'));
+        return view('administrativo.ordenpagos.show', compact('OrdenPago','OrdenPagoDescuentos'));
     }
 
     /**
@@ -107,15 +129,10 @@ class OrdenPagosController extends Controller
     public function update(Request $request, $id)
     {
         $ordenPago = OrdenPagos::findOrFail($id);
-        $registro_id = Registro::findOrFail($ordenPago->registros_id);
+        $Descuentos = OrdenPagosDescuentos::where('orden_pagos_id','=',$ordenPago->id)->get();
 
-        if ($registro_id->saldo < $request->valor){
-            Session::flash('warning','El valor no puede ser superior al valor disponible del registro seleccionado: '.$registro_id->saldo);
-            return redirect('/administrativo/ordenPagos/'.$id.'/edit');
-        } elseif($ordenPago->valor == $ordenPago->saldo){
-
+        if($Descuentos->count() == 0){
             $ordenPago->nombre = $request->nombre;
-            $ordenPago->valor = $request->valor;
             $ordenPago->save();
 
             Session::flash('success','La orden de pago se ha actualizado exitosamente');
@@ -123,7 +140,7 @@ class OrdenPagosController extends Controller
 
         } else{
 
-            Session::flash('warning','Ya se esta usando dinero de la orden de pago, no puede ser modificada');
+            Session::flash('warning','Ya se tienen asignados descuentos a la orden de pago, no puede ser modificada');
             return redirect('/administrativo/ordenPagos/'.$id.'/edit');
         }
     }
@@ -137,31 +154,15 @@ class OrdenPagosController extends Controller
     public function destroy($id)
     {
         $descuentos = OrdenPagosDescuentos::where('orden_pagos_id','=',$id)->get();
-        $fechas = OrdenPagosFechas::where('orden_pagos_id','=',$id)->get();
         $orden = OrdenPagos::findOrFail($id);
 
         if (count($descuentos) > 0){
             Session::flash('warning', 'Tiene '.count($descuentos).' Descuentos Relacionados a la Orden de Pago. Elimine los Descuentos para Poder Eliminar la Orden de Pago');
-            return redirect('/administrativo/ordenPagos/'.$id.'/edit');
-        }elseif(count($fechas) > 0){
-            Session::flash('warning', 'Tiene '.count($fechas).' Fechas Relacionadas a la Orden de Pago. Elimine las Fechas para Poder Eliminar la Orden de Pago');
             return redirect('/administrativo/ordenPagos/'.$id.'/edit');
         }else{
             $orden->delete();
             Session::flash('error','Orden de pago eliminada correctamente');
             return redirect('/administrativo/ordenPagos');
         }
-    }
-
-    public function fin($id)
-    {
-        $ordenPago = OrdenPagos::findOrFail($id);
-        $registro = Registro::findOrFail($ordenPago->registros_id);
-        $registro->saldo = $registro->saldo - $ordenPago->valor;
-        $registro->save();
-        $ordenPago->estado = "1";
-        $ordenPago->save();
-        Session::flash('success','La orden de pago se ha finalizado exitosamente');
-        return redirect('/administrativo/ordenPagos');
     }
 }

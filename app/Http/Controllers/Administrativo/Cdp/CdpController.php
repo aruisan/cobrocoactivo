@@ -46,6 +46,13 @@ class CdpController extends Controller
             $cdpTarea = null;
             $cdps = null;
         }
+        //this change fix the problem with the count
+        if ($cdpTarea == null){
+            $cdpTarea = [];
+        }
+        if ($cdps == null){
+            $cdps = [];
+        }
         return view('administrativo.cdp.index', compact('cdps','rol', 'cdpTarea'));
     }
 
@@ -65,7 +72,7 @@ class CdpController extends Controller
         $cdp = Cdp::findOrFail($id);
         $cdpsRegistro = CdpsRegistro::where('cdp_id','=',$id)->get();
         if (count($cdpsRegistro) > 0){
-            Session::flash('warning', 'Tiene '.count($cdpsRegistro).' Registros Relacionados a este CDP. Elimine los registros para poder anular el CDP');
+            Session::flash('warning', 'Tiene Registros Relacionados al CDP. Elimine los Registros Para Poder Anular el CDP');
             return redirect('/administrativo/cdp/'.$id);
         }else{
             $valor = $cdp->valor;

@@ -42,39 +42,19 @@
                     </tr>
                     @endforeach
                     <tr>
-                        <td class="text-center">Total</td>
-                        <td>$<?php echo number_format($OrdenPagoDescuentos->sum('valor'),0) ?></td>
+                        <td class="text-center"><b>Total</b></td>
+                        <td><b>$<?php echo number_format($OrdenPagoDescuentos->sum('valor'),0) ?></b></td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <br>
-        <center>
-            <h4><b>Valor Pago por Fechas</b></h4>
-        </center>
-        <br>
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <tbody>
-                @foreach( $OrdenPagoFechas as $fechas)
-                    <tr>
-                        <td class="text-center">{{ $fechas['fecha'] }}</td>
-                        <td>$<?php echo number_format($fechas['valor'],0) ?></td>
-                    </tr>
-                @endforeach
-                <tr>
-                    <td class="text-center">Total</td>
-                    <td>$<?php echo number_format($OrdenPagoFechas->sum('valor'),0) ?></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
     </div>
     <br>
     @if($OrdenPago->estado == 1)
     @else
     <li> <a href="{{ url('/administrativo/ordenPagos/descuento/create/'.$OrdenPago->id) }}" class="btn btn-primary"><span class="hide-menu">Descuentos</span></a></li>
-    <li> <a href="{{ url('/administrativo/ordenPagos/fechas/create/'.$OrdenPago->id) }}" class="btn btn-primary"><span class="hide-menu">Fechas</span></a></li>
+    <li> <a href="{{ url('/administrativo/ordenPagos/liquidacion/create/'.$OrdenPago->id) }}" class="btn btn-success"><span class="hide-menu"><i class="fa fa-credit-card"></i>&nbsp; Liquidar</span></a></li>
     @endif
 @stop
 @section('content')
@@ -144,88 +124,12 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-md-12 align-self-center" style="background-color: white">
-            <br>
-            <hr>
-            <center>
-                <h3>Fechas de Pago Asignadas</h3>
-            </center>
-            <hr>
-            <br>
-            @if($OrdenPago->estado == 0)
-            <div class="table-responsive">
-                <table class="table table-bordered" id="tablaFechas">
-                    <thead>
-                    <tr>
-                        <th class="text-center">Id</th>
-                        <th class="text-center">Fecha</th>
-                        <th class="text-center">Valor</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($OrdenPagoFechas as  $data)
-                        <tr class="text-center">
-                            <td>{{ $data->id }}</td>
-                            <td>{{ $data->fecha }}</td>
-                            <td>$ <?php echo number_format($data->valor,0);?>.00</td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-            </div>
-            @elseif($OrdenPago->estado == 1)
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="tablaFechas">
-                        <thead>
-                        <tr>
-                            <th class="text-center">Id</th>
-                            <th class="text-center">Fecha</th>
-                            <th class="text-center">Valor</th>
-                            <th class="text-center">Factura de Cobro</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($OrdenPagoFechas as  $data)
-                            <tr class="text-center">
-                                <td>{{ $data->id }}</td>
-                                <td>{{ $data->fecha }}</td>
-                                <td>$ <?php echo number_format($data->valor,0);?>.00</td>
-                                <td>
-                                    <a href="#" class="btn-sm btn-success"><i class="fa fa-file-pdf-o"></i></a>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            @endif
-        </div>
-        @if($OrdenPago->estado == 1)
-        @elseif($OrdenPagoFechas->count() > 0 and $OrdenPagoDescuentos->count() > 0)
-            <form action="{{ asset('administrativo/ordenPagos/fin/'.$OrdenPago->id)}}" method="POST" class="form" enctype="multipart/form-data">
-                {!! method_field('PUT') !!}
-                {{ csrf_field() }}
-                <br>
-                <center>
-                    <button class="btn btn-success btn-raised btn-lg">Finalizar Orden de Pago</button>
-                </center>
-            </form>
-        @endif
     </div>
     @stop
 @section('js')
     <script>
         $(document).ready(function() {
             $('#tablaDesc').DataTable( {
-                responsive: true,
-                "searching": false,
-                dom: 'Bfrtip',
-                buttons: [
-                    'copy', 'csv', 'excel', 'print'
-                ]
-            } );
-
-            $('#tablaFechas').DataTable( {
                 responsive: true,
                 "searching": false,
                 dom: 'Bfrtip',

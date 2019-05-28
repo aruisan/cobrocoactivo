@@ -56,20 +56,30 @@
                     <small class="form-text text-muted">Contrato al que pertenece el registro</small>
                 </div>
             </div>
-                <div class="row">
-                    <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <label>Nombre del Archivo: </label>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-file-o" aria-hidden="true"></i></span>
-                            @if( $registro->ruta == "")
-                                El registro no tiene un archivo asignado
-                            @else
-                                {{ $registro->ruta }}
-                            @endif
-                        </div>
-                        <small class="form-text text-muted">Nombre del archivo al momento de la creación</small>
+            <div class="row">
+                <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    <label>Nombre del Archivo: </label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-file-o" aria-hidden="true"></i></span>
+                        @if( $registro->ruta == "")
+                            El registro no tiene un archivo asignado
+                        @else
+                            {{ $registro->ruta }}
+                        @endif
                     </div>
+                    <small class="form-text text-muted">Nombre del archivo al momento de la creación</small>
                 </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-xs-12 col-sm-6 col-md-12 col-lg-12">
+                    <label>IVA: </label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-usd" aria-hidden="true"></i></span>
+                        <input type="number" class="form-control" name="iva" required value="{{ $registro->iva }}">
+                    </div>
+                    <small class="form-text text-muted">Valor del iva con el que se va a regir el registro</small>
+                </div>
+            </div>
             <div class="row">
                 @if($registro->observacion == "")
                 @else
@@ -84,7 +94,6 @@
                 @endif
             </div>
             <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                <a href="{{url('/administrativo/registros/'.$registro->id.'/'.$rol.'/3')}}"  class="btn btn-success">Finalizar</a>
                 <button type="submit" class="btn btn-primary" id="storeRegistro">Guardar</button>
             </div>
         </form>

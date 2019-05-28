@@ -125,6 +125,7 @@
                 <tr>
                     <th class="text-center">Id</th>
                     <th class="text-center">Nombre</th>
+                    <th class="text-center">Estado Actual</th>
                     <th class="text-center">Valor Inicial</th>
                     <th class="text-center">Valor Disponible</th>
                 </tr>
@@ -134,8 +135,54 @@
                     <tr class="text-center">
                         <td><a href="{{ url('administrativo/cdp/'.$data->cdps->id) }}">{{ $data->cdps->id }}</a></td>
                         <td>{{ $data->cdps->name }}</td>
+                        <td>
+                            <span class="badge badge-pill badge-danger">
+                                @if( $data->cdps->jefe_e == "0")
+                                    Pendiente
+                                @elseif( $data->cdps->jefe_e == "1")
+                                    Rechazado
+                                @elseif( $data->cdps->jefe_e == "2")
+                                    Anulado
+                                @elseif( $data->cdps->jefe_e == "3")
+                                    Aprobado
+                                @else
+                                    En Espera
+                                @endif
+                                    </span>
+                        </td>
                         <td>$ <?php echo number_format($data->cdps->valor,0);?>.00</td>
                         <td>$ <?php echo number_format( $data->cdps->saldo,0);?>.00</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-12 align-self-center" style="background-color: white">
+        <br>
+        <hr>
+        <center>
+            <h3>Registros Asignados al Rubro</h3>
+        </center>
+        <hr>
+        <br>
+        <div class="table-responsive">
+            <table class="table table-bordered" id="tablaRegistros">
+                <thead>
+                <tr>
+                    <th class="text-center">Id</th>
+                    <th class="text-center">Nombre</th>
+                    <th class="text-center">Valor Inicial</th>
+                    <th class="text-center">Valor Disponible</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($rubro->cdpRegistroValor as  $data2)
+                    <tr class="text-center">
+                        <td><a href="{{ url('administrativo/registros/'.$data2->registro_id) }}">{{ $data2->registro_id }}</a></td>
+                        <td>{{ $data2->registro->objeto }}</td>
+                        <td>$ <?php echo number_format($data2->valor,0);?>.00</td>
+                        <td>$ <?php echo number_format( $data2->valor_disp,0);?>.00</td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -243,6 +290,16 @@
             } );
 
             $('#tablaCDPs').DataTable( {
+                responsive: true,
+                "searching": false,
+                "pageLength": 5,
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'print'
+                ]
+            } );
+
+            $('#tablaRegistros').DataTable( {
                 responsive: true,
                 "searching": false,
                 "pageLength": 5,

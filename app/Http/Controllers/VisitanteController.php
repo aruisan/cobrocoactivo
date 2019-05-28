@@ -242,6 +242,18 @@ class VisitanteController extends Controller
 
         }
 
+        //VALOR DE LOS REGISTROS DEL RUBRO
+        foreach ($rubros as $rub){
+            if ($rub->cdpRegistroValor->count() == 0){
+                $valoresRubro[] = collect(['id' => $rub->id, 'name' => $rub->name, 'valor' => 0 ]) ;
+            }elseif ($rub->cdpRegistroValor->count() > 1){
+                $valoresRubro[] = collect(['id' => $rub->id, 'name' => $rub->name, 'valor' => $rub->cdpRegistroValor->sum('valor')]);
+            }else{
+                $reg = $rub->cdpRegistroValor->first();
+                $valoresRubro[] = collect(['id' => $rub->id, 'name' => $rub->name, 'valor' => $reg['valor']]) ;
+            }
+        }
+
         //REGISTROS
         $registros = Registro::all();
 
@@ -430,7 +442,7 @@ class VisitanteController extends Controller
 
         $PlanA = Documents::where('type','=','Plan de adquisiones')->get();
 
-        return view('visitante.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','valoresCred', 'valoresCcred','valoresCyC','Concejales','Acuerdos','Actas','Resoluciones','PlanA','ManualC','Boletines'));
+        return view('visitante.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','valoresCred', 'valoresCcred','valoresCyC','Concejales','Acuerdos','Actas','Resoluciones','PlanA','ManualC','Boletines','valoresRubro'));
     }
 
     /**

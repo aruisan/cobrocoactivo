@@ -33,7 +33,7 @@
                         <thead>
                         <tr>
                             <th class="text-center">#</th>
-                            <th class="text-center">Nombre</th>
+                            <th class="text-center">Concepto</th>
                             <th class="text-center">Valor</th>
                             <th class="text-center">Estado</th>
                             <th class="text-center">Registro</th>
@@ -62,7 +62,7 @@
                                 <td class="text-center">{{ $ordenPagoT->registros->persona->nombre }}</td>
                                 <td>
                                     <a href="{{ url('administrativo/ordenPagos/descuento/create/'.$ordenPagoT->id) }}" title="Descuentos" class="btn-sm btn-primary"><i class="fa fa-usd"></i>&nbsp;<i class="fa fa-arrow-down"></i></a>
-                                    <a href="{{ url('administrativo/ordenPagos/fechas/create/'.$ordenPagoT->id) }}" title="Fechas de Pago" class="btn-sm btn-primary"><i class="fa fa-calendar"></i></a>
+                                    <a href="{{ url('administrativo/ordenPagos/liquidacion/create/'.$ordenPagoT->id) }}" title="Liquidación" class="btn-sm btn-success"><i class="fa fa-credit-card"></i></a>
                                     <a href="{{ url('administrativo/ordenPagos/'.$ordenPagoT->id.'/edit') }}" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                     <a href="{{ url('administrativo/ordenPagos/'.$ordenPagoT->id) }}" title="Ver Orden de Pago" class="btn-sm btn-success"><i class="fa fa-eye"></i></a>
                                 </td>
@@ -89,7 +89,7 @@
                         <thead>
                         <tr>
                             <th class="text-center">#</th>
-                            <th class="text-center">Nombre</th>
+                            <th class="text-center">Concepto</th>
                             <th class="text-center">Valor</th>
                             <th class="text-center">Estado</th>
                             <th class="text-center">Acciones</th>

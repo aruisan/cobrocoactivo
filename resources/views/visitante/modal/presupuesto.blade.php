@@ -28,6 +28,7 @@
                               <th class="text-center">CCredito</th>
                               <th class="text-center">P.Definitivo</th>
                               <th class="text-center">CDP's</th>
+                              <th class="text-center">Registros</th>
                               <th class="text-center">Saldo Disponible</th>
                           </tr>
                           </thead>
@@ -113,6 +114,17 @@
                                   @foreach($valoresCdp as $valorCdp)
                                       @if($codigo['id_rubro'] == $valorCdp['id'])
                                           <td class="text-center text-dark">$ <?php echo number_format($valorCdp['valor'],0);?></td>
+                                      @endif
+                                  @endforeach
+                              <!-- REGISTROS -->
+                                  @foreach($valoresIniciales as $valorInicial)
+                                      @if($valorInicial['id'] == $codigo['id'])
+                                          <td class="text-center text-dark">$ 0</td>
+                                      @endif
+                                  @endforeach
+                                  @foreach($valoresRubro as $valorRubro)
+                                      @if($codigo['id_rubro'] == $valorRubro['id'])
+                                          <td class="text-center text-dark">$ <?php echo number_format($valorRubro['valor'],0);?></td>
                                       @endif
                                   @endforeach
                               <!-- SALDO DISPONIBLE -->

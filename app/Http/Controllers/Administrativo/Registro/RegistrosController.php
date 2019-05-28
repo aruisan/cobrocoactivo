@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Intervention\Image\Facades\Image;
 use App\Model\Administrativo\Registro\Registro;
 use App\Model\Administrativo\Registro\CdpsRegistro;
+use App\Model\Administrativo\Registro\CdpsRegistroValor;
 use App\Model\Administrativo\Cdp\Cdp;
 use App\Model\Administrativo\Contractuall\Contractual;
 use App\Traits\FileTraits;
@@ -38,7 +39,7 @@ class RegistrosController extends Controller
             $rol= $role->id;
         }
         $registros = Registro::where('secretaria_e','!=','3')->orderBy('id','DESC')->paginate(5);
-        $registrosHistorico = Registro::where('secretaria_e','3')->orderBy('id','DESC')->paginate(5);
+        $registrosHistorico = Registro::where('secretaria_e','3')->orderBy('id','DESC')->get();
         return view('administrativo.registros.index',compact('registros','rol', 'registrosHistorico'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -88,6 +89,7 @@ class RegistrosController extends Controller
         $registro->ruta = $ruta;
         $registro->valor = "0";
         $registro->saldo = "0";
+        $registro->iva = $request->iva;
         $registro->persona_id = $request->persona_id;
         $registro->contrato_id = $request->contrato_id;
         $registro->secretaria_e = $request->secretaria_e;
@@ -153,6 +155,7 @@ class RegistrosController extends Controller
 
         $update = Registro::findOrFail($id);
         $update->objeto = $request->objeto;
+        $update->iva = $request->iva;
         $update->persona_id = $request->persona_id;
         $update->contrato_id = $request->contrato_id;
         $update->save();
@@ -171,11 +174,15 @@ class RegistrosController extends Controller
         $update->saldo = $valor;
         $update->save();
 
-        $cdpsRegistro = CdpsRegistro::where('registro_id', $id)->get();
-        foreach ($cdpsRegistro as $data){
-            $cdp = Cdp::findOrFail($data->cdp_id);
-            $cdp->saldo = $cdp->saldo - $data->valor;
+        $cdpsRegistroValor = CdpsRegistroValor::where('registro_id', $id)->get();
+        foreach ($cdpsRegistroValor as $value){
+            $cdp = Cdp::findOrFail($value->cdp_id);
+            $cdp->saldo = $cdp->saldo - $value->valor;
             $cdp->save();
+            foreach ($cdp->rubrosCdp as $RCDP){
+                $RCDP->rubrosCdpValor->first()->valor_disp = $RCDP->rubrosCdpValor->first()->valor_disp - $value->valor;
+                $RCDP->rubrosCdpValor->first()->save();
+            }
         }
 
         Session::flash('success','Secretaria, su registro ha sido finalizado exitosamente');

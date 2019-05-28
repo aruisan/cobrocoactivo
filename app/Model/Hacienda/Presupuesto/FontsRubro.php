@@ -19,7 +19,15 @@ class FontsRubro extends Model implements Auditable
         return $this->hasMany('App\Model\Administrativo\Cdp\RubrosCdpValor','fontsRubro_id');
     }
 
+    public function cdpRegistrosValor(){
+        return $this->hasMany('App\Model\Administrativo\Registro\CdpsRegistroValor','fontsRubro_id');
+    }
+
     public function rubrosMov(){
         return $this->hasMany('App\Model\Hacienda\Presupuesto\RubrosMov','fonts_rubro_id');
+    }
+
+    public function rubro(){
+        return $this->hasOne('App\Model\Hacienda\Presupuesto\Rubro','id','rubro_id');
     }
 }

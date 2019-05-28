@@ -27,4 +27,8 @@ class Registro extends Model implements Auditable
         return $this->hasMany('App\Model\Administrativo\OrdenPago\OrdenPagos','registros_id');
     }
 
+    public function cdpRegistroValor(){
+        return $this->hasMany('App\Model\Administrativo\Registro\CdpsRegistroValor','registro_id');
+    }
+
 }

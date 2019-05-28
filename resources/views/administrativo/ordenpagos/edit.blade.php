@@ -31,21 +31,13 @@
                     <hr>
                     {!! method_field('PUT') !!}
                     {{ csrf_field() }}
-                    <div class="col-md-6 align-self-center">
-                        <label>Nombre: </label>
+                    <div class="col-md-12 align-self-center">
+                        <label>Concepto: </label>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-user-circle" aria-hidden="true"></i></span>
                             <input type="text" class="form-control" name="nombre" required value="{{ $ordenPago->nombre }}">
                         </div>
                         <small class="form-text text-muted">Nombre que se desee asignar a la orden de pago</small>
-                    </div>
-                    <div class="col-md-6 align-self-center">
-                        <label>Valor: </label>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-usd" aria-hidden="true"></i></span>
-                            <input type="number" class="form-control" name="valor" required value="{{ $ordenPago->valor  }}">
-                        </div>
-                        <small class="form-text text-muted">Valor de la orden de pago, no puede superar el disponible del registro seleccionado</small>
                     </div>
                     <br>
                     &nbsp;

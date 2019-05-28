@@ -44,15 +44,6 @@
     </div>
     <div class="row">
         <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <label>Subir Archivo: </label>
-            <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-file" aria-hidden="true"></i></span>
-                <input type="file" name="file" accept="application/pdf" class="form-control">
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <label>Contratos: </label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-file-o" aria-hidden="true"></i></span>
@@ -63,6 +54,25 @@
                 </select>
             </div>
             <small class="form-text text-muted">Contrato al que pertenece el registro</small>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <label>IVA: </label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-usd" aria-hidden="true"></i></span>
+                <input type="number" class="form-control" name="iva" required>
+            </div>
+            <small class="form-text text-muted">Valor del iva con el que se va a regir el registro</small>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <label>Subir Archivo: </label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-file" aria-hidden="true"></i></span>
+                <input type="file" name="file" accept="application/pdf" class="form-control">
+            </div>
         </div>
     </div>
     <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">

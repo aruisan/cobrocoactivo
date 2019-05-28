@@ -143,7 +143,7 @@
                         @endforeach
                         </tbody>
                     </table>
-                    {!! $registrosHistorico->render() !!}
+
                 @else
                 <div class="col-md-12 align-self-center">
                     <div class="alert alert-danger text-center">
@@ -172,7 +172,7 @@
 
             $('#tabla_registrosH').DataTable( {
                 responsive: true,
-                "searching": false,
+                "searching": true,
                 dom: 'Bfrtip',
                 buttons: [
                     'copy', 'csv', 'excel', 'print'

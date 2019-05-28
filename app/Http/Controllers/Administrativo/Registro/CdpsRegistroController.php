@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Administrativo\Registro;
 
 use App\Model\Administrativo\Registro\CdpsRegistro;
-use App\Model\Administrativo\Cdp\Cdp;
+use App\Model\Administrativo\Registro\CdpsRegistroValor;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -39,10 +39,14 @@ class CdpsRegistroController extends Controller
      */
     public function store(Request $request)
     {
+        $fuenteRubroId = $request->fuente_id;
+        $rubroId = $request->rubro_id;
+        $cdpId = $request->cdp_id_s;
+        $valorRubro = $request->valorFuenteUsar;
+        $rubrosCdpId = $request->rubros_cdp_id;
+        $rubrosCdpValorId = $request->rubros_cdp_valor_id;
         $registro_id = $request->registro_id;
         $cdps = $request->cdp_id;
-        $cdpsRegistroId = $request->cdps_registro_id;
-        $valor = $request->valor;
 
         if ($cdps != null) {
             $count = count($cdps);
@@ -57,12 +61,25 @@ class CdpsRegistroController extends Controller
             }
         }
 
-        if ($cdpsRegistroId != null){
+        if ($valorRubro != null){
 
-            $countV = count($cdpsRegistroId);
+            $countV = count($valorRubro);
 
             for($i = 0; $i < $countV; $i++){
-                $this->updateV($cdpsRegistroId[$i], $valor[$i]);
+
+                if ($rubrosCdpValorId[$i]){
+                    $this->updateV($rubrosCdpValorId[$i], $valorRubro[$i]);
+                }else{
+                    $cdpsRegistroValor = new CdpsRegistroValor();
+                    $cdpsRegistroValor->valor = $valorRubro[$i];
+                    $cdpsRegistroValor->valor_disp = $valorRubro[$i];
+                    $cdpsRegistroValor->fontsRubro_id = $fuenteRubroId[$i];
+                    $cdpsRegistroValor->registro_id = $registro_id;
+                    $cdpsRegistroValor->cdp_id = $cdpId[$i];
+                    $cdpsRegistroValor->rubro_id = $rubroId[$i];
+                    $cdpsRegistroValor->cdps_registro_id = $rubrosCdpId[$i];
+                    $cdpsRegistroValor->save();
+                }
             }
 
         }
@@ -107,8 +124,9 @@ class CdpsRegistroController extends Controller
 
     public function updateV($id,$valor)
     {
-        $cambiarValor = CdpsRegistro::findOrFail($id);
+        $cambiarValor = CdpsRegistroValor::findOrFail($id);
         $cambiarValor->valor = $valor;
+        $cambiarValor->valor_disp = $valor;
         $cambiarValor->save();
     }
 

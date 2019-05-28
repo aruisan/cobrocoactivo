@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Administrativo\OrdenPago;
 
 use App\Model\Administrativo\OrdenPago\OrdenPagosDescuentos;
 use App\Model\Administrativo\OrdenPago\OrdenPagos;
+use App\Model\Administrativo\Registro\Registro;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Session;
@@ -43,26 +44,29 @@ class OrdenPagosDescuentosController extends Controller
     {
         $ordenPago_id = $request->ordenPago_id;
         $ordenPago = OrdenPagos::findOrFail($ordenPago_id);
+        $registro = Registro::findOrFail($ordenPago->registros_id);
         $id = $request->id;
-        $nombre = $request->nombre;
         $valor = $request->valor;
+        $nombre = $request->nombre;
+        $porcentaje = $request->porcent;
+        $base = $request->base;
 
-        $count = count($valor);
+        $count = count($base);
 
         for($i = 0; $i < $count; $i++){
-
             if($id[$i]){
-                $this->update($id[$i], $nombre[$i], $valor[$i], $ordenPago_id);
-            }elseif($ordenPago->saldo < $valor[$i]){
-                Session::flash('warning','El valor no puede ser superior al valor disponible de la orden de pago: '.$ordenPago->saldo);
+                $this->update($id[$i], $nombre[$i], $valor[$i], $ordenPago_id, $porcentaje[$i], $base[$i]);
+            }elseif($registro->saldo < $base[$i]){
+                Session::flash('warning','El valor de base no puede ser superior al valor disponible del registro: '.$registro->saldo);
                 return  back();
-
             }else{
-                $ordenPago->saldo = $ordenPago->saldo - $valor[$i];
-                $ordenPago->save();
                 $ordenPagoDes = new OrdenPagosDescuentos();
                 $ordenPagoDes->nombre = $nombre[$i];
-                $ordenPagoDes->valor = $valor[$i];
+                $ordenPagoDes->porcent = $porcentaje[$i];
+                $ordenPagoDes->base = $base[$i];
+                $x = $base[$i] * $porcentaje[$i];
+                $y = $x/100;
+                $ordenPagoDes->valor = $y;
                 $ordenPagoDes->orden_pagos_id = $ordenPago_id;
                 $ordenPagoDes->save();
             }
@@ -101,17 +105,20 @@ class OrdenPagosDescuentosController extends Controller
      * @param  \App\orden_pagos_descuentos  $orden_pagos_descuentos
      * @return \Illuminate\Http\Response
      */
-    public function update($id, $nombre, $valor, $orden_id)
+    public function update($id, $nombre, $valor, $orden_id, $porc, $base)
     {
         $ordenPago = OrdenPagos::findOrFail($orden_id);
         $Descuento = OrdenPagosDescuentos::findOrFail($id);
-        $ordenPago->saldo = $ordenPago->saldo + $Descuento->valor;
-        if ($valor > $ordenPago->saldo){
-            Session::flash('warning','El valor no puede ser superior al valor disponible de la orden de pago: '.$ordenPago->saldo);
+        $registro = Registro::findOrFail($ordenPago->registros_id);
+
+        if ($registro->saldo < $base){
+            Session::flash('warning','El valor de base no puede ser superior al valor disponible del registro: '.$registro->saldo);
         } else{
-            $ordenPago->saldo = $ordenPago->saldo - $valor;
-            $ordenPago->save();
-            $Descuento->valor = $valor;
+            $x = $base * $porc;
+            $y = $x/100;
+            $Descuento->valor = $y;
+            $Descuento->porcent = $porc;
+            $Descuento->base = $base;
             $Descuento->nombre = $nombre;
             $Descuento->save();
         }
@@ -126,10 +133,8 @@ class OrdenPagosDescuentosController extends Controller
     public function destroy($id)
     {
         $descuento = OrdenPagosDescuentos::findOrFail($id);
-        $ordenPago = OrdenPagos::findOrFail($descuento->orden_pagos_id);
-        $ordenPago->saldo =$ordenPago->saldo +  $descuento->valor;
-        $ordenPago->save();
-        Session::flash('error','Descuento eliminado correctamente de la orden de pago');
         $descuento->delete();
+        Session::flash('error','Descuento eliminado correctamente de la orden de pago');
+
     }
 }

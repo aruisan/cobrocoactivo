@@ -48,5 +48,6 @@
     <li><a tabindex="-1" href="{{ route('roles.index') }}">Gestión de Roles</a></li>
     @endcan
     <li><a tabindex="-1" href="{{route('personas.index')}}">Terceros</a></li>
+    <li><a tabindex="-1" href="{{route('audits.index')}}">Logs</a></li>
   </ul>
 </li>

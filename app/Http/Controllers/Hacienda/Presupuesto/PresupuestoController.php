@@ -235,17 +235,38 @@ class PresupuestoController extends Controller
             }
             if ($R->rubrosCdp->count() > 1){
                 foreach ($R->rubrosCdp as $R3){
-                    $suma2[] = $R3->rubrosCdpValor->sum('valor');
+                    if ($R3->cdps->jefe_e == "2"){
+                        $suma2[] = 0;
+                    } else{
+                        $suma2[] = $R3->rubrosCdpValor->sum('valor');
+                    }
                 }
                 $valoresCdp[] = collect(['id' => $R->id, 'name' => $R->name, 'valor' => array_sum($suma2)]) ;
                 unset($suma2);
             }else{
                 foreach ($R->rubrosCdp as $R2){
-                    $valoresCdp[] = collect(['id' => $R->id, 'name' => $R->name, 'valor' => $R2->rubrosCdpValor->sum('valor')]) ;
+                    if ($R2->cdps->jefe_e == "2"){
+                        $valoresCdp[] = collect(['id' => $R->id, 'name' => $R->name, 'valor' => 0]) ;
+                    }else {
+                        $valoresCdp[] = collect(['id' => $R->id, 'name' => $R->name, 'valor' => $R2->rubrosCdpValor->sum('valor')]) ;
+                    }
                 }
             }
 
         }
+
+        //VALOR DE LOS REGISTROS DEL RUBRO
+        foreach ($rubros as $rub){
+            if ($rub->cdpRegistroValor->count() == 0){
+                $valoresRubro[] = collect(['id' => $rub->id, 'name' => $rub->name, 'valor' => 0 ]) ;
+            }elseif ($rub->cdpRegistroValor->count() > 1){
+                $valoresRubro[] = collect(['id' => $rub->id, 'name' => $rub->name, 'valor' => $rub->cdpRegistroValor->sum('valor')]);
+            }else{
+                $reg = $rub->cdpRegistroValor->first();
+                $valoresRubro[] = collect(['id' => $rub->id, 'name' => $rub->name, 'valor' => $reg['valor']]) ;
+            }
+        }
+
 
         //REGISTROS
         $registros = Registro::all();
@@ -415,7 +436,7 @@ class PresupuestoController extends Controller
         }
 
 
-        return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos'));
+        return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro'));
     }
 
     /**
