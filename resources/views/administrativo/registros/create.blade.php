@@ -35,7 +35,7 @@
 <div class="col-md-12 align-self-center">
     <hr>
     <center>
-        <h3>CDP's del Registro</h3>
+        <h3>CDP's Disponibles</h3>
     </center>
     <hr>
     <br>

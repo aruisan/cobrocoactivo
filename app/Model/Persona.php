@@ -20,4 +20,9 @@ class Persona extends Model
     {
         return $this->hasOne('App\Model\Administrativo\GestionDocumental\Concejal', 'dato_id');
     }
+
+    public function puc_tercero()
+    {
+        return $this->hasOne('App\Model\Administrativo\Contabilidad\Puc');
+    }
 }

@@ -13,6 +13,10 @@
             <i class="fa fa-credit-card"></i>
             <span class="hide-menu"> Pagos</span></a>
     </li>
+    <li>
+        <a href="{{ url('/administrativo/registros') }}" class="btn btn-primary">
+            <span class="hide-menu"> Registros</span></a>
+    </li>
 @stop
 @section('content')
     <div class="breadcrumb text-center">
@@ -57,7 +61,7 @@
                                         @if($ordenPagoT->estado == "0")
                                             Pendiente
                                         @elseif($ordenPagoT->estado == "1")
-                                            Pagado
+                                            Finalizado
                                         @else
                                             Anulado
                                         @endif
@@ -67,7 +71,7 @@
                                 <td class="text-center">{{ $ordenPagoT->registros->persona->nombre }}</td>
                                 <td>
                                     <a href="{{ url('administrativo/ordenPagos/descuento/create/'.$ordenPagoT->id) }}" title="Descuentos" class="btn-sm btn-primary"><i class="fa fa-usd"></i>&nbsp;<i class="fa fa-arrow-down"></i></a>
-                                    <a href="{{ url('administrativo/ordenPagos/liquidacion/create/'.$ordenPagoT->id) }}" title="Liquidación" class="btn-sm btn-success"><i class="fa fa-credit-card"></i></a>
+                                    <a href="{{ url('administrativo/ordenPagos/liquidacion/create/'.$ordenPagoT->id) }}" title="Contabilización" class="btn-sm btn-success"><i class="fa fa-calculator"></i></a>
                                     <a href="{{ url('administrativo/ordenPagos/'.$ordenPagoT->id.'/edit') }}" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                     <a href="{{ url('administrativo/ordenPagos/'.$ordenPagoT->id) }}" title="Ver Orden de Pago" class="btn-sm btn-success"><i class="fa fa-eye"></i></a>
                                 </td>
@@ -111,7 +115,7 @@
                                         @if($ordenPago->estado == "0")
                                             Pendiente
                                         @elseif($ordenPago->estado == "1")
-                                            Pagado
+                                            Finalizado
                                         @else
                                             Anulado
                                         @endif

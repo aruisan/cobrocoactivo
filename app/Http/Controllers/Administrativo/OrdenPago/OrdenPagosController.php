@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Administrativo\OrdenPago;
 
 use App\Model\Administrativo\OrdenPago\OrdenPagos;
 use App\Model\Administrativo\OrdenPago\OrdenPagosDescuentos;
+use App\Model\Administrativo\OrdenPago\OrdenPagosPuc;
+use App\Model\Administrativo\Contabilidad\Puc;
+use App\Model\Persona;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Administrativo\Registro\Registro;
@@ -71,25 +74,43 @@ class OrdenPagosController extends Controller
 
     public function liquidacion($id)
     {
+        $Personas = Persona::all();
+        foreach ($Personas as $persona){
+            if ($persona->puc_tercero == null){
+                $Usuarios[] = collect(['id' => $persona->id, 'name' => $persona->nombre]);
+            }
+        }
+        $PUCs = Puc::all();
         $ordenPago = OrdenPagos::findOrfail($id);
         $ordenPagoDesc = OrdenPagosDescuentos::where('orden_pagos_id',$id)->get();
         $registro = Registro::findOrFail($ordenPago->registros_id);
         $Pagos = OrdenPagos::where('estado','=',1);
         $SumPagos = $Pagos->sum('valor');
-        return view('administrativo.ordenpagos.createLiquidacion', compact('ordenPago','registro','SumPagos','ordenPagoDesc'));
+        return view('administrativo.ordenpagos.createLiquidacion', compact('ordenPago','registro','SumPagos','ordenPagoDesc','PUCs','Usuarios'));
     }
 
     public function liquidar(Request $request)
     {
         $ordenPago = OrdenPagos::findOrFail($request->ordenPago_id);
         $registro = Registro::findOrFail($ordenPago->registros_id);
-        $registro->saldo = $registro->saldo - $request->valor;
+        $puc = Puc::findOrFail($request->PUC);
+        $registro->saldo = $registro->saldo - $request->valorPuc;
         $registro->save();
         $ordenPago->estado = "1";
-        $ordenPago->valor = $request->valor;
-        $ordenPago->saldo = $request->valor;
+        $ordenPago->valor = $request->valorPuc;
+        $ordenPago->saldo = $request->valorPuc;
         $ordenPago->save();
-        Session::flash('success','La orden de pago se ha liquidado exitosamente');
+        if ($request->userPuc != "Seleccionar Tercero Para el PUC"){
+            $puc->persona_id = $request->userPuc;
+            $puc->save();
+        }
+        $oPP = new OrdenPagosPuc();
+        $oPP->puc_id = $request->PUC;
+        $oPP->orden_pago_id = $request->ordenPago_id;
+        $oPP->valor = $request->valorPuc;
+        $oPP->save();
+
+        Session::flash('success','La orden de pago se ha contabilizado exitosamente');
         return redirect('/administrativo/ordenPagos');
     }
 

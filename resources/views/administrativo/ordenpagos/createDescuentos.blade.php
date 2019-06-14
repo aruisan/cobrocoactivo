@@ -60,8 +60,8 @@
                             <tr>
                                 <input type="hidden" name="id[]">
                                 <td>
-                                    <select class="form-control" id="reten" onchange="llenar()" name="retencion_fuente">
-                                        <option value="seleccionar">Selecciona un Concepto de Descuento</option>
+                                    <select class="form-control" id="reten" onchange="llenar()" name="retencion_fuente" required>
+                                        <option>Selecciona un Concepto de Descuento</option>
                                         @foreach($retenF as $reten)
                                             <option value="{{$reten->id}}">{{$reten->concepto}}</option>
                                         @endforeach
@@ -95,19 +95,34 @@
                             <tbody>
                             @for($i=0;$i< count($desMun); $i++)
                                 <tr>
-                                    <input type="hidden" value="{{$i + 1}}" name="idDes[]">
-                                    <td class="text-center">{{ $desMun[$i]->id }}</td>
-                                    <td class="text-center">{{ $desMun[$i]->concepto }}</td>
-                                    <td class="text-center">{{ $desMun[$i]->tarifa }}%</td>
-                                    <?php
-                                    $valorMulti = $ordenPago->registros->valor * $desMun[$i]->tarifa;
-                                    $value = $valorMulti / 100;
-                                    ?>
-                                    <td class="text-center">
-                                        <input type="text" value="$<?php echo number_format($value,0) ?>" style="text-align:center" disabled>
-                                        <input type="hidden" name="valorMuni[]" value="{{ $value }}">
-                                    </td>
-                                    <td class="text-center"><input type="button" class="borrar btn-sm btn-danger" value=" - " /></td>
+                                    @if( $desMun[$i]->concepto == "Otras Contribuciones" or $desMun[$i]->concepto == "Otros Descuentos")
+                                        <input type="hidden" value="{{$i + 1}}" name="idDesOther[]">
+                                        <td class="text-center">{{ $desMun[$i]->id }}</td>
+                                        <td>
+                                            <input type="text" style="text-align:center" placeholder="{{ $desMun[$i]->concepto}}" name="concepto[]" required>
+                                        </td>
+                                        <td>
+                                            <input type="number" style="text-align:center" placeholder="Tarifa" name="tarifa[]" min="0" required>
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="number" placeholder="Valor del Descuento" name="valorOther[]" style="text-align:center" min="0" required>
+                                        </td>
+                                        <td class="text-center"><input type="button" class="borrar btn-sm btn-danger" value=" - " /></td>
+                                    @else
+                                        <input type="hidden" value="{{$i + 1}}" name="idDes[]">
+                                        <td class="text-center">{{ $desMun[$i]->id }}</td>
+                                        <td class="text-center">{{ $desMun[$i]->concepto }}</td>
+                                        <td class="text-center">{{ $desMun[$i]->tarifa }}%</td>
+                                        <?php
+                                        $valorMulti = $ordenPago->registros->valor * $desMun[$i]->tarifa;
+                                        $value = $valorMulti / 100;
+                                        ?>
+                                        <td class="text-center">
+                                            $<?php echo number_format($value,0) ?>
+                                            <input type="hidden" name="valorMuni[]" value="{{ $value }}">
+                                        </td>
+                                        <td class="text-center"><input type="button" class="borrar btn-sm btn-danger" value=" - " /></td>
+                                    @endif
                                 </tr>
                             @endfor
                             </tbody>

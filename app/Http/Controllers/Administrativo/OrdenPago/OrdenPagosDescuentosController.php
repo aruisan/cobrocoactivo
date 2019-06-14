@@ -74,6 +74,18 @@ class OrdenPagosDescuentosController extends Controller
             $descuento->save();
         }
 
+        for($x=0;$x< count($request->idDesOther); $x++){
+            $descMunicipales = DescMunicipales::findOrFail($request->idDesOther[$x]);
+            $descuento = new OrdenPagosDescuentos();
+            $descuento->nombre = $request->concepto[$x];
+            $descuento->base = 0;
+            $descuento->porcent = $request->tarifa[$x];
+            $descuento->valor = $request->valorOther[$x];
+            $descuento->orden_pagos_id = $ordenPago_id;
+            $descuento->desc_municipales_id = $request->idDesOther[$x];
+            $descuento->save();
+        }
+
         Session::flash('success','Los Descuentos se han Almacenado Exitosamente');
         return redirect('/administrativo/ordenPagos');
     }
