@@ -3,7 +3,13 @@
     Registros
 @stop
 @section('sidebar')
-    @include('administrativo.registros.cuerpo.aside')
+    @if( $rol == 2)
+        <li>
+            <a href="{{route('registros.create')}}" class="btn btn-success">
+                <i class="fa fa-plus"></i>
+                <span class="hide-menu"> Crear Registros</span></a>
+        </li>
+    @endif
     <li>
         <a href="{{ url('/administrativo/cdp') }}" class="btn btn-primary">
             <span class="hide-menu"> CDP's</span></a>

@@ -19,12 +19,15 @@ class CreateRegistrosTable extends Migration
             $table->date('ff_expedicion');
             $table->string('ruta');
             $table->integer('valor');
+            $table->integer('saldo');
+            $table->integer('val_total')->nullable();
 
             $table->integer('persona_id')->unsigned();
             $table->foreign('persona_id')->references('id')->on('personas');
 
-            $table->integer('contrato_id')->unsigned();
-            $table->foreign('contrato_id')->references('id')->on('contractuales');
+            $table->string('tipo_doc');
+            $table->integer('num_doc');
+            $table->date('ff_doc');
 
             $table->enum('secretaria_e', [0, 1, 2, 3]);
             $table->date('ff_secretaria_e');

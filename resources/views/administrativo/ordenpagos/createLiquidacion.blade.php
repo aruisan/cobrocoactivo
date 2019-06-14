@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @section('titulo')
-    Liquidación de Orden de Pago
+    Contabilidad de Orden de Pago
 @stop
 @section('sidebar')
     <li>
@@ -12,7 +12,7 @@
     <div class="col-md-12 align-self-center" id="crud">
         <div class="row justify-content-center">
             <br>
-            <center><h2>Liquidación Orden de Pago: {{ $ordenPago->nombre }}</h2></center>
+            <center><h2>Contabilidad Orden de Pago: {{ $ordenPago->nombre }}</h2></center>
             <br>
             <div class="row">
                 <div class="col-md-6 text-center">
@@ -30,85 +30,48 @@
                     {{ csrf_field() }}
                     <input type="hidden" id="ordenPago_id" name="ordenPago_id" value="{{ $ordenPago->id }}">
                     <br>
-                    <b>
-                        <div class="col-md-2 text-center">
-                            <br>
-                            <h4><b>Valor Disponible del Registro:</b></h4>
-                        </div>
-                        <div class="col-md-2">
-                            <br>
-                            <input type="text" style="text-align: center" class="form-control" value="$<?php echo number_format($registro->saldo,0) ?>" disabled>
-                        </div>
-                        <div class="col-md-2 text-center">
-                            <br>
-                            <h4><b>IVA:</b></h4>
-                        </div>
-                        <div class="col-md-2">
-                            <br>
-                            <input type="text" style="text-align: center" class="form-control" value="{{ $registro->iva }}%" disabled>
-                        </div>
-                        <div class="col-md-2 text-center">
-                            <br>
-                            <h4><b>Valor Total del Registro:</b></h4>
-                        </div>
-                        <div class="col-md-2">
-                            <br>
-                            <input type="text" style="text-align: center" class="form-control" value="$<?php echo number_format($registro->valor,0) ?>" disabled>
-                        </div>
-                        <div class="col-md-2 text-center">
-                            <br>
-                            <h4><b>Valor de Pagos Anteriores:</b></h4>
-                        </div>
-                        <div class="col-md-2">
-                            <br>
-                            <input type="text" style="text-align: center" class="form-control" value="$<?php echo number_format($SumPagos,0) ?>" disabled>
-                        </div>
-                        <div class="col-md-2 text-center">
-                            <br>
-                            <h4><b>Valor Disponible:</b></h4>
-                        </div>
-                        <div class="col-md-2">
-                            <br>
-                            <input type="text" style="text-align: center" class="form-control" value="$<?php echo number_format($registro->saldo,0) ?>" disabled>
-                        </div>
-                        <div class="col-md-3 text-center">
-                            <br>
-                            <h4><b>Valor Bruto a Pagar:</b></h4>
-                        </div>
-                        <div class="col-md-9">
-                            <br>
-                            <input type="number" style="text-align: center" class="form-control" id="ValB" name="valor" value="0" max="{{ $registro->saldo }}" min="{{ $ordenPago->descuentos->sum('valor') }}" required onchange="sumar(this.value, '{{ $ordenPago->descuentos->sum("valor") }}');">
-                        </div>
-                        <div class="col-md-2">
-                            &nbsp;
-                        </div>
-                        <div class="col-md-2 text-center">
-                            <br>
-                            <h4><b>Descuentos:</b></h4>
-                        </div>
-                        <div class="col-md-2">
-                            <br>
-                            <input type="text" style="text-align: center" class="form-control" value="$<?php echo number_format($ordenPago->descuentos->sum('valor'),0) ?> " disabled>
-                            <input type="hidden" id="des" name="des" class="form-control" value="{{ $ordenPago->descuentos->sum('valor') }}">
-                        </div>
-                        <div class="col-md-2 text-center">
-                            <br>
-                            <h4><b>Valor Neto a Pagar:</b></h4>
-                        </div>
-                        <div class="col-md-2">
-                            <br>
-                            <input type="text" style="text-align: center" class="form-control" id="valP" name="valP" disabled value="0">
-                        </div>
-                    </b>
-                    <div class="col-md-12 text-center">
-                        <hr>
-                        <div class="alert alert-info">
-                            <center>
-                                Son: <span id="letras"></span>
-                            </center>
-                        </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="tabla">
+                            <thead>
+                            <th class="text-center">Codigo Cuenta</th>
+                            <th class="text-center">Nombre Cuenta</th>
+                            <th class="text-center">Debito</th>
+                            <th class="text-center">Credito</th>
+                            <th class="text-center"><i class="fa fa-trash-o"></i></th>
+                            </thead>
+                            <tbody>
+                            @for($i=0;$i< count($ordenPagoDesc); $i++)
+                                <tr>
+                                    @if($ordenPagoDesc[$i]->retencion_fuentes_id == null)
+                                        <td class="text-center">
+                                            {{ $ordenPagoDesc[$i]->descuento_municipales->codigo }}
+                                        </td>
+                                    @else
+                                        <td class="text-center">
+                                            {{ $ordenPagoDesc[$i]->descuento_retencion->codigo }}
+                                        </td>
+                                    @endif
+                                    @if($ordenPagoDesc[$i]->retencion_fuentes_id == null)
+                                        <td class="text-center">
+                                            {{ $ordenPagoDesc[$i]->descuento_municipales->cuenta }}
+                                        </td>
+                                    @else
+                                        <td class="text-center">
+                                            {{ $ordenPagoDesc[$i]->descuento_retencion->cuenta }}
+                                        </td>
+                                    @endif
+                                    <td class="text-center">
+                                        <input type="number" value="0" style="text-align:center" disabled>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="text" value="$<?php echo number_format($ordenPagoDesc[$i]->valor,0) ?>" style="text-align:center" disabled>
+                                    </td>
+                                    <td class="text-center"></td>
+                                </tr>
+                            @endfor
+                            </tbody>
+                        </table>
                     </div>
-
                     <br>
                     <div class="col-md-12 align-self-center text-center">
                         <br>

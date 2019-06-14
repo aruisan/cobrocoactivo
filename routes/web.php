@@ -118,7 +118,7 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 	    Route::resource('registros', 'Administrativo\Registro\RegistrosController');
         Route::resource('cdpsRegistro','Administrativo\Registro\CdpsRegistroController');
         Route::resource('cdpsRegistro/valor','Administrativo\Registro\CdpsRegistroValorController');
-        Route::get('registros/{id}/{fecha}/{valor}/{estado}', 'Administrativo\Registro\RegistrosController@updateEstado');
+        Route::get('registros/{id}/{fecha}/{valor}/{estado}/{valTot}', 'Administrativo\Registro\RegistrosController@updateEstado');
         //Route::put('registros/r/{id}/{rol}/{estado}', 'Administrativo\Registro\RegistrosController@rechazar');
 
             //pdf registros

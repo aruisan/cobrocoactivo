@@ -56,10 +56,10 @@ class RegistrosController extends Controller
         foreach ($roles as $role){
             $rol= $role->id;
         }
-        $cdps = Cdp::all()->where('jefe_e','3')->count();
-        if($cdps > 0){
-            $contratos = Contractual::all();
-            return view('administrativo.registros.create', compact('contratos','rol','personas'));
+        $cdp = Cdp::all()->where('jefe_e','3')->count();
+        if($cdp > 0){
+            $cdps = Cdp::all()->where('jefe_e','3');
+            return view('administrativo.registros.create', compact('rol','personas','cdps'));
         }else{
             Session::flash('error','Actualmente no existen CDPs disponibles para crear registros.');
             return redirect('/administrativo/registros');
@@ -89,15 +89,68 @@ class RegistrosController extends Controller
         $registro->ruta = $ruta;
         $registro->valor = "0";
         $registro->saldo = "0";
-        $registro->iva = $request->iva;
+        $registro->iva = "0";
         $registro->persona_id = $request->persona_id;
-        $registro->contrato_id = $request->contrato_id;
+        if ($request->tipo_doc_text == null){
+            $registro->tipo_doc = $request->tipo_doc;
+        } elseif($request->tipo_doc == "Otro" and $request->tipo_doc_text != null) {
+            $registro->tipo_doc = $request->tipo_doc_text;
+        } else {
+            $registro->tipo_doc = $request->tipo_doc;
+        }
+        $registro->num_doc = $request->num_tipo_doc;
+        $registro->ff_doc = $request->fecha_tipo_doc;
         $registro->secretaria_e = $request->secretaria_e;
         $registro->ff_secretaria_e = $request->fecha;
-
         $registro->save();
+
+        $fuenteRubroId = $request->fuente_id;
+        $rubroId = $request->rubro_id;
+        $cdpId = $request->cdp_id_s;
+        $valorRubro = $request->valorFuenteUsar;
+        $rubrosCdpId = $request->rubros_cdp_id;
+        $rubrosCdpValorId = $request->rubros_cdp_valor_id;
+        $registro_id = $registro->id;
+        $cdps = $request->cdp_id;
+
+        if ($cdps != null) {
+            $count = count($cdps);
+
+            for($i = 0; $i < $count; $i++){
+
+                $cdpsRegistro = new CdpsRegistro();
+                $cdpsRegistro->registro_id = $registro_id;
+                $cdpsRegistro->cdp_id = $cdps[$i];
+                $cdpsRegistro->valor = 0;
+                $cdpsRegistro->save();
+            }
+        }
+
+        if ($valorRubro != null){
+
+            $countV = count($valorRubro);
+
+            for($i = 0; $i < $countV; $i++){
+
+                if ($rubrosCdpValorId[$i]){
+                    $this->updateV($rubrosCdpValorId[$i], $valorRubro[$i]);
+                }else{
+                    $cdpsRegistroValor = new CdpsRegistroValor();
+                    $cdpsRegistroValor->valor = $valorRubro[$i];
+                    $cdpsRegistroValor->valor_disp = $valorRubro[$i];
+                    $cdpsRegistroValor->fontsRubro_id = $fuenteRubroId[$i];
+                    $cdpsRegistroValor->registro_id = $registro_id;
+                    $cdpsRegistroValor->cdp_id = $cdpId[$i];
+                    $cdpsRegistroValor->rubro_id = $rubroId[$i];
+                    $cdpsRegistroValor->cdps_registro_id = $rubrosCdpId[$i];
+                    $cdpsRegistroValor->save();
+                }
+            }
+
+        }
+
         Session::flash('success','El registro se ha creado exitosamente');
-        return redirect('/administrativo/registros');
+        return redirect('/administrativo/registros/'.$registro->id);
     }
 
     public function destroy($id)
@@ -152,26 +205,32 @@ class RegistrosController extends Controller
 
     public function update(Request $request, $id)
     {
-
         $update = Registro::findOrFail($id);
         $update->objeto = $request->objeto;
         $update->iva = $request->iva;
         $update->persona_id = $request->persona_id;
-        $update->contrato_id = $request->contrato_id;
+        if ($request->tipo_doc_text == null){
+            $update->tipo_doc = $request->tipo_doc;
+        } elseif($request->tipo_doc == "Otro" and $request->tipo_doc_text != null) {
+            $update->tipo_doc = $request->tipo_doc_text;
+        } else {
+            $update->tipo_doc = $request->tipo_doc;
+        }
         $update->save();
 
         Session::flash('success','El registro se ha actualizado exitosamente');
         return redirect('/administrativo/registros');
     }
 
-    public function updateEstado($id,$fecha,$valor,$estado)
+    public function updateEstado($id,$fecha,$valor,$estado,$valTot)
     {
         $update = Registro::findOrFail($id);
 
         $update->secretaria_e = $estado;
         $update->ff_secretaria_e = $fecha;
         $update->valor = $valor;
-        $update->saldo = $valor;
+        $update->saldo = $valTot;
+        $update->val_total = $valTot;
         $update->save();
 
         $cdpsRegistroValor = CdpsRegistroValor::where('registro_id', $id)->get();
@@ -186,7 +245,7 @@ class RegistrosController extends Controller
         }
 
         Session::flash('success','Secretaria, su registro ha sido finalizado exitosamente');
-        return redirect('/administrativo/registros');
+        return redirect('/administrativo/registros/'.$id);
 
     }
 

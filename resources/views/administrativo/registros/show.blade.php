@@ -3,29 +3,34 @@
     Registro
 @stop
 @section('sidebar')
-  @include('administrativo.registros.cuerpo.aside')
+  <li>
+      <a href="{{route('registros.index')}}" class="btn btn-success">
+          <span class="hide-menu"> Registros</span></a>
+  </li>
   <br>
   <div class="card">
       <br>
       <center>
           <h4><b>Valor del Registro</b></h4>
+          <h5>Obtenido de los CDP</h5>
       </center>
       <div class="text-center">
           $<?php echo number_format($registro->valor,0) ?>
       </div>
       <br>
       <center>
-          <h4><b>Valor Disponible del Registro</b></h4>
-      </center>
-      <div class="text-center">
-          $<?php echo number_format($registro->saldo,0) ?>
-      </div>
-      <br>
-      <center>
           <h4><b>IVA del Registro</b></h4>
       </center>
       <div class="text-center">
-          %{{ $registro->iva }}
+          $<?php echo number_format($registro->iva,0) ?>
+      </div>
+      <br>
+      <center>
+          <h4><b>Valor Total del Registro</b></h4>
+          <h5>Valor Registro + Valor IVA</h5>
+      </center>
+      <div class="text-center">
+          $<?php echo number_format($registro->saldo,0) ?>
       </div>
       <br>
       @if($registro->secretaria_e != 3)
@@ -69,14 +74,36 @@
         </div>
         <div class="row">
             <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                <label>Contrato: </label>
+                <label>Tipo de Documento: </label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-file-o" aria-hidden="true"></i></span>
-                    {{ $registro->contrato->asunto }}
+                    {{ $registro->tipo_doc }}
                 </div>
-                <small class="form-text text-muted">Contrato al que pertenece el registro</small>
+                <small class="form-text text-muted">Tipo de Documento del registro</small>
             </div>
         </div>
+        @if( $registro->tipo_doc == "Contrato" or $registro->tipo_doc == "Factura" or $registro->tipo_doc == "Resolución")
+            <div class="row">
+                <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    <label>Número de Documento: </label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-hashtag" aria-hidden="true"></i></span>
+                        {{ $registro->num_doc }}
+                    </div>
+                    <small class="form-text text-muted">Número del Documento</small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    <label>Fecha del Documento: </label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                        {{ $registro->ff_doc }}
+                    </div>
+                    <small class="form-text text-muted">Fecha del Documento</small>
+                </div>
+            </div>
+        @endif
         <div class="row">
             @if($registro->observacion == "" or $registro->jcontratacion_e == 0)
                 @else
@@ -235,11 +262,11 @@
                                                         @endforeach
                                                         @if($registro->cdpRegistroValor->count() == 0)
                                                             <input type="hidden" name="rubros_cdp_valor_id[]" value="">
-                                                            <input type="number" required  name="valorFuenteUsar[]" class="form-group-sm" value="0" max="{{ $cdpsRegistroData->cdp->saldo }}" style="text-align: center">
+                                                            <input type="number" required  name="valorFuenteUsar[]" class="form-group-sm" value="0" max="{{ $cdpsRegistroData->cdp->saldo }}" min="0" style="text-align: center">
                                                         @endif
                                                     @else
                                                         <input type="hidden" name="rubros_cdp_valor_id[]" value="">
-                                                        <input type="number" required  name="valorFuenteUsar[]" class="form-group-sm" value="0" max="{{ $cdpsRegistroData->cdp->saldo }}" style="text-align: center">
+                                                        <input type="number" required  name="valorFuenteUsar[]" class="form-group-sm" value="0" max="{{ $cdpsRegistroData->cdp->saldo }}" min="0" style="text-align: center">
                                                     @endif
                                                 @endif
                                             </div>
@@ -272,15 +299,31 @@
                             @php( $fechaActual = Carbon\Carbon::today()->Format('Y-m-d') )
                         @endfor
                         </tbody>
-                    </table><br>
+                    </table>
+                    @if($registro->secretaria_e != 3)
+                    <center>
+                        <div class="row">
+                            <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                <label>IVA: </label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-usd" aria-hidden="true"></i></span>
+                                    <input type="number" class="form-control" id="iva" name="iva" value="{{ $registro->iva }}" required min="0">
+                                </div>
+                                <small class="form-text text-muted">Valor del iva con el que se va a regir el registro</small>
+                            </div>
+                        </div>
+                    </center>
+                    @endif
+                    <br>
                     <center>
                         @if($rol == 2 and $registro->secretaria_e != 3)
                             @if($registro->cdpsRegistro->count() == 0)
                             <button type="button" v-on:click.prevent="nuevaFilaPrograma" class="btn btn-success">Agregar Fila</button>
                             @endif
-                            <button type="submit" class="btn btn-primary">Guardar CDP's</button>
+                            <button type="submit" class="btn btn-primary">Actualizar Registro</button>
                             @if($registro->cdpRegistroValor->sum('valor') > 0 )
-                                <a href="{{url('/administrativo/registros/'.$registro->id.'/'.$fechaActual.'/'.$registro->cdpRegistroValor->sum('valor').'/3')}}" class="btn btn-success">
+                                @php($valTot = $registro->iva + $registro->cdpRegistroValor->sum('valor'))
+                                <a href="{{url('/administrativo/registros/'.$registro->id.'/'.$fechaActual.'/'.$registro->cdpRegistroValor->sum('valor').'/3/'.$valTot)}}" type="submit" class="btn btn-success">
                                     Finalizar Registro
                                 </a>
                             @endif

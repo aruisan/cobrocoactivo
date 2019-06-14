@@ -107,11 +107,11 @@
                         </div>
                         <div class="col-md-2 text-center">
                             <br>
-                            <h4><b>Valor Disponible del Registro:</b></h4>
+                            <h4><b>Valor del Registro:</b></h4>
                         </div>
                         <div class="col-md-2">
                             <br>
-                            <input type="number" style="text-align: center" class="form-control" name="Val" id="Val" disabled>
+                            <input type="number" style="text-align: center" class="form-control" name="ValTo" id="ValTo" disabled>
                         </div>
                         <div class="col-md-2 text-center">
                             <br>
@@ -127,7 +127,7 @@
                         </div>
                         <div class="col-md-2">
                             <br>
-                            <input type="number" style="text-align: center" class="form-control" name="ValTo" id="ValTo" disabled>
+                            <input type="number" style="text-align: center" class="form-control" name="Val" id="Val" disabled>
                         </div>
                         </b>
                         <input type="hidden" class="form-control" name="estado" value="0">

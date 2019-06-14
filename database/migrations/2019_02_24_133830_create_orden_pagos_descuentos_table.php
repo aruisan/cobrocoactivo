@@ -24,6 +24,12 @@ class CreateOrdenPagosDescuentosTable extends Migration
             $table->integer('orden_pagos_id')->unsigned();
             $table->foreign('orden_pagos_id')->references('id')->on('orden_pagos');
 
+            $table->integer('retencion_fuentes_id')->unsigned();
+            $table->foreign('retencion_fuentes_id')->references('id')->on('retencion_fuentes');
+
+            $table->integer('desc_municipales_id')->unsigned();
+            $table->foreign('desc_municipales_id')->references('id')->on('desc_municipales');
+
             $table->timestamps();
         });
     }

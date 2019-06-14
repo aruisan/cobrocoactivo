@@ -13,7 +13,9 @@
         <center>
             <h4><b>Estado Actual del Registro</b></h4>
             <br>
-            Valor Total: $<?php echo number_format($ordenPago->registros->valor,0) ?>
+            Valor Registro: $<?php echo number_format($ordenPago->registros->valor,0) ?>
+            <br>
+            Valor Total(+IVA): $<?php echo number_format($ordenPago->registros->val_total,0) ?>
             <br>
             Valor Disponible: $<?php echo number_format($ordenPago->registros->saldo,0) ?>
         </center>
@@ -28,7 +30,7 @@
     </div>
 @stop
 @section('content')
-    <div class="col-md-12 align-self-center" id="crud">
+    <div class="col-md-12 align-self-center" id="crud" style="background-color: white">
         <div class="row justify-content-center">
             <br>
             <center><h2>Descuentos de: {{ $ordenPago->nombre }}</h2></center>
@@ -52,32 +54,68 @@
                             <th class="text-center">Concepto</th>
                             <th class="text-center">%</th>
                             <th class="text-center">Base</th>
-                            <th class="text-center">Valor/Descuento</th>
-                            <th class="text-center"><i class="fa fa-trash-o"></i></th>
+                            <th class="text-center">Valor</th>
                             </thead>
                             <tbody>
-                            <tr v-for="dato in datos">
-                                <input type="hidden" name="id[]" v-model="dato.id">
-                                <th scope="row"><input type="text" name="nombre[]" style="text-align:center" v-model="dato.nombre"></th>
-                                <th scope="row"><input type="number" name="porcent[]" style="text-align:center" v-model="dato.porcent" required></th>
-                                <th scope="row"><input type="number" name="base[]" style="text-align:center" v-model="dato.base" required></th>
-                                <th scope="row"><input type="number" style="text-align:center" v-model="dato.valor" disabled></th>
-                                <input type="hidden" name="valor[]" style="text-align:center" v-model="dato.valor">
-                                <td class="text-center"><button type="button" class="btn-sm btn-danger" v-on:click.prevent="eliminarDatos(dato.id)" ><i class="fa fa-trash-o"></i></button></td>
-                            </tr>
                             <tr>
                                 <input type="hidden" name="id[]">
-                                <td><input type="text" name="nombre[]" required></td>
-                                <td><input type="number" name="porcent[]"  required></td>
-                                <td><input type="number" name="base[]"  required max="{{ $ordenPago->registros->saldo }}"></td>
-                                <td><input type="number" name="valor[]" style="text-align:center" disabled placeholder="Al guardar el descuento surge el valor"></td>
-                                <td class="text-center"><input type="button" class="borrar btn-sm btn-danger" value=" - " /></td>
+                                <td>
+                                    <select class="form-control" id="reten" onchange="llenar()" name="retencion_fuente">
+                                        <option value="seleccionar">Selecciona un Concepto de Descuento</option>
+                                        @foreach($retenF as $reten)
+                                            <option value="{{$reten->id}}">{{$reten->concepto}}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="number" id="percent" name="porcent" style="text-align:center" disabled>
+                                </td>
+                                <td><input type="number" id="base" name="base" disabled style="text-align:center"></td>
+                                <td>
+                                    <input type="number" id="valor" style="text-align:center" disabled>
+                                    <input type="hidden" id="valor2" name="valor" value="">
+                                </td>
                             </tr>
                             </tbody>
                         </table>
-                    </div><br><center>
-                        <button type="button" v-on:click.prevent="nuevaFila" class="btn btn-success">Nuevo Descuento</button>
+                    </div>
+                    <br>
+                    <br>
+                    <center><h2>Descuentos Municipales</h2></center>
+                    <hr><br>
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="tabla">
+                            <thead>
+                            <th class="text-center">Id</th>
+                            <th class="text-center">Concepto</th>
+                            <th class="text-center">Tarifa</th>
+                            <th class="text-center">Valor</th>
+                            <th class="text-center"><i class="fa fa-trash-o"></i></th>
+                            </thead>
+                            <tbody>
+                            @for($i=0;$i< count($desMun); $i++)
+                                <tr>
+                                    <input type="hidden" value="{{$i + 1}}" name="idDes[]">
+                                    <td class="text-center">{{ $desMun[$i]->id }}</td>
+                                    <td class="text-center">{{ $desMun[$i]->concepto }}</td>
+                                    <td class="text-center">{{ $desMun[$i]->tarifa }}%</td>
+                                    <?php
+                                    $valorMulti = $ordenPago->registros->valor * $desMun[$i]->tarifa;
+                                    $value = $valorMulti / 100;
+                                    ?>
+                                    <td class="text-center">
+                                        <input type="text" value="$<?php echo number_format($value,0) ?>" style="text-align:center" disabled>
+                                        <input type="hidden" name="valorMuni[]" value="{{ $value }}">
+                                    </td>
+                                    <td class="text-center"><input type="button" class="borrar btn-sm btn-danger" value=" - " /></td>
+                                </tr>
+                            @endfor
+                            </tbody>
+                        </table>
+                    </div>
+                    <center>
                         <button type="submit" class="btn btn-primary">Guardar</button>
+                    </center>
                 </form>
             </div>
         </div>
@@ -85,6 +123,30 @@
 @stop
 @section('js')
     <script>
+        var Data = {
+            @foreach($retenF as $key => $data)
+                @if($ordenPago->registros->valor >= $data->base)
+                    <?php
+                        $valorM = $ordenPago->registros->valor * $data->tarifa;
+                        $val = $valorM / 100;
+                    ?>
+                    "{{$data->id}}":["{{$data->tarifa}}","{{$data->base}}","{{$val}}"],
+                @else
+                    "{{$data->id}}":["{{$data->tarifa}}","{{$data->base}}","0"],
+                @endif
+            @endforeach
+        };
+
+        function llenar(){
+            var select = document.getElementById('reten');
+            var opcion = select.value;
+
+            document.getElementById('percent').value = Data[opcion][0];
+            document.getElementById('base').value = Data[opcion][1];
+            document.getElementById('valor').value = Data[opcion][2];
+            document.getElementById('valor2').value = Data[opcion][2];
+        }
+
 
         $(document).ready(function() {
             $('#tabla').DataTable( {
@@ -126,7 +188,13 @@
 
                 nuevaFila: function(){
 
-                    $('#tabla tr:last').after('<tr><input type="hidden" name="id[]"><td><input type="text" name="nombre[]" required></td><td><input type="number" name="porcent[]"  required></td>\n' +
+                    $('#tabla tr:last').after('<tr><input type="hidden" name="id[]"><td>\n' +
+                        '                                    <select class="form-control" name="retencion_fuente">\n' +
+                        '                                        @foreach($retenF as $reten)\n' +
+                        '                                            <option value="{{$reten->id}}">{{$reten->concepto}} - {{$reten->tarifa}}%</option>\n' +
+                        '                                        @endforeach\n' +
+                        '                                    </select>\n' +
+                        '                                </td><td><input type="number" name="porcent[]"  required></td>\n' +
                         '                                <td><input type="number" name="base[]"  required></td>\n' +
                         '                                <td><input type="number" name="valor[]" style="text-align:center" disabled placeholder="Al guardar el descuento surge el valor"></td><td class="text-center"><input type="button" class="borrar btn-sm btn-danger" value=" - " /></td></tr>');
                 }

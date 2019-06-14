@@ -3,7 +3,10 @@
     Editar Registro
 @stop
 @section('sidebar')
-    @include('administrativo.registros.cuerpo.aside')
+    <li>
+        <a href="{{route('registros.index')}}" class="btn btn-success">
+            <span class="hide-menu"> Registros</span></a>
+    </li>
 @stop
 @section('content')
 <div class="row">
@@ -44,13 +47,14 @@
             </div>
             <div class="row">
                 <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                    <label>Contratos: </label>
+                    <label>Tipo de Documento: </label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-file-o" aria-hidden="true"></i></span>
-                        <select name="contrato_id" class="form-control">
-                            @foreach($contratos as $contrato)
-                                <option value="{{ $contrato->id }}" @if($contrato->id == $registro->contrato_id) selected @endif>{{ $contrato->asunto }}</option>
-                            @endforeach
+                        <select name="tipo_doc" class="form-control" onchange="var obj= document.getElementById('tipo_doc_text');if(this.value=='Otro'){obj.style.display='inline';}else{obj.style.display='none';};">
+                            <option value="Contrato" @if($registro->tipo_doc == "Contrato") selected @endif>Contrato</option>
+                            <option value="Factura" @if($registro->tipo_doc == "Factura") selected @endif>Factura</option>
+                            <option value="Resolución" @if($registro->tipo_doc == "Resolucion") selected @endif>Resolución</option>
+                            <option value="Otro">Otro</option>
                         </select>
                     </div>
                     <small class="form-text text-muted">Contrato al que pertenece el registro</small>
@@ -71,10 +75,20 @@
                 </div>
             </div>
             <div class="row">
+                <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="input-group" style="display: none" id="tipo_doc_text">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-question" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="tipo_doc_text" placeholder="Cual Otro?" value="{{ $registro->tipo_doc }}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="form-group col-xs-12 col-sm-6 col-md-12 col-lg-12">
                     <label>IVA: </label>
                     <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-usd" aria-hidden="true"></i></span>
+                        <span class="input-group-addon"><i class="fa fa-percent" aria-hidden="true"></i></span>
                         <input type="number" class="form-control" name="iva" required value="{{ $registro->iva }}">
                     </div>
                     <small class="form-text text-muted">Valor del iva con el que se va a regir el registro</small>

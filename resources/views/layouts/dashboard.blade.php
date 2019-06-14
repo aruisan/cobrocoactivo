@@ -153,7 +153,7 @@
         <div id="page-wrapper">
           @include('alertas.request') 
           @yield('content')
-           
+
         </div>
         <!-- /#page-wrapper -->
         {{-- modales--}}

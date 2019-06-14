@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Administrativo\Registro;
 
 use App\Model\Administrativo\Registro\CdpsRegistro;
 use App\Model\Administrativo\Registro\CdpsRegistroValor;
+use App\Model\Administrativo\Registro\Registro;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -47,6 +48,10 @@ class CdpsRegistroController extends Controller
         $rubrosCdpValorId = $request->rubros_cdp_valor_id;
         $registro_id = $request->registro_id;
         $cdps = $request->cdp_id;
+
+        $registro = Registro::findOrFail($registro_id);
+        $registro->iva = $request->iva;
+        $registro->save();
 
         if ($cdps != null) {
             $count = count($cdps);

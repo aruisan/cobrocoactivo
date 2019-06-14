@@ -47,8 +47,27 @@ class PersonasController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $persona = Persona::create($request->all());
+        $persona = new Persona();
+        $persona->nombre = $request->nombre;
+        $persona->tipo_cc = $request->tipo_doc;
+        if ($request->regimen_text == null){
+            $persona->regimen = $request->regimen;
+        } elseif($request->regimen == "Otro" and $request->regimen_text != null) {
+            $persona->regimen = $request->regimen_text;
+        }
+        $persona->num_dc = $request->num_dc;
+        $persona->email = $request->email;
+        $persona->tipo = $request->tipo;
+        $persona->direccion = $request->direccion;
+        $persona->telefono = $request->telefono;
+        $persona->ciudad = $request->ciudad;
+        if (isset($request->declarante)){
+            $persona->declarante = "1";
+        } else {
+            $persona->declarante = "2";
+        }
+        $persona->save();
+        //$persona = Persona::create($request->all());
         return redirect()->route('personas.index');
     }
 
@@ -85,7 +104,29 @@ class PersonasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $persona = Persona::find($id)->update($request->all());
+        $persona = Persona::findOrFail($id);
+        $persona->nombre = $request->nombre;
+        $persona->tipo_cc = $request->tipo_doc;
+        if ($request->regimen_text == null){
+            $persona->regimen = $request->regimen;
+        } elseif($request->regimen == "Otro" and $request->regimen_text != null) {
+            $persona->regimen = $request->regimen_text;
+        } else {
+            $persona->regimen = $request->regimen;
+        }
+        $persona->num_dc = $request->num_dc;
+        $persona->email = $request->email;
+        $persona->tipo = $request->tipo;
+        $persona->direccion = $request->direccion;
+        $persona->telefono = $request->telefono;
+        $persona->ciudad = $request->ciudad;
+        if (isset($request->declarante)){
+            $persona->declarante = "1";
+        } else {
+            $persona->declarante = "2";
+        }
+        $persona->save();
+        //$persona = Persona::find($id)->update($request->all());
         return redirect()->route('personas.index');
     }
 

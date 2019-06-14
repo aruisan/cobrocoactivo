@@ -65,17 +65,18 @@ class OrdenPagosController extends Controller
             $ordenPago->save();
 
             Session::flash('success','La orden de pago se ha creado exitosamente');
-            return redirect('/administrativo/ordenPagos');
+            return redirect('/administrativo/ordenPagos/descuento/create/'.$ordenPago->id);
         }
     }
 
     public function liquidacion($id)
     {
         $ordenPago = OrdenPagos::findOrfail($id);
+        $ordenPagoDesc = OrdenPagosDescuentos::where('orden_pagos_id',$id)->get();
         $registro = Registro::findOrFail($ordenPago->registros_id);
         $Pagos = OrdenPagos::where('estado','=',1);
         $SumPagos = $Pagos->sum('valor');
-        return view('administrativo.ordenpagos.createLiquidacion', compact('ordenPago','registro','SumPagos'));
+        return view('administrativo.ordenpagos.createLiquidacion', compact('ordenPago','registro','SumPagos','ordenPagoDesc'));
     }
 
     public function liquidar(Request $request)

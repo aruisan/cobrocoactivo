@@ -32,6 +32,30 @@
     </a>
 </li>
 <li class="dropdown">
+    <a class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+        CONTABILIDAD
+        <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+        <li><a tabindex="-1" href="{{url('/dashboard/correspondencia')}}">Retención en la Fuente</a></li>
+        <li><a tabindex="-1" href="{{url('/dashboard/archivo')}}">PUC</a></li>
+        <li><a tabindex="-1" href="{{url('/dashboard/boletines')}}">Impuestos Municipales</a></li>
+    </ul>
+</li>
+<li class="dropdown">
+    <a class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+        TESORERIA
+        <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+        <li><a tabindex="-1" href="{{url('/dashboard/correspondencia')}}">Comporbante de Ingresos</a></li>
+        <li><a tabindex="-1" href="{{url('/dashboard/correspondencia')}}">Comporbante de Egresos</a></li>
+        <li><a tabindex="-1" href="{{url('/dashboard/boletines')}}">Informes</a></li>
+        <li><a tabindex="-1" href="{{url('/dashboard/acuerdos')}}">Bancos</a></li>
+        <li><a tabindex="-1" href="{{url('/dashboard/acuerdos')}}">PAC</a></li>
+    </ul>
+</li>
+<li class="dropdown">
   <a class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" title="Configuración">
     <i class="fa fa-cogs" aria-hidden="true"></i>
     <span class="caret"></span>

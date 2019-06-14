@@ -25,6 +25,31 @@
     @else
     @endif
     <li>
+        <a href="#" class="btn btn-success">
+            <span class="hide-menu"> Presupuesto de Ingresos</span></a>
+    </li>
+    <li class="dropdown">
+        <a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown">
+
+            Informes
+            <i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-user">
+            <li>
+                <a href="#" class="btn btn-primary text-left">FUT </a>
+            </li>
+            <li>
+                <a href="#" class="btn btn-primary text-left">Niveles</a>
+            </li>
+            <li>
+                <a href="#" class="btn btn-primary text-left">Comparativo (Ingresos - Gastos)</a>
+            </li>
+            <li>
+                <a href="#" class="btn btn-primary text-left">Fuentes</a>
+            </li>
+        </ul>
+    </li>
+    <li>
         @if($V != "Vacio")
             <a class="dropdown-toggle btn btn btn-primary hidden" data-toggle="dropdown" href="#">
         @else
@@ -106,11 +131,9 @@
                 <li class="nav-item">
                     <a class="nav-link disabled hidden" data-toggle="pill" href="#tabApl">Aplazamientos</a>
                 </li>
-                @if($rol == 1)
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="pill" href="#tabOP">Orden de Pago</a>
                 </li>
-                @endif
             </ul>
             <br>
             <div class="tab-content" style="background-color: white">

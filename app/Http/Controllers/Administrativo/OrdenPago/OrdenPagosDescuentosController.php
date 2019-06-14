@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Administrativo\OrdenPago;
 
+use App\Model\Administrativo\OrdenPago\RetencionFuente\RetencionFuente;
+use App\Model\Administrativo\OrdenPago\DescMunicipales\DescMunicipales;
 use App\Model\Administrativo\OrdenPago\OrdenPagosDescuentos;
 use App\Model\Administrativo\OrdenPago\OrdenPagos;
 use App\Model\Administrativo\Registro\Registro;
@@ -29,8 +31,10 @@ class OrdenPagosDescuentosController extends Controller
      */
     public function create($id)
     {
+        $retenF = RetencionFuente::all();
+        $desMun = DescMunicipales::all();
         $ordenPago = OrdenPagos::findOrFail($id);
-        return view('administrativo.ordenpagos.createDescuentos', compact('ordenPago'));
+        return view('administrativo.ordenpagos.createDescuentos', compact('ordenPago','retenF','desMun'));
 
     }
 
@@ -42,36 +46,36 @@ class OrdenPagosDescuentosController extends Controller
      */
     public function store(Request $request)
     {
+        $retenFuente = RetencionFuente::findOrFail($request->retencion_fuente);
         $ordenPago_id = $request->ordenPago_id;
-        $ordenPago = OrdenPagos::findOrFail($ordenPago_id);
-        $registro = Registro::findOrFail($ordenPago->registros_id);
-        $id = $request->id;
         $valor = $request->valor;
-        $nombre = $request->nombre;
-        $porcentaje = $request->porcent;
-        $base = $request->base;
+        $nombre = $retenFuente->concepto;
+        $porcentaje = $retenFuente->tarifa;
+        $base = $retenFuente->base;
 
-        $count = count($base);
+        $ordenPagoDes = new OrdenPagosDescuentos();
+        $ordenPagoDes->nombre = $nombre;
+        $ordenPagoDes->porcent = $porcentaje;
+        $ordenPagoDes->base = $base;
+        $ordenPagoDes->valor = $valor;
+        $ordenPagoDes->orden_pagos_id = $ordenPago_id;
+        $ordenPagoDes->retencion_fuentes_id = $request->retencion_fuente;
+        $ordenPagoDes->save();
 
-        for($i = 0; $i < $count; $i++){
-            if($id[$i]){
-                $this->update($id[$i], $nombre[$i], $valor[$i], $ordenPago_id, $porcentaje[$i], $base[$i]);
-            }elseif($registro->saldo < $base[$i]){
-                Session::flash('warning','El valor de base no puede ser superior al valor disponible del registro: '.$registro->saldo);
-                return  back();
-            }else{
-                $ordenPagoDes = new OrdenPagosDescuentos();
-                $ordenPagoDes->nombre = $nombre[$i];
-                $ordenPagoDes->porcent = $porcentaje[$i];
-                $ordenPagoDes->base = $base[$i];
-                $x = $base[$i] * $porcentaje[$i];
-                $y = $x/100;
-                $ordenPagoDes->valor = $y;
-                $ordenPagoDes->orden_pagos_id = $ordenPago_id;
-                $ordenPagoDes->save();
-            }
+        for($i=0;$i< count($request->idDes); $i++){
+            $descMunicipales = DescMunicipales::findOrFail($request->idDes[$i]);
+            $descuento = new OrdenPagosDescuentos();
+            $descuento->nombre = $descMunicipales->concepto;
+            $descuento->base = 0;
+            $descuento->porcent = $descMunicipales->tarifa;
+            $descuento->valor = $request->valorMuni[$i];
+            $descuento->orden_pagos_id = $ordenPago_id;
+            $descuento->desc_municipales_id = $request->idDes[$i];
+            $descuento->save();
         }
-        return  back();
+
+        Session::flash('success','Los Descuentos se han Almacenado Exitosamente');
+        return redirect('/administrativo/ordenPagos');
     }
 
     /**

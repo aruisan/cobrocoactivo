@@ -8,6 +8,11 @@
             <i class="fa fa-plus"></i>
             <span class="hide-menu"> Crear Orden de Pago</span></a>
     </li>
+    <li>
+        <a href="#" class="btn btn-primary">
+            <i class="fa fa-credit-card"></i>
+            <span class="hide-menu"> Pagos</span></a>
+    </li>
 @stop
 @section('content')
     <div class="breadcrumb text-center">
