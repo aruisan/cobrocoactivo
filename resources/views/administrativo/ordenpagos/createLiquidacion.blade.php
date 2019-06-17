@@ -128,7 +128,7 @@
                     <br>
                     <div class="col-md-12 align-self-center text-center">
                         <br>
-                        <button type="submit" class="btn btn-success"><i class="fa fa-credit-card"></i>&nbsp; Finalizar</button>
+                        <button type="submit" class="btn btn-success"><i class="fa fa-credit-card"></i>&nbsp; Pagar</button>
                     </div>
                 </form>
             </div>

@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers\Administrativo\OrdenPago;
 
+use App\Http\Controllers\Administrativo\Cdp\CdpController;
 use App\Model\Administrativo\OrdenPago\OrdenPagos;
 use App\Model\Administrativo\OrdenPago\OrdenPagosDescuentos;
 use App\Model\Administrativo\OrdenPago\OrdenPagosPuc;
+use App\Model\Administrativo\OrdenPago\OrdenPagosPayments;
 use App\Model\Administrativo\Contabilidad\Puc;
+use App\Model\Hacienda\Presupuesto\FontsRubro;
+use App\Model\Hacienda\Presupuesto\Level;
+use App\Model\Hacienda\Presupuesto\Register;
+use App\Model\Hacienda\Presupuesto\Rubro;
+use App\Model\Hacienda\Presupuesto\Vigencia;
 use App\Model\Persona;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -111,7 +118,51 @@ class OrdenPagosController extends Controller
         $oPP->save();
 
         Session::flash('success','La orden de pago se ha contabilizado exitosamente');
-        return redirect('/administrativo/ordenPagos');
+        return redirect('/administrativo/ordenPagos/pay/create/'.$request->ordenPago_id.'/'.$oPP->id);
+    }
+
+    public function paySave(Request $request){
+        $valReceived =array_sum($request->val);
+        $valTotal = $request->Pay;
+        $valR =number_format($valReceived,0);
+        $valT = number_format($valTotal,0);
+        if ($valReceived == $valTotal){
+            for($i=0;$i< count($request->banco); $i++){
+                $OPPay = new OrdenPagosPayments();
+                $OPPay->orden_pago_id = $request->OP;
+                $OPPay->puc_id = $request->banco[$i];
+                if ($request->type_pay == "1"){
+                    $OPPay->num = $request->num_cheque;
+                    $OPPay->type_pay = "CHEQUE";
+                }elseif ($request->type_pay == "2"){
+                    $OPPay->num = $request->num_cuenta;
+                    $OPPay->type_pay = "ACCOUNT";
+                }
+                $OPPay->valor = $request->val[$i];
+                $OPPay->save();
+            }
+
+            $OP = OrdenPagos::findOrFail($request->OP);
+            $OP->saldo = $OP->saldo - $valReceived;
+            $OP->save();
+
+            Session::flash('success','La orden de pago se ha finalizado exitosamente');
+            return redirect('/administrativo/ordenPagos/'.$request->OP);
+        } elseif ($valReceived > $valTotal){
+            Session::flash('warning','El valor que va a pagar: $'.$valR.' es mayor al valor correspondiente del pago: $'.$valT);
+            return back();
+        } else{
+            Session::flash('warning','El valor que va a pagar: $'.$valR.' es menor al valor correspondiente del pago: $'.$valT);
+            return back();
+        }
+    }
+
+    public function pay($id, $id2){
+        $OP = OrdenPagos::findOrFail($id);
+        $OPP = OrdenPagosPuc::findOrFail($id2);
+        $PUCS = Puc::where('id','<=',10)->get();
+
+        return view('administrativo.ordenpagos.createPay', compact('OPP','OP','PUCS'));
     }
 
     /**
@@ -124,9 +175,77 @@ class OrdenPagosController extends Controller
     {
         $OrdenPago = OrdenPagos::findOrFail($id);
         $OrdenPagoDescuentos = OrdenPagosDescuentos::where('orden_pagos_id', $id)->get();
+        $R = Registro::findOrFail($OrdenPago->registros_id);
 
-        return view('administrativo.ordenpagos.show', compact('OrdenPago','OrdenPagoDescuentos'));
+        $all_rubros = Rubro::all();
+        foreach ($all_rubros as $rubro){
+            if ($rubro->fontsRubro->sum('valor_disp') != 0){
+                $valFuente = FontsRubro::where('rubro_id', $rubro->id)->sum('valor_disp');
+                $valores[] = collect(['id_rubro' => $rubro->id, 'name' => $rubro->name, 'dinero' => $valFuente]);
+                $rubros[] = collect(['id' => $rubro->id, 'name' => $rubro->name]);
+            }
+        }
+
+        //codigo de rubros
+
+        $vigens = Vigencia::where('id', '>',0)->get();
+        foreach ($vigens as $vigen) {
+            $V = $vigen->id;
+        }
+        $vigencia_id = $V;
+
+        $ultimoLevel = Level::where('vigencia_id', $vigencia_id)->get()->last();
+        $registers = Register::where('level_id', $ultimoLevel->id)->get();
+        $registers2 = Register::where('level_id', '<', $ultimoLevel->id)->get();
+        $ultimoLevel2 = Register::where('level_id', '<', $ultimoLevel->id)->get()->last();
+        $rubroz = Rubro::where('vigencia_id', $vigencia_id)->get();
+
+        global $lastLevel;
+        $lastLevel = $ultimoLevel->id;
+        $lastLevel2 = $ultimoLevel2->level_id;
+        foreach ($registers2 as $register2) {
+            global $codigoLast;
+            if ($register2->register_id == null) {
+                $codigoEnd = $register2->code;
+            } elseif ($codigoLast > 0) {
+                if ($lastLevel2 == $register2->level_id) {
+                    $codigo = $register2->code;
+                    $codigoEnd = "$codigoLast$codigo";
+                    foreach ($registers as $register) {
+                        if ($register2->id == $register->register_id) {
+                            $register_id = $register->code_padre->registers->id;
+                            $code = $register->code_padre->registers->code . $register->code;
+                            $ultimo = $register->code_padre->registers->level->level;
+                            while ($ultimo > 1) {
+                                $registro = Register::findOrFail($register_id);
+                                $register_id = $registro->code_padre->registers->id;
+                                $code = $registro->code_padre->registers->code . $code;
+
+                                $ultimo = $registro->code_padre->registers->level->level;
+                            }
+                            if ($register->level_id == $lastLevel) {
+                                foreach ($rubroz as $rub) {
+                                    if ($register->id == $rub->register_id) {
+                                        $newCod = "$code$rub->cod";
+                                        $infoRubro[] = collect(['id_rubro' => $rub->id, 'id' => '', 'codigo' => $newCod, 'name' => $rub->name, 'code' => $rub->code]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }else {
+                $codigo = $register2->code;
+                $newRegisters = Register::findOrFail($register2->register_id);
+                $codigoNew = $newRegisters->code;
+                $codigoEnd = "$codigoNew$codigo";
+                $codigoLast = $codigoEnd;
+            }
+        }
+
+        return view('administrativo.ordenpagos.show', compact('OrdenPago','OrdenPagoDescuentos','R','infoRubro'));
     }
+
 
     /**
      * Show the form for editing the specified resource.

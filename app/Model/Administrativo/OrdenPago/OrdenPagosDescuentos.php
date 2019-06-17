@@ -10,10 +10,10 @@ class OrdenPagosDescuentos extends Model implements Auditable
     use \OwenIt\Auditing\Auditable;
 
     public function descuento_retencion(){
-        return $this->belongsTo('App\Model\Administrativo\OrdenPago\RetencionFuente\RetencionFuente','retencion_fuentes_id');
+        return $this->belongsTo('App\Model\Administrativo\OrdenPago\RetencionFuente\RetencionFuente','retencion_fuente_id');
     }
 
-    public function descuento_municipales(){
-        return $this->belongsTo('App\Model\Administrativo\OrdenPago\DescMunicipales\DescMunicipales','desc_municipales_id');
+    public function descuento_mun(){
+        return $this->belongsTo('App\Model\Administrativo\OrdenPago\DescMunicipales\DescMunicipales','desc_municipal_id');
     }
 }

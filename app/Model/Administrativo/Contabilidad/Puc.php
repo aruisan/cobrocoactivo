@@ -12,4 +12,8 @@ class Puc extends Model implements Auditable
     public function persona(){
         return $this->belongsTo('App\Model\Persona','persona_id');
     }
+
+    public function op_puc(){
+        return $this->hasMany('App\Model\Administrativo\OrdenPago\OrdenPagos');
+    }
 }

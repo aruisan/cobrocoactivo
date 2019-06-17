@@ -158,5 +158,6 @@
                 'copy', 'csv', 'excel', 'print'
             ]
         } );
-        </script>
+
+    </script>
 @stop

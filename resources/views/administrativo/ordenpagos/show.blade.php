@@ -100,7 +100,7 @@
     <div class="col-md-12 align-self-center">
         <hr>
         <center>
-            <h3>Descuentos Orden de Pago</h3>
+            <h3>Descuentos</h3>
         </center>
         <hr>
         <br>
@@ -108,19 +108,65 @@
             <table class="table table-bordered" id="tablaDesc">
                 <thead>
                 <tr>
-                    <th class="text-center">Id</th>
-                    <th class="text-center">Nombre</th>
+                    <th class="text-center">Codigo</th>
+                    <th class="text-center">Descripcion</th>
+                    <th class="text-center">Base</th>
                     <th class="text-center">Valor</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($OrdenPagoDescuentos as  $PagosDesc)
                     <tr class="text-center">
-                        <td>{{ $PagosDesc->id }}</td>
+                        @if($PagosDesc->retencion_fuente_id == null)
+                            <td>{{ $PagosDesc->descuento_mun['codigo'] }}</td>
+                        @else
+                            <td>{{ $PagosDesc->descuento_retencion->codigo}}</td>
+                        @endif
                         <td>{{ $PagosDesc->nombre }}</td>
-                        <td>$ <?php echo number_format($PagosDesc['valor'],0);?>.00</td>
+                        @if($PagosDesc->retencion_fuente_id == null)
+                            <td>$ <?php echo number_format($PagosDesc->descuento_mun['base'],0);?></td>
+                        @else
+                            <td>$ <?php echo number_format($PagosDesc->descuento_retencion->base,0);?></td>
+                        @endif
+                        <td>$ <?php echo number_format($PagosDesc['valor'],0);?></td>
                     </tr>
                 @endforeach
+                <tr class="text-center" style="background-color: rgba(19,165,255,0.14)">
+                    <td colspan="3"><b>Total Descuentos</b></td>
+                    <td><b>$ <?php echo number_format($OrdenPagoDescuentos->sum('valor'),0);?></b></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <hr>
+        <center>
+            <h3>Presupuesto</h3>
+        </center>
+        <hr>
+        <br>
+        <div class="table-responsive">
+            <table class="table table-bordered" id="tablaP">
+                <thead>
+                <tr>
+                    <th class="text-center">Codigo</th>
+                    <th class="text-center">Descripción</th>
+                    <th class="text-center">Fuente Financiación</th>
+                    <th class="text-center">Registro</th>
+                    <th class="text-center">Valor</th>
+                </tr>
+                </thead>
+                <tbody>
+                @for($i = 0; $i < $R->cdpRegistroValor->count(); $i++)
+                    <tr class="text-center">
+                        <td>
+                            {{ $R->cdpRegistroValor[$i]->fontRubro->rubro->id }}
+                            @for($x = 0; $x < count($infoRubro); $x++)
+                                {{ $infoRubro[$x] }}
+                            @endfor
+                        </td>
+                        <td>{{ $R->cdpRegistroValor[$i] }}</td>
+                    </tr>
+                @endfor
                 </tbody>
             </table>
         </div>
@@ -132,6 +178,17 @@
             $('#tablaDesc').DataTable( {
                 responsive: true,
                 "searching": false,
+                ordering: false,
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'print'
+                ]
+            } );
+
+            $('#tablaP').DataTable( {
+                responsive: true,
+                "searching": false,
+                ordering: false,
                 dom: 'Bfrtip',
                 buttons: [
                     'copy', 'csv', 'excel', 'print'

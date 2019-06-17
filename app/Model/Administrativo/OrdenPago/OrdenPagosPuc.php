@@ -8,4 +8,8 @@ use OwenIt\Auditing\Contracts\Auditable;
 class OrdenPagosPuc extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable;
+
+    public function data_puc(){
+        return $this->belongsTo('App\Model\Administrativo\Contabilidad\Puc','puc_id');
+    }
 }

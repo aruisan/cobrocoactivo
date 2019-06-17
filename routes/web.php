@@ -147,6 +147,8 @@ Route::group([ 'middleware' => 'auth'] ,function(){
         Route::put('ordenPagos/liquidacion/store','Administrativo\OrdenPago\OrdenPagosController@liquidar');
         Route::get('ordenPagos/descuento/create/{id}','Administrativo\OrdenPago\OrdenPagosDescuentosController@create');
         Route::resource('ordenPagos/descuento','Administrativo\OrdenPago\OrdenPagosDescuentosController');
+        Route::get('ordenPagos/pay/create/{id}/{id2}','Administrativo\OrdenPago\OrdenPagosController@pay');
+        Route::put('ordenPagos/pay/store','Administrativo\OrdenPago\OrdenPagosController@paySave');
 	});
 
 
