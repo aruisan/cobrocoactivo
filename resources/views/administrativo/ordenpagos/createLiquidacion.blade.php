@@ -61,18 +61,18 @@
                             <tbody>
                             @for($i=0;$i< count($ordenPagoDesc); $i++)
                                 <tr>
-                                    @if($ordenPagoDesc[$i]->retencion_fuentes_id == null)
+                                    @if($ordenPagoDesc[$i]->retencion_fuente_id == null)
                                         <td class="text-center">
-                                            {{ $ordenPagoDesc[$i]->descuento_municipales->codigo }}
+                                            {{ $ordenPagoDesc[$i]->descuento_mun['codigo'] }}
                                         </td>
                                     @else
                                         <td class="text-center">
                                             {{ $ordenPagoDesc[$i]->descuento_retencion->codigo }}
                                         </td>
                                     @endif
-                                    @if($ordenPagoDesc[$i]->retencion_fuentes_id == null)
+                                    @if($ordenPagoDesc[$i]->retencion_fuente_id == null)
                                         <td class="text-center">
-                                            {{ $ordenPagoDesc[$i]->descuento_municipales->cuenta }}
+                                            {{ $ordenPagoDesc[$i]->descuento_mun['cuenta'] }}
                                         </td>
                                     @else
                                         <td class="text-center">

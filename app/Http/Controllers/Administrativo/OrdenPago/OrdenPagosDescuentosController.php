@@ -59,7 +59,7 @@ class OrdenPagosDescuentosController extends Controller
         $ordenPagoDes->base = $base;
         $ordenPagoDes->valor = $valor;
         $ordenPagoDes->orden_pagos_id = $ordenPago_id;
-        $ordenPagoDes->retencion_fuentes_id = $request->retencion_fuente;
+        $ordenPagoDes->retencion_fuente_id = $request->retencion_fuente;
         $ordenPagoDes->save();
 
         for($i=0;$i< count($request->idDes); $i++){
@@ -70,7 +70,7 @@ class OrdenPagosDescuentosController extends Controller
             $descuento->porcent = $descMunicipales->tarifa;
             $descuento->valor = $request->valorMuni[$i];
             $descuento->orden_pagos_id = $ordenPago_id;
-            $descuento->desc_municipales_id = $request->idDes[$i];
+            $descuento->desc_municipal_id = $request->idDes[$i];
             $descuento->save();
         }
 
@@ -82,7 +82,7 @@ class OrdenPagosDescuentosController extends Controller
                 $descuento->porcent = $request->tarifa[$x];
                 $descuento->valor = $request->valorOther[$x];
                 $descuento->orden_pagos_id = $ordenPago_id;
-                $descuento->desc_municipales_id = $request->idDesOther[$x];
+                $descuento->desc_municipal_id = $request->idDesOther[$x];
                 $descuento->save();
             }
         }

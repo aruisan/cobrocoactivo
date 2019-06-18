@@ -26,6 +26,9 @@ class CreateOrdenPagosPaymentsTable extends Migration
             $table->integer('valor');
             $table->enum('type_pay', ['CHEQUE', 'ACCOUNT','CASH']);
 
+            $table->integer('orden_pago_egreso_id')->unsigned();
+            $table->foreign('orden_pago_egreso_id')->references('id')->on('orden_pagos_egresos');
+
             $table->timestamps();
         });
     }
