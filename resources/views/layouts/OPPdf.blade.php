@@ -62,7 +62,6 @@
 					<b>
 					DEPARTAMENTO DE SAN ANDRES, PROVIDENCIA Y STA CATALINA <br>
 					MUNICIPIO DE PROVIDENCIA Y SANTA CATALINA ISLAS <br>
-					SECRETARIA DE HACIENDA <br>
 					NIT: 827000209- 2
 					</b>
 				</p>
@@ -85,14 +84,14 @@
 				<div class="col-md-4 s57" >
 					<center>
 						_____________________ <br>
-						Virginia Webster Archbold 	<br>
+						Ledys Livingston Livingston<br>
 						Contador
 					</center>
 				</div>
 				<div class="col-md-4 s17" >
 					<center>
 						_____________________ <br>
-						Virginia Webster Archbold 	<br>
+						Virginia Webster Archbold<br>
 						Secretaria
 					</center>
 				</div>
