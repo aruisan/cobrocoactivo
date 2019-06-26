@@ -37,7 +37,7 @@
         <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
-        <li><a tabindex="-1" href="{{url('/dashboard/correspondencia')}}">Retención en la Fuente</a></li>
+        <li><a tabindex="-1" href="{{url('/administrativo/contabilidad/retefuente')}}">Retención en la Fuente</a></li>
         <li><a tabindex="-1" href="{{url('/dashboard/archivo')}}">PUC</a></li>
         <li><a tabindex="-1" href="{{url('/dashboard/boletines')}}">Impuestos Municipales</a></li>
     </ul>

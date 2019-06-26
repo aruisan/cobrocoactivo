@@ -16,7 +16,8 @@ class RetencionFuenteController extends Controller
      */
     public function index()
     {
-        //
+        $data = RetencionFuente::all();
+        return view('administrativo.contabilidad.retencionfuente.index', compact('data'));
     }
 
     /**
@@ -26,7 +27,7 @@ class RetencionFuenteController extends Controller
      */
     public function create()
     {
-        //
+        return view('administrativo.contabilidad.retencionfuente.create');
     }
 
     /**
@@ -37,7 +38,17 @@ class RetencionFuenteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $reteF = new RetencionFuente();
+        $reteF->concepto = $request->concept;
+        $reteF->uvt = $request->uvt;
+        $reteF->base = $request->base;
+        $reteF->tarifa = $request->tarifa;
+        $reteF->codigo = $request->codigo;
+        $reteF->cuenta = $request->cuenta;
+        $reteF->save();
+
+        Session::flash('success','La retención en la fuente '.$request->concept.' se ha almacenado exitosamente');
+        return redirect('/administrativo/contabilidad/retefuente');
     }
 
     /**
@@ -57,9 +68,10 @@ class RetencionFuenteController extends Controller
      * @param  \App\RetencionFuente  $retencionFuente
      * @return \Illuminate\Http\Response
      */
-    public function edit(RetencionFuente $retencionFuente)
+    public function edit($id)
     {
-        //
+        $retens = RetencionFuente::findOrFail($id);
+        return view('administrativo.contabilidad.retencionfuente.edit', compact('retens'));
     }
 
     /**
@@ -69,9 +81,19 @@ class RetencionFuenteController extends Controller
      * @param  \App\RetencionFuente  $retencionFuente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RetencionFuente $retencionFuente)
+    public function update(Request $request, $id)
     {
-        //
+        $reteF = RetencionFuente::findOrFail($id);
+        $reteF->concepto = $request->concept;
+        $reteF->uvt = $request->uvt;
+        $reteF->base = $request->base;
+        $reteF->tarifa = $request->tarifa;
+        $reteF->codigo = $request->codigo;
+        $reteF->cuenta = $request->cuenta;
+        $reteF->save();
+
+        Session::flash('success','La retención en la fuente '.$request->concept.' se ha actualizado exitosamente');
+        return redirect('/administrativo/contabilidad/retefuente');
     }
 
     /**
@@ -80,8 +102,12 @@ class RetencionFuenteController extends Controller
      * @param  \App\RetencionFuente  $retencionFuente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RetencionFuente $retencionFuente)
+    public function destroy($id)
     {
-        //
+        $retenF = RetencionFuente::findOrFail($id);
+        $retenF->delete();
+
+        Session::flash('error','La retención en la fuente se ha eliminado exitosamente');
+        return redirect('/administrativo/contabilidad/retefuente');
     }
 }
