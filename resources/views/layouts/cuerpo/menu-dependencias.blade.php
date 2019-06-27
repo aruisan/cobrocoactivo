@@ -39,7 +39,7 @@
     <ul class="dropdown-menu">
         <li><a tabindex="-1" href="{{url('/administrativo/contabilidad/retefuente')}}">Retención en la Fuente</a></li>
         <li><a tabindex="-1" href="{{url('/dashboard/archivo')}}">PUC</a></li>
-        <li><a tabindex="-1" href="{{url('/dashboard/boletines')}}">Impuestos Municipales</a></li>
+        <li><a tabindex="-1" href="{{url('/administrativo/contabilidad/impumuni')}}">Impuestos Municipales</a></li>
     </ul>
 </li>
 <li class="dropdown">

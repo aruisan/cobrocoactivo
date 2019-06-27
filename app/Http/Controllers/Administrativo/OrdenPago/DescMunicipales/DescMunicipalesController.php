@@ -16,7 +16,8 @@ class DescMunicipalesController extends Controller
      */
     public function index()
     {
-        //
+        $data = DescMunicipales::all();
+        return view('administrativo.contabilidad.impuestosmuni.index', compact('data'));
     }
 
     /**
@@ -26,7 +27,7 @@ class DescMunicipalesController extends Controller
      */
     public function create()
     {
-        //
+        return view('administrativo.contabilidad.impuestosmuni.create');
     }
 
     /**
@@ -37,7 +38,16 @@ class DescMunicipalesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $descM = new DescMunicipales();
+        $descM->concepto = $request->concept;
+        $descM->base = $request->base;
+        $descM->tarifa = $request->tarifa;
+        $descM->codigo = $request->codigo;
+        $descM->cuenta = $request->cuenta;
+        $descM->save();
+
+        Session::flash('success','El impuesto municipal '.$request->concept.' se ha almacenado exitosamente');
+        return redirect('/administrativo/contabilidad/impumuni');
     }
 
     /**
@@ -57,9 +67,10 @@ class DescMunicipalesController extends Controller
      * @param  \App\DescMunicipales  $descMunicipales
      * @return \Illuminate\Http\Response
      */
-    public function edit(DescMunicipales $descMunicipales)
+    public function edit($id)
     {
-        //
+        $desc = DescMunicipales::findOrFail($id);
+        return view('administrativo.contabilidad.impuestosmuni.edit', compact('desc'));
     }
 
     /**
@@ -69,9 +80,18 @@ class DescMunicipalesController extends Controller
      * @param  \App\DescMunicipales  $descMunicipales
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DescMunicipales $descMunicipales)
+    public function update(Request $request, $id)
     {
-        //
+        $descM = DescMunicipales::findOrFail($id);
+        $descM->concepto = $request->concept;
+        $descM->base = $request->base;
+        $descM->tarifa = $request->tarifa;
+        $descM->codigo = $request->codigo;
+        $descM->cuenta = $request->cuenta;
+        $descM->save();
+
+        Session::flash('success','El impuesto municipal '.$request->concept.' se ha actualizado exitosamente');
+        return redirect('/administrativo/contabilidad/impumuni');
     }
 
     /**
@@ -80,8 +100,12 @@ class DescMunicipalesController extends Controller
      * @param  \App\DescMunicipales  $descMunicipales
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DescMunicipales $descMunicipales)
+    public function destroy($id)
     {
-        //
+        $descM = DescMunicipales::findOrFail($id);
+        $descM->delete();
+
+        Session::flash('error','El impuesto municipal se ha eliminado exitosamente');
+        return redirect('/administrativo/contabilidad/impumuni');
     }
 }

@@ -1,15 +1,15 @@
 @extends('layouts.dashboard')
 @section('titulo')
-    Retención en la Fuente
+    Impuestos Municipales
 @stop
 @section('sidebar')
-    <li><a href="{{ url('/administrativo/contabilidad/retefuente/create') }}" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp; Nueva Retención en la Fuente</a></li>
+    <li><a href="{{ url('/administrativo/contabilidad/impumuni/create') }}" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp; Nuevo impuesto municipal</a></li>
 @stop
 @section('content')
     <div class="col-md-12 align-self-center">
         <div class="breadcrumb text-center">
             <strong>
-                <h4><b>Retención en la Fuente</b></h4>
+                <h4><b>Impuestos Municipales</b></h4>
             </strong>
         </div>
             <br>
@@ -21,7 +21,6 @@
                         <tr>
                             <th class="text-center">Id</th>
                             <th class="text-center">Concepto</th>
-                            <th class="text-center">UVT</th>
                             <th class="text-center">Base</th>
                             <th class="text-center">Tarifa</th>
                             <th class="text-center">Codigo</th>
@@ -30,17 +29,16 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($data as $key => $retef)
+                        @foreach ($data as $key => $impu)
                             <tr class="text-center">
-                                <td>{{ $retef->id }}</td>
-                                <td>{{ $retef->concepto }}</td>
-                                <td>{{ $retef->uvt }}</td>
-                                <td> $<?php echo number_format($retef->base,0);?></td>
-                                <td>{{ $retef->tarifa }}</td>
-                                <td>{{ $retef->codigo }}</td>
-                                <td>{{ $retef->cuenta }}</td>
+                                <td>{{ $impu->id }}</td>
+                                <td>{{ $impu->concepto }}</td>
+                                <td> $<?php echo number_format($impu->base,0);?></td>
+                                <td>{{ $impu->tarifa }}</td>
+                                <td>{{ $impu->codigo }}</td>
+                                <td>{{ $impu->cuenta }}</td>
                                 <td>
-                                    <a href="{{ url('administrativo/contabilidad/retefuente/'.$retef->id.'/edit') }}" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                                    <a href="{{ url('administrativo/contabilidad/impumuni/'.$impu->id.'/edit') }}" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                 </td>
                             </tr>
                         @endforeach

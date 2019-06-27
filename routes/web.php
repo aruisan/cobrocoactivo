@@ -157,6 +157,9 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
         Route::resource('contabilidad/retefuente','Administrativo\OrdenPago\RetencionFuente\RetencionFuenteController');
         Route::get('contabilidad/retefuente/create','Administrativo\OrdenPago\RetencionFuente\RetencionFuenteController@create');
+
+        Route::resource('contabilidad/impumuni','Administrativo\OrdenPago\DescMunicipales\DescMunicipalesController');
+        Route::get('contabilidad/impumuni/create','Administrativo\OrdenPago\DescMunicipales\DescMunicipalesController@create');
 	});
 
 
