@@ -16,14 +16,8 @@ class CreatePucsTable extends Migration
         Schema::create('pucs', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('codigo');
-            $table->text('nombre_cuenta');
-            $table->integer('codigo_NIPS');
-            $table->text('nombre_NIPS');
-            $table->integer('naturaleza');
-
-            $table->integer('persona_id')->unsigned()->nullable();
-            $table->foreign('persona_id')->references('id')->on('personas');
+            $table->integer('vigencia');
+            $table->integer('levels');
 
             $table->timestamps();
         });

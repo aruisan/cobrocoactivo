@@ -155,11 +155,29 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
         //CONTABILIDAD
 
+            //Retención en la Fuente
+
         Route::resource('contabilidad/retefuente','Administrativo\OrdenPago\RetencionFuente\RetencionFuenteController');
         Route::get('contabilidad/retefuente/create','Administrativo\OrdenPago\RetencionFuente\RetencionFuenteController@create');
 
+            //Impuestos Municipales
+
         Route::resource('contabilidad/impumuni','Administrativo\OrdenPago\DescMunicipales\DescMunicipalesController');
         Route::get('contabilidad/impumuni/create','Administrativo\OrdenPago\DescMunicipales\DescMunicipalesController@create');
+
+            //PUC
+
+        Route::resource('contabilidad/puc','Administrativo\Contabilidad\PucController');
+        Route::get('contabilidad/puc/create','Administrativo\Contabilidad\PucController@create');
+
+        Route::resource('contabilidad/puc/level','Administrativo\Contabilidad\LevelPUCController');
+        Route::get('contabilidad/puc/level/create/{id}','Administrativo\Contabilidad\LevelPUCController@create');
+
+        Route::get('contabilidad/puc/registers/create/{vigencia}/{level}','Administrativo\Contabilidad\RegistersPucController@create');
+        Route::resource('contabilidad/puc/registers','Administrativo\Contabilidad\RegistersPucController');
+
+        Route::resource('contabilidad/puc/rubro','Administrativo\Contabilidad\RubrosPucController');
+        Route::get('contabilidad/puc/rubro/create/{vigencia}','Administrativo\Contabilidad\RubrosPucController@create');
 	});
 
 

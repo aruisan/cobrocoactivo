@@ -9,15 +9,13 @@ class Puc extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable;
 
-    public function persona(){
-        return $this->belongsTo('App\Model\Persona','persona_id');
+    public function rubros(){
+        return $this->hasMany('\'App\Model\Administrativo\Contabilidad\RubrosPuc','puc_id');
     }
 
-    public function op_puc(){
-        return $this->hasMany('App\Model\Administrativo\OrdenPago\OrdenPagos');
+
+    public function levels(){
+        return $this->hasMany('\'App\Model\Administrativo\Contabilidad\LevelPUC','puc_id');
     }
 
-    public function payments(){
-        return $this->hasMany('App\Model\Administrativo\OrdenPago\OrdenPagosPayments');
-    }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @section('titulo')
-	Creación de Registros
+	Creación de Registros para el PUC
 @stop
 @section('sidebar')
 	<li class="dropdown">
@@ -11,18 +11,17 @@
 		</a>
 		<ul class="dropdown-menu dropdown-user">
 			@foreach($niveles as $level)
-				<li><a href="/presupuesto/registro/create/{{ $level->vigencia_id }}/{{ $level->level }}" class="btn btn-primary">Nivel {{ $level->level }}</a></li>
+				<li><a href="/administrativo/contabilidad/puc/registers/create/{{ $level->puc_id }}/{{$level->level}}" class="btn btn-primary">Nivel {{ $level->level }}</a></li>
 			@endforeach
-			<li><a href="/presupuesto/font/create/{{ $nivel->vigencia_id }}" class="btn btn-primary">Fuentes</a></li>
-			<li><a href="/presupuesto/rubro/create/{{ $nivel->vigencia_id }}" class="btn btn-primary">Rubros</a></li>
-			<li><a href="/presupuesto/level/create/{{ $nivel->vigencia_id }}" class="btn btn-primary">Nuevo Nivel</a></li>
+			<li><a href="/administrativo/contabilidad/puc/rubro/create/{{ $nivel->puc_id }}" class="btn btn-primary">Rubros</a></li>
+			<li><a href="/administrativo/contabilidad/puc/level/create/{{ $nivel->puc_id }}" class="btn btn-primary">Niveles</a></li>
 		</ul>
 	</li>
 @stop
 @section('content')
 	<div class="col-md-12 align-self-center" id="crud">
 		<br><center><h2>Nivel {{ $nivel->level }} - {{ $nivel->name }}</h2></center><br>
-			<form action="{{url('/presupuesto/registro')}}" method="POST"  class="form">
+			<form action="{{url('/administrativo/contabilidad/puc/registers')}}" method="POST"  class="form">
 				{{ csrf_field() }}
 				<input type="hidden"   name="level_id" value="{{ $nivel->id }}">
 				<input type="hidden"   name="level" value="{{ $nivel->level }}">
@@ -48,7 +47,7 @@
 							<td>
 								<select name="padre[]" class="form-control">
 									@foreach($codes as $code)
-										<option value="{{ $code->id }}" :selected="dato.register_id == <?= $code->id; ?> ? true : false">{{ $code->code }} {{ $code->name }}</option>
+										<option value="{{ $code->id }}" :selected="dato.register_puc_id == <?= $code->id; ?> ? true : false">{{ $code->code }} {{ $code->name }}</option>
 									@endforeach
 								</select>
 							</td>
@@ -79,8 +78,6 @@
 				</center>
 		</form>
 	</div>
-
-
 @stop
 
 @section('js')
@@ -88,8 +85,7 @@
     $(document).ready(function() {
         $('#tabla').DataTable( {
 			"paging":   false,
-			info:     false,
-			responsive: true,
+            responsive: true,
             "searching": false,
             "oLanguage": {"sZeroRecords": "", "sEmptyTable": ""}
         } );
@@ -111,17 +107,17 @@ new Vue({
 	},
 	methods:{
 		getDatos: function(id){
-			var urlVigencia = '/presupuesto/registro/'+id;
+			var urlVigencia = '/administrativo/contabilidad/puc/registers/'+id;
 			axios.get(urlVigencia).then(response => {
 				this.datos = response.data
 			});
 		},
 
 		eliminarDatos: function(dato){
-			var urlVigencia = '/presupuesto/registro/'+dato;
+			var urlVigencia = '/administrativo/contabilidad/puc/registers/'+dato;
 			axios.delete(urlVigencia).then(response => {
 				this.getDatos();
-				toastr.danger('Registro Eliminado correctamente');
+				toastr.success('Registro Eliminado correctamente');
 			});
 		},
 

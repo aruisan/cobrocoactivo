@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Administrativo\Contabilidad;
 
-use App\Model\Administrativo\Contabilidad\Puc;
+use App\Model\Administrativo\Contabilidad\CodePadrePuc;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Session;
 
-class PucController extends Controller
+class CodePadrePucController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,7 @@ class PucController extends Controller
      */
     public function index()
     {
-        $data = [];
-        return view('administrativo.contabilidad.puc.index', compact('data'));
+        //
     }
 
     /**
@@ -27,7 +25,7 @@ class PucController extends Controller
      */
     public function create()
     {
-        return view('administrativo.contabilidad.puc.create');
+        //
     }
 
     /**
@@ -38,21 +36,16 @@ class PucController extends Controller
      */
     public function store(Request $request)
     {
-        $puc = new Puc();
-        $puc->vigencia = $request->vigencia;
-        $puc->levels = $request->niveles;
-        $puc->save();
-
-        return  redirect('administrativo/contabilidad/puc/level/create/'.$puc->id);
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Puc  $puc
+     * @param  \App\CodePadrePuc  $codePadrePuc
      * @return \Illuminate\Http\Response
      */
-    public function show(Puc $puc)
+    public function show(CodePadrePuc $codePadrePuc)
     {
         //
     }
@@ -60,10 +53,10 @@ class PucController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Puc  $puc
+     * @param  \App\CodePadrePuc  $codePadrePuc
      * @return \Illuminate\Http\Response
      */
-    public function edit(Puc $puc)
+    public function edit(CodePadrePuc $codePadrePuc)
     {
         //
     }
@@ -72,10 +65,10 @@ class PucController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Puc  $puc
+     * @param  \App\CodePadrePuc  $codePadrePuc
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Puc $puc)
+    public function update(Request $request, CodePadrePuc $codePadrePuc)
     {
         //
     }
@@ -83,10 +76,10 @@ class PucController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Puc  $puc
+     * @param  \App\CodePadrePuc  $codePadrePuc
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Puc $puc)
+    public function destroy(CodePadrePuc $codePadrePuc)
     {
         //
     }
