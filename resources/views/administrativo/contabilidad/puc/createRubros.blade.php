@@ -1,9 +1,9 @@
 @extends('layouts.dashboard')
 @section('titulo')
-    Creación de Rubros
+    Creación de Rubros para el PUC
 @stop
 @section('sidebar')
-    <li> <a href="{{ url('/presupuesto') }}" class="btn btn-success"><i class="fa fa-money"></i><span class="hide-menu">&nbsp; Presupuesto</span></a></li>
+    <li> <a href="{{ url('/administrativo/contabilidad/puc') }}" class="btn btn-success"><span class="hide-menu">PUC</span></a></li>
     <li class="dropdown">
         <a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown" href="#">
             <span class="hide-menu">Niveles</span>
@@ -12,11 +12,10 @@
         </a>
         <ul class="dropdown-menu dropdown-user">
             @foreach($niveles as $level)
-                <li><a href="/presupuesto/registro/create/{{ $level->vigencia_id }}/{{ $level->level }}" class="btn btn-primary">Nivel {{ $level->level }}</a></li>
+				<li><a href="/administrativo/contabilidad/puc/registers/create/{{ $level->puc_id }}/{{$level->level}}" class="btn btn-primary">Nivel {{ $level->level }}</a></li>
             @endforeach
-            <li><a href="/presupuesto/font/create/{{ $vigencia_id }}" class="btn btn-primary">Fuentes</a></li>
-            <li><a href="/presupuesto/rubro/create/{{ $vigencia_id }}" class="btn btn-primary">Rubros</a></li>
-            <li><a href="/presupuesto/level/create/{{ $vigencia_id }}" class="btn btn-primary">Nuevo Nivel</a></li>
+            <li><a href="/administrativo/contabilidad/puc/rubro/create/{{ $vigencia_id }}" class="btn btn-primary">Rubros</a></li>
+			<li><a href="/administrativo/contabilidad/puc/level/create/{{ $level->puc_id }}" class="btn btn-primary">Niveles</a></li>
         </ul>
     </li>
 @stop
@@ -24,9 +23,9 @@
     <div class="col-md-12 align-self-center" id="crud">
         <div class="row justify-content-center">
             <br>
-            <h2><center>Creación de Rubros para la Vigencia {{ $vigencia->vigencia }}</center></h2><br>
+            <h2><center>Creación de Rubros para el PUC</center></h2><br>
             <hr>
-        		<form action="{{ url('/presupuesto/rubro') }}" method="POST"  class="form">
+        		<form action="{{ url('/administrativo/contabilidad/puc/rubro') }}" method="POST"  class="form">
                     {{ csrf_field() }}
 	        			<input type="hidden" id="vigencia_id" name="vigencia_id" value="{{ $vigencia_id }}">
 	        			<div class="table-responsive">
@@ -35,9 +34,12 @@
                             </center><br>
 		        			<thead>
 		        				<th class="text-center">Registro</th>
-		        				<th class="text-center">Code</th>
-		        				<th class="text-center">Nombre</th>
-		        				<th class="text-center">Valor</th>
+		        				<th class="text-center">Codigo</th>
+		        				<th class="text-center">Nombre Cuenta</th>
+		        				<th class="text-center">Codigo NIPS</th>
+		        				<th class="text-center">Nombre NIPS</th>
+		        				<th class="text-center">Naturaleza</th>
+		        				<th class="text-center">Tercero</th>
 		        				<th class="text-center"><i class="fa fa-trash-o"></i></th>
 		        			</thead>
 		        			<tbody>
@@ -47,7 +49,7 @@
 		        						<input type="hidden" name="rubro_id[]" value="{{ $dato->id }}">
 		        						<select name="register_id[]" class="form-control">
 		        							@foreach($registers as $register)
-		        								<option value="{{ $register->id }}" @if($dato->register_id == $register->id) selected @endif>
+		        								<option value="{{ $register->id }}" @if($dato->register_puc_id == $register->id) selected @endif>
 												@foreach($codigos as $codigo)
 													@if($codigo['id'] == $register->id)
 														{{$codigo['codigo'] }}
@@ -57,13 +59,21 @@
 		        							@endforeach
 		        						</select>
 		        					</td>
-		        					<th scope="row"><input type="text" style="text-align:center" name="code[]" value="{{ $dato->cod }}"></th>
-		        					<th scope="row"><input type="text" style="text-align:center" name="nombre[]" value="{{ $dato->name }}"></th>
-		        					<th scope="row" class="text-center" style="vertical-align:middle;">$ <?php echo number_format($dato->fontsRubro->sum('valor'),0)?></th>
+		        					<th scope="row"><input type="number" style="text-align:center" name="code[]" value="{{ $dato->codigo }}"></th>
+		        					<th scope="row"><input type="text" style="text-align:center" name="nombre[]" value="{{ $dato->nombre_cuenta }}"></th>
+		        					<th scope="row"><input type="number" style="text-align:center" name="codigoNIPS[]" value="{{ $dato->codigo_NIPS }}"></th>
+		        					<th scope="row"><input type="text" style="text-align:center" name="nombreNIPS[]" value="{{ $dato->nombre_NIPS }}"></th>
+		        					<th scope="row"><input type="number" style="text-align:center" name="naturaleza[]" value="{{ $dato->naturaleza}}"></th>
+									<td scope="row">
+										<select name="tercero_id[]" class="form-control">
+											@foreach($terceros as $tercero)
+												<option value="{{ $tercero->id }}" @if($dato->persona_id == $tercero->id) selected @endif>{{ $tercero->nombre }}</option>
+											@endforeach
+										</select>
+									</td>
 		        					<td class="text-center" style="vertical-align:middle;"><button type="button" class="btn-sm btn-danger borrar" v-on:click.prevent="eliminarDatos({{ $dato->id }})" ><i class="fa fa-trash-o"></i></button></td>
 		        				</tr>
 		        				@endforeach
-		        				@for($i=0;$i < $fila ;$i++)
 								<tr>
 		        					<td>
 		        						<select name="register_id[]" class="form-control">
@@ -78,12 +88,20 @@
 		        							@endforeach
 		        						</select>
 		        					</td>
-		        					<td><input type="hidden" name="rubro_id[]"><input type="text" name="code[]"></td>
-		        					<td><input type="text" name="nombre[]"></td>
-		        					<td></td>
-		        					<td style="vertical-align:middle;"><input type="button" class="borrar btn-sm btn-danger" value="-" /></td>
+		        					<td><input type="hidden" name="rubro_id[]"><input type="number" name="code[]" required></td>
+		        					<td><input type="text" name="nombre[]" required></td>
+		        					<td><input type="number" name="codigoNIPS[]"></td>
+		        					<td><input type="text" name="nombreNIPS[]"></td>
+		        					<td><input type="number" name="naturaleza[]" required></td>
+		        					<td>
+										<select name="tercero_id[]" class="form-control">
+											@foreach($terceros as $tercero)
+												<option value="{{ $tercero->id }}">{{ $tercero->nombre }}</option>
+											@endforeach
+										</select>
+									</td>
+									<td style="vertical-align:middle;"><input type="button" class="borrar btn-sm btn-danger" value="-" /></td>
 		        				</tr>
-								@endfor
 		        			</tbody>
 	        			</table>
 	        			</div><br><center>
@@ -101,6 +119,7 @@
     $(document).ready(function() {
         $('#tabla').DataTable( {
             responsive: true,
+			ordering: false,
             "searching": false,
             "oLanguage": {"sZeroRecords": "", "sEmptyTable": ""}
         } );
@@ -125,8 +144,35 @@ new Vue({
 		},
 
 		nuevaFila: function(){
-	  		
-			$('#tabla tr:last').after("<tr><td><select name='register_id[]' class='form-control'>@foreach($registers as $register)<option value='{{ $register->id }}'>@foreach($codigos as $codigo)@if($codigo['id'] == $register->id) {{$codigo['codigo'] }} @endif @endforeach - {{ $register->name }}</option>@endforeach</select></td><td><input type='hidden' name='rubro_id[]'><input type='text' name='code[]'></td><td><input type='text' name='nombre[]'></td></td><td></td><td style='vertical-align:middle;' class='text-center'><input type='button' class='borrar btn-sm btn-danger' value='-'/></td></tr>");
+
+			$('#tabla tr:last').after("<tr>\n" +
+					"        <td>\n" +
+					"        <select name=\"register_id[]\" class=\"form-control\">\n" +
+					"        @foreach($registers as $register)\n" +
+					"        <option value=\"{{ $register->id }}\">\n" +
+					"@foreach($codigos as $codigo)\n" +
+					"@if($codigo['id'] == $register->id)\n" +
+					"{{$codigo['codigo'] }}\n" +
+					"@endif\n" +
+					"@endforeach\n" +
+					"         - {{ $register->name }}</option>\n" +
+					"        @endforeach\n" +
+					"        </select>\n" +
+					"        </td>\n" +
+					"        <td><input type=\"hidden\" name=\"rubro_id[]\"><input type=\"number\" name=\"code[]\" required></td>\n" +
+					"        <td><input type=\"text\" name=\"nombre[]\" required></td>\n" +
+					"        <td><input type=\"number\" name=\"codigoNIPS[]\"></td>\n" +
+					"        <td><input type=\"text\" name=\"nombreNIPS[]\"></td>\n" +
+					"        <td><input type=\"number\" name=\"naturaleza[]\" required></td>\n" +
+					"        <td>\n" +
+					"<select name=\"tercero_id[]\" class=\"form-control\">\n" +
+					"@foreach($terceros as $tercero)\n" +
+					"<option value=\"{{ $tercero->id }}\">{{ $tercero->nombre }}</option>\n" +
+					"@endforeach\n" +
+					"</select>\n" +
+					"</td>\n" +
+					"        <td style=\"vertical-align:middle;\"><input type=\"button\" class=\"borrar btn-sm btn-danger\" value=\"-\" /></td>\n" +
+					"        </tr>");
 		}
 	}
 });

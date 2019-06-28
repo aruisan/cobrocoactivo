@@ -16,7 +16,7 @@ class CreateRubrosPucsTable extends Migration
         Schema::create('rubros_pucs', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('codigo');
+            $table->char('codigo');
             $table->text('nombre_cuenta');
             $table->integer('codigo_NIPS')->nullable();
             $table->text('nombre_NIPS')->nullable();
@@ -26,6 +26,8 @@ class CreateRubrosPucsTable extends Migration
             $table->foreign('persona_id')->references('id')->on('personas');
             $table->integer('puc_id')->unsigned()->nullable();
             $table->foreign('puc_id')->references('id')->on('pucs');
+            $table->integer('register_puc_id')->unsigned()->nullable();
+            $table->foreign('register_puc_id')->references('id')->on('registers_pucs');
 
             $table->timestamps();
         });

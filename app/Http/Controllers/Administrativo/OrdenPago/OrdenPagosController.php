@@ -9,6 +9,7 @@ use App\Model\Administrativo\OrdenPago\OrdenPagosPuc;
 use App\Model\Administrativo\OrdenPago\OrdenPagosPayments;
 use App\Model\Administrativo\OrdenPago\OrdenPagosEgresos;
 use App\Model\Administrativo\Contabilidad\Puc;
+use App\Model\Administrativo\Contabilidad\RubrosPuc;
 use App\Model\Hacienda\Presupuesto\FontsRubro;
 use App\Model\Hacienda\Presupuesto\Level;
 use App\Model\Hacienda\Presupuesto\Register;
@@ -84,13 +85,9 @@ class OrdenPagosController extends Controller
 
     public function liquidacion($id)
     {
-        $Personas = Persona::all();
-        foreach ($Personas as $persona){
-            if ($persona->puc_tercero == null){
-                $Usuarios[] = collect(['id' => $persona->id, 'name' => $persona->nombre]);
-            }
-        }
-        $PUCs = Puc::all();
+        $Usuarios = Persona::all();
+        $PUC = Puc::all()->first();
+        $PUCs = $PUC->rubros;
         $ordenPago = OrdenPagos::findOrfail($id);
         $ordenPagoDesc = OrdenPagosDescuentos::where('orden_pagos_id',$id)->get();
         $registro = Registro::findOrFail($ordenPago->registros_id);
@@ -103,7 +100,7 @@ class OrdenPagosController extends Controller
     {
         $ordenPago = OrdenPagos::findOrFail($request->ordenPago_id);
         $registro = Registro::findOrFail($ordenPago->registros_id);
-        $puc = Puc::findOrFail($request->PUC);
+        $puc = RubrosPuc::findOrFail($request->PUC);
         $registro->saldo = $registro->saldo - $request->valorPuc;
         $registro->save();
         $ordenPago->estado = "1";

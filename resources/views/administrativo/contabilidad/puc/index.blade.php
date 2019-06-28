@@ -14,33 +14,31 @@
             <br>
                 <div class="table-responsive">
                     <br>
-                    @if(count($data) > 0)
+                    @if($data->count() > 0)
                     <table class="table table-hover table-bordered" align="100%" id="tabla_corrE">
                         <thead>
                         <tr>
-                            <th class="text-center">Id</th>
-                            <th class="text-center">Concepto</th>
-                            <th class="text-center">Base</th>
-                            <th class="text-center">Tarifa</th>
                             <th class="text-center">Codigo</th>
-                            <th class="text-center">Cuenta</th>
+                            <th class="text-center">Nombre Cuenta</th>
+                            <th class="text-center">Codigo NIPS</th>
+                            <th class="text-center">Nombre NIPS</th>
+                            <th class="text-center">Naturaleza</th>
                             <th class="text-center">Acciones</th>
                         </tr>
                         </thead>
                         <tbody>
-
-                            <tr class="text-center">
-                                <td>{{ $impu->id }}</td>
-                                <td>{{ $impu->concepto }}</td>
-                                <td> $<?php echo number_format($impu->base,0);?></td>
-                                <td>{{ $impu->tarifa }}</td>
-                                <td>{{ $impu->codigo }}</td>
-                                <td>{{ $impu->cuenta }}</td>
+                        @foreach($codigos as $codigo)
+                            <tr>
+                                <td class="text-dark">{{ $codigo['codigo']}}</td>
+                                <td class="text-dark">{{ $codigo['name'] }}</td>
+                                <td>{{ $data->tarifa }}</td>
+                                <td>{{ $data->codigo }}</td>
+                                <td>{{ $data->cuenta }}</td>
                                 <td>
-                                    <a href="{{ url('administrativo/contabilidad/impumuni/'.$impu->id.'/edit') }}" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                                    <a href="{{ url('administrativo/contabilidad/impumuni/'.$data->id.'/edit') }}" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                 </td>
                             </tr>
-
+                            @endforeach
                         </tbody>
                     </table>
                     @else
@@ -60,10 +58,8 @@
             $('#tabla_corrE').DataTable( {
                 responsive: true,
                 "searching": true,
-                dom: 'Bfrtip',
-                buttons: [
-                    'copy', 'csv', 'excel', 'print'
-                ]
+                ordering: false
+
             } );
     </script>
 @stop
