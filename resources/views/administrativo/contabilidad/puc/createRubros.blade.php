@@ -49,7 +49,7 @@
 		        						<input type="hidden" name="rubro_id[]" value="{{ $dato->id }}">
 		        						<select name="register_id[]" class="form-control">
 		        							@foreach($registers as $register)
-		        								<option value="{{ $register->id }}" @if($dato->register_puc_id == $register->id) selected @endif>
+		        								<option value="{{ $register->id }}" @if($dato->registers_puc_id == $register->id) selected @endif>
 												@foreach($codigos as $codigo)
 													@if($codigo['id'] == $register->id)
 														{{$codigo['codigo'] }}

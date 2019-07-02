@@ -16,7 +16,7 @@ class RegistersPuc extends Model implements Auditable
 
     public function rubro()
     {
-        return $this->belongsTo('App\Model\Administrativo\Contabilidad\RubrosPuc', 'id');
+        return $this->hasMany('App\Model\Administrativo\Contabilidad\RubrosPuc');
     }
 
     public function code_padre()

@@ -16,7 +16,7 @@ class RubrosPuc extends Model implements Auditable
     }
 
     public function register() {
-        return $this->hasOne('App\Model\Administrativo\Contabilidad\RegistersPuc', 'id', 'puc_id');
+        return $this->belongsTo('App\Model\Administrativo\Contabilidad\RegistersPuc','registers_puc_id');
     }
 
     public function persona(){

@@ -23,7 +23,6 @@
                             <th class="text-center">Codigo NIPS</th>
                             <th class="text-center">Nombre NIPS</th>
                             <th class="text-center">Naturaleza</th>
-                            <th class="text-center">Acciones</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -31,12 +30,9 @@
                             <tr>
                                 <td class="text-dark">{{ $codigo['codigo']}}</td>
                                 <td class="text-dark">{{ $codigo['name'] }}</td>
-                                <td>{{ $data->tarifa }}</td>
-                                <td>{{ $data->codigo }}</td>
-                                <td>{{ $data->cuenta }}</td>
-                                <td>
-                                    <a href="{{ url('administrativo/contabilidad/impumuni/'.$data->id.'/edit') }}" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
-                                </td>
+                                <td class="text-dark">{{ $codigo['code_N'] }}</td>
+                                <td class="text-dark">{{ $codigo['name_N'] }}</td>
+                                <td class="text-dark">{{ $codigo['naturaleza'] }}</td>
                             </tr>
                             @endforeach
                         </tbody>

@@ -23,74 +23,43 @@ class PucController extends Controller
 
         $puc_id = $data->id;
         $ultimoLevel = LevelPUC::where('puc_id', $puc_id)->get()->last();
-        $registers = RegistersPuc::where('level_puc_id', $ultimoLevel->id)->get();
-        $registers2 = RegistersPuc::where('level_puc_id', '<', $ultimoLevel->id)->get();
-        $ultimoLevel2 = RegistersPuc::where('level_puc_id', '<', $ultimoLevel->id)->get()->last();
-        $rubros = RubrosPuc::where('puc_id', $puc_id)->get();
-
-
-        $R1 = RegistersPuc::where('register_puc_id','=', NULL)->get();
-        $R2 = RegistersPuc::where('register_puc_id','!=', NULL)->get();
-
-
 
         global $lastLevel;
         $lastLevel = $ultimoLevel->id;
-        $lastLevel2 = $ultimoLevel2->level_puc_id;
 
-        foreach ($registers2 as $register2) {
-            global $codigoLast;
-            if ($register2->register_id == null) {
-                $codigoEnd = $register2->code;
-                $codigos[] = collect(['id' => $register2->id, 'codigo' => $codigoEnd, 'name' => $register2->name, 'lvl' => $register2->level_puc_id, 'register_id' => $register2->register_puc_id]);
-            }elseif ($codigoLast > 0) {
-                if ($lastLevel2 == $register2->level_puc_id) {
-                    $codigo = $register2->code;
-                    $codigoEnd = "$codigoLast$codigo";
-                    $codigos[] = collect(['id' => $register2->id, 'codigo' => $codigoEnd, 'name' => $register2->name, 'lvl' => $register2->level_puc_id, 'register_id' => $register2->register_puc_id]);
-                    foreach ($registers as $register) {
-                        if($register2->id == $register->register_puc_id){
-                            $register_id = $register->code_padre->registers->id;
-                            $code = $register->code_padre->registers->code . $register->code;
-                            $ultimo = $register->code_padre->registers->level->level;
+        $R1 = RegistersPuc::where('register_puc_id', NULL)->get();
 
-                            while ($ultimo > 1) {
-                                $registro = RegistersPuc::findOrFail($register_id);
-                                $register_id = $registro->code_padre->registers->id;
-                                $code = $registro->code_padre->registers->code . $code;
-
-                                $ultimo = $registro->code_padre->registers->level->level;
-                            }
-                            $codigos[] = collect(['id' => $register->id, 'codigo' => $code, 'name' => $register->name, 'lvl' => $register2->level_puc_id,'register_id' => $register2->register_puc_id]);
-                            if ($register->level_puc_id == $lastLevel){
-                                foreach ($rubros as $rubro) {
-                                    if ($register->id == $rubro->register_puc_id) {
-                                        $newCod = "$code$rubro->codigo";
-                                        $codigos[] = collect(['id_rubro' => $rubro->id, 'id' => '', 'codigo' => $newCod, 'lvl' => $lastLevel, 'name' => $rubro->nombre_cuenta, 'code' => $rubro->codigo, 'code_N' =>  $rubro->codigo_NIPS, 'name_N' => $rubro->nombre_NIPS, 'naturaleza' => $rubro->naturaleza,'per_id' => $rubro->persona_id, 'register_id' => $register->register_puc_id]);
+        foreach ($R1 as $r1) {
+            $codigoEnd = $r1->code;
+            $codigos[] = collect(['id' => $r1->id, 'codigo' => $codigoEnd, 'name' => $r1->name, 'register_id' => $r1->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
+            foreach ($r1->codes as $data1){
+                dd($data1->register);
+                foreach ($data1->register as $data2){
+                    if ($data2->register_puc_id == $r1->level_puc_id){
+                        $codigo = $data2->code;
+                        $codigoEnd = "$r1->code$codigo";
+                        $codigos[] = collect(['id' => $data2->id, 'codigo' => $codigoEnd, 'name' => $data2->name, 'register_id' => $data2->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
+                        if ($data2->codes){
+                            foreach ($data2->codes as $data3){
+                                $reg = RegistersPuc::findOrFail($data3->registers_puc_id);
+                                $codigo = $reg->code;
+                                $codigoF = "$codigoEnd$codigo";
+                                $codigos[] = collect(['id' => $reg->id, 'codigo' => $codigoF, 'name' => $reg->name, 'register_id' => $reg->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
+                                foreach ($reg->codes as $data4){
+                                    $reg1 = RegistersPuc::findOrFail($data4->registers_puc_id);
+                                    $codigo = $reg1->code;
+                                    $code = "$codigoF$codigo";
+                                    $codigos[] = collect(['id' => $reg1->id, 'codigo' => $code, 'name' => $reg1->name, 'register_id' => $reg1->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
+                                    foreach ($reg1->rubro as $rubro){
+                                        $codigo = $rubro->codigo;
+                                        $code1 = "$code$codigo";
+                                        $codigos[] = collect(['id' => $rubro->id, 'codigo' => $code1, 'name' => $rubro->nombre_cuenta, 'code' => $rubro->codigo, 'code_N' =>  $rubro->codigo_NIPS, 'name_N' => $rubro->nombre_NIPS, 'naturaleza' => $rubro->naturaleza,'per_id' => $rubro->persona_id, 'register_id' => $rubro->registers_puc_id]);
                                     }
                                 }
                             }
-                        } else{
-
                         }
                     }
-                } else {
-                    $ultimoArray = end($codigos);
-                    if ($ultimoArray['lvl'] == $lastLevel){
-                        dd($register2);
-                        $codigo = $register2->code;
-                        $codigoEnd = "$codigoLast$codigo";
-                        $codigoLast = $codigoEnd;
-                        $codigos[] = collect(['id' => $register2->id, 'codigo' => $codigoEnd, 'name' => $register2->name, 'lvl' => $register2->level_puc_id, 'register_id' => $register2->register_puc_id]);
-                    }
                 }
-            } else {
-                $codigo = $register2->code;
-                $newRegisters = RegistersPuc::findOrFail($register2->register_puc_id);
-                $codigoNew = $newRegisters->code;
-                $codigoEnd = "$codigoNew$codigo";
-                $codigoLast = $codigoEnd;
-                $codigos[] = collect(['id' => $register2->id, 'codigo' => $codigoEnd, 'name' => $register2->name, 'lvl' => $register2->level_puc_id, 'register_id' => $register2->register_puc_id]);
             }
         }
 

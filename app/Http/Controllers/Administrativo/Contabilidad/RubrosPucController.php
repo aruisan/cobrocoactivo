@@ -35,8 +35,8 @@ class RubrosPucController extends Controller
         $ultimoLevel = LevelPUC::where('puc_id', $vigencia_id)->get()->last();
         $registers = RegistersPuc::where('level_puc_id', $ultimoLevel->id)->get();
 
-
         foreach ($registers as $register){
+
             $register_id = $register->code_padre->registers->id;
             $code = $register->code_padre->registers->code.$register->code;
             $ultimo = $register->code_padre->registers->level->level;
@@ -100,7 +100,7 @@ class RubrosPucController extends Controller
                 $rubro->naturaleza = $naturaleza[$i];
                 $rubro->persona_id = $persona_id[$i];
                 $rubro->puc_id = $puc_id;
-                $rubro->register_puc_id = $register[$i];
+                $rubro->registers_puc_id = $register[$i];
                 $rubro->save();
             }
         }
@@ -147,7 +147,7 @@ class RubrosPucController extends Controller
         $rubro->naturaleza = $naturaleza;
         $rubro->persona_id = $persona_id;
         $rubro->puc_id = $puc_id;
-        $rubro->register_puc_id = $register;
+        $rubro->registers_puc_id = $register;
         $rubro->save();
     }
 
