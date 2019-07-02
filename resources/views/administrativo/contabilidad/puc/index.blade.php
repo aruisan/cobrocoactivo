@@ -3,6 +3,7 @@
     PUC
 @stop
 @section('sidebar')
+    <li><a href="/administrativo/contabilidad/puc/rubro/create/{{ $data->id }}" class="btn btn-primary"><i class="fa fa-edit"></i> &nbsp; Modificar PUC</a></li>
 @stop
 @section('content')
     <div class="col-md-12 align-self-center">

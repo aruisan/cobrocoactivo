@@ -3,6 +3,7 @@
 	Creación de Registros para el PUC
 @stop
 @section('sidebar')
+	<li> <a href="{{ url('/administrativo/contabilidad/puc') }}" class="btn btn-success"><span class="hide-menu">PUC</span></a></li>
 	<li class="dropdown">
 		<a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown" href="#">
 			<span class="hide-menu">Niveles</span>

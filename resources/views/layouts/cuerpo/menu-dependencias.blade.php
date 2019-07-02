@@ -48,11 +48,11 @@
         <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
-        <li><a tabindex="-1" href="{{url('/dashboard/correspondencia')}}">Comporbante de Ingresos</a></li>
-        <li><a tabindex="-1" href="{{url('/dashboard/correspondencia')}}">Comporbante de Egresos</a></li>
-        <li><a tabindex="-1" href="{{url('/dashboard/boletines')}}">Informes</a></li>
-        <li><a tabindex="-1" href="{{url('/dashboard/acuerdos')}}">Bancos</a></li>
-        <li><a tabindex="-1" href="{{url('/dashboard/acuerdos')}}">PAC</a></li>
+        <li><a tabindex="-1" href="#">Comporbante de Ingresos</a></li>
+        <li><a tabindex="-1" href="#">Comporbante de Egresos</a></li>
+        <li><a tabindex="-1" href="#">Informes</a></li>
+        <li><a tabindex="-1" href="#">Bancos</a></li>
+        <li><a tabindex="-1" href="#">PAC</a></li>
     </ul>
 </li>
 <li class="dropdown">

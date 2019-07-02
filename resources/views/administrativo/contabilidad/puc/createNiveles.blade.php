@@ -3,6 +3,7 @@
 Creación de Niveles del PUC
 @stop
 @section('sidebar')
+    <li> <a href="{{ url('/administrativo/contabilidad/puc') }}" class="btn btn-success"><span class="hide-menu">PUC</span></a></li>
     <li class="dropdown">
         <a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown" href="#">
             <span class="hide-menu">Niveles</span>
@@ -14,7 +15,7 @@ Creación de Niveles del PUC
                 <li>
                 <li><a href="/administrativo/contabilidad/puc/registers/create/{{ $level->puc_id }}/{{$level->level}}" class="btn btn-primary">Nivel {{ $level->level }}</a></li>                </li>
             @endforeach
-                <li><a href="/administrativo/contabilidad/puc/rubro/create" class="btn btn-primary">Rubros</a></li>
+                <li><a href="/administrativo/contabilidad/puc/rubro/create/{{ $level->puc_id }}" class="btn btn-primary">Rubros</a></li>
                 <li><a href="/administrativo/contabilidad/puc/level/create/{{ $level->puc_id }}" class="btn btn-primary">Niveles</a></li>
         </ul>
     </li>

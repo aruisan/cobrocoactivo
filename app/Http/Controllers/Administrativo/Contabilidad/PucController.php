@@ -33,29 +33,25 @@ class PucController extends Controller
             $codigoEnd = $r1->code;
             $codigos[] = collect(['id' => $r1->id, 'codigo' => $codigoEnd, 'name' => $r1->name, 'register_id' => $r1->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
             foreach ($r1->codes as $data1){
-                dd($data1->register);
-                foreach ($data1->register as $data2){
-                    if ($data2->register_puc_id == $r1->level_puc_id){
-                        $codigo = $data2->code;
-                        $codigoEnd = "$r1->code$codigo";
-                        $codigos[] = collect(['id' => $data2->id, 'codigo' => $codigoEnd, 'name' => $data2->name, 'register_id' => $data2->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
-                        if ($data2->codes){
-                            foreach ($data2->codes as $data3){
-                                $reg = RegistersPuc::findOrFail($data3->registers_puc_id);
-                                $codigo = $reg->code;
-                                $codigoF = "$codigoEnd$codigo";
-                                $codigos[] = collect(['id' => $reg->id, 'codigo' => $codigoF, 'name' => $reg->name, 'register_id' => $reg->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
-                                foreach ($reg->codes as $data4){
-                                    $reg1 = RegistersPuc::findOrFail($data4->registers_puc_id);
-                                    $codigo = $reg1->code;
-                                    $code = "$codigoF$codigo";
-                                    $codigos[] = collect(['id' => $reg1->id, 'codigo' => $code, 'name' => $reg1->name, 'register_id' => $reg1->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
-                                    foreach ($reg1->rubro as $rubro){
-                                        $codigo = $rubro->codigo;
-                                        $code1 = "$code$codigo";
-                                        $codigos[] = collect(['id' => $rubro->id, 'codigo' => $code1, 'name' => $rubro->nombre_cuenta, 'code' => $rubro->codigo, 'code_N' =>  $rubro->codigo_NIPS, 'name_N' => $rubro->nombre_NIPS, 'naturaleza' => $rubro->naturaleza,'per_id' => $rubro->persona_id, 'register_id' => $rubro->registers_puc_id]);
-                                    }
-                                }
+                $reg0 = RegistersPuc::findOrFail($data1->registers_puc_id);
+                $codigo = $reg0->code;
+                $codigoEnd = "$r1->code$codigo";
+                $codigos[] = collect(['id' => $reg0->id, 'codigo' => $codigoEnd, 'name' => $reg0->name, 'register_id' => $reg0->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
+                if ($reg0->codes){
+                    foreach ($reg0->codes as $data3){
+                        $reg = RegistersPuc::findOrFail($data3->registers_puc_id);
+                        $codigo = $reg->code;
+                        $codigoF = "$codigoEnd$codigo";
+                        $codigos[] = collect(['id' => $reg->id, 'codigo' => $codigoF, 'name' => $reg->name, 'register_id' => $reg->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
+                        foreach ($reg->codes as $data4){
+                            $reg1 = RegistersPuc::findOrFail($data4->registers_puc_id);
+                            $codigo = $reg1->code;
+                            $code = "$codigoF$codigo";
+                            $codigos[] = collect(['id' => $reg1->id, 'codigo' => $code, 'name' => $reg1->name, 'register_id' => $reg1->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
+                            foreach ($reg1->rubro as $rubro){
+                                $codigo = $rubro->codigo;
+                                $code1 = "$code$codigo";
+                                $codigos[] = collect(['id' => $rubro->id, 'codigo' => $code1, 'name' => $rubro->nombre_cuenta, 'code' => $rubro->codigo, 'code_N' =>  $rubro->codigo_NIPS, 'name_N' => $rubro->nombre_NIPS, 'naturaleza' => $rubro->naturaleza,'per_id' => $rubro->persona_id, 'register_id' => $rubro->registers_puc_id]);
                             }
                         }
                     }
