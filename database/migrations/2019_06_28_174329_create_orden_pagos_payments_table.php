@@ -19,8 +19,8 @@ class CreateOrdenPagosPaymentsTable extends Migration
             $table->integer('orden_pago_id')->unsigned();
             $table->foreign('orden_pago_id')->references('id')->on('orden_pagos');
 
-            $table->integer('puc_id')->unsigned();
-            $table->foreign('puc_id')->references('id')->on('pucs');
+            $table->integer('rubros_puc_id')->unsigned();
+            $table->foreign('rubros_puc_id')->references('id')->on('rubros_pucs');
 
             $table->integer('num');
             $table->integer('valor');

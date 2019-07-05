@@ -100,25 +100,29 @@ class OrdenPagosController extends Controller
     {
         $ordenPago = OrdenPagos::findOrFail($request->ordenPago_id);
         $registro = Registro::findOrFail($ordenPago->registros_id);
-        $puc = RubrosPuc::findOrFail($request->PUC);
-        $registro->saldo = $registro->saldo - $request->valorPuc;
-        $registro->save();
-        $ordenPago->estado = "1";
-        $ordenPago->valor = $request->valorPuc;
-        $ordenPago->saldo = $request->valorPuc;
-        $ordenPago->save();
-        if ($request->userPuc != "Seleccionar Tercero Para el PUC"){
-            $puc->persona_id = $request->userPuc;
-            $puc->save();
-        }
-        $oPP = new OrdenPagosPuc();
-        $oPP->puc_id = $request->PUC;
-        $oPP->orden_pago_id = $request->ordenPago_id;
-        $oPP->valor = $request->valorPuc;
-        $oPP->save();
+        if ($request->PUC == "Selecciona un PUC"){
+            Session::flash('warning','Recuerde seleccionar un PUC antes de continuar');
+            return back();
+        }else{
+            $puc = RubrosPuc::findOrFail($request->PUC);
+            $registro->saldo = $registro->saldo - $request->valorPuc;
+            $registro->save();
+            $ordenPago->valor = $request->valorPuc;
+            $ordenPago->saldo = $request->valorPuc;
+            $ordenPago->save();
+            if ($request->userPuc != "Seleccionar Tercero Para el PUC"){
+                $puc->persona_id = $request->userPuc;
+                $puc->save();
+            }
+            $oPP = new OrdenPagosPuc();
+            $oPP->rubros_puc_id = $request->PUC;
+            $oPP->orden_pago_id = $request->ordenPago_id;
+            $oPP->valor = $request->valorPuc;
+            $oPP->save();
 
-        Session::flash('success','La orden de pago se ha contabilizado exitosamente');
-        return redirect('/administrativo/ordenPagos/pay/create/'.$request->ordenPago_id.'/'.$oPP->id);
+            Session::flash('success','La orden de pago se ha contabilizado exitosamente');
+            return redirect('/administrativo/ordenPagos/pay/create/'.$request->ordenPago_id.'/'.$oPP->id);
+        }
     }
 
     public function paySave(Request $request){
@@ -139,7 +143,7 @@ class OrdenPagosController extends Controller
             for($i=0;$i< count($request->banco); $i++){
                 $OPPay = new OrdenPagosPayments();
                 $OPPay->orden_pago_id = $request->OP;
-                $OPPay->puc_id = $request->banco[$i];
+                $OPPay->rubros_puc_id = $request->banco[$i];
                 if ($request->type_pay == "1"){
                     $OPPay->num = $request->num_cheque;
                     $OPPay->type_pay = "CHEQUE";
@@ -148,11 +152,12 @@ class OrdenPagosController extends Controller
                     $OPPay->type_pay = "ACCOUNT";
                 }
                 $OPPay->valor = $request->val[$i];
-                $OPPay->orden_pago_egreso_id->$OPE->id;
+                $OPPay->orden_pago_egreso_id = $OPE->id;
                 $OPPay->save();
             }
 
             $OP = OrdenPagos::findOrFail($request->OP);
+            $OP->estado = "1";
             $OP->saldo = $OP->saldo - $valReceived;
             $OP->save();
 
@@ -170,7 +175,8 @@ class OrdenPagosController extends Controller
     public function pay($id, $id2){
         $OP = OrdenPagos::findOrFail($id);
         $OPP = OrdenPagosPuc::findOrFail($id2);
-        $PUCS = Puc::where('id','<=',10)->get();
+        $PUCS = RubrosPuc::where('naturaleza','1')->get();
+
 
         return view('administrativo.ordenpagos.createPay', compact('OPP','OP','PUCS'));
     }
