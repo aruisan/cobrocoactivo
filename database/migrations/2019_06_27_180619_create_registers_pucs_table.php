@@ -19,8 +19,8 @@ class CreateRegistersPucsTable extends Migration
             $table->string('name');
             $table->string('code');
 
-            $table->integer('registers_puc_id')->unsigned()->nullable();
-            $table->foreign('registers_puc_id')->references('id')->on('registers_pucs');
+            $table->integer('register_puc_id')->unsigned()->nullable();
+            $table->foreign('register_puc_id')->references('id')->on('registers_pucs');
             $table->integer('level_puc_id')->unsigned();
             $table->foreign('level_puc_id')->references('id')->on('level_pucs');
 
