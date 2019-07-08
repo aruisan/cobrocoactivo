@@ -81,7 +81,7 @@ class RegistersPucController extends Controller
                 $register = new RegistersPuc();
                 $register->name = $name[$i];
                 $register->code = $code[$i];
-                $register->registers_puc_id = $padre[$i];
+                $register->register_puc_id = $padre[$i];
                 $register->level_puc_id = $level_id;
                 $register->save();
 
@@ -120,7 +120,7 @@ class RegistersPucController extends Controller
         $register = RegistersPuc::findOrFail($id);
         $register->name = $name;
         $register->code = $code;
-        $register->registers_puc_id = $padre;
+        $register->register_puc_id = $padre;
         $register->save();
 
         if($level > 1){
