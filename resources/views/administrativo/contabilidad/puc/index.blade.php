@@ -4,7 +4,7 @@
 @stop
 @section('sidebar')
     @if(count($data) > 0)
-        <li><a href="/administrativo/contabilidad/puc/rubro/create/{{ $data->id }}" class="btn btn-primary"><i class="fa fa-edit"></i> &nbsp; Modificar PUC</a></li>
+        <li><a href="/administrativo/contabilidad/puc/level/create/{{ $data->id }}" class="btn btn-primary"><i class="fa fa-edit"></i> &nbsp; Modificar PUC</a></li>
     @endif
 @stop
 @section('content')
