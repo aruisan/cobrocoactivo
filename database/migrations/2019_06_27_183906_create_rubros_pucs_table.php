@@ -26,8 +26,8 @@ class CreateRubrosPucsTable extends Migration
             $table->foreign('persona_id')->references('id')->on('personas');
             $table->integer('puc_id')->unsigned()->nullable();
             $table->foreign('puc_id')->references('id')->on('pucs');
-            $table->integer('register_puc_id')->unsigned()->nullable();
-            $table->foreign('register_puc_id')->references('id')->on('registers_pucs');
+            $table->integer('registers_puc_id')->unsigned()->nullable();
+            $table->foreign('registers_puc_id')->references('id')->on('registers_pucs');
 
             $table->timestamps();
         });
