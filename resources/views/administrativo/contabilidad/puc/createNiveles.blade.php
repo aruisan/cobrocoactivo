@@ -15,8 +15,8 @@ Creación de Niveles del PUC
                 <li>
                 <li><a href="/administrativo/contabilidad/puc/registers/create/{{ $level->puc_id }}/{{$level->level}}" class="btn btn-primary">Nivel {{ $level->level }}</a></li>                </li>
             @endforeach
-                <li><a href="/administrativo/contabilidad/puc/rubro/create/{{ $level->puc_id }}" class="btn btn-primary">Rubros</a></li>
-                <li><a href="/administrativo/contabilidad/puc/level/create/{{ $level->puc_id }}" class="btn btn-primary">Niveles</a></li>
+                <li><a href="/administrativo/contabilidad/puc/rubro/create/{{ $puc->id }}" class="btn btn-primary">Rubros</a></li>
+                <li><a href="/administrativo/contabilidad/puc/level/create/{{ $puc->id }}" class="btn btn-primary">Niveles</a></li>
         </ul>
     </li>
 @stop
