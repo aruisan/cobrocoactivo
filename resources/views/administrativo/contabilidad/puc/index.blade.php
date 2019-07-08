@@ -44,7 +44,7 @@
                         <div class="col-md-12 align-self-center">
                             <div class="alert alert-danger text-center">
                                 Actualmente no hay un PUC almacenado.
-                                <a href="{{ url('administrativo/contabilidad/puc/level/create') }}" title="Crear" class="btn-sm btn-primary"><i class="fa fa-plus"></i> Crear nuevo PUC</a>
+                                <a href="{{ url('administrativo/contabilidad/puc/create') }}" title="Crear" class="btn-sm btn-primary"><i class="fa fa-plus"></i> Crear nuevo PUC</a>
                             </div>
                         </div>
                     @endif
