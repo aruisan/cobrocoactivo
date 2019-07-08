@@ -21,7 +21,7 @@ class PucController extends Controller
     {
         $data = Puc::all()->first();
 
-        if ($data->count() >= 1){
+        if (count($data) >= 1){
             $puc_id = $data->id;
             $ultimoLevel = LevelPUC::where('puc_id', $puc_id)->get()->last();
 

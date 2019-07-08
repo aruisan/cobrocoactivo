@@ -3,7 +3,7 @@
     PUC
 @stop
 @section('sidebar')
-    @if($data->count() > 0)
+    @if(count($data) > 0)
         <li><a href="/administrativo/contabilidad/puc/rubro/create/{{ $data->id }}" class="btn btn-primary"><i class="fa fa-edit"></i> &nbsp; Modificar PUC</a></li>
     @endif
 @stop
@@ -17,7 +17,7 @@
             <br>
                 <div class="table-responsive">
                     <br>
-                    @if($data->count() > 0)
+                    @if(count($data) > 0)
                     <table class="table table-hover table-bordered" align="100%" id="tabla_corrE">
                         <thead>
                         <tr>
