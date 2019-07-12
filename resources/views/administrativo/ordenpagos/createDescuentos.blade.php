@@ -46,6 +46,10 @@
             <div class="form-validation">
                 <form class="form-valide" action="{{url('/administrativo/ordenPagos/descuento')}}" method="POST" enctype="multipart/form-data">
                     <hr>
+                    <br>
+                    <br>
+                    <center><h2>Descuentos Retención en la Fuente</h2></center>
+                    <hr><br>
                     {{ csrf_field() }}
                     <input type="hidden" id="ordenPago_id" name="ordenPago_id" value="{{ $ordenPago->id }}">
                     <div class="table-responsive">

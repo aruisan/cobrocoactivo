@@ -29,7 +29,7 @@
         <br>
     </div>
     <br>
-    @if($OP->estado == 1)
+    @if($OP->estado == 0)
     @else
     <li> <a href="{{ url('/administrativo/ordenPagos/descuento/create/'.$OP->id) }}" class="btn btn-primary"><span class="hide-menu">Descuentos</span></a></li>
     <li> <a href="{{ url('/administrativo/ordenPagos/liquidacion/create/'.$OP->id) }}" class="btn btn-success"><span class="hide-menu"><i class="fa fa-credit-card"></i>&nbsp; Liquidar</span></a></li>
@@ -87,33 +87,33 @@
                 <thead>
                 <tr>
                     <th class="text-center">Nombre</th>
-                    <th class="text-center">Valor</th>
+                    <th class="text-center">Debito</th>
+                    <th class="text-center">Credito</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($OP->descuentos as  $PagosDesc)
                     <tr class="text-center">
                         <td>{{ $PagosDesc->nombre }}</td>
+                        <td>$ 0</td>
                         <td>$ <?php echo number_format($PagosDesc['valor'],0);?></td>
                     </tr>
                 @endforeach
                 <tr class="text-center" style="background-color: rgba(19,165,255,0.14)">
                     <td><b>Total Descuentos</b></td>
+                    <td><b>$ 0</b></td>
                     <td><b>$ <?php echo number_format($OP->descuentos->sum('valor'),0);?></b></td>
                 </tr>
                 @foreach($OP->pucs as  $Pucs)
                     <tr class="text-center">
                         <td>{{ $Pucs->data_puc->nombre_cuenta }}</td>
-                        <td>$ <?php echo number_format($Pucs->valor,0);?></td>
+                        <td>$ <?php echo number_format($Pucs->valor_debito,0);?></td>
+                        <td>$ <?php echo number_format($Pucs->valor_credito,0);?></td>
                     </tr>
                 @endforeach
-                <tr class="text-center" style="background-color: rgba(19,165,255,0.14)">
-                    <td><b>Total a Pagar</b></td>
-                    <?php
-                    $val = $OP->valor - $OP->descuentos->sum('valor');
-                    ?>
-                    <td><b>$ <?php echo number_format($val,0);?></b></td>
-                </tr>
+                <?php
+                $val = $OP->valor - $OP->descuentos->sum('valor');
+                ?>
                 </tbody>
             </table>
         </div>

@@ -12,7 +12,7 @@ class LevelPUC extends Model implements Auditable
     use \OwenIt\Auditing\Auditable;
 
     public function Registers(){
-        return $this->hasMany('RegistersPuc','id');
+        return $this->hasMany('App\Model\Administrativo\Contabilidad\RegistersPuc','id');
     }
 
 }

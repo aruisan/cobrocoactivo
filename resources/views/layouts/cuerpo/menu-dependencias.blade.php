@@ -40,6 +40,7 @@
         <li><a tabindex="-1" href="{{url('/administrativo/contabilidad/retefuente')}}">Retención en la Fuente</a></li>
         <li><a tabindex="-1" href="{{url('/administrativo/contabilidad/puc')}}">PUC</a></li>
         <li><a tabindex="-1" href="{{url('/administrativo/contabilidad/impumuni')}}">Impuestos Municipales</a></li>
+        <li><a tabindex="-1" href="{{url('/administrativo/contabilidad/informes/lvl/1')}}">Informes</a></li>
     </ul>
 </li>
 <li class="dropdown">

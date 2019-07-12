@@ -22,7 +22,8 @@ class CreateOrdenPagosPucsTable extends Migration
             $table->integer('orden_pago_id')->unsigned();
             $table->foreign('orden_pago_id')->references('id')->on('orden_pagos');
 
-            $table->integer('valor');
+            $table->integer('valor_debito');
+            $table->integer('valor_credito');
 
             $table->timestamps();
         });

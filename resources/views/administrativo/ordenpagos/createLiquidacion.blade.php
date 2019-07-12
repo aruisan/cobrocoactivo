@@ -88,39 +88,20 @@
                                 </tr>
                             @endfor
                             <tr>
-                                <td>
-                                    <select class="form-control" id="PUC" onchange="llenar()" name="PUC" required>
+                                <td colspan="2">
+                                    <select class="form-control" id="PUC[]" name="PUC[]" required>
                                         <option>Selecciona un PUC</option>
-                                        @foreach($PUCs as $puc)
-                                            <option value="{{$puc->id}}">{{$puc->codigo}} - {{$puc->nombre_cuenta}}</option>
+                                        @foreach($codigos as $code)
+                                            <option value="{{$code['id']}}">{{$code['codigo']}} - {{$code['name']}}</option>
                                         @endforeach
                                     </select>
                                 </td>
                                 <td>
-                                    <select class="form-control" id="user" name="userPuc" style="display: none">
-                                        <option>Seleccionar Tercero Para el PUC</option>
-                                        @foreach($Usuarios as $usuario)
-                                            <option value="{{$usuario['id']}}">{{$usuario['name']}}</option>
-                                        @endforeach
-                                    </select>
-                                    <input type="text" id="nameU" disabled style="display: none" style="text-align:center">
+                                    <input type="number" style="text-align:center" name="valorPucD[]" id="valorPucD[]" value="0" min="0" required>
                                 </td>
                                 <td>
-                                    <input type="number" style="text-align:center" name="valorPuc" id="valorPuc" value="" onchange="total()" required>
+                                    <input type="number" style="text-align:center" name="valorPucC[]" id="valorPucC[]" value="0" min="0" required>
                                 </td>
-                                <?php
-                                $result = $registro->val_total - $ordenPagoDesc->sum('valor')
-                                ?>
-                                <td>
-                                    <input type="text" value="$<?php echo number_format($result,0) ?>" style="text-align:center" disabled>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center" colspan="2" style="vertical-align: middle"><b>Totales. (Recuerde que deben dar sumas iguales)</b></td>
-                                <td>
-                                    <input type="text" id="sumaD" style="text-align:center" disabled >
-                                </td>
-                                <td class="text-center" style="vertical-align: middle"><b>$<?php echo number_format($registro->val_total,0) ?></b></td>
                             </tr>
                             </tbody>
                         </table>
@@ -128,7 +109,8 @@
                     <br>
                     <div class="col-md-12 align-self-center text-center">
                         <br>
-                        <button type="submit" class="btn btn-success"><i class="fa fa-credit-card"></i>&nbsp; Pagar</button>
+                        <button type="submit" class="btn btn-success">Contabilizar</button>
+                        <button type="button" v-on:click.prevent="nuevaFila" class="btn btn-primary"><i class="fa fa-plus"></i> &nbsp; Agregar PUC</button>
                     </div>
                 </form>
             </div>
@@ -142,36 +124,34 @@
             $(this).closest('tr').remove();
         });
 
-        var Data = {
-            @foreach($PUCs as $key => $data)
-                @if($data->persona != null)
-                    "{{$data->id}}":["{{$data->persona->nombre}}"],
-                @else
-                    "{{$data->id}}":["vacio"],
-                @endif
-            @endforeach
-        };
 
+        new Vue({
+            el: '#crud',
 
-        function llenar(){
-            var select = document.getElementById('PUC');
-            var opcion = select.value;
-            var users= document.getElementById('user');
-            var text= document.getElementById('nameU');
+            methods:{
 
-            if (Data[opcion][0]=="vacio"){
-                text.style.display = 'none';
-                users.style.display = 'inline';
-            } else {
-                users.style.display = 'none';
-                text.style.display = 'inline';
-                document.getElementById('nameU').value = Data[opcion][0];
+                nuevaFila: function(){
+
+                    $('#tabla tr:last').after('<tr>\n' +
+                        '                                <td class="text-center"><input type="button" class="borrar btn-sm btn-danger" value=" - " /></td>\n' +
+                        '                                <td>\n' +
+                        '                                    <select class="form-control" id="PUC[]" name="PUC[]" required>\n' +
+                        '                                        <option>Selecciona un PUC</option>\n' +
+                        '                                        @foreach($codigos as $code)\n' +
+                        '                                            <option value="{{$code['id']}}">{{$code['codigo']}} - {{$code['name']}}</option>\n' +
+                        '                                        @endforeach\n' +
+                        '                                    </select>\n' +
+                        '                                </td>\n' +
+                        '                                <td>\n' +
+                        '                                    <input type="number" style="text-align:center" name="valorPucD[]" id="valorPucD[]" value="0" min="0" required>\n' +
+                        '                                </td>\n' +
+                        '                                <td>\n' +
+                        '                                    <input type="number" style="text-align:center" name="valorPucC[]" id="valorPucC[]" value="0" min="0" required>\n' +
+                        '                                </td>\n' +
+                        '                            </tr>');
+                }
             }
-        }
+        });
 
-        function total() {
-            var Puc = document.getElementById('valorPuc');
-            document.getElementById('sumaD').value = Puc.value;
-        }
     </script>
 @stop

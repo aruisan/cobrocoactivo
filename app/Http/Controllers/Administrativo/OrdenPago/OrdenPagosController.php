@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Administrativo\OrdenPago;
 
 use App\Http\Controllers\Administrativo\Cdp\CdpController;
+use App\Model\Administrativo\Contabilidad\LevelPUC;
+use App\Model\Administrativo\Contabilidad\RegistersPuc;
 use App\Model\Administrativo\OrdenPago\OrdenPagos;
 use App\Model\Administrativo\OrdenPago\OrdenPagosDescuentos;
 use App\Model\Administrativo\OrdenPago\OrdenPagosPuc;
@@ -45,10 +47,14 @@ class OrdenPagosController extends Controller
      */
     public function create()
     {
-        $Registros = Registro::where([['secretaria_e', '3'],['saldo','>', 0]])->get();
+        $Registros = Registro::where([['secretaria_e', '3'], ['saldo', '>', 0]])->get();
+        $PUCs = Puc::all();
         $numOP = count(OrdenPagos::all());
-        if ($Registros == null){
-            Session::flash('warning','No hay registros disponibles para crear la orden de pago, debe crear un nuevo registro. ');
+        if ($Registros == null) {
+            Session::flash('warning', 'No hay registros disponibles para crear la orden de pago, debe crear un nuevo registro. ');
+            return redirect('/administrativo/ordenPagos');
+        }elseif ($PUCs == null){
+            Session::flash('warning', 'No hay un PUC alamcenado en el software o finalizado, debe disponer de uno para poder realizar una orden de pago. ');
             return redirect('/administrativo/ordenPagos');
         }else{
             return view('administrativo.ordenpagos.create', compact('Registros','numOP'));
@@ -86,43 +92,77 @@ class OrdenPagosController extends Controller
     public function liquidacion($id)
     {
         $Usuarios = Persona::all();
-        $PUC = Puc::all()->first();
-        $PUCs = $PUC->rubros;
+        $data = Puc::all()->first();
+        $puc_id = $data->id;
+        $ultimoLevel = LevelPUC::where('puc_id', $puc_id)->get()->last();
+
+        global $lastLevel;
+        $lastLevel = $ultimoLevel->id;
+
+        $R1 = RegistersPuc::where('register_puc_id', NULL)->get();
+
+        foreach ($R1 as $r1) {
+            $codigoEnd = $r1->code;
+            $codigos[] = collect(['id' => $r1->id, 'codigo' => $codigoEnd, 'name' => $r1->name, 'register_id' => $r1->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
+            foreach ($r1->codes as $data1){
+                $reg0 = RegistersPuc::findOrFail($data1->registers_puc_id);
+                $codigo = $reg0->code;
+                $codigoEnd = "$r1->code$codigo";
+                $codigos[] = collect(['id' => $reg0->id, 'codigo' => $codigoEnd, 'name' => $reg0->name, 'register_id' => $reg0->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
+                if ($reg0->codes){
+                    foreach ($reg0->codes as $data3){
+                        $reg = RegistersPuc::findOrFail($data3->registers_puc_id);
+                        $codigo = $reg->code;
+                        $codigoF = "$codigoEnd$codigo";
+                        $codigos[] = collect(['id' => $reg->id, 'codigo' => $codigoF, 'name' => $reg->name, 'register_id' => $reg->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
+                        foreach ($reg->codes as $data4){
+                            $reg1 = RegistersPuc::findOrFail($data4->registers_puc_id);
+                            $codigo = $reg1->code;
+                            $code = "$codigoF$codigo";
+                            $codigos[] = collect(['id' => $reg1->id, 'codigo' => $code, 'name' => $reg1->name, 'register_id' => $reg1->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
+                            foreach ($reg1->rubro as $rubro){
+                                $codigo = $rubro->codigo;
+                                $code1 = "$code$codigo";
+                                $codigos[] = collect(['id' => $rubro->id, 'codigo' => $code1, 'name' => $rubro->nombre_cuenta, 'code' => $rubro->codigo, 'code_N' =>  $rubro->codigo_NIPS, 'name_N' => $rubro->nombre_NIPS, 'naturaleza' => $rubro->naturaleza,'per_id' => $rubro->persona_id, 'register_id' => $rubro->registers_puc_id]);
+                            }
+                        }
+                    }
+                }
+            }
+        }
         $ordenPago = OrdenPagos::findOrfail($id);
         $ordenPagoDesc = OrdenPagosDescuentos::where('orden_pagos_id',$id)->get();
         $registro = Registro::findOrFail($ordenPago->registros_id);
         $Pagos = OrdenPagos::where('estado','=',1);
         $SumPagos = $Pagos->sum('valor');
-        return view('administrativo.ordenpagos.createLiquidacion', compact('ordenPago','registro','SumPagos','ordenPagoDesc','PUCs','Usuarios'));
+
+        return view('administrativo.ordenpagos.createLiquidacion', compact('ordenPago','registro','SumPagos','ordenPagoDesc','Usuarios','codigos'));
     }
 
     public function liquidar(Request $request)
     {
         $ordenPago = OrdenPagos::findOrFail($request->ordenPago_id);
         $registro = Registro::findOrFail($ordenPago->registros_id);
-        if ($request->PUC == "Selecciona un PUC"){
-            Session::flash('warning','Recuerde seleccionar un PUC antes de continuar');
-            return back();
-        }else{
-            $puc = RubrosPuc::findOrFail($request->PUC);
-            $registro->saldo = $registro->saldo - $request->valorPuc;
-            $registro->save();
-            $ordenPago->valor = $request->valorPuc;
-            $ordenPago->saldo = $request->valorPuc;
-            $ordenPago->save();
-            if ($request->userPuc != "Seleccionar Tercero Para el PUC"){
-                $puc->persona_id = $request->userPuc;
-                $puc->save();
+        for ($i=0;$i< count($request->PUC); $i++){
+            if ($request->PUC[$i] == "Selecciona un PUC"){
+                Session::flash('warning','Recuerde seleccionar un PUC antes de continuar');
+                return back();
+            }else{
+                $registro->saldo = $registro->saldo - $request->valorPucD[$i];
+                $registro->save();
+                $ordenPago->valor = $ordenPago->valor + $request->valorPucD[$i];
+                $ordenPago->saldo = $ordenPago->saldo +  $request->valorPucD[$i];
+                $ordenPago->save();
+                $oPP = new OrdenPagosPuc();
+                $oPP->rubros_puc_id = $request->PUC[$i];
+                $oPP->orden_pago_id = $request->ordenPago_id;
+                $oPP->valor_debito = $request->valorPucD[$i];
+                $oPP->valor_credito = $request->valorPucC[$i];
+                $oPP->save();
             }
-            $oPP = new OrdenPagosPuc();
-            $oPP->rubros_puc_id = $request->PUC;
-            $oPP->orden_pago_id = $request->ordenPago_id;
-            $oPP->valor = $request->valorPuc;
-            $oPP->save();
-
-            Session::flash('success','La orden de pago se ha contabilizado exitosamente');
-            return redirect('/administrativo/ordenPagos/pay/create/'.$request->ordenPago_id.'/'.$oPP->id);
         }
+        Session::flash('success','La orden de pago se ha contabilizado exitosamente');
+        return redirect('/administrativo/ordenPagos/pay/create/'.$request->ordenPago_id);
     }
 
     public function paySave(Request $request){
@@ -133,11 +173,12 @@ class OrdenPagosController extends Controller
 
         if ($valReceived == $valTotal){
             $OPE = new OrdenPagosEgresos();
-            $OPE->num = $request->num_cuenta;
             if ($request->type_pay == "1"){
                 $OPE->type_pay = "CHEQUE";
+                $OPE->num = $request->num_cheque;
             }elseif ($request->type_pay == "2"){
                 $OPE->type_pay = "ACCOUNT";
+                $OPE->num = $request->num_cuenta;
             }
             $OPE->save();
             for($i=0;$i< count($request->banco); $i++){
@@ -172,11 +213,10 @@ class OrdenPagosController extends Controller
         }
     }
 
-    public function pay($id, $id2){
+    public function pay($id){
         $OP = OrdenPagos::findOrFail($id);
-        $OPP = OrdenPagosPuc::findOrFail($id2);
+        $OPP = $OP->pucs;
         $PUCS = RubrosPuc::where('naturaleza','1')->get();
-
 
         return view('administrativo.ordenpagos.createPay', compact('OPP','OP','PUCS'));
     }

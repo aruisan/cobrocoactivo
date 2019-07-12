@@ -147,7 +147,7 @@ Route::group([ 'middleware' => 'auth'] ,function(){
         Route::put('ordenPagos/liquidacion/store','Administrativo\OrdenPago\OrdenPagosController@liquidar');
         Route::get('ordenPagos/descuento/create/{id}','Administrativo\OrdenPago\OrdenPagosDescuentosController@create');
         Route::resource('ordenPagos/descuento','Administrativo\OrdenPago\OrdenPagosDescuentosController');
-        Route::get('ordenPagos/pay/create/{id}/{id2}','Administrativo\OrdenPago\OrdenPagosController@pay');
+        Route::get('ordenPagos/pay/create/{id}','Administrativo\OrdenPago\OrdenPagosController@pay');
         Route::put('ordenPagos/pay/store','Administrativo\OrdenPago\OrdenPagosController@paySave');
         //PDF OrdenPago y ComprobanteEgresos
         Route::get('ordenPagos/pdf/{id}','Administrativo\OrdenPago\OrdenPagosController@pdf_OP')->name('op-pdf');
@@ -178,6 +178,11 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
         Route::resource('contabilidad/puc/rubro','Administrativo\Contabilidad\RubrosPucController');
         Route::get('contabilidad/puc/rubro/create/{vigencia}','Administrativo\Contabilidad\RubrosPucController@create');
+
+            //Informes
+
+        Route::resource('contabilidad/informes','Administrativo\Contabilidad\ReportsController');
+        Route::get('contabilidad/informes/lvl/{id}','Administrativo\Contabilidad\ReportsController@lvl');
 	});
 
 

@@ -23,12 +23,6 @@ class PucController extends Controller
         $count = count($data);
 
         if ($count >= 1){
-            $puc_id = $data->id;
-            $ultimoLevel = LevelPUC::where('puc_id', $puc_id)->get()->last();
-
-            global $lastLevel;
-            $lastLevel = $ultimoLevel->id;
-
             $R1 = RegistersPuc::where('register_puc_id', NULL)->get();
 
             foreach ($R1 as $r1) {
