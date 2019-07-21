@@ -19,10 +19,11 @@ class PucController extends Controller
      */
     public function index()
     {
-        $data = Puc::all()->first();
-        $count = count($data);
+        $data = Puc::findOrFail('1');
+        $count = $data->count();
 
         if ($count >= 1){
+
             $R1 = RegistersPuc::where('register_puc_id', NULL)->get();
 
             foreach ($R1 as $r1) {

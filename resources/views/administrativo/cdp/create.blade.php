@@ -30,7 +30,7 @@
                         <div class="form-group">
                             <label class="col-lg-4 col-form-label text-right" for="nombre">Objeto <span class="text-danger">*</span></label>
                             <div class="col-lg-6">
-                                <textarea name="name" class="form-control"></textarea>
+                                <textarea name="name" class="form-control" required></textarea>
                             </div>
                         </div>
                     </div>
@@ -38,7 +38,7 @@
                         <div class="form-group">
                             <label class="col-lg-4 col-form-label text-right" for="observacion">Observación<span class="text-danger">*</span></label>
                             <div class="col-lg-6">
-                                <textarea name="observacion" class="form-control"></textarea>
+                                <textarea name="observacion" class="form-control" required></textarea>
                             </div>
                         </div>
                     </div>

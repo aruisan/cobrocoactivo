@@ -58,7 +58,7 @@ class RegistrosController extends Controller
         }
         $cdp = Cdp::all()->where('jefe_e','3')->count();
         if($cdp > 0){
-            $cdps = Cdp::all()->where('jefe_e','3');
+            $cdps = Cdp::all()->where('jefe_e','3')->where('saldo','>','0');
             return view('administrativo.registros.create', compact('rol','personas','cdps'));
         }else{
             Session::flash('error','Actualmente no existen CDPs disponibles para crear registros.');
