@@ -21,6 +21,7 @@ class CreateRegistrosTable extends Migration
             $table->integer('valor');
             $table->integer('saldo');
             $table->integer('val_total')->nullable();
+            $table->integer('iva')->nullable()->default(0);
 
             $table->integer('persona_id')->unsigned();
             $table->foreign('persona_id')->references('id')->on('personas');
