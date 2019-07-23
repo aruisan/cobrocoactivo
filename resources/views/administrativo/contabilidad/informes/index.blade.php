@@ -41,8 +41,12 @@
                         <td class="text-center">{{$code->code}}</td>
                         <td class="text-center">{{$code->name}}</td>
                         <td></td>
-                        <td></td>
-                        <td></td>
+                        @foreach($data as $d)
+                            @if($code->id == $d['id'])
+                                <td>$ <?php echo number_format($d['Deb'],0);?></td>
+                                <td>$ <?php echo number_format($d['Cred'],0);?></td>
+                            @endif
+                        @endforeach
                         <td></td>
                         <td></td>
                     </tr>
