@@ -38,15 +38,11 @@
                 <tbody>
                 @foreach($codes as $code)
                     <tr>
-                        <td class="text-center">{{$code->code}}</td>
-                        <td class="text-center">{{$code->name}}</td>
+                        <td class="text-center">{{$code->codigo}}</td>
+                        <td class="text-center">{{$code->nombre_cuenta}}</td>
                         <td></td>
-                        @foreach($data as $d)
-                            @if($code->id == $d['id'])
-                                <td>$ <?php echo number_format($d['Deb'],0);?></td>
-                                <td>$ <?php echo number_format($d['Cred'],0);?></td>
-                            @endif
-                        @endforeach
+                        <td></td>
+                        <td></td>
                         <td></td>
                         <td></td>
                     </tr>

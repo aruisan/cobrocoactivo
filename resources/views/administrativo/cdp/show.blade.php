@@ -16,7 +16,7 @@
         </center>
         <div class="text-center">
             @if($cdp->rubrosCdpValor->count() > 0)
-                $<?php echo number_format($cdp->rubrosCdpValor->sum('valor_disp'),0) ?>
+                $<?php echo number_format($cdp->valor,0) ?>
             @else
                 $0.00
             @endif

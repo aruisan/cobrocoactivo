@@ -114,6 +114,17 @@ class ReportsController extends Controller
 
     }
 
+    public function rubros($id){
+        $PUC = Puc::findOrFail($id);
+        $niveles = LevelPUC::where('puc_id', $id)->get();
+        $codes = RubrosPuc::where('puc_id',$PUC->id)->get();
+        $data[] = null;
+        //dd($codes);
+
+
+        return view('administrativo.contabilidad.informes.indexR', compact( 'niveles', 'codes','data'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
