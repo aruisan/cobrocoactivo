@@ -23,30 +23,26 @@
 				</p>
 			</center>
 		</div>
-		<?php $sumCdpsRegistro = 0;?>
-		@foreach($registro->cdpsRegistro as $cdpsRegistro)
 		<div class="br-black-1">
 			<table style="margin: 5px 10px;">
 				<tbody>
 					<tr style="font-size: 16px;">
 						<td style="width: 30px;">Por valor de : </td>
-						<td> {{$cdpsRegistro->valor}}</td>
+						<td>{{number_format($registro->valor)}}</td>
 					</tr>
 					<tr style="font-size: 16px;">
 						<td style="width: 30px;">Objeto: </td>
-						<td> {{$cdpsRegistro->cdp->name}}</td>
+						<td> {{$registro->objeto}}</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-		<?php $sumCdpsRegistro = $sumCdpsRegistro+$cdpsRegistro->valor;?>
-		@endforeach
 		<div class="br-black-1">
 			<table style="margin: 5px 10px;">
 				<tbody>
 					<tr style="font-size: 16px;">
 						<td style="width: 30px;">VALOR TOTAL: </td>
-						<td> {{number_format($sumCdpsRegistro)}} ({{\NumerosEnLetras::convertir($sumCdpsRegistro)}})</td>
+						<td> {{number_format($registro->valor)}} ({{\NumerosEnLetras::convertir($registro->valor)}})</td>
 					</tr>
 					<tr style="font-size: 16px;">
 						<td style="width: 30px;">Beneficiario: </td>
@@ -54,7 +50,6 @@
 					</tr>
 				</tbody>
 			</table>
-			
 		</div>
 @stop
 		

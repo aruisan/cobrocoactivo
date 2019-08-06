@@ -24,31 +24,25 @@
             </strong>
         </div>
         <div class="table-responsive">
-            <table class="table table-bordered" id="tabla">
+            <table class="table table-bordered hover" id="tabla">
                 <hr>
                 <thead>
                     <th class="text-center">Código</th>
                     <th class="text-center">Nombre</th>
-                    <th class="text-center">Saldo Inicial</th>
                     <th class="text-center">Debito</th>
                     <th class="text-center">Credito</th>
-                    <th class="text-center">Orden de Pago</th>
-                    <th class="text-center">Fecha</th>
                 </thead>
                 <tbody>
                 @foreach($codes as $code)
                     <tr>
                         <td class="text-center">{{$code->code}}</td>
                         <td class="text-center">{{$code->name}}</td>
-                        <td></td>
                         @foreach($data as $d)
                             @if($code->id == $d['id'])
                                 <td>$ <?php echo number_format($d['Deb'],0);?></td>
                                 <td>$ <?php echo number_format($d['Cred'],0);?></td>
                             @endif
                         @endforeach
-                        <td></td>
-                        <td></td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -59,14 +53,14 @@
 
 @section('js')
     <script>
-            $('#tabla').DataTable( {
-                responsive: true,
-                "searching": true,
-                ordering: false,
-                dom: 'Bfrtip',
-                buttons: [
-                    'copy', 'csv', 'excel', 'print'
-                ]
-            } );
+        $('#tabla').DataTable( {
+            responsive: true,
+            "searching": true,
+            ordering: false,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'print'
+            ]
+        } );
     </script>
 @stop
