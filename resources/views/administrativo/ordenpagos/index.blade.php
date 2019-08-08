@@ -9,11 +9,6 @@
             <span class="hide-menu"> Crear Orden de Pago</span></a>
     </li>
     <li>
-        <a href="#" class="btn btn-primary">
-            <i class="fa fa-credit-card"></i>
-            <span class="hide-menu"> Pagos</span></a>
-    </li>
-    <li>
         <a href="{{ url('/administrativo/registros') }}" class="btn btn-primary">
             <span class="hide-menu"> Registros</span></a>
     </li>
