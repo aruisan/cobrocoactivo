@@ -166,7 +166,7 @@
                                     <input type="hidden" name="registro_id" value="{{ $registro->id }}">
                                     <select name="cdp_id[]" class="form-group-lg" required>
                                         @foreach($cdps as $cdp)
-                                            <option value="{{ $cdp['id'] }}">{{ $cdp['name'] }}</option>
+                                            <option value="{{ $cdp['id'] }}">{{ $cdp['id'] }} - {{ $cdp['name'] }}</option>
                                         @endforeach
                                     </select>
                                 </td>
