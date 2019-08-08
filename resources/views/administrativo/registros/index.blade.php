@@ -118,8 +118,8 @@
                             <th class="text-center">Valor</th>
                             <th class="text-center">Saldo</th>
                             <th class="text-center">Estado</th>
-                            <th class="text-center"><i class="fa fa-eye"></i></th>
-                            <th class="text-center">Archivo</th>
+                            <th class="text-center">Ver</th>
+                            <th class="text-center">PDF</th>
                         </tr>
                         </thead>
                         <tbody>
