@@ -15,11 +15,7 @@
             <h4><b>Valor del CDP</b></h4>
         </center>
         <div class="text-center">
-            @if($cdp->rubrosCdpValor->count() > 0)
-                $<?php echo number_format($cdp->valor,0) ?>
-            @else
-                $0.00
-            @endif
+            $<?php echo number_format( $cdp->valor,0) ?>
         </div>
         <br>
         @if($cdp->jefe_e != "3")
