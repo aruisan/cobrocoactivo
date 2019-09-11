@@ -59,7 +59,7 @@
 		        							@endforeach
 		        						</select>
 		        					</td>
-		        					<th scope="row"><input type="number" style="text-align:center" name="code[]" value="{{ $dato->codigo }}"></th>
+		        					<th scope="row"><input type="number" style="text-align:center" maxlength="4" minlength="4" name="code[]" value="{{ $dato->codigo }}"></th>
 		        					<th scope="row"><input type="text" style="text-align:center" name="nombre[]" value="{{ $dato->nombre_cuenta }}"></th>
 		        					<th scope="row"><input type="number" style="text-align:center" name="codigoNIPS[]" value="{{ $dato->codigo_NIPS }}"></th>
 		        					<th scope="row"><input type="text" style="text-align:center" name="nombreNIPS[]" value="{{ $dato->nombre_NIPS }}"></th>
@@ -88,7 +88,7 @@
 		        							@endforeach
 		        						</select>
 		        					</td>
-		        					<td><input type="hidden" name="rubro_id[]"><input type="number" name="code[]" required></td>
+		        					<td><input type="hidden" name="rubro_id[]"><input type="text" pattern=".{4,4}" title="Recuerde que el codigo debe ser de 4 cifras" name="code[]" required></td>
 		        					<td><input type="text" name="nombre[]" required></td>
 		        					<td><input type="number" name="codigoNIPS[]"></td>
 		        					<td><input type="text" name="nombreNIPS[]"></td>
