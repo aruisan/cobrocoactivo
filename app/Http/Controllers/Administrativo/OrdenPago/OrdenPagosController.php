@@ -71,21 +71,21 @@ class OrdenPagosController extends Controller
     {
         $registro_id = Registro::findOrFail($request->IdR);
 
-        if ($registro_id->saldo <= 0){
-            Session::flash('warning','El valor no puede ser superior al valor disponible del registro seleccionado: '.$registro_id->saldo);
+        if ($request->ValTOP > $registro_id->saldo){
+            Session::flash('warning','El valor no puede ser superior al valor disponible del registro seleccionado: '.$registro_id->saldo.' Rectifique el valor de la orden de pago y el iva.');
             return redirect('/administrativo/ordenPagos/create');
-        } else{
+        } else {
             $ordenPago = new OrdenPagos();
             $ordenPago->nombre = $request->concepto;
-            $ordenPago->valor = 0;
-            $ordenPago->saldo = 0;
+            $ordenPago->valor = $request->ValTOP;
+            $ordenPago->saldo = $request->ValTOP;
             $ordenPago->estado = $request->estado;
             $ordenPago->registros_id = $request->IdR;
             $ordenPago->user_id = auth()->user()->id;
             $ordenPago->save();
 
             Session::flash('success','La orden de pago se ha creado exitosamente');
-            return redirect('/administrativo/ordenPagos/descuento/create/'.$ordenPago->id);
+            return redirect('/administrativo/ordenPagos/monto/create/'.$ordenPago->id);
         }
     }
 

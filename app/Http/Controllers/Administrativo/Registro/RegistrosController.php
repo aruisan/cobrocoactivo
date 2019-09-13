@@ -226,27 +226,37 @@ class RegistrosController extends Controller
     {
         $update = Registro::findOrFail($id);
 
-        $update->secretaria_e = $estado;
-        $update->ff_secretaria_e = $fecha;
-        $update->valor = $valor;
-        $update->saldo = $valTot;
-        $update->val_total = $valTot;
-        $update->save();
+        //Validación del valor total frente a el valor disponible de los CDP's
 
-        $cdpsRegistroValor = CdpsRegistroValor::where('registro_id', $id)->get();
-        foreach ($cdpsRegistroValor as $value){
-            $cdp = Cdp::findOrFail($value->cdp_id);
-            $cdp->saldo = $cdp->saldo - $value->valor;
-            $cdp->save();
-            foreach ($cdp->rubrosCdp as $RCDP){
-                $RCDP->rubrosCdpValor->first()->valor_disp = $RCDP->rubrosCdpValor->first()->valor_disp - $value->valor;
-                $RCDP->rubrosCdpValor->first()->save();
-            }
+        foreach ($update->cdpsRegistro as $cdps){
+            $d[] =$cdps->cdp->saldo;
         }
+        $valD = array_sum($d);
+        if ($valD >= $valTot){
+            $update->secretaria_e = $estado;
+            $update->ff_secretaria_e = $fecha;
+            $update->valor = $valor;
+            $update->saldo = $valTot;
+            $update->val_total = $valTot;
+            $update->save();
 
-        Session::flash('success','Secretaria, su registro ha sido finalizado exitosamente');
-        return redirect('/administrativo/registros/'.$id);
+            $cdpsRegistroValor = CdpsRegistroValor::where('registro_id', $id)->get();
+            foreach ($cdpsRegistroValor as $value){
+                $cdp = Cdp::findOrFail($value->cdp_id);
+                $cdp->saldo = $cdp->saldo - $value->valor;
+                $cdp->save();
+                foreach ($cdp->rubrosCdp as $RCDP){
+                    $RCDP->rubrosCdpValor->first()->valor_disp = $RCDP->rubrosCdpValor->first()->valor_disp - $value->valor;
+                    $RCDP->rubrosCdpValor->first()->save();
+                }
+            }
 
+            Session::flash('success','Secretaria, su registro ha sido finalizado exitosamente.');
+            return redirect('/administrativo/registros/'.$id);
+        } else{
+            Session::flash('error','Secretaria, esta sobrepasando el valor disponible de los CDPs, verifique las sumas asignadas y el valor del iva.');
+            return back();
+        }
     }
 
     public function rechazar(Request $request, $id,$rol,$estado)

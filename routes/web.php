@@ -149,6 +149,8 @@ Route::group([ 'middleware' => 'auth'] ,function(){
         Route::resource('ordenPagos/descuento','Administrativo\OrdenPago\OrdenPagosDescuentosController');
         Route::get('ordenPagos/pay/create/{id}','Administrativo\OrdenPago\OrdenPagosController@pay');
         Route::put('ordenPagos/pay/store','Administrativo\OrdenPago\OrdenPagosController@paySave');
+        Route::get('ordenPagos/monto/create/{id}','Administrativo\OrdenPago\OrdenPagosRubrosController@create');
+        Route::put('ordenPagos/monto/store','Administrativo\OrdenPago\OrdenPagosRubrosController@store');
         //PDF OrdenPago y ComprobanteEgresos
         Route::get('ordenPagos/pdf/{id}','Administrativo\OrdenPago\OrdenPagosController@pdf_OP')->name('op-pdf');
         Route::get('egresos/pdf/{id}','Administrativo\OrdenPago\OrdenPagosController@pdf_CE')->name('ce-pdf');

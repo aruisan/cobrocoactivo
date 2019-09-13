@@ -45,7 +45,7 @@
                                             <td id="Obj{{$data->objeto}}" class="text-center">{{ $data->objeto }}</td>
                                             <td id="Name{{$data->persona->nombre}}" class="text-center">{{ $data->persona->nombre }}</td>
                                             <td id="Cc{{$data->persona->num_dc}}" class="text-center hidden">{{ $data->persona->num_dc }}</td>
-                                            <td class="text-center">$<?php echo number_format($data->saldo,0) ?></td>
+                                            <td class="text-center">$<?php echo number_format($data->val_total,0) ?></td>
                                             <td id="Val{{$data->saldo}}" class="text-center hidden">{{ $data->saldo }}</td>
                                             <td id="ValTo{{$data->valor}}" class="text-center hidden">{{ $data->valor }}</td>
                                             <td id="Iva{{$data->iva}}" class="text-center hidden">{{ $data->iva }}</td>
@@ -64,72 +64,100 @@
                             @endif
                         </div>
                     </div>
-                    <div class="col-md-12" id="form" name="form" style="display: none">
-                        <hr>
-                        <br>
-                        <b>
-                        <div class="col-md-3 text-center">
-                            <h4><b>Orden de pago No.</b></h4>
-                        </div>
-                        <div class="col-md-3">
-                            <input type="number" style="text-align: center" class="form-control" value="{{ $numOP + 1 }}" disabled name="num_OP">
-                            <input type="hidden"  class="form-control" name="IdR" id="IdR">
-                        </div>
-                        <div class="col-md-2 text-center">
-                            <h4><b>Fecha:</b></h4>
-                        </div>
-                        <div class="col-md-4">
-                            <input type="date" name="fecha" style="text-align: center" class="form-control" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" disabled>
-                        </div>
-                        <div class="col-md-3 text-center">
-                            <h4><b>Objeto:</b></h4>
-                        </div>
-                        <div class="col-md-9">
-                            <input type="text" style="text-align: center" class="form-control" name="Objeto" id="Objeto" disabled>
-                        </div>
-                        <div class="col-md-3 text-center">
-                            <h4><b>Concepto:</b></h4>
-                        </div>
-                        <div class="col-md-9">
-                            <input type="text" style="text-align: center" class="form-control" name="concepto" required>
-                        </div>
-                        <div class="col-md-3 text-center">
-                            <h4><b>Tercero:</b></h4>
-                        </div>
-                        <div class="col-md-3">
-                            <input type="text" style="text-align: center" class="form-control" name="Name" id="Name" disabled>
-                        </div>
-                        <div class="col-md-2 text-center">
-                            <h4><b>NIT/CED:</b></h4>
-                        </div>
-                        <div class="col-md-4">
-                            <input type="number" style="text-align: center" class="form-control" name="CC" id="CC" disabled>
-                        </div>
-                        <div class="col-md-2 text-center">
+                    <div class="col-md-12" style="display: none; background-color: white" id="form" name="form">
+                        <div class="col-md-5 text-center">
                             <br>
-                            <h4><b>Valor del Registro:</b></h4>
+                            <h2>Registro</h2>
+                            <hr>
+                            <div class="col-md-3 text-center">
+                                <h4><b>Objeto:</b></h4>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" style="text-align: center" class="form-control" name="Objeto" id="Objeto" disabled>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <h4><b>Tercero:</b></h4>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" style="text-align: center" class="form-control" name="Name" id="Name" disabled>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <h4><b>NIT/CED:</b></h4>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="number" style="text-align: center" class="form-control" name="CC" id="CC" disabled>
+                            </div>
+                            <div class="col-md-5 text-center">
+                                <h4><b>Valor Registro:</b></h4>
+                            </div>
+                            <div class="col-md-7">
+                                <input type="number" style="text-align: center" class="form-control" name="ValTo" id="ValTo" disabled>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <h4><b>IVA:</b></h4>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="number" style="text-align: center" class="form-control" name="iva" id="iva" disabled>
+                            </div>
+                            <div class="col-md-7 text-center">
+                                <h4><b>Valor Total del Registro:</b></h4>
+                            </div>
+                            <div class="col-md-5">
+                                <input type="number" style="text-align: center" class="form-control" name="Val" id="Val" disabled>
+                            </div>
+                            <div class="col-md-7 text-center">
+                                <h4><b>Saldo del Registro:</b></h4>
+                            </div>
+                            <div class="col-md-5">
+                                <input type="number" style="text-align: center" class="form-control" name="ValS" id="ValS" disabled>
+                            </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-5 text-center">
                             <br>
-                            <input type="number" style="text-align: center" class="form-control" name="ValTo" id="ValTo" disabled>
-                        </div>
-                        <div class="col-md-2 text-center">
+                            <h2>Orden de Pago</h2>
+                            <hr>
+                            <div class="col-md-6 text-center">
+                                <br>
+                                <h4><b>Orden de Pago No:</b></h4>
+                            </div>
+                            <div class="col-md-6">
+                                <br>
+                                <input type="number" style="text-align: center" class="form-control" value="{{ $numOP + 1 }}" disabled name="num_OP">
+                                <input type="hidden"  class="form-control" name="IdR" id="IdR">
+                            </div>
                             <br>
-                            <h4><b>IVA:</b></h4>
+                            <div class="col-md-3 text-center">
+                                <h4><b>Fecha:</b></h4>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="date" name="fecha" style="text-align: center" class="form-control" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" disabled>
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <h4><b>Concepto:</b></h4>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="text" style="text-align: center" class="form-control" name="concepto" required>
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <h4><b>Valor Orden de Pago sin IVA:</b></h4>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="number" style="text-align: center" class="form-control" name="ValOP" id="ValOP" required onchange="sumar()">
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <h4><b>Valor IVA:</b></h4>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="number" style="text-align: center" class="form-control" name="ValIOP" id="ValIOP" required onchange="sumar()">
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <h4><b>Valor Total Orden de Pago:</b></h4>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="number" style="text-align: center" class="form-control" name="ValTOP" id="ValTOP" required>
+                            </div>
                         </div>
-                        <div class="col-md-2">
-                            <br>
-                            <input type="number" style="text-align: center" class="form-control" required name="iva" id="iva" disabled>
-                        </div>
-                        <div class="col-md-2 text-center">
-                            <br>
-                            <h4><b>Valor Total del Registro:</b></h4>
-                        </div>
-                        <div class="col-md-2">
-                            <br>
-                            <input type="number" style="text-align: center" class="form-control" name="Val" id="Val" disabled>
-                        </div>
-                        </b>
                         <input type="hidden" class="form-control" name="estado" value="0">
                         <center>
                             <div class="form-group row">
@@ -185,12 +213,25 @@
                 $("#Name").val(Name.innerHTML);
                 $("#CC").val(CC.innerHTML);
                 $("#Val").val(Val.innerHTML);
+                $("#ValOP").val(ValTo.innerHTML);
                 $("#ValTo").val(ValTo.innerHTML);
                 $("#iva").val(Iva.innerHTML);
+                $("#ValIOP").val(Iva.innerHTML);
                 $("#IdR").val(content.innerHTML);
+                $("#ValTOP").val(Val.innerHTML);
+                $("#ValS").val(Val.innerHTML);
             } else {
                 $("#form").hide();
             }
+        }
+
+        function sumar() {
+
+            var num1 = document.getElementById("ValOP").value;
+            var num2 = document.getElementById("ValIOP").value;
+
+            var resultado = parseInt(num1) + parseInt(num2);
+            document.getElementById("ValTOP").value = resultado;
         }
 
 

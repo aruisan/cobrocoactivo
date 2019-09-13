@@ -15,8 +15,14 @@
     <div class="table-responsive">
         <table class="table table-hover">
             <tbody>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Dinero</th>
+            </tr    >
             @foreach($cdps as $cdp)
                 <tr>
+                    <td>{{ $cdp['id'] }}</td>
                     <td>{{ $cdp['name'] }}</td>
                     <td>$<?php echo number_format($cdp['saldo'],0) ?></td>
                 </tr>
@@ -40,20 +46,20 @@
     <hr>
     <br>
     {!! Form::open(array('route' => 'registros.store','method'=>'POST','enctype'=>'multipart/form-data')) !!}
-    <div class="table-responsive" id="prog">
+    <div class="table-responsive">
         <table id="tabla_rubrosCdp" class="table table-bordered">
             <thead>
             <tr>
-                <th scope="col" class="text-center">Nombre CDP's</th>
+                <th scope="col" class="text-center">CDP's</th>
                 <th scope="col" class="text-center"><i class="fa fa-trash-o"></i></th>
             </tr>
             </thead>
             <tbody>
             <tr>
                 <td class="text-center">
-                    <select name="cdp_id[]" class="form-group-lg" required>
+                    <select name="cdp_id[]" class="form-control selectF" required>
                         @foreach($cdps as $cdp)
-                            <option value="{{ $cdp['id'] }}">{{ $cdp['name'] }}</option>
+                            <option value="{{ $cdp['id'] }}">{{ $cdp['id'] }} - {{ $cdp['name'] }}</option>
                         @endforeach
                     </select>
                 </td>
@@ -62,7 +68,9 @@
             </tbody>
         </table><br>
         <center>
-            <button type="button" v-on:click.prevent="nuevaFilaPrograma" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp; Agregar Otro CDP</button>
+            <div id="prog">
+                <button type="button" v-on:click.prevent="nuevaFilaPrograma" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp; Agregar Otro CDP</button>
+            </div>
         </center>
     </div>
 </div>
@@ -170,61 +178,41 @@
 
         $(document).ready(function() {
 
+            new Vue({
+                el: '#prog',
+
+                methods:{
+
+                    nuevaFilaPrograma: function(){
+                        $('#tabla_rubrosCdp tbody tr:last').after('<tr>\n' +
+                            '                <td class="text-center">\n' +
+                            '                    <select name="cdp_id[]" class="form-control selectF" required>\n' +
+                            '                        @foreach($cdps as $cdp)\n' +
+                            '                            <option value="{{ $cdp["id"] }}">{{ $cdp["id"] }} - {{ $cdp["name"] }}</option>\n' +
+                            '                        @endforeach\n' +
+                            '                    </select>\n' +
+                            '                </td>\n' +
+                            '                <td class="text-center"><button type="button" class="btn-sm btn-danger borrar">&nbsp;-&nbsp; </button></td>\n' +
+                            '            </tr>');
+
+                    }
+                }
+            });
+
+            $('.selectF').select2();
+
             $('#tabla_rubrosCdp').DataTable( {
                 responsive: true,
                 "searching": false,
                 "ordering" : false
             } );
 
-            $('#tabla_rubrosCdpFin').DataTable( {
-                responsive: true,
-                "searching": false,
-                dom: 'Bfrtip',
-                buttons: [
-                    'pdf' ,'copy', 'csv', 'excel', 'print'
-                ]
-            } );
 
             $(document).on('click', '.borrar', function (event) {
                 event.preventDefault();
                 $(this).closest('tr').remove();
             });
 
-            new Vue({
-                el: '#prog',
-
-                methods:{
-
-                    eliminar: function(dato){
-                        var urlcdpsRegistro = '/administrativo/cdpsRegistro/'+dato;
-                        axios.delete(urlcdpsRegistro).then(response => {
-                            location.reload();
-                        });
-                    },
-
-                    eliminarV: function(dato){
-                        var urlCdpRegistrosValor = '/administrativo/cdpsRegistro/valor/'+dato;
-                        axios.delete(urlCdpRegistrosValor).then(response => {
-                            location.reload();
-                        });
-                    },
-
-                    nuevaFilaPrograma: function(){
-                        var nivel=parseInt($("#tabla_rubrosCdp tr").length);
-                        $('#tabla_rubrosCdp tbody tr:last').after('<tr>\n' +
-                            '                                <td class="text-center">\n' +
-                            '                                    <select name="cdp_id[]" class="form-group-lg" required>\n' +
-                            '                                        @foreach($cdps as $cdp)\n' +
-                            '                                            <option value="{{ $cdp["id"] }}">{{ $cdp["name"] }}</option>\n' +
-                            '                                        @endforeach\n' +
-                            '                                    </select>\n' +
-                            '                                </td>\n' +
-                            '                                <td class="text-center"><button type="button" class="btn-sm btn-danger borrar">&nbsp;-&nbsp; </button></td>\n' +
-                            '                            </tr>');
-
-                    }
-                }
-            });
         } );
     </script>
 @stop
