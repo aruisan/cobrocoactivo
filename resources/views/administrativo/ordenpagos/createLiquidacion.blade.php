@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @section('titulo')
-    Contabilización de Orden de Pago
+    Descuentos de Orden de Pago
 @stop
 @section('sidebar')
     <li>
@@ -25,6 +25,18 @@
             $<?php echo number_format($ordenPago->descuentos->sum('valor'),0) ?>
         </center>
         <br>
+        <center>
+            <h4><b>Valor Orden de Pago - Descuentos</b></h4>
+            <br>
+            $<?php echo number_format($ordenPago->valor - $ordenPago->descuentos->sum('valor'),0) ?>
+        </center>
+        <br>
+        <center>
+            <h4><b>Valor Total Orden de Pago</b></h4>
+            <br>
+            $<?php echo number_format($ordenPago->valor,0) ?>
+        </center>
+        <br>
     </div>
     </div>
 @stop
@@ -32,7 +44,7 @@
     <div class="col-md-12 align-self-center" id="crud">
         <div class="row justify-content-center">
             <br>
-            <center><h2>Contabilización Orden de Pago: {{ $ordenPago->nombre }}</h2></center>
+            <center><h2>Descuentos Orden de Pago: {{ $ordenPago->nombre }}</h2></center>
             <br>
             <div class="row">
                 <div class="col-md-6 text-center">
@@ -109,7 +121,7 @@
                     <br>
                     <div class="col-md-12 align-self-center text-center">
                         <br>
-                        <button type="submit" class="btn btn-success">Contabilizar</button>
+                        <button type="submit" class="btn btn-success">Continuar</button>
                         <button type="button" v-on:click.prevent="nuevaFila" class="btn btn-primary"><i class="fa fa-plus"></i> &nbsp; Agregar PUC</button>
                     </div>
                 </form>

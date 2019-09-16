@@ -44,7 +44,7 @@
                     <input type="hidden" id="ordenPago_id" name="ordenPago_id" value="{{ $ordenPago->id }}">
                     <br>
                     <div class="table-responsive">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th class="text-center">Número CDP</th>
@@ -55,6 +55,11 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <tr class="text-center">
+                                <td colspan="3">IVA de la Orden de Pago</td>
+                                <td>$<?php echo number_format($ordenPago->iva,0) ?></td>
+                                <td><input type="number" style="text-align: center" required name="ValorIva" value="{{ $ordenPago->iva }}"></td>
+                            </tr>
                             @for($i=0;$i< count($cdps); $i++)
                                 <tr class="text-center">
                                     <td>{{$cdps[$i]->cdp_id}}</td>

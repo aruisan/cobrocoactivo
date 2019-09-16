@@ -1,11 +1,5 @@
 <?php
-
-
 Route::get('/', 'VisitanteController@index');
-
-
-
-
 
 Route::get('/info', function(){
 	dd(phpinfo());
@@ -14,7 +8,6 @@ Route::get('/info', function(){
 Auth::routes();
 
 //Route::get('/home', 'Cobro\HomeController@index')->name('home');
-
 
 Route::group([ 'middleware' => 'auth'] ,function(){
 	Route::get('dashboard', 'DashboardController@index');
@@ -154,6 +147,11 @@ Route::group([ 'middleware' => 'auth'] ,function(){
         //PDF OrdenPago y ComprobanteEgresos
         Route::get('ordenPagos/pdf/{id}','Administrativo\OrdenPago\OrdenPagosController@pdf_OP')->name('op-pdf');
         Route::get('egresos/pdf/{id}','Administrativo\OrdenPago\OrdenPagosController@pdf_CE')->name('ce-pdf');
+
+        //PAGOS
+
+        Route::resource('pagos', 'Administrativo\Pago\PagosController');
+
 
         //CONTABILIDAD
 

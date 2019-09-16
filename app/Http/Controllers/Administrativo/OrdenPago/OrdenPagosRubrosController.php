@@ -71,11 +71,20 @@ class OrdenPagosRubrosController extends Controller
     public function store(Request $request)
     {
         $ordenPago = OrdenPagos::findOrFail($request->ordenPago_id);
-        if ( array_sum($request->Valor) != $ordenPago->valor){
+        $total = array_sum($request->Valor) + $request->ValorIva;
+        if ( $total != $ordenPago->valor){
             Session::flash('warning','El valor distribuido no es igual al valor a pagar de la orden de pago: $'.$ordenPago->valor);
             return back();
         } else {
-            dd("bien");
+            for($i=0;$i< count($request->cdp_id); $i++){
+                $store = new OrdenPagosRubros();
+                $store->cdps_registro_valor_id = $request->cdp_id[$i];
+                $store->orden_pagos_id = $request->ordenPago_id;
+                $store->valor = $request->Valor[$i];
+                $store->saldo = $request->Valor[$i];
+                $store->save();
+            }
+            return redirect('/administrativo/ordenPagos/descuento/create/'.$request->ordenPago_id);
         }
     }
 

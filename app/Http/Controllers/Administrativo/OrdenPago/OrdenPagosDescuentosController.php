@@ -32,8 +32,12 @@ class OrdenPagosDescuentosController extends Controller
     public function create($id)
     {
         $retenF = RetencionFuente::all();
-        $desMun = DescMunicipales::all();
         $ordenPago = OrdenPagos::findOrFail($id);
+        if ($ordenPago->iva > 0){
+            $desMun = DescMunicipales::all();
+        } else {
+            $desMun = DescMunicipales::where('id','!=','4')->get();
+        }
         return view('administrativo.ordenpagos.createDescuentos', compact('ordenPago','retenF','desMun'));
 
     }

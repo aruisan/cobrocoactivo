@@ -79,6 +79,7 @@ class OrdenPagosController extends Controller
             $ordenPago->nombre = $request->concepto;
             $ordenPago->valor = $request->ValTOP;
             $ordenPago->saldo = $request->ValTOP;
+            $ordenPago->iva = $request->ValIOP;
             $ordenPago->estado = $request->estado;
             $ordenPago->registros_id = $request->IdR;
             $ordenPago->user_id = auth()->user()->id;
@@ -148,21 +149,28 @@ class OrdenPagosController extends Controller
                 Session::flash('warning','Recuerde seleccionar un PUC antes de continuar');
                 return back();
             }else{
-                $registro->saldo = $registro->saldo - $request->valorPucD[$i];
-                $registro->save();
-                $ordenPago->valor = $ordenPago->valor + $request->valorPucD[$i];
-                $ordenPago->saldo = $ordenPago->saldo +  $request->valorPucD[$i];
-                $ordenPago->save();
-                $oPP = new OrdenPagosPuc();
-                $oPP->rubros_puc_id = $request->PUC[$i];
-                $oPP->orden_pago_id = $request->ordenPago_id;
-                $oPP->valor_debito = $request->valorPucD[$i];
-                $oPP->valor_credito = $request->valorPucC[$i];
-                $oPP->save();
+                $totalDeb = array_sum($request->valorPucD);
+                $totalCred = array_sum($request->valorPucC);
+                $totalDes = $ordenPago->descuentos->sum('valor');
+                if ( $totalCred + $totalDes == $totalDeb){
+                    $registro->saldo = $registro->saldo - $request->valorPucD[$i];
+                    $registro->save();
+                    $oPP = new OrdenPagosPuc();
+                    $oPP->rubros_puc_id = $request->PUC[$i];
+                    $oPP->orden_pago_id = $request->ordenPago_id;
+                    $oPP->valor_debito = $request->valorPucD[$i];
+                    $oPP->valor_credito = $request->valorPucC[$i];
+                    $oPP->save();
+                    $ordenPago->estado = 1;
+                    $ordenPago->save();
+                } else {
+                    Session::flash('warning','Recuerde que los totales del credito y debito deben dar sumas iguales');
+                    return back();
+                }
             }
         }
-        Session::flash('success','La orden de pago se ha contabilizado exitosamente');
-        return redirect('/administrativo/ordenPagos/pay/create/'.$request->ordenPago_id);
+        Session::flash('success','La orden de pago se ha finalizado exitosamente');
+        return redirect('/administrativo/ordenPagos/'.$request->ordenPago_id);
     }
 
     public function paySave(Request $request){

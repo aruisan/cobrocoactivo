@@ -52,8 +52,9 @@
     </div>
     <br>
     @if($OrdenPago->estado == 1)
-        <li> <a href="{{ url('/administrativo/ordenPagos/pdf/'.$OrdenPago->id) }}" target="_blank" class="btn btn-success"><span class="hide-menu"><i class="fa fa-file-pdf-o"></i>&nbsp; Orden de Pago</span></a></li>
-        <li> <a href="{{ url('/administrativo/egresos/pdf/'.$OrdenPago->id) }}" target="_blank" class="btn btn-success"><span class="hide-menu"><i class="fa fa-file-pdf-o"></i> &nbsp; Comprobante de Egresos</span></a></li>
+        <li> <a href="{{ url('/administrativo/ordenPagos/pdf/'.$OrdenPago->id) }}" target="_blank" class="btn btn-primary"><span class="hide-menu"><i class="fa fa-file-pdf-o"></i>&nbsp; Orden de Pago</span></a></li>
+        <!--- <li> <a href="{{ url('/administrativo/egresos/pdf/'.$OrdenPago->id) }}" target="_blank" class="btn btn-success"><span class="hide-menu"><i class="fa fa-file-pdf-o"></i> &nbsp; Comprobante de Egresos</span></a></li>  --->
+        <li> <a href="{{ url('/administrativo/ordenPagos/pay/create/'.$OrdenPago->id) }}" class="btn btn-success"><span class="hide-menu"><i class="fa fa-credit-card"></i>&nbsp; Pagar</span></a></li>
     @else
     <li> <a href="{{ url('/administrativo/ordenPagos/descuento/create/'.$OrdenPago->id) }}" class="btn btn-primary"><span class="hide-menu">Descuentos</span></a></li>
     <li> <a href="{{ url('/administrativo/ordenPagos/liquidacion/create/'.$OrdenPago->id) }}" class="btn btn-success"><span class="hide-menu"><i class="fa fa-credit-card"></i>&nbsp; Liquidar</span></a></li>

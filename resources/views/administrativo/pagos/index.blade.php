@@ -1,12 +1,16 @@
 @extends('layouts.dashboard')
 @section('titulo')
-    Ordenes de Pago
+    Pagos
 @stop
 @section('sidebar')
     <li>
         <a href="{{ url('/administrativo/ordenPagos/create') }}" class="btn btn-success">
             <i class="fa fa-plus"></i>
-            <span class="hide-menu"> Crear Orden de Pago</span></a>
+            <span class="hide-menu"> Crear Pago</span></a>
+    </li>
+    <li>
+        <a href="{{ url('/administrativo/ordenPagos') }}" class="btn btn-primary">
+            <span class="hide-menu"> Ordenes de Pago</span></a>
     </li>
     <li>
         <a href="{{ url('/administrativo/registros') }}" class="btn btn-primary">
@@ -16,7 +20,7 @@
 @section('content')
     <div class="breadcrumb text-center">
         <strong>
-            <h4><b>Ordenes de Pago</b></h4>
+            <h4><b>Pagos</b></h4>
         </strong>
     </div>
     <ul class="nav nav-pills">
