@@ -7,5 +7,5 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class Pagos extends Model implements Auditable
 {
-    //
+    use \OwenIt\Auditing\Auditable;
 }

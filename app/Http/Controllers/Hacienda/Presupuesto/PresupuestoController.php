@@ -16,6 +16,7 @@ use App\Model\Hacienda\Presupuesto\Register;
 use App\Model\Administrativo\Cdp\Cdp;
 use App\Model\Administrativo\Registro\Registro;
 use App\Model\Administrativo\OrdenPago\OrdenPagos;
+use App\Model\Administrativo\OrdenPago\OrdenPagosRubros;
 
 class PresupuestoController extends Controller
 {
@@ -276,6 +277,36 @@ class PresupuestoController extends Controller
         $registros = Registro::all();
 
 
+        //ORDEN DE PAGO
+
+        $OP = OrdenPagosRubros::all();
+        foreach ($OP as $val){
+            $valores[] = ['id' => $val->cdps_registro->rubro->id, 'val' => $val->valor];
+        }
+        foreach ($valores as $id){
+            $ids[] = $id['id'];
+        }
+        $valores2 = array_unique($ids);
+        foreach ($valores2 as $valUni){
+            $keys = array_keys(array_column($valores, 'id'), $valUni);
+            foreach ($keys as $key){
+                $values[] = $valores[$key]["val"];
+            }
+            $valoresF[] = ['id' => $valUni, 'valor' => array_sum($values)];
+            unset($values);
+        }
+        foreach ($rubros as $rub){
+            $validate = in_array($rub->id, $valores2);
+            if ($validate == true ){
+                $data = array_keys(array_column($valoresF, 'id'), $rub->id);
+                $x[] = $valoresF[$data[0]];
+                $valOP[] = collect(['id' => $rub->id, 'valor' => $x[0]['valor']]);
+                unset($x);
+            } else {
+                $valOP[] = collect(['id' => $rub->id, 'valor' => 0]);
+            }
+        }
+
         //ADICION
         foreach ($rubros as $R2){
             $ad = RubrosMov::where([['rubro_id', $R2->id],['movimiento', '=', '2']])->get();
@@ -440,7 +471,7 @@ class PresupuestoController extends Controller
         }
 
 
-        return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp'));
+        return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP'));
     }
 
     /**

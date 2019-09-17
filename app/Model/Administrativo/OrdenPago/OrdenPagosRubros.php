@@ -10,7 +10,7 @@ class OrdenPagosRubros extends Model implements Auditable
     use \OwenIt\Auditing\Auditable;
 
     public function cdps_registro(){
-        return $this->hasMany('App\Model\Administrativo\Registro\CdpsRegistroValor');
+        return $this->belongsTo('App\Model\Administrativo\Registro\CdpsRegistroValor','cdps_registro_valor_id');
     }
 
     public function orden_pago(){

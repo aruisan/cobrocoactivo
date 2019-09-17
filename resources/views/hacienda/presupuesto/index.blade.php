@@ -155,6 +155,7 @@
                                 <th class="text-center">Registros</th>
                                 <th class="text-center">Saldo Disponible</th>
                                 <th class="text-center">Saldo de CDP</th>
+                                <th class="text-center">Ordenes de Pago</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -272,6 +273,17 @@
                                         @foreach($valorDcdp as $valorDCdp)
                                             @if($codigo['id_rubro'] == $valorDCdp['id'])
                                                 <td class="text-center text-dark">$ <?php echo number_format($valorDCdp['valor'],0);?></td>
+                                            @endif
+                                        @endforeach
+                                    <!-- ORDENES DE PAGO -->
+                                        @foreach($valoresIniciales as $valorInicial)
+                                            @if($valorInicial['id'] == $codigo['id'])
+                                                <td class="text-center text-dark">$ 0</td>
+                                            @endif
+                                        @endforeach
+                                        @foreach($valOP as $valorOP)
+                                            @if($codigo['id_rubro'] == $valorOP['id'])
+                                                <td class="text-center text-dark">$ <?php echo number_format($valorOP['valor'],0);?></td>
                                             @endif
                                         @endforeach
                                 </tr>

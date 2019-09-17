@@ -4,7 +4,7 @@
 @stop
 @section('sidebar')
     <li>
-        <a href="{{ url('/administrativo/ordenPagos/create') }}" class="btn btn-success">
+        <a href="{{ url('/administrativo/pagos/create') }}" class="btn btn-success">
             <i class="fa fa-plus"></i>
             <span class="hide-menu"> Crear Pago</span></a>
     </li>
@@ -36,7 +36,7 @@
         <div id="tabTareas" class="tab-pane active"><br>
             <br>
             <div class="table-responsive">
-                @if(count($ordenPagoTarea) > 0)
+                @if(count($pagos) > 0)
                     <table class="table table-bordered" id="tabla_CDP">
                         <thead>
                         <tr>
@@ -80,7 +80,7 @@
                     <br><br>
                     <div class="alert alert-danger">
                         <center>
-                            No hay ordenes de pago pendientes.
+                            No hay pagos pendientes.
                         </center>
                     </div>
                 @endif
@@ -90,7 +90,7 @@
             <br>
             <br>
             <div class="table-responsive">
-                @if(count($ordenPagos) > 0)
+                @if(count($pagos) > 0)
                     <table class="table table-bordered" id="tabla_Historico">
                         <thead>
                         <tr>
@@ -129,7 +129,7 @@
                     <br><br>
                     <div class="alert alert-danger">
                         <center>
-                            No hay ordenes de pago finalizados.
+                            No hay pagos finalizados.
                         </center>
                     </div>
                 @endif

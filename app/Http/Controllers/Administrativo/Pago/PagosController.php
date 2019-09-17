@@ -16,7 +16,9 @@ class PagosController extends Controller
      */
     public function index()
     {
-        dd("bien");
+        $pagos = Pagos::all();
+
+        return view('administrativo.pagos.index', compact('pagos'));
     }
 
     /**
