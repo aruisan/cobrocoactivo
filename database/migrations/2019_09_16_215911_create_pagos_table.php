@@ -25,6 +25,8 @@ class CreatePagosTable extends Migration
             $table->integer('num');
             $table->integer('valor');
             $table->enum('type_pay', ['CHEQUE', 'ACCOUNT','CASH']);
+            $table->enum('estado', [0, 1, 2]);
+            $table->date('ff_fin')->nullable();
 
             $table->timestamps();
         });

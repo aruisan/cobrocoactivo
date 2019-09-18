@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Administrativo\Pago;
 
+use App\Model\Administrativo\Contabilidad\RubrosPuc;
+use App\Model\Administrativo\OrdenPago\OrdenPagos;
 use App\Model\Administrativo\Pago\Pagos;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -28,7 +30,15 @@ class PagosController extends Controller
      */
     public function create()
     {
-        //
+        $ordenPagos = OrdenPagos::where([['estado', '1'], ['saldo', '>', 0]])->get();
+        $PUCS = RubrosPuc::where('naturaleza','1')->get();
+
+        if ($ordenPagos == null){
+            Session::flash('warning', 'No hay ordenes de pago disponibles para crear el pago. ');
+            return redirect('/administrativo/pagos');
+        } else {
+            return view('administrativo.pagos.create', compact('ordenPagos','PUCS'));
+        }
     }
 
     /**

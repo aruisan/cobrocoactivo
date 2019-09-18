@@ -17,6 +17,7 @@ use App\Model\Administrativo\Cdp\Cdp;
 use App\Model\Administrativo\Registro\Registro;
 use App\Model\Administrativo\OrdenPago\OrdenPagos;
 use App\Model\Administrativo\OrdenPago\OrdenPagosRubros;
+use App\Model\Administrativo\Pago\Pagos;
 
 class PresupuestoController extends Controller
 {
@@ -55,6 +56,7 @@ class PresupuestoController extends Controller
             $rubros = Rubro::where('vigencia_id', $vigencia_id)->get();
             $fontsRubros = FontsRubro::orderBy('font_id')->get();
             $allRegisters = Register::orderByDesc('level_id')->get();
+            $pagos = Pagos::all();
             $ordenPagos = OrdenPagos::all();
 
             global $lastLevel;
@@ -471,7 +473,7 @@ class PresupuestoController extends Controller
         }
 
 
-        return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP'));
+        return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP','pagos'));
     }
 
     /**
