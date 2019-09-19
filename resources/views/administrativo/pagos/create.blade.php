@@ -62,24 +62,37 @@
                         <hr>
                         <br>
                         <div class="col-md-12">
-                            <div class="col-md-4">
-                                <label class="control-label text-right col-md-4">Nombre Orden de Pago: </label>
-                                <input type="text" style="text-align: center" class="form-control" name="Objeto" id="Objeto" disabled>
+                            <div class="col-md-4 align-self-center">
+                                <div class="form-group">
+                                    <label class="control-label text-right col-md-4">Nombre Orden de Pago: </label>
+                                    <div class="col-lg-6">
+                                        <input type="hidden" name="IdOP" id="IdOP">
+                                        <input type="hidden" name="ValTo2" id="ValTo2">
+                                        <input type="hidden" name="ff" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}">
+                                        <input type="text" style="text-align: center" class="form-control" name="Objeto" id="Objeto" disabled>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-4">
-                                <label class="control-label text-right col-md-4">Valor de Orden de Pago: </label>
-                                <input type="number" style="text-align: center" class="form-control" name="ValTo" id="ValTo" disabled>
+                            <div class="col-md-4 align-self-center">
+                                <div class="form-group">
+                                    <label class="control-label text-right col-md-4">Valor de Orden de Pago: </label>
+                                    <div class="col-lg-6">
+                                        <input type="number" style="text-align: center" class="form-control" name="ValTo" id="ValTo" disabled>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-4">
-                                <label class="control-label text-right col-md-4">Tercero Orden de Pago: </label>
-                                <input type="text" style="text-align: center" class="form-control" name="Name" id="Name" disabled>
+                            <div class="col-md-4 align-self-center">
+                                <div class="form-group">
+                                    <label class="control-label text-right col-md-4">Tercero Orden de Pago: </label>
+                                    <div class="col-lg-6">
+                                        <input type="text" style="text-align: center" class="form-control" name="Name" id="Name" disabled>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <br>
                         <hr>
                         <br>
-                        <input type="hidden" name="IdOP" id="IdOP">
-                        <input type="hidden" name="ValTo" id="ValTo">
                         <div class="col-md-4 align-self-center">
                             <div class="form-group">
                                 <select class="form-control" id="form_pay" name="type_pay" onchange="var date= document.getElementById('fecha'); var cheque = document.getElementById('cheque'); var tarjeta = document.getElementById('tarjeta'); var bank = document.getElementById('table_bank'); if(this.value=='1'){ fecha.style.display='inline'; cheque.style.display='inline'; bank.style.display='inline'; tarjeta.style.display='none';}else if(this.value=='2'){ fecha.style.display='inline'; cheque.style.display='none'; bank.style.display='inline'; tarjeta.style.display='inline';}else{fecha.style.display='none'; bank.style.display='none'; cheque.style.display='none'; tarjeta.style.display='none'; }">
@@ -187,6 +200,7 @@
 
         function ver(col, Obj, Name, Val, ValTo, Iva){
             content = document.getElementById(col);
+            var Id = document.getElementById(col);
             var Obj = document.getElementById(Obj);
             var Name = document.getElementById(Name);
             var Val = document.getElementById(Val);
@@ -195,11 +209,13 @@
             var data = content.innerHTML;
             if (data) {
                 $("#form").show();
+                $("#IdOP").val(Id.innerHTML);
                 $("#Objeto").val(Obj.innerHTML);
                 $("#Name").val(Name.innerHTML);
                 $("#Val").val(Val.innerHTML);
                 $("#ValOP").val(ValTo.innerHTML);
                 $("#ValTo").val(ValTo.innerHTML);
+                $("#ValTo2").val(ValTo.innerHTML);
                 $("#iva").val(Iva.innerHTML);
                 $("#ValIOP").val(Iva.innerHTML);
                 $("#IdR").val(content.innerHTML);

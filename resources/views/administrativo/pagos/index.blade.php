@@ -36,41 +36,39 @@
         <div id="tabTareas" class="tab-pane active"><br>
             <br>
             <div class="table-responsive">
-                @if(count($pagos) > 0)
-                    <table class="table table-bordered" id="tabla_CDP">
+                @if(count($pagosTarea) > 0)
+                    <table class="table table-bordered" id="tabla_Fin">
                         <thead>
                         <tr>
                             <th class="text-center">#</th>
                             <th class="text-center">Concepto</th>
                             <th class="text-center">Valor</th>
                             <th class="text-center">Estado</th>
-                            <th class="text-center">Registro</th>
                             <th class="text-center">Tercero</th>
                             <th class="text-center">Acciones</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($ordenPagoTarea as $ordenPagoT)
+                        @foreach($pagosTarea as $pagoT)
                             <tr class="text-center">
-                                <td>{{ $ordenPagoT->id }}</td>
-                                <td>{{ $ordenPagoT->nombre }}</td>
-                                <td>$<?php echo number_format($ordenPagoT->valor,0) ?></td>
+                                <td>{{ $pagoT->id }}</td>
+                                <td>{{ $pagoT->orden_pago_id }}</td>
+                                <td>$<?php echo number_format($pagoT->valor,0) ?></td>
                                 <td>
                                     <span class="badge badge-pill badge-danger">
-                                        @if($ordenPagoT->estado == "0")
+                                        @if($pagoT->estado == "0")
                                             Pendiente
-                                        @elseif($ordenPagoT->estado == "1")
+                                        @elseif($pagoT->estado == "1")
                                             Finalizado
                                         @else
                                             Anulado
                                         @endif
                                     </span>
                                 </td>
-                                <td class="text-center">{{ $ordenPagoT->registros->objeto }}</td>
-                                <td class="text-center">{{ $ordenPagoT->registros->persona->nombre }}</td>
+                                <td class="text-center">{{ $pagoT->id }}</td>
                                 <td>
-                                    <a href="{{ url('administrativo/ordenPagos/'.$ordenPagoT->id.'/edit') }}" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
-                                    <a href="{{ url('administrativo/ordenPagos/'.$ordenPagoT->id) }}" title="Ver Orden de Pago" class="btn-sm btn-success"><i class="fa fa-eye"></i></a>
+                                    <a href="{{ url('administrativo/ordenPagos/'.$pagoT->id.'/edit') }}" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                                    <a href="{{ url('administrativo/ordenPagos/'.$pagoT->id) }}" title="Ver Orden de Pago" class="btn-sm btn-success"><i class="fa fa-eye"></i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -94,24 +92,28 @@
                     <table class="table table-bordered" id="tabla_Historico">
                         <thead>
                         <tr>
-                            <th class="text-center">#</th>
-                            <th class="text-center">Concepto</th>
-                            <th class="text-center">Valor</th>
+                            <th class="text-center">Id Pago</th>
+                            <th class="text-center">Id Orden de Pago</th>
+                            <th class="text-center">Concepto Orden de Pago</th>
+                            <th class="text-center">Valor Pago</th>
+                            <th class="text-center">Tercero</th>
                             <th class="text-center">Estado</th>
                             <th class="text-center">Acciones</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($ordenPagos as $ordenPago)
+                        @foreach($pagos as $pago)
                             <tr class="text-center">
-                                <td>{{ $ordenPago->id }}</td>
-                                <td>{{ $ordenPago->nombre }}</td>
-                                <td>$<?php echo number_format($ordenPago->valor,0) ?></td>
+                                <td>{{ $pago->id }}</td>
+                                <td><a href="{{ url('administrativo/ordenPagos/'.$pago->orden_pago_id) }}">{{ $pago->orden_pago_id }}</a></td>
+                                <td>{{ $pago->orden_pago->nombre }}</td>
+                                <td>$<?php echo number_format($pago->valor,0) ?></td>
+                                <td>{{ $pago->orden_pago->registros->persona->nombre }}</td>
                                 <td>
                                     <span class="badge badge-pill badge-danger">
-                                        @if($ordenPago->estado == "0")
+                                        @if($pago->estado == "0")
                                             Pendiente
-                                        @elseif($ordenPago->estado == "1")
+                                        @elseif($pago->estado == "1")
                                             Finalizado
                                         @else
                                             Anulado
@@ -119,7 +121,7 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <a href="{{ url('administrativo/ordenPagos/'.$ordenPago->id) }}" title="Ver Orden de Pago" class="btn-sm btn-success"><i class="fa fa-eye"></i></a>
+                                    <a href="{{ url('administrativo/pagos/'.$pago->id) }}" title="Ver Pago" class="btn-sm btn-success"><i class="fa fa-eye"></i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -138,7 +140,7 @@
 @stop
 @section('js')
     <script>
-        $('#tabla_CDP').DataTable( {
+        $('#tabla_Fin').DataTable( {
             responsive: true,
             "searching": true,
             dom: 'Bfrtip',
@@ -155,6 +157,5 @@
                 'copy', 'csv', 'excel', 'print'
             ]
         } );
-
     </script>
 @stop

@@ -27,8 +27,8 @@ class RubrosPuc extends Model implements Auditable
         return $this->hasMany('App\Model\Administrativo\OrdenPago\OrdenPagosPuc');
     }
 
-    public function payments(){
-        return $this->hasMany('App\Model\Administrativo\OrdenPago\OrdenPagosPayments');
+    public function pago(){
+        return $this->hasMany('App\Model\Administrativo\Pago\Pagos');
     }
 
 }

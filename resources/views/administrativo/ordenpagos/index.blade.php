@@ -9,6 +9,10 @@
             <span class="hide-menu"> Crear Orden de Pago</span></a>
     </li>
     <li>
+        <a href="{{ url('/administrativo/pagos') }}" class="btn btn-primary">
+            <span class="hide-menu"> Pagos</span></a>
+    </li>
+    <li>
         <a href="{{ url('/administrativo/registros') }}" class="btn btn-primary">
             <span class="hide-menu"> Registros</span></a>
     </li>
