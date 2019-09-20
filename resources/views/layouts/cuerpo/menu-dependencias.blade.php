@@ -57,6 +57,19 @@
     </ul>
 </li>
 <li class="dropdown">
+    <a class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+        ?
+        <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+        <li><a tabindex="-1" href="#">?</a></li>
+        <li><a tabindex="-1" href="#">?</a></li>
+        <li><a tabindex="-1" href="#">?</a></li>
+        <li><a tabindex="-1" href="#">?</a></li>
+        <li><a tabindex="-1" href="#">?</a></li>
+    </ul>
+</li>
+<li class="dropdown">
   <a class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" title="Configuración">
     <i class="fa fa-cogs" aria-hidden="true"></i>
     <span class="caret"></span>

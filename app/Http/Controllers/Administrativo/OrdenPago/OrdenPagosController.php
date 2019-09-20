@@ -169,6 +169,8 @@ class OrdenPagosController extends Controller
                 }
             }
         }
+        $ordenPago->estado = "1";
+        $ordenPago->save();
         Session::flash('success','La orden de pago se ha finalizado exitosamente');
         return redirect('/administrativo/ordenPagos/'.$request->ordenPago_id);
     }
@@ -455,7 +457,7 @@ class OrdenPagosController extends Controller
     public function pdf_CE($id)
     {
         $OrdenPago = OrdenPagos::findOrFail($id);
-        $Egreso_id = $OrdenPago->payments[0]->egreso->id;
+        $Egreso_id = $OrdenPago->pago->id;
         $OrdenPagoDescuentos = OrdenPagosDescuentos::where('orden_pagos_id', $id)->get();
         $R = Registro::findOrFail($OrdenPago->registros_id);
 
@@ -525,7 +527,7 @@ class OrdenPagosController extends Controller
             }
         }
 
-        $fecha = Carbon::createFromTimeString($OrdenPago->payments[0]->egreso->created_at);
+        $fecha = Carbon::createFromTimeString($OrdenPago->pago->created_at);
         $fechaO = Carbon::createFromTimeString($OrdenPago->created_at);
         $dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
         $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");

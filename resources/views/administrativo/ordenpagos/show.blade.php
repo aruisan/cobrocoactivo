@@ -53,8 +53,7 @@
     <br>
     @if($OrdenPago->estado == 1)
         <li> <a href="{{ url('/administrativo/ordenPagos/pdf/'.$OrdenPago->id) }}" target="_blank" class="btn btn-primary"><span class="hide-menu"><i class="fa fa-file-pdf-o"></i>&nbsp; Orden de Pago</span></a></li>
-        <!--- <li> <a href="{{ url('/administrativo/egresos/pdf/'.$OrdenPago->id) }}" target="_blank" class="btn btn-success"><span class="hide-menu"><i class="fa fa-file-pdf-o"></i> &nbsp; Comprobante de Egresos</span></a></li>  --->
-        <li> <a href="{{ url('/administrativo/ordenPagos/pay/create/'.$OrdenPago->id) }}" class="btn btn-success"><span class="hide-menu"><i class="fa fa-credit-card"></i>&nbsp; Pagar</span></a></li>
+        <li> <a href="{{ url('/administrativo/pagos/create/') }}" class="btn btn-success"><span class="hide-menu"><i class="fa fa-credit-card"></i>&nbsp; Pagar</span></a></li>
     @else
     <li> <a href="{{ url('/administrativo/ordenPagos/descuento/create/'.$OrdenPago->id) }}" class="btn btn-primary"><span class="hide-menu">Descuentos</span></a></li>
     <li> <a href="{{ url('/administrativo/ordenPagos/liquidacion/create/'.$OrdenPago->id) }}" class="btn btn-success"><span class="hide-menu"><i class="fa fa-credit-card"></i>&nbsp; Liquidar</span></a></li>
@@ -204,44 +203,6 @@
                         <td>$<?php echo number_format($OrdenPago->pucs[$z]->valor_credito,0);?></td>
                     </tr>
                 @endfor
-                </tbody>
-            </table>
-        </div>
-        <hr>
-        <center>
-            <h3>Movimiento Bancario</h3>
-        </center>
-        <hr>
-        <br>
-        <div class="table-responsive">
-            <table class="table table-bordered" id="tablaP">
-                <thead>
-                <tr>
-                    <th class="text-center">Codigo</th>
-                    <th class="text-center">Banco / Cuenta</th>
-                    <th class="text-center">Descripción</th>
-                    <th class="text-center">Valor</th>
-                </tr>
-                </thead>
-                <tbody>
-                @for($y = 0; $y < count($OrdenPago->payments); $y++)
-                    <tr class="text-center">
-                        <td>{{ $OrdenPago->payments[$y]->data_puc->codigo }}</td>
-                        <td>{{ $OrdenPago->payments[$y]->data_puc->nombre_cuenta }}</td>
-                        @if($OrdenPago->payments[$y]->type_pay == "ACCOUNT")
-                            @php( $date = strftime("%d of %B %Y", strtotime($OrdenPago->payments[$y]->created_at)))
-                            <td> Núm Cuenta: {{$OrdenPago->payments[$y]->num}} - Fecha: {{$date}}</td>
-                        @elseif($OrdenPago->payments[$y]->type_pay == "CHEQUE")
-                            @php( $date = strftime("%d of %B %Y", strtotime($OrdenPago->payments[$y]->created_at)))
-                            <td> Núm Cheque: {{$OrdenPago->payments[$y]->num}} - Fecha: {{$date}}</td>
-                        @endif
-                        <td>$<?php echo number_format($OrdenPago->payments[$y]->valor,0);?></td>
-                    </tr>
-                @endfor
-                <tr class="text-center" style="background-color: rgba(19,165,255,0.14)">
-                    <td colspan="3"><b>Total</b></td>
-                    <td><b>$<?php echo number_format($OrdenPago->payments->sum('valor'),0);?></b></td>
-                </tr>
                 </tbody>
             </table>
         </div>

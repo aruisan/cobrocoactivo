@@ -713,9 +713,9 @@
                                 @foreach ($pagos as $key => $data)
                                     <tr>
                                         <td class="text-center">{{ $data->id }}</td>
-                                        <td class="text-center">{{ $data->orden_pago_id }}</td>
+                                        <td class="text-center">{{ $data->orden_pago->nombre }}</td>
                                         <td class="text-center">$<?php echo number_format($data->valor,0) ?></td>
-                                        <td class="text-center">{{ $data->orden_pago_id }}</td>
+                                        <td class="text-center">{{ $data->orden_pago->registros->persona->nombre }}</td>
                                         <td class="text-center">
                                     <span class="badge badge-pill badge-danger">
                                         @if($data->estado == "0")

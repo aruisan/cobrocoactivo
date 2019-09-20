@@ -61,6 +61,27 @@
                             <th class="text-center">Valor</th>
                             </thead>
                             <tbody>
+                            <tr v-for="dato in datos">
+                                <td>
+                                    <input type="hidden" name="id[]">
+                                    <div class="col-md-12">
+                                        <div class="col-md-1">
+                                            <button type="button" class="btn-sm btn-danger" v-on:click.prevent="eliminarDatos(dato.id)" ><i class="fa fa-trash-o"></i></button>
+                                        </div>
+                                        <div class="col-md-11">
+                                            <input type="text" id="retencionF" name="retencionF" style="text-align:center">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <input type="number" id="percent" name="porcent" style="text-align:center" disabled>
+                                </td>
+                                <td><input type="number" id="base" name="base" disabled style="text-align:center"></td>
+                                <td>
+                                    <input type="number" id="valor" style="text-align:center" disabled>
+                                    <input type="hidden" id="valor2" name="valor" value="">
+                                </td>
+                            </tr>
                             <tr>
                                 <input type="hidden" name="id[]">
                                 <td>

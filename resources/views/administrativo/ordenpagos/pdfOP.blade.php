@@ -171,23 +171,23 @@
 				</tr>
 				</thead>
 				<tbody>
-				@for($y = 0; $y < count($OrdenPago->payments); $y++)
+				@for($y = 0; $y < count($OrdenPago->pago); $y++)
 					<tr class="text-center">
-						<td>{{ $OrdenPago->payments[$y]->data_puc->codigo }}</td>
-						<td>{{ $OrdenPago->payments[$y]->data_puc->nombre_cuenta }}</td>
+						<td>{{ $OrdenPago->pago[$y]->data_puc->codigo }}</td>
+						<td>{{ $OrdenPago->pago[$y]->data_puc->nombre_cuenta }}</td>
 						<td>{{ $OrdenPago->registros->persona->num_dc }} {{ $OrdenPago->registros->persona->nombre }}</td>
-						@if($OrdenPago->payments[$y]->data_puc->naturaleza % 2 == 0)
+						@if($OrdenPago->pago[$y]->data_puc->naturaleza % 2 == 0)
 							<?php
-							$valuesD[] = $OrdenPago->payments[$y]->valor;
+							$valuesD[] = $OrdenPago->pago[$y]->valor;
 							?>
-							<td>$<?php echo number_format($OrdenPago->payments[$y]->valor,0);?></td>
+							<td>$<?php echo number_format($OrdenPago->pago[$y]->valor,0);?></td>
 							<td>$0</td>
 						@else
 							<?php
-							$valuesC[] = $OrdenPago->payments[$y]->valor;
+							$valuesC[] = $OrdenPago->pago[$y]->valor;
 							?>
 							<td>$0</td>
-							<td>$<?php echo number_format($OrdenPago->payments[$y]->valor,0);?></td>
+							<td>$<?php echo number_format($OrdenPago->pago[$y]->valor,0);?></td>
 						@endif
 					</tr>
 				@endfor
