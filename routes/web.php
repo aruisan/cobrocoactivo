@@ -151,6 +151,8 @@ Route::group([ 'middleware' => 'auth'] ,function(){
         //PAGOS
 
         Route::resource('pagos', 'Administrativo\Pago\PagosController');
+        Route::get('pagos/asignacion/{id}','Administrativo\Pago\PagosController@asignacion');
+        Route::put('pagos/asignacion/store','Administrativo\Pago\PagosController@asignacionStore');
 
 
         //CONTABILIDAD

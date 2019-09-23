@@ -35,19 +35,22 @@
                                     <th class="text-center hidden">Valor</th>
                                     <th class="text-center hidden">Valor</th>
                                     <th class="text-center hidden">iva</th>
+                                    <th class="text-center hidden">desc</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach ($ordenPagos as $key => $data)
-                                    <tr onclick="ver('col{{$data->id}}','Obj{{$data->nombre}}','Name{{$data->registros->persona->nombre}}','Val{{$data->saldo}}','ValTo{{$data->valor}}','Iva{{$data->iva}}');" style="cursor:pointer">
+                                    <?php $desc = $data->valor - $data->descuentos->sum('valor');?>
+                                    <tr onclick="ver('col{{$data->id}}','Obj{{$data->nombre}}','Name{{$data->registros->persona->nombre}}','Val{{$data->saldo}}','ValTo{{$data->valor}}','Iva{{$data->iva}}','Desc{{$desc}}');" style="cursor:pointer">
                                         <td id="col{{$data->id}}" class="text-center">{{ $data->id }}</td>
                                         <td id="Obj{{$data->nombre}}" class="text-center">{{ $data->nombre }}</td>
                                         <td id="Name{{$data->registros->persona->nombre}}" class="text-center">{{ $data->registros->persona->nombre }}</td>
-                                        <td class="text-center">$<?php echo number_format($data->valor,0) ?></td>
+                                        <td class="text-center">$<?php echo number_format($desc,0) ?></td>
                                         <td class="text-center">$<?php echo number_format($data->saldo,0) ?></td>
                                         <td id="Val{{$data->saldo}}" class="text-center hidden">{{ $data->saldo }}</td>
                                         <td id="ValTo{{$data->valor}}" class="text-center hidden">{{ $data->valor }}</td>
                                         <td id="Iva{{$data->iva}}" class="text-center hidden">{{ $data->iva }}</td>
+                                        <td id="Desc{{$desc}}" class="text-center hidden">{{ $desc }}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -67,7 +70,7 @@
                                     <label class="control-label text-right col-md-4">Nombre Orden de Pago: </label>
                                     <div class="col-lg-6">
                                         <input type="hidden" name="IdOP" id="IdOP">
-                                        <input type="hidden" name="ValTo2" id="ValTo2">
+                                        <input type="hidden" name="SaldoOP" id="SaldoOP">
                                         <input type="hidden" name="ff" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}">
                                         <input type="text" style="text-align: center" class="form-control" name="Objeto" id="Objeto" disabled>
                                     </div>
@@ -90,6 +93,37 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-12">
+                            <div class="col-md-4 align-self-center">
+                                <div class="form-group">
+                                    <label class="control-label text-right col-md-4">Valor Orden de Pago - Descuentos: </label>
+                                    <div class="col-lg-6">
+                                        <input type="text" style="text-align: center" class="form-control" name="ValOD" id="ValOD" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 align-self-center">
+                                <div class="form-group">
+                                    <label class="control-label text-right col-md-4">Valor Disponible Orden de Pago: </label>
+                                    <div class="col-lg-6">
+                                        <input type="number" style="text-align: center" class="form-control" name="ValDis" id="ValDis" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 align-self-center">
+                                <div class="form-group">
+                                    <label class="control-label text-right col-md-4">Monto a Pagar: </label>
+                                    <div class="col-lg-6">
+                                        <input type="text" style="text-align: center" class="form-control" min="0" name="Monto" id="Monto" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <center>
+                            <button type="submit" class="btn btn-success">Continuar</button>
+                        </center>
+                        <!--
                         <br>
                         <hr>
                         <br>
@@ -161,6 +195,7 @@
                                 <button type="submit" class="btn btn-success"><i class="fa fa-usd"></i><i class="fa fa-arrow-right"></i>&nbsp; &nbsp; Pagar</button>
                             </center>
                         </div>
+                        -->
                     </div>
                 </form>
             </div>
@@ -198,7 +233,7 @@
             });
         } );
 
-        function ver(col, Obj, Name, Val, ValTo, Iva){
+        function ver(col, Obj, Name, Val, ValTo, Iva, Desc){
             content = document.getElementById(col);
             var Id = document.getElementById(col);
             var Obj = document.getElementById(Obj);
@@ -206,6 +241,7 @@
             var Val = document.getElementById(Val);
             var ValTo = document.getElementById(ValTo);
             var Iva = document.getElementById(Iva);
+            var Desc = document.getElementById(Desc);
             var data = content.innerHTML;
             if (data) {
                 $("#form").show();
@@ -221,6 +257,10 @@
                 $("#IdR").val(content.innerHTML);
                 $("#ValTOP").val(Val.innerHTML);
                 $("#ValS").val(Val.innerHTML);
+                $("#ValOD").val(Desc.innerHTML);
+                $("#ValDis").val(Val.innerHTML);
+                $("#Monto").val(Val.innerHTML);
+                $("#SaldoOP").val(Val.innerHTML);
             } else {
                 $("#form").hide();
             }

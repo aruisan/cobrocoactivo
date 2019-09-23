@@ -19,9 +19,9 @@ class CreatePagosTable extends Migration
             $table->integer('orden_pago_id')->unsigned();
             $table->foreign('orden_pago_id')->references('id')->on('orden_pagos');
 
-            $table->integer('num');
+            $table->integer('num')->nullable();
             $table->integer('valor');
-            $table->enum('type_pay', ['CHEQUE', 'ACCOUNT','CASH']);
+            $table->enum('type_pay', ['CHEQUE', 'ACCOUNT','CASH'])->nullable();
             $table->enum('estado', [0, 1, 2]);
             $table->date('ff_fin')->nullable();
 
