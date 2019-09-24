@@ -30,7 +30,7 @@
           <h5>Valor Registro + Valor IVA</h5>
       </center>
       <div class="text-center">
-          $<?php echo number_format($registro->saldo,0) ?>
+          $<?php echo number_format($registro->val_total,0) ?>
       </div>
       <br>
       @if($registro->secretaria_e != 3)

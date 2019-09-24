@@ -69,15 +69,29 @@
 </li>
 <li class="dropdown">
     <a class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
-        ?
+        Juridica
         <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
-        <li><a tabindex="-1" href="#">?</a></li>
-        <li><a tabindex="-1" href="#">?</a></li>
-        <li><a tabindex="-1" href="#">?</a></li>
-        <li><a tabindex="-1" href="#">?</a></li>
-        <li><a tabindex="-1" href="#">?</a></li>
+        <li class="dropdown-submenu">
+            <a class="test" href="#">Cobro Coactivo <span class="fa fa-caret-right"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Predial</a></li>
+                <li><a href="#">Industria y Comercio (ICA)</a></li>
+                <li><a href="#">Comparendos</a></li>
+                <li><a href="#">Convivencia</a></li>
+                <li><a href="#">Otros</a></li>
+            </ul>
+        </li>
+        <li class="dropdown-submenu">
+            <a class="test" href="#">Demandas <span class="fa fa-caret-right"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Demandante</a></li>
+                <li><a href="#">Demandado</a></li>
+                <li><a href="#">Conciliaciones</a></li>
+            </ul>
+        </li>
+        <li><a tabindex="-1" href="#">Policivos</a></li>
     </ul>
 </li>
 <li class="dropdown">

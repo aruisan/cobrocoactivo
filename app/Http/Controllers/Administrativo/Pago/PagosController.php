@@ -51,50 +51,30 @@ class PagosController extends Controller
      */
     public function store(Request $request)
     {
-        $valReceived =array_sum($request->val);
-        $valTotal = $request->ValTo2;
-        $valR =number_format($valReceived,0);
-        $valT = number_format($valTotal,0);
+        if ($request->Monto > $request->SaldoOP){
 
-        if ($valReceived == $valTotal){
+            Session::flash('warning','El valor que va a pagar: $'.$request->Monto.' es mayor al valor disponible de la orden de pago: $'.$request->SaldoOP);
+            return back();
+        } else {
 
             $Pago = new Pagos();
             $Pago->orden_pago_id = $request->IdOP;
-            if ($request->type_pay == "1"){
-                $Pago->num = $request->num_cheque;
-                $Pago->type_pay = "CHEQUE";
-            }elseif ($request->type_pay == "2"){
-                $Pago->num = $request->num_cuenta;
-                $Pago->type_pay = "ACCOUNT";
-            }
-            $Pago->valor = $valTotal;
-            $Pago->estado = "1";
-            $Pago->ff_fin = $request->ff;
+            $Pago->valor = $request->Monto;
+            $Pago->estado = "0";
             $Pago->save();
 
-            $ordenPago = OrdenPagos::findOrFail($request->IdOP);
-            $ordenPago->saldo = $ordenPago->saldo - $valReceived;
-            $ordenPago->save();
-
-            for($i=0;$i< count($request->banco); $i++){
-
-                $banks = new PagoBanks();
-                $banks->pagos_id = $Pago->id;
-                $banks->rubros_puc_id = $request->banco[$i];
-                $banks->valor = $request->val[$i];
-                $banks->save();
-
-            }
-
-            Session::flash('success','El pago se ha finalizado exitosamente');
-            return redirect('/administrativo/pagos/'.$Pago->id);
-        } elseif ($valReceived > $valTotal){
-            Session::flash('warning','El valor que va a pagar: $'.$valR.' es mayor al valor correspondiente del pago: $'.$valT);
-            return back();
-        } else{
-            Session::flash('warning','El valor que va a pagar: $'.$valR.' es menor al valor correspondiente del pago: $'.$valT);
-            return back();
+            return redirect('/administrativo/pagos/asignacion/'.$Pago->id);
         }
+    }
+
+    public function asignacion($id){
+        $pago = Pagos::findOrFail($id);
+
+        return view('administrativo.pagos.createRubros', compact('pago'));
+    }
+
+    public function asignacionStore(Request $request){
+        dd($request);
     }
 
     /**

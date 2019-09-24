@@ -32,23 +32,27 @@
                                         <th class="text-center">Objeto</th>
                                         <th class="text-center">Tercero</th>
                                         <th class="text-center hidden">NIT/CED</th>
-                                        <th class="text-center">Valor</th>
+                                        <th class="text-center">Valor Total</th>
+                                        <th class="text-center">Saldo Disponible</th>
                                         <th class="text-center hidden">Valor</th>
                                         <th class="text-center hidden">Valor</th>
                                         <th class="text-center hidden">iva</th>
+                                        <th class="text-center hidden">ValorTot</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @foreach ($Registros as $key => $data)
-                                        <tr onclick="ver('col{{$data->id}}','Obj{{$data->objeto}}','Name{{$data->persona->nombre}}','Cc{{$data->persona->num_dc}}','Val{{$data->saldo}}','ValTo{{$data->valor}}','Iva{{$data->iva}}');" style="cursor:pointer">
+                                        <tr onclick="ver('col{{$data->id}}','Obj{{$data->objeto}}','Name{{$data->persona->nombre}}','Cc{{$data->persona->num_dc}}','Sal{{$data->saldo}}','Val{{$data->valor}}','Iva{{$data->iva}}','ValTo{{ $data->val_total}}');" style="cursor:pointer">
                                             <td id="col{{$data->id}}" class="text-center">{{ $data->id }}</td>
                                             <td id="Obj{{$data->objeto}}" class="text-center">{{ $data->objeto }}</td>
                                             <td id="Name{{$data->persona->nombre}}" class="text-center">{{ $data->persona->nombre }}</td>
                                             <td id="Cc{{$data->persona->num_dc}}" class="text-center hidden">{{ $data->persona->num_dc }}</td>
                                             <td class="text-center">$<?php echo number_format($data->val_total,0) ?></td>
-                                            <td id="Val{{$data->saldo}}" class="text-center hidden">{{ $data->saldo }}</td>
-                                            <td id="ValTo{{$data->valor}}" class="text-center hidden">{{ $data->valor }}</td>
+                                            <td class="text-center">$<?php echo number_format($data->saldo,0) ?></td>
+                                            <td id="Sal{{$data->saldo}}" class="text-center hidden">{{ $data->saldo }}</td>
+                                            <td id="Val{{$data->valor}}" class="text-center hidden">{{ $data->valor }}</td>
                                             <td id="Iva{{$data->iva}}" class="text-center hidden">{{ $data->iva }}</td>
+                                            <td id="ValTo{{$data->val_total}}" class="text-center hidden">{{ $data->val_total}}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -91,7 +95,7 @@
                                 <h4><b>Valor Registro:</b></h4>
                             </div>
                             <div class="col-md-7">
-                                <input type="number" style="text-align: center" class="form-control" name="ValTo" id="ValTo" disabled>
+                                <input type="number" style="text-align: center" class="form-control" name="ValRegistro" id="ValRegistro" disabled>
                             </div>
                             <div class="col-md-3 text-center">
                                 <h4><b>IVA:</b></h4>
@@ -198,11 +202,12 @@
             } );
         } );
 
-        function ver(col, Obj, Name, CC, Val, ValTo, Iva){
+        function ver(col, Obj, Name, CC, Val, ValTo, Iva, Sal){
             content = document.getElementById(col);
             var Obj = document.getElementById(Obj);
             var Name = document.getElementById(Name);
             var CC = document.getElementById(CC);
+            var Sal = document.getElementById(Sal);
             var Val = document.getElementById(Val);
             var ValTo = document.getElementById(ValTo);
             var Iva = document.getElementById(Iva);
@@ -212,13 +217,13 @@
                 $("#Objeto").val(Obj.innerHTML);
                 $("#Name").val(Name.innerHTML);
                 $("#CC").val(CC.innerHTML);
-                $("#Val").val(Val.innerHTML);
+                $("#Val").val(Sal.innerHTML);
                 $("#ValOP").val(ValTo.innerHTML);
-                $("#ValTo").val(ValTo.innerHTML);
+                $("#ValRegistro").val(ValTo.innerHTML);
                 $("#iva").val(Iva.innerHTML);
                 $("#ValIOP").val(Iva.innerHTML);
                 $("#IdR").val(content.innerHTML);
-                $("#ValTOP").val(Val.innerHTML);
+                $("#ValTOP").val(Sal.innerHTML);
                 $("#ValS").val(Val.innerHTML);
             } else {
                 $("#form").hide();
