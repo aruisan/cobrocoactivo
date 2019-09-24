@@ -14,7 +14,7 @@ class CreatePrediosTable extends Migration
      */
     public function up()
     {
-        /*
+        
         Schema::create('predios', function (Blueprint $table) {
             $table->increments('id');
             $table->string('ficha_catastral', 40)->unique(); //este es el identificador nacional de un predio como la cedula de una persona en mi pais el dni en otros es la identificacion unico del predio a nivel nacional no se puede repetir
@@ -54,7 +54,7 @@ class CreatePrediosTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-        */
+        
     }
 
     /**

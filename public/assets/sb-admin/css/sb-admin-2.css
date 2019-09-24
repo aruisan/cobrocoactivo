@@ -10,7 +10,7 @@ body {
   width: 100%;
 }
 #page-wrapper {
-  height: 100vh;
+  /*height: 100vh;*/
   padding: 0 15px;
   min-height: 568px;
   background-color: white;

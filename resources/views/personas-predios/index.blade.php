@@ -1,36 +1,29 @@
+@extends('layouts.dashboard')
 
-@extends('adminlte::page')
-
-@section('title', 'CobroCoactivo')
-
-@section('content_header')
-    <h1>Predios</h1>
+@section('titulo')
+    Funcionarios
 @stop
-
+@section('sidebar')
+  @include('cobro.predios.cuerpo.aside')
+@stop
 @section('content')
     
 	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-2">
 				<button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#myModal" 
 		    			data-id="{{$predio->id}}">
 		    		Ingresar Dueños al Predio
 		    		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 		    	</button>
-			</div>
-		</div>
-
-		<br>
 
 		<ul class="nav nav-tabs">
-			<li role="presentation"><a href="{{url('admin/predios')}}">Predios</a></li>
-		  <li role="presentation" class="active"><a href="">Asignaer personas a predio</a></li>
-		  <li role="presentation"><a href="{{route('unnassigned')}}">Predios sin Asignar</a></li>
-		  <li role="presentation"><a href="{{route('assignor')}}">Predios Asignados</a></li> 
+			<li role="presentation"><a href="{{url('predios')}}">Predios</a></li>
+		  <li role="presentation" class="active"><a href="">Asignar personas a predio</a></li>
+{{-- 		  <li role="presentation"><a href="{{route('unnassigned')}}">Predios sin Asignar</a></li>
+		  <li role="presentation"><a href="{{route('assignor')}}">Predios Asignados</a></li>  --}}
 		</ul>
 		<br>
 
-		<div class="col-md-offset-3 col-md-6">
+		<div class="col-md-offset-2 col-md-6 mt-2">
 			<table class="table table-bordered cell-border table-hover">
 			    <tbody>
 					<tr>
@@ -79,8 +72,8 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Asignar Dueño a Predio</h4>
       </div>
-      {!! Form::Open(['url' => 'admin/predio-asignar', 'method' => 'post']) !!}
-      <div class="modal-body">
+      {!! Form::Open(['url' => 'predio-asignar', 'method' => 'post']) !!}
+      <div class="modal-body" style="display: flex">
 		<div class="row">
 			<div class="col-md-4">
 
@@ -130,7 +123,7 @@
         <h4 class="modal-title">Buscar o Crear Dueño</h4>
       </div>
       {!! Form::Open(['url' => 'admin/find-create', 'method' => 'POST' , 'id' => 'myForm']) !!}
-      <div class="modal-body">
+      <div class="modal-body" style="display: inline-block;">
 			<div class="row">
 				<div class="col-md-4">
 		            <div class="form-group">
@@ -202,7 +195,7 @@
 		}		
 
         $('#identificador').change(function(event){
-            $.get("/admin/persona-find/"+event.target.value+"", function(response){
+            $.get("/persona-find/"+event.target.value+"", function(response){
                 console.log(response);
                 if(response != '')
                 {
@@ -232,7 +225,7 @@
 		      console.log($("#myForm").serialize());
 		      $.ajax({
 			    type: "POST",
-		        url: "/admin/persona/find-create",
+		        url: "/persona/find-create",
 		        data: $("#myForm").serialize(), 
 		        success: function (response) {
 		             console.log(response);

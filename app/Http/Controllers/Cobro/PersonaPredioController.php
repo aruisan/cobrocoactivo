@@ -58,7 +58,7 @@ class PersonaPredioController extends Controller
     	$create = PersonaPredio::Create($request->all());
 
         return redirect()->action(
-            'PersonaPredioController@show', ['id' => $create->predio_id]
+            'Cobro\PersonaPredioController@show', ['id' => $create->predio_id]
         );
 
         Session::flash('message', 'Se ha asignado el Propietario al Predio');
