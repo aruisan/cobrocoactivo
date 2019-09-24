@@ -21,6 +21,7 @@
    <th class="text-center">Roles</th>
    <th class="text-center">Tipo</th>
    <th class="text-center">Jefe</th>
+   <th class="text-center">Asignar</th>
    <th class="text-center"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></th>
    <th class="text-center"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></th>
  </tr>
@@ -38,6 +39,11 @@
     </td>
     <td class="text-center">@if($user->type) {{$user->type->nombre}} @endif</td>
     <td class="text-center">@if($user->user_boss) {{$user->user_boss->boss->name}} @endif</td>
+    <td class="text-center">
+      @if(isset($user->type) && $user->type->asignar == 1)
+        <a href="{{url('asignar/'.$user->id)}}" class="btn btn-xs btn-primary"><i class="fa fa-users"></i></a>
+      @endif
+    </td>
     <td class="text-center">
       <a href="{{ route('funcionarios.edit',$user->id) }}" class="btn btn-sm btn-info">
         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>

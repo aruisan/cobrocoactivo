@@ -97,12 +97,16 @@
 .caption button {
 	color: black;
 }
+
+#page-wraper {
+   min-height: 1300px !important;
+}
     </style>
 
 
 </head>
 
-<body>
+<body style="display: flex">
     <div id="wrapper">
 
         <!-- Navigation -->

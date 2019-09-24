@@ -1,11 +1,29 @@
-{!! Form::Open(['url' => $url, 'method' => $method]) !!}
+@extends('layouts.dashboard')
+
+@section('titulo')
+    Editando Predio
+@stop
+@section('sidebar')
+  @include('cobro.predios.cuerpo.aside')
+@stop
+
+@section("content")
+
+<div style="height: 100%;display: flex;background: white;flex-wrap: wrap;width: 100%;">
+  
+  <div class="row" style="justify-content: center;display: : flex; width: 100%;">
+    <div class="col-lg-12 margin-tb">
+            <h2 class="text-center">Predios Detail</h2>
+    </div>
+    <div class="container-fluid">
+      <div class="white">
 
     <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <div class="panel panel-success">
+            <div class="panel panel-success" style="display: flex;flex-direction: column;">
                 <div class="panel-heading text-center">Datos Generales</div>
                 <div class="panel-body">
-                        {{ Form::label('ficha_catastral', 'Ficha Catastral', ['class' => 'control-label col-xs-12 col-sm-6 col-md-6 col-lg-6'])}}
+                    {{ Form::label('ficha_catastral', 'Ficha Catastral', ['class' => 'control-label col-xs-12 col-sm-6 col-md-6 col-lg-6'])}}
                     <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
                         {{ Form::text('ficha_catastral', $predio->ficha_catastral, ['class' => 'form-control', 'placeholder' => 'Ficha Catastral']) }}
                     </div>
@@ -41,7 +59,7 @@
             </div>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <div class="panel panel-success">
+            <div class="panel panel-success" style="display: flex;flex-direction: column;">
                 <div class="panel-heading text-center">Datos Economicos</div>
                 <div class="panel-body">
                         {{ Form::label('avaluo', 'Evaluo', ['class' => 'control-label col-xs-12 col-sm-6 col-md-6 col-lg-6'])}}
@@ -82,7 +100,7 @@
     </div>
     <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <div class="panel panel-success">
+            <div class="panel panel-success" style="display: flex;flex-direction: column;">
                 <div class="panel-heading text-center">Datos Socio-economicos</div>
                 <div class="panel-body">
                         {{ Form::label('tipo_tarifa', 'Tipo de Tarifa', ['class' => 'control-label col-xs-12 col-sm-6 col-md-6 col-lg-6'])}}
@@ -109,7 +127,8 @@
             </div>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <div class="panel panel-success">
+            <div class="panel panel-success" style="display: flex;
+    flex-direction: column;">
                 <div class="panel-heading text-center">Datos del Proceso</div>
                 <div class="panel-body">
                         {{ Form::label('existe', 'Existe', ['class' => 'control-label col-xs-12 col-sm-6 col-md-6 col-lg-6'])}}
@@ -132,6 +151,10 @@
                     <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
                         {{ Form::text('estado', $predio->estado, ['class' => 'form-control', 'placeholder' => 'Estado']) }}            
                     </div>
+                    {{ Form::label('observacion', 'Observacion del Predio', ['class' => 'control-label col-xs-12 col-sm-6 col-md-6 col-lg-6'])}}
+                    <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        {{ Form::text('observacion', $predio->observacion, ['class' => 'form-control', 'placeholder' => 'observacion']) }}            
+                    </div>
                 </div>
             </div> 
         </div>
@@ -139,10 +162,14 @@
     <div class="row">
         <center>
             <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <a href="{{ url('admin/predios') }}">Regresar al Listado De Predios</a>
-                <input type="submit" value="enviar" class="btn btn-success">
+                <a href="{{ url('predios') }}" class="btn btn-default" style="color:black">Regresar al Listado De Predios</a>
             </div>
         </center>
     </div>
 
-{!! Form::close()!!}
+          
+      </div>
+    </div>  
+  </div>
+</div>
+@endsection

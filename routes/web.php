@@ -11,14 +11,29 @@ Auth::routes();
 
 Route::group([ 'middleware' => 'auth'] ,function(){
 	Route::get('dashboard', 'DashboardController@index');
-	Route::resource('predios', 'Hacienda\Cobro\Predial\PredioController');
+
+	Route::resource('predios', 'Cobro\PredioController');
+  Route::get('predios-sin-asignar', 'Cobro\PredioController@predioSinAsignar')->name('unnassigned');
+  Route::get('predios-asignados', 'Cobro\PredioController@predioAsignado')->name('assignor');
+  Route::post('predios-asignar', 'Cobro\PredioController@predioAsignarAdministrativeStore')->name('assignor.store');
+  Route::get('predio-expediente/{id}', 'PredioController@asignarExpediente')->name('assignor.expedient');
+  Route::get('predio-detail/{id}', 'Cobro\PredioController@show')->name('predio.detail');
+  
+  Route::post('predio-asignar', 'Cobro\PersonaPredioController@predioAsignarPersona');
+  
+  Route::get('asignar/{id}', 'Cobro\AsignarController@index');
+  Route::resource('asignar', 'Cobro\AsignarController');
 
 	//gestion de creacion y relacion de personas
 	Route::post('persona/relacionar', 'PersonasController@PersonafindCreate')->name('persona.relacionar');
 	Route::get('persona-identtificar/{identificador}', 'PersonasController@personaIdentificar')->name('persona.identificar');
-	Route::resource('personas', 'PersonasController');
 	Route::post('avatar', 'UserController@editAvatar')->name('user-avatar');
 	Route::post('password', 'UserController@editPassword')->name('user-password');
+
+  Route::resource('personas', 'PersonasController');
+  Route::get('persona-find/{identificador}', 'PersonasController@personaFind');
+  Route::post('persona/find-create', 'PersonasController@PersonafindCreate');
+  Route::resource('personas-predios', 'Cobro\PersonaPredioController');
 	//Route::get('usuarios-tipo/{id}', 'UserController@userstype');
 
 	////////////////////admin//////////////////
@@ -38,25 +53,35 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 		Route::resource('comiteconciliacion', 'Judicial\ComiteConsiliacionController');
 		Route::resource('comparendos', 'Convivencia\ComparendoController');
 
-        //RUTAS BOLETINES
+    //RUTAS BOLETINES
 
-        Route::Resource('boletines','Administrativo\GestionDocumental\BoletinesController');
-        Route::get('/boletines/create','Administrativo\GestionDocumental\BoletinesController@create');
-
-
-        //RUTAS ARCHIVO
-
-        Route::get('/archivo/create','Administrativo\GestionDocumental\ArchivoController@create');
-        Route::Resource('archivo','Administrativo\GestionDocumental\ArchivoController');
-        Route::Resource('/archivo/manual','Administrativo\GestionDocumental\ManualContratController');
-        Route::get('/archivo/manual/create','Administrativo\GestionDocumental\ManualContratController@create');
-        Route::Resource('/archivo/plan','Administrativo\GestionDocumental\PlanAdquiController');
-        Route::get('/archivo/plan/create','Administrativo\GestionDocumental\PlanAdquiController@create');
+    Route::Resource('boletines','Administrativo\GestionDocumental\BoletinesController');
+    Route::get('/boletines/create','Administrativo\GestionDocumental\BoletinesController@create');
 
 
-        //RUTAS CORRESPONDENCIA
+    //RUTAS ARCHIVO
+
+    Route::get('/archivo/create','Administrativo\GestionDocumental\ArchivoController@create');
+    Route::Resource('archivo','Administrativo\GestionDocumental\ArchivoController');
+    Route::Resource('/archivo/manual','Administrativo\GestionDocumental\ManualContratController');
+    Route::get('/archivo/manual/create','Administrativo\GestionDocumental\ManualContratController@create');
+    Route::Resource('/archivo/plan','Administrativo\GestionDocumental\PlanAdquiController');
+    Route::get('/archivo/plan/create','Administrativo\GestionDocumental\PlanAdquiController@create');
+
+
+    //RUTAS CORRESPONDENCIA
 		Route::get('correspondencia/create/{id}','Administrativo\GestionDocumental\CorrespondenciaController@create');
 		Route::resource('correspondencia', 'Administrativo\GestionDocumental\CorrespondenciaController');
+
+    //RUTAS COBRO COACTIVO - PREDIAL
+
+      // Route::resource('predios', 'PredioController');
+      // Route::get('predios-sin-asignar', 'PredioController@predioSinAsignar')->name('unnassigned');
+      // Route::get('predios-asignados', 'PredioController@predioAsignado')->name('assignor');
+      // Route::post('predios-asignar', 'PredioController@predioAsignarAdministrativeStore')->name('assignor.store');
+      // Route::get('predio-expediente/{id}', 'PredioController@asignarExpediente')->name('assignor.expedient');
+
+      // Route::post('predio-asignar', 'PersonaPredioController@predioAsignarPersona');
 
 		//RUTAS ACUERDOS
 

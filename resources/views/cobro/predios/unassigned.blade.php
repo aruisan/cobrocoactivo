@@ -1,21 +1,25 @@
+@extends('layouts.dashboard')
 
-@extends('adminlte::page')
-
-@section('title', 'CobroCoactivo')
-
-@section('content_header')
-    <h1>Predios sin Asignar 
-    	@isset($predios)
-    		({{$predios->count()}})
-    	@endisset
-	</h1>
+@section('titulo')
+    Funcionarios
 @stop
-
+@section('sidebar')
+  @include('cobro.predios.cuerpo.aside')
+@stop
 @section('content')
+<div class="row">
+    <div class="col-lg-12 margin-tb mt-2">
+            <h2 class="text-center">Predios 	
+          @isset($predios)
+    		({{$predios->count()}})
+    	@endisset</h2>
+    </div>
+</div>
+    
 	<div class="container-fluid">
 		<br>
 		<ul class="nav nav-tabs">
-		  <li role="presentation"><a href="{{url('admin/predios')}}">Predios</a></li>
+		  <li role="presentation"><a href="{{url('predios')}}">Predios</a></li>
 		  <li role="presentation" class="active"><a href="{{route('unnassigned')}}">Predios sin Asignar</a></li>
 		  <li role="presentation"><a href="{{route('assignor')}}">Predios Asignados</a></li> 
 		</ul>

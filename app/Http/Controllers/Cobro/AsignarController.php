@@ -13,30 +13,33 @@ class AsignarController extends Controller
     {
     	$user = User::find($id);
 
-    	if($user->type->nombre == "Coordinador")
+
+    	if($user->type->nombre == "Coordinador CobroCoactivo")
     	{
-    		$tipo = Type::where('nombre', 'Abogado')->first();
+    		$tipo = Type::where('nombre', 'Abogado CobroCoactivo')->first();
     		$funcionarios = User::where('type_id', $tipo->id)->get();
 
-    	}elseif($user->type->nombre == "Abogado")
+    	}elseif($user->type->nombre == "Abogado CobroCoactivo")
 
     	{
-    		$tipo = Type::where('nombre', 'Secretaria')->first();
+    		$tipo = Type::where('nombre', 'Secretaria CobroCoactivo')->first();
     		Type::pluck('nombre', 'id');
     		$funcionarios = User::where('type_id', $tipo->id)->get();
     	}
-        elseif($user->type->nombre == "Juez")
+        elseif($user->type->nombre == "Juez CobroCoactivo")
         {
-            $tipo = Type::where('nombre', 'Coordinador')->first();
+            $tipo = Type::where('nombre', 'Coordinador CobroCoactivo')->first();
             Type::pluck('nombre', 'id');
             $funcionarios = User::where('type_id', $tipo->id)->get();
         }
 
-    	/*foreach ($user->boss_users as $func) {
-    		
-    	dd($func->user->type);
-    	}*/
-    	return view('asignar.index', compact('user', 'funcionarios'));
+        if (isset($funcionarios)) {
+            return view('asignar.index', compact('user', 'funcionarios'));
+        }
+        else{
+            return back()->with('error','Este usuario es Secretaria o no es de tipo CobroCoactivo , por lo cual no se puede asignar Empleado');
+        }
+
     }
 
     public function store(Request $request)

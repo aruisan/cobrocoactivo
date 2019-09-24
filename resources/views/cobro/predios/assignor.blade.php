@@ -1,18 +1,21 @@
 
-@extends('adminlte::page')
+@extends('layouts.dashboard')
 
-@section('title', 'CobroCoactivo')
-
-@section('content_header')
-    <h1>Predios Asignados 
-    	@isset($predios)
-    		  ({{$predios->count()}})
-    	    
-    	@endisset
-    </h1>
+@section('titulo')
+    Predios
 @stop
-
+@section('sidebar')
+  @include('cobro.predios.cuerpo.aside')
+@stop
 @section('content')
+<div class="row">
+    <div class="col-lg-12 margin-tb mt-2">
+            <h2 class="text-center">Predios Asignados
+          @isset($predios)
+    		({{$predios->count()}})
+    	@endisset</h2>
+    </div>
+</div>
 	<div class="container-fluid">
 
 		<br>
@@ -43,11 +46,11 @@
 				    		<td>{{$predio->direccion_predio}}</td>
 				    		<td>{{$predio->nombre_predio}}</td>
 				    		<td>
-				    			@if (Auth::user()->type->nombre == 'Coordinador')
+				    			@if (Auth::user()->type->id == 2)
 				    				
 				    				{{$predio->asignacion->abogado->name}}
 
-				    			@elseif(Auth::user()->type->nombre == 'Abogado')	
+				    			@elseif(Auth::user()->type->id == 3)	
 				    				
 				    				{{$predio->asignacion->secretaria->name}}
 

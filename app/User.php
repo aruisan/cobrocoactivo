@@ -56,4 +56,29 @@ class User extends Authenticatable
         return $this->hasOne('App\Model\Admin\ModelHasRol', 'model_id');
     }
 
+    public function isCobrocoactivo(){
+
+        if ($this->type != null) {
+             switch ($this->type->id) {
+                case '1':
+                        $value = true;
+                    break;    
+                case '2':
+                        $value = true;
+                    break;   
+                case '3':
+                        $value = true;
+                    break;          
+                default:
+                        $value = false;
+                    break;
+
+             }
+
+            return $value;
+        }
+        // else{
+        //     return false;
+        // }
+    }    
 }
