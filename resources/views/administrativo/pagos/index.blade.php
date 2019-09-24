@@ -52,7 +52,7 @@
                         @foreach($pagosTarea as $pagoT)
                             <tr class="text-center">
                                 <td>{{ $pagoT->id }}</td>
-                                <td>{{ $pagoT->orden_pago_id }}</td>
+                                <td>{{ $pagoT->orden_pago->nombre}}</td>
                                 <td>$<?php echo number_format($pagoT->valor,0) ?></td>
                                 <td>
                                     <span class="badge badge-pill badge-danger">
@@ -65,10 +65,11 @@
                                         @endif
                                     </span>
                                 </td>
-                                <td class="text-center">{{ $pagoT->id }}</td>
+                                <td class="text-center">{{ $pagoT->orden_pago->registros->persona->nombre }}</td>
                                 <td>
                                     <a href="{{ url('administrativo/ordenPagos/'.$pagoT->id.'/edit') }}" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
-                                    <a href="{{ url('administrativo/ordenPagos/'.$pagoT->id) }}" title="Ver Orden de Pago" class="btn-sm btn-success"><i class="fa fa-eye"></i></a>
+                                    <a href="{{ url('administrativo/ordenPagos/'.$pagoT->id) }}" title="Ver Pago" class="btn-sm btn-success"><i class="fa fa-eye"></i></a>
+                                    <a href="{{ url('administrativo/pagos/asignacion/'.$pagoT->id) }}" title="Asignar Monto" class="btn-sm btn-success"><i class="fa fa-usd"></i></a>
                                 </td>
                             </tr>
                         @endforeach

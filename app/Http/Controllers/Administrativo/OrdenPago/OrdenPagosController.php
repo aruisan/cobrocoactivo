@@ -161,8 +161,6 @@ class OrdenPagosController extends Controller
                     $oPP->valor_debito = $request->valorPucD[$i];
                     $oPP->valor_credito = $request->valorPucC[$i];
                     $oPP->save();
-                    $ordenPago->estado = 1;
-                    $ordenPago->save();
                 } else {
                     Session::flash('warning','Recuerde que los totales del credito y debito deben dar sumas iguales');
                     return back();

@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Administrativo\Pago;
 
 use App\Model\Administrativo\Contabilidad\RubrosPuc;
 use App\Model\Administrativo\OrdenPago\OrdenPagos;
-use App\Model\Administrativo\Pago\PagoBanks;
 use App\Model\Administrativo\Pago\Pagos;
+use App\Model\Administrativo\Pago\PagoRubros;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Session;
@@ -33,13 +33,12 @@ class PagosController extends Controller
     public function create()
     {
         $ordenPagos = OrdenPagos::where([['estado', '1'], ['saldo', '>', 0]])->get();
-        $PUCS = RubrosPuc::where('naturaleza','1')->get();
 
         if ($ordenPagos == null){
             Session::flash('warning', 'No hay ordenes de pago disponibles para crear el pago. ');
             return redirect('/administrativo/pagos');
         } else {
-            return view('administrativo.pagos.create', compact('ordenPagos','PUCS'));
+            return view('administrativo.pagos.create', compact('ordenPagos'));
         }
     }
 
@@ -63,18 +62,54 @@ class PagosController extends Controller
             $Pago->estado = "0";
             $Pago->save();
 
-            return redirect('/administrativo/pagos/asignacion/'.$Pago->id);
+            if (count($Pago->orden_pago->rubros) == 1){
+                $pagoRubros = new PagoRubros();
+                $pagoRubros->pago_id = $Pago->id;
+                $pagoRubros->rubro_id = $Pago->orden_pago->rubros[0]->cdps_registro->rubro->id;
+                $pagoRubros->valor = $Pago->valor;
+                $pagoRubros->save();
+
+                return redirect('/administrativo/pagos/banks/'.$Pago->id);
+            } else {
+                return redirect('/administrativo/pagos/asignacion/'.$Pago->id);
+            }
         }
     }
 
     public function asignacion($id){
         $pago = Pagos::findOrFail($id);
 
-        return view('administrativo.pagos.createRubros', compact('pago'));
+        if (count($pago->orden_pago->rubros) == 1){
+            return redirect('/administrativo/pagos/banks/'.$pago->id);
+        } else {
+            return view('administrativo.pagos.createRubros', compact('pago'));
+        }
     }
 
     public function asignacionStore(Request $request){
-        dd($request);
+        $pago = Pagos::findOrFail($request->pago_id);
+        $valR = array_sum($request->valor);
+        if ($valR == $pago->valor){
+            for($i=0;$i< count($request->valor); $i++){
+                $pagoRubros = new PagoRubros();
+                $pagoRubros->pago_id = $pago->id;
+                $pagoRubros->rubro_id = $request->idR[$i];
+                $pagoRubros->valor = $request->valor[$i];
+                $pagoRubros->save();
+            }
+            return redirect('/administrativo/pagos/banks/'.$pago->id);
+        } else {
+            Session::flash('warning','El valor tomado de los rubros debe ser igual al valor a pagar: $'.$pago->valor);
+            return back();
+        }
+
+    }
+
+    public function bank($id){
+        $pago = Pagos::findOrFail($id);
+        $PUCS = RubrosPuc::where('naturaleza','1')->get();
+
+        return view('administrativo.pagos.createBanks', compact('pago','PUCS'));
     }
 
     /**
