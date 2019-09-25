@@ -179,8 +179,7 @@ Route::group([ 'middleware' => 'auth'] ,function(){
         Route::get('pagos/asignacion/{id}','Administrativo\Pago\PagosController@asignacion');
         Route::put('pagos/asignacion/store','Administrativo\Pago\PagosController@asignacionStore');
         Route::get('pagos/banks/{id}','Administrativo\Pago\PagosController@bank');
-
-
+        Route::put('pagos/banks/store','Administrativo\Pago\PagosController@bankStore');
 
         //CONTABILIDAD
 

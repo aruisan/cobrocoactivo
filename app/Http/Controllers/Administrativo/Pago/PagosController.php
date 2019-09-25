@@ -6,6 +6,7 @@ use App\Model\Administrativo\Contabilidad\RubrosPuc;
 use App\Model\Administrativo\OrdenPago\OrdenPagos;
 use App\Model\Administrativo\Pago\Pagos;
 use App\Model\Administrativo\Pago\PagoRubros;
+use App\Model\Administrativo\Pago\PagoBanks;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Session;
@@ -112,6 +113,48 @@ class PagosController extends Controller
         return view('administrativo.pagos.createBanks', compact('pago','PUCS'));
     }
 
+    public function bankStore(Request $request){
+
+        $valReceived =array_sum($request->val);
+        $pago = Pagos::findOrFail($request->pago_id);
+        $valTotal = $pago->valor;
+        $valR =number_format($valReceived,0);
+        $valT = number_format($valTotal,0);
+
+        if ($valReceived == $valTotal){
+            if ($request->type_pay == "1"){
+                $pago->type_pay = "CHEQUE";
+                $pago->num = $request->num_cheque;
+            }elseif ($request->type_pay == "2"){
+                $pago->type_pay = "ACCOUNT";
+                $pago->num = $request->num_cuenta;
+            }
+            $pago->estado = "1";
+            $pago->ff_fin = today()->format("Y-m-d");
+            $pago->save();
+
+            for($i=0;$i< count($request->banco); $i++){
+                $bank = new PagoBanks();
+                $bank->pagos_id = $request->pago_id;
+                $bank->rubros_puc_id = $request->banco[$i];
+                $bank->valor = $request->val[$i];
+                $bank->save();
+            }
+
+            $OP = OrdenPagos::findOrFail($request->ordenPago_id);
+            $OP->saldo = $OP->saldo -  $valTotal;
+            $OP->save();
+
+            Session::flash('success','El pago se ha finalizado exitosamente');
+            return redirect('/administrativo/pagos/'.$pago->id);
+        } elseif ($valReceived > $valTotal){
+            Session::flash('warning','El valor que va a pagar: $'.$valR.' es mayor al valor correspondiente del pago: $'.$valT);
+            return back();
+        } else{
+            Session::flash('warning','El valor que va a pagar: $'.$valR.' es menor al valor correspondiente del pago: $'.$valT);
+            return back();
+        }
+    }
     /**
      * Display the specified resource.
      *

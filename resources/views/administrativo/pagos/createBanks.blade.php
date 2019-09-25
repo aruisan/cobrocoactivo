@@ -27,7 +27,7 @@
             </div>
             <br>
             <div class="form-validation">
-                <form class="form-valide" action="{{url('/administrativo/pagos/asignacion/store')}}" method="POST" enctype="multipart/form-data">
+                <form class="form-valide" action="{{url('/administrativo/pagos/banks/store')}}" method="POST" enctype="multipart/form-data">
                     <hr>
                     {!! method_field('PUT') !!}
                     {{ csrf_field() }}
@@ -83,7 +83,6 @@
                             <tr>
                                 <td>
                                     <select class="form-control" name="banco[]" required>
-                                        <option>Selecciona un Banco del PUC</option>
                                         @foreach($PUCS as $puc)
                                             <option value="{{$puc->id}}">{{$puc->codigo}} - {{$puc->nombre_cuenta}}</option>
                                         @endforeach
@@ -134,7 +133,6 @@
                     var nivel=parseInt($("#banks tr").length);
                     $('#banks tbody tr:last').after('<tr><td>\n' +
                         '                                <select class="form-control" name="banco[]" required>\n' +
-                        '                                    <option>Selecciona un Banco del PUC</option>\n' +
                         '                                    @foreach($PUCS as $puc)\n' +
                         '                                        <option value="{{$puc->id}}">{{$puc->codigo}} - {{$puc->nombre_cuenta}}</option>\n' +
                         '                                    @endforeach\n' +
