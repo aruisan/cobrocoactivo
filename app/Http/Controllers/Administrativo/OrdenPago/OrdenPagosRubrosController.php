@@ -88,6 +88,16 @@ class OrdenPagosRubrosController extends Controller
         }
     }
 
+    public function massiveDelete(Request $request){
+        $ordenPagosRubro = OrdenPagosRubros::where('orden_pagos_id',$request->id)->get();
+        foreach ($ordenPagosRubro as $data){
+            $delete = OrdenPagosRubros::findOrFail($data->id);
+            $delete->delete();
+        }
+        Session::flash('warning','Los valores se han reiniciado');
+        return redirect('administrativo/ordenPagos/monto/create/'.$request->id);
+    }
+
     /**
      * Display the specified resource.
      *

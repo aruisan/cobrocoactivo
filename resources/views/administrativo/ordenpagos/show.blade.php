@@ -55,8 +55,9 @@
         <li> <a href="{{ url('/administrativo/ordenPagos/pdf/'.$OrdenPago->id) }}" target="_blank" class="btn btn-primary"><span class="hide-menu"><i class="fa fa-file-pdf-o"></i>&nbsp; Orden de Pago</span></a></li>
         <li> <a href="{{ url('/administrativo/pagos/create/') }}" class="btn btn-success"><span class="hide-menu"><i class="fa fa-credit-card"></i>&nbsp; Pagar</span></a></li>
     @else
-    <li> <a href="{{ url('/administrativo/ordenPagos/descuento/create/'.$OrdenPago->id) }}" class="btn btn-primary"><span class="hide-menu">Descuentos</span></a></li>
-    <li> <a href="{{ url('/administrativo/ordenPagos/liquidacion/create/'.$OrdenPago->id) }}" class="btn btn-success"><span class="hide-menu"><i class="fa fa-credit-card"></i>&nbsp; Liquidar</span></a></li>
+        <li> <a href="{{ url('/administrativo/ordenPagos/monto/create/'.$OrdenPago->id) }}" class="btn btn-primary"><span class="hide-menu"> Asignación de Monto</span></a></li>
+        <li> <a href="{{ url('/administrativo/ordenPagos/descuento/create/'.$OrdenPago->id) }}" class="btn btn-primary"><span class="hide-menu">Descuentos</span></a></li>
+        <li> <a href="{{ url('/administrativo/ordenPagos/liquidacion/create/'.$OrdenPago->id) }}" class="btn btn-primary"><span class="hide-menu"> Contabilizacion</span></a></li>
     @endif
 @stop
 @section('content')
