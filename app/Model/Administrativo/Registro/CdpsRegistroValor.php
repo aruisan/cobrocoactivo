@@ -26,4 +26,12 @@ class CdpsRegistroValor extends Model implements Auditable
     public function fontRubro(){
         return $this->belongsTo('App\Model\Hacienda\Presupuesto\FontsRubro','fontsRubro_id','id');
     }
+
+    public function ordenPago(){
+        return $this->hasMany('App\Model\Administrativo\OrdenPago\OrdenPagosRubros');
+    }
+
+    public function rubro(){
+        return $this->belongsTo('App\Model\Hacienda\Presupuesto\Rubro','rubro_id');
+    }
 }

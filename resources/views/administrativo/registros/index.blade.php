@@ -128,7 +128,7 @@
                                 <td class="text-center">{{ $data->id }}</td>
                                 <td class="text-center">{{ $data->objeto }}</td>
                                 <td class="text-center">{{ $data->persona->nombre }}</td>
-                                <td class="text-center">$<?php echo number_format($data->valor,0) ?></td>
+                                <td class="text-center">$<?php echo number_format($data->val_total,0) ?></td>
                                 <td class="text-center">$<?php echo number_format($data->saldo,0) ?></td>
                                 <td class="text-center">
                                     <span class="badge badge-pill badge-danger">

@@ -134,6 +134,9 @@
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="pill" href="#tabOP">Orden de Pago</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="pill" href="#tabP">Pagos</a>
+                </li>
             </ul>
             <br>
             <div class="tab-content" style="background-color: white">
@@ -154,6 +157,8 @@
                                 <th class="text-center">CDP's</th>
                                 <th class="text-center">Registros</th>
                                 <th class="text-center">Saldo Disponible</th>
+                                <th class="text-center">Saldo de CDP</th>
+                                <th class="text-center">Ordenes de Pago</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -262,6 +267,28 @@
                                             <td class="text-center text-dark">$ <?php echo number_format($salD['valor'],0);?></td>
                                         @endif
                                     @endforeach
+                                    <!-- SALDO DE CDP -->
+                                        @foreach($valoresIniciales as $valorInicial)
+                                            @if($valorInicial['id'] == $codigo['id'])
+                                                <td class="text-center text-dark">$ 0</td>
+                                            @endif
+                                        @endforeach
+                                        @foreach($valorDcdp as $valorDCdp)
+                                            @if($codigo['id_rubro'] == $valorDCdp['id'])
+                                                <td class="text-center text-dark">$ <?php echo number_format($valorDCdp['valor'],0);?></td>
+                                            @endif
+                                        @endforeach
+                                    <!-- ORDENES DE PAGO -->
+                                        @foreach($valoresIniciales as $valorInicial)
+                                            @if($valorInicial['id'] == $codigo['id'])
+                                                <td class="text-center text-dark">$ 0</td>
+                                            @endif
+                                        @endforeach
+                                        @foreach($valOP as $valorOP)
+                                            @if($codigo['id_rubro'] == $valorOP['id'])
+                                                <td class="text-center text-dark">$ <?php echo number_format($valorOP['valor'],0);?></td>
+                                            @endif
+                                        @endforeach
                                 </tr>
                             @endforeach
                             </tbody>
@@ -662,6 +689,62 @@
                         @endif
                     </div>
                 </div>
+
+                <!-- TABLA DE PAGOS  -->
+
+                <div id="tabP" class=" tab-pane fade">
+                    <div class="table-responsive">
+                        @if(count($pagos) >= 1)
+                            <br>
+                            <a href="{{ url('administrativo/pagos') }}" class="btn btn-primary btn-block m-b-12">Pagos</a>
+                            <br>
+                            <table class="table table-bordered" id="tabla_Pagos">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">Id</th>
+                                    <th class="text-center">Orden de Pago</th>
+                                    <th class="text-center">Valor</th>
+                                    <th class="text-center">Tercero</th>
+                                    <th class="text-center">Estado</th>
+                                    <th class="text-center"><i class="fa fa-eye"></i></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach ($pagos as $key => $data)
+                                    <tr>
+                                        <td class="text-center">{{ $data->id }}</td>
+                                        <td class="text-center">{{ $data->orden_pago->nombre }}</td>
+                                        <td class="text-center">$<?php echo number_format($data->valor,0) ?></td>
+                                        <td class="text-center">{{ $data->orden_pago->registros->persona->nombre }}</td>
+                                        <td class="text-center">
+                                    <span class="badge badge-pill badge-danger">
+                                        @if($data->estado == "0")
+                                            Pendiente
+                                        @elseif($data->estado == "1")
+                                            Pagado
+                                        @else
+                                            Anulado
+                                        @endif
+                                    </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="{{ url('administrativo/pagos',$data->id) }}" title="Ver Pago" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        @else
+                            <br>
+                            <div class="alert alert-danger">
+                                <center>
+                                    No hay pagos realizados.
+                                    <a href="{{ url('administrativo/pagos/create') }}" class="btn btn-success btn-block">Crear Pagos</a>
+                                </center>
+                            </div>
+                        @endif
+                    </div>
+                </div>
             </div>
         @else
             <br><br>
@@ -754,6 +837,16 @@
         } );
 
         $('#tabla_OrdenPago').DataTable( {
+            responsive: true,
+            "searching": true,
+            "pageLength": 5,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'print'
+            ]
+        } );
+
+        $('#tabla_Pagos').DataTable( {
             responsive: true,
             "searching": true,
             "pageLength": 5,

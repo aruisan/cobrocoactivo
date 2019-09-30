@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Administrativo\OrdenPago;
 
-use App\Http\Controllers\Administrativo\Cdp\CdpController;
 use App\Model\Administrativo\Contabilidad\LevelPUC;
 use App\Model\Administrativo\Contabilidad\RegistersPuc;
 use App\Model\Administrativo\OrdenPago\OrdenPagos;
@@ -71,21 +70,22 @@ class OrdenPagosController extends Controller
     {
         $registro_id = Registro::findOrFail($request->IdR);
 
-        if ($registro_id->saldo <= 0){
-            Session::flash('warning','El valor no puede ser superior al valor disponible del registro seleccionado: '.$registro_id->saldo);
+        if ($request->ValTOP > $registro_id->saldo){
+            Session::flash('warning','El valor no puede ser superior al valor disponible del registro seleccionado: '.$registro_id->saldo.' Rectifique el valor de la orden de pago y el iva.');
             return redirect('/administrativo/ordenPagos/create');
-        } else{
+        } else {
             $ordenPago = new OrdenPagos();
             $ordenPago->nombre = $request->concepto;
-            $ordenPago->valor = 0;
-            $ordenPago->saldo = 0;
+            $ordenPago->valor = $request->ValTOP;
+            $ordenPago->saldo = $request->ValTOP;
+            $ordenPago->iva = $request->ValIOP;
             $ordenPago->estado = $request->estado;
             $ordenPago->registros_id = $request->IdR;
             $ordenPago->user_id = auth()->user()->id;
             $ordenPago->save();
 
             Session::flash('success','La orden de pago se ha creado exitosamente');
-            return redirect('/administrativo/ordenPagos/descuento/create/'.$ordenPago->id);
+            return redirect('/administrativo/ordenPagos/monto/create/'.$ordenPago->id);
         }
     }
 
@@ -148,21 +148,28 @@ class OrdenPagosController extends Controller
                 Session::flash('warning','Recuerde seleccionar un PUC antes de continuar');
                 return back();
             }else{
-                $registro->saldo = $registro->saldo - $request->valorPucD[$i];
-                $registro->save();
-                $ordenPago->valor = $ordenPago->valor + $request->valorPucD[$i];
-                $ordenPago->saldo = $ordenPago->saldo +  $request->valorPucD[$i];
-                $ordenPago->save();
-                $oPP = new OrdenPagosPuc();
-                $oPP->rubros_puc_id = $request->PUC[$i];
-                $oPP->orden_pago_id = $request->ordenPago_id;
-                $oPP->valor_debito = $request->valorPucD[$i];
-                $oPP->valor_credito = $request->valorPucC[$i];
-                $oPP->save();
+                $totalDeb = array_sum($request->valorPucD);
+                $totalCred = array_sum($request->valorPucC);
+                $totalDes = $ordenPago->descuentos->sum('valor');
+                if ( $totalCred + $totalDes == $totalDeb){
+                    $registro->saldo = $registro->saldo - $request->valorPucD[$i];
+                    $registro->save();
+                    $oPP = new OrdenPagosPuc();
+                    $oPP->rubros_puc_id = $request->PUC[$i];
+                    $oPP->orden_pago_id = $request->ordenPago_id;
+                    $oPP->valor_debito = $request->valorPucD[$i];
+                    $oPP->valor_credito = $request->valorPucC[$i];
+                    $oPP->save();
+                } else {
+                    Session::flash('warning','Recuerde que los totales del credito y debito deben dar sumas iguales');
+                    return back();
+                }
             }
         }
-        Session::flash('success','La orden de pago se ha contabilizado exitosamente');
-        return redirect('/administrativo/ordenPagos/pay/create/'.$request->ordenPago_id);
+        $ordenPago->estado = "1";
+        $ordenPago->save();
+        Session::flash('success','La orden de pago se ha finalizado exitosamente');
+        return redirect('/administrativo/ordenPagos/'.$request->ordenPago_id);
     }
 
     public function paySave(Request $request){
@@ -342,6 +349,25 @@ class OrdenPagosController extends Controller
         }
     }
 
+    public function deleteRF($id){
+
+        $retenF = OrdenPagosDescuentos::findOrFail($id);
+        $retenF->delete();
+        Session::flash('error','Descuento de la Retención de Fuente eliminado de la Orden de Pago');
+    }
+
+    public function deleteM($id){
+
+        $municipal = OrdenPagosDescuentos::findOrFail($id);
+        $municipal->delete();
+        Session::flash('error','Descuento Municipal eliminado de la Orden de Pago');
+    }
+
+    public function deleteP($id){
+        $puc = OrdenPagosPuc::findOrFail($id);
+        $puc->delete();
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -447,7 +473,7 @@ class OrdenPagosController extends Controller
     public function pdf_CE($id)
     {
         $OrdenPago = OrdenPagos::findOrFail($id);
-        $Egreso_id = $OrdenPago->payments[0]->egreso->id;
+        $Egreso_id = $OrdenPago->pago->id;
         $OrdenPagoDescuentos = OrdenPagosDescuentos::where('orden_pagos_id', $id)->get();
         $R = Registro::findOrFail($OrdenPago->registros_id);
 
@@ -517,7 +543,7 @@ class OrdenPagosController extends Controller
             }
         }
 
-        $fecha = Carbon::createFromTimeString($OrdenPago->payments[0]->egreso->created_at);
+        $fecha = Carbon::createFromTimeString($OrdenPago->pago->created_at);
         $fechaO = Carbon::createFromTimeString($OrdenPago->created_at);
         $dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
         $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");

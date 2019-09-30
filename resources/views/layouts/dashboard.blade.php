@@ -47,6 +47,10 @@
     <!-- Mi Estilo -->
     <link href="{{asset('/css/miStilo.css')}}" rel="stylesheet" type="text/css">
 
+    <!-- Select 2 -->
+    <link href="{{ asset('/css/select2.min.css') }}" rel="stylesheet" type="text/css">
+
+
     @yield('css')
 
     <style>
@@ -93,12 +97,16 @@
 .caption button {
 	color: black;
 }
+
+#page-wraper {
+   min-height: 1300px !important;
+}
     </style>
 
 
 </head>
 
-<body>
+<body style="display: flex">
     <div id="wrapper">
 
         <!-- Navigation -->
@@ -216,7 +224,10 @@
     <!-- Translate-->
     <script src="{{ asset('//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit') }}"></script>
     <script src="{{asset('js/myJs.js')}}"></script>
-@yield('js')
+
+    <!-- Select 2-->
+    <script src="{{ asset('js/lib/select2/select2.min.js') }}"></script>
+    @yield('js')
 
 </body>
 

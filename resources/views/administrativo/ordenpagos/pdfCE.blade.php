@@ -99,23 +99,23 @@
 				</tr>
 				</thead>
 				<tbody>
-				@for($y = 0; $y < count($OrdenPago->payments); $y++)
+				@for($y = 0; $y < count($OrdenPago->pago->banks); $y++)
 					<tr class="text-center">
-						<td>{{ $OrdenPago->payments[$y]->data_puc->codigo }}</td>
-						<td>{{ $OrdenPago->payments[$y]->data_puc->nombre_cuenta }}</td>
-						@if($OrdenPago->payments[$y]->type_pay == "ACCOUNT")
-							@php( $date = strftime("%d of %B %Y", strtotime($OrdenPago->payments[$y]->created_at)))
-							<td> Núm Cuenta: {{$OrdenPago->payments[$y]->num}} - Fecha: {{$date}}</td>
-						@elseif($OrdenPago->payments[$y]->type_pay == "CHEQUE")
-							@php( $date = strftime("%d of %B %Y", strtotime($OrdenPago->payments[$y]->created_at)))
-							<td> Núm Cheque: {{$OrdenPago->payments[$y]->num}} - Fecha: {{$date}}</td>
+						<td>{{ $OrdenPago->pago->banks[$y]->data_puc->codigo }}</td>
+						<td>{{ $OrdenPago->pago->banks[$y]->data_puc->nombre_cuenta }}</td>
+						@if($OrdenPago->pago->type_pay == "ACCOUNT")
+							@php( $date = strftime("%d of %B %Y", strtotime($OrdenPago->pago->created_at)))
+							<td> Núm Cuenta: {{$OrdenPago->pago->num}} - Fecha: {{$date}}</td>
+						@elseif($OrdenPago->pago->type_pay == "CHEQUE")
+							@php( $date = strftime("%d of %B %Y", strtotime($OrdenPago->pago->created_at)))
+							<td> Núm Cheque: {{$OrdenPago->pago->num}} - Fecha: {{$date}}</td>
 						@endif
-						<td>$<?php echo number_format($OrdenPago->payments[$y]->valor,0);?></td>
+						<td>$<?php echo number_format($OrdenPago->pago->banks[$y]->valor,0);?></td>
 					</tr>
 				@endfor
 				<tr class="text-center" style="background-color: rgba(19,165,255,0.14)">
 					<td colspan="3"><b>Total</b></td>
-					<td><b>$<?php echo number_format($OrdenPago->payments->sum('valor'),0);?></b></td>
+					<td><b>$<?php echo number_format($OrdenPago->pago->valor,0);?></b></td>
 				</tr>
 				</tbody>
 			</table>
@@ -172,63 +172,15 @@
 				</tr>
 				</thead>
 				<tbody>
-				@for($y = 0; $y < count($OrdenPago->payments); $y++)
-					<tr class="text-center">
-						<td>{{ $OrdenPago->payments[$y]->data_puc->codigo }}</td>
-						<td>{{ $OrdenPago->payments[$y]->data_puc->nombre_cuenta }}</td>
-						<td>{{ $OrdenPago->registros->persona->num_dc }} {{ $OrdenPago->registros->persona->nombre }}</td>
-						@if($OrdenPago->payments[$y]->data_puc->naturaleza % 2 == 0)
-							<?php
-							$valuesD[] = $OrdenPago->payments[$y]->valor;
-							?>
-							<td>$<?php echo number_format($OrdenPago->payments[$y]->valor,0);?></td>
-							<td>$0</td>
-						@else
-							<?php
-							$valuesC[] = $OrdenPago->payments[$y]->valor;
-							?>
-							<td>$0</td>
-							<td>$<?php echo number_format($OrdenPago->payments[$y]->valor,0);?></td>
-						@endif
-					</tr>
-				@endfor
 				@for($z = 0; $z < $OrdenPago->pucs->count(); $z++)
 					<tr class="text-center">
-						<?php
-						$valorTot = $OrdenPago->pucs[$z]->valor - $OrdenPagoDescuentos->sum('valor');
-						?>
 						<td>{{$OrdenPago->pucs[$z]->data_puc->codigo}}</td>
 						<td>{{$OrdenPago->pucs[$z]->data_puc->nombre_cuenta}}</td>
 						<td>{{ $OrdenPago->registros->persona->num_dc }} {{ $OrdenPago->registros->persona->nombre }}</td>
-						@if($OrdenPago->pucs[$z]->data_puc->naturaleza % 2 == 0)
-							<?php
-							$valuesD[] = $valorTot;
-							?>
-							<td>$<?php echo number_format($valorTot,0);?></td>
-							<td>$0</td>
-						@else
-							<?php
-							$valuesC[] = $valorTot;
-							?>
-							<td>$0</td>
-							<td>$<?php echo number_format($valorTot,0);?></td>
-						@endif
+						<td>$<?php echo number_format($OrdenPago->pucs[$z]->valor_debito,0);?></td>
+						<td>$<?php echo number_format($OrdenPago->pucs[$z]->valor_credito,0);?></td>
 					</tr>
 				@endfor
-				<tr class="text-center" style="background-color: rgba(19,165,255,0.14)">
-					<td colspan="3"><b>Total</b></td>
-
-					@if(isset($valuesD))
-						<td><b>$<?php echo number_format(array_sum($valuesD),0);?></b></td>
-					@else
-						<td><b>$0</b></td>
-					@endif
-					@if(isset($valuesC))
-						<td><b>$<?php echo number_format(array_sum($valuesC),0);?></b></td>
-					@else
-						<td><b>$0</b></td>
-					@endif
-				</tr>
 				</tbody>
 			</table>
 		</div>

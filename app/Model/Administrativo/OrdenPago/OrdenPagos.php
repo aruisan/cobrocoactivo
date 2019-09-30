@@ -26,7 +26,11 @@ class OrdenPagos extends Model implements Auditable
         return $this->hasMany('App\Model\Administrativo\OrdenPago\OrdenPagosPuc','orden_pago_id');
     }
 
-    public function payments(){
-        return $this->hasMany('App\Model\Administrativo\OrdenPago\OrdenPagosPayments','orden_pago_id');
+    public function pago(){
+        return $this->hasOne('App\Model\Administrativo\Pago\Pagos','orden_pago_id');
+    }
+
+    public function rubros(){
+        return$this->hasMany('App\Model\Administrativo\OrdenPago\OrdenPagosRubros','orden_pagos_id');
     }
 }

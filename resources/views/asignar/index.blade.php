@@ -1,19 +1,16 @@
+@extends('layouts.dashboard')
 
-@extends('adminlte::page')
-
-@section('title', 'CobroCoactivo')
-
-@section('content_header')
-    <h1>Asignar Funcionarios</h1>
+@section('titulo')
+    Funcionarios
 @stop
-
+@section('sidebar')
+  {{-- @include('cobro.predios.cuerpo.aside') --}}
+@stop
 @section('content')
 	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-2">
-				<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Relacionar Funcionario</button>
-			</div>
-		</div>
+		
+				<button type="button" class="btn btn-info btn-lg mb-2" data-toggle="modal" data-target="#myModal">Relacionar Funcionario</button>
+
 		<br>
 		<table class="table table-bordered cell-border table-hover" id="example"  data-form="deleteForm">
 			 <thead>
@@ -37,6 +34,13 @@
 			@endforeach
 			</tbody>
 		</table>
+		    <div class="row">
+        <center>
+            <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <a href="{{ url('admin/funcionarios') }}" class="btn btn-default" style="color:black">Regresar al Listado De Funcionarios</a>
+            </div>
+        </center>
+    </div>
 	</div>
 
 
@@ -48,7 +52,7 @@
 
 	    <!-- Modal content-->
 	    	<div class="modal-content ">
-	    	<form action="/admin/asignar" method="POST">
+	    	<form action="/asignar" method="POST">
 	      		<div class="modal-header">
 	      		 	<button type="button" class="close" data-dismiss="modal">&times;</button>
 	      		  	<h4 class="modal-title">Relaciona un Funcionario</h4>

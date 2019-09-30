@@ -47,7 +47,7 @@ class Predio extends Model
     }
 
     public function personas(){
-        return $this->belongsToMany('App\Model\Cobro\Persona')->withPivot('porcentaje');
+        return $this->belongsToMany('App\Model\Persona')->withPivot('porcentaje');
     }
     
 

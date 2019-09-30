@@ -30,7 +30,7 @@
           <h5>Valor Registro + Valor IVA</h5>
       </center>
       <div class="text-center">
-          $<?php echo number_format($registro->saldo,0) ?>
+          $<?php echo number_format($registro->val_total,0) ?>
       </div>
       <br>
       @if($registro->secretaria_e != 3)
@@ -307,7 +307,7 @@
                                 <label>IVA: </label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-usd" aria-hidden="true"></i></span>
-                                    <input type="number" class="form-control" id="iva" name="iva" value="{{ $registro->iva }}" required min="0">
+                                    <input type="number" class="form-control" id="iva" name="iva" value="{{ $registro->iva }}" required min="0" style="text-align: center">
                                 </div>
                                 <small class="form-text text-muted">Valor del iva con el que se va a regir el registro</small>
                             </div>

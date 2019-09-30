@@ -32,8 +32,12 @@ class OrdenPagosDescuentosController extends Controller
     public function create($id)
     {
         $retenF = RetencionFuente::all();
-        $desMun = DescMunicipales::all();
         $ordenPago = OrdenPagos::findOrFail($id);
+        if ($ordenPago->iva > 0){
+            $desMun = DescMunicipales::all();
+        } else {
+            $desMun = DescMunicipales::where('id','!=','4')->get();
+        }
         return view('administrativo.ordenpagos.createDescuentos', compact('ordenPago','retenF','desMun'));
 
     }
@@ -46,33 +50,39 @@ class OrdenPagosDescuentosController extends Controller
      */
     public function store(Request $request)
     {
-        $retenFuente = RetencionFuente::findOrFail($request->retencion_fuente);
         $ordenPago_id = $request->ordenPago_id;
-        $valor = $request->valor;
-        $nombre = $retenFuente->concepto;
-        $porcentaje = $retenFuente->tarifa;
-        $base = $retenFuente->base;
 
-        $ordenPagoDes = new OrdenPagosDescuentos();
-        $ordenPagoDes->nombre = $nombre;
-        $ordenPagoDes->porcent = $porcentaje;
-        $ordenPagoDes->base = $base;
-        $ordenPagoDes->valor = $valor;
-        $ordenPagoDes->orden_pagos_id = $ordenPago_id;
-        $ordenPagoDes->retencion_fuente_id = $request->retencion_fuente;
-        $ordenPagoDes->save();
+        if ($request->retencion_fuente != "Selecciona un Concepto de Descuento"){
+            $retenFuente = RetencionFuente::findOrFail($request->retencion_fuente);
+            $valor = $request->valor;
+            $nombre = $retenFuente->concepto;
+            $porcentaje = $retenFuente->tarifa;
+            $base = $retenFuente->base;
 
-        for($i=0;$i< count($request->idDes); $i++){
-            $descMunicipales = DescMunicipales::findOrFail($request->idDes[$i]);
-            $descuento = new OrdenPagosDescuentos();
-            $descuento->nombre = $descMunicipales->concepto;
-            $descuento->base = 0;
-            $descuento->porcent = $descMunicipales->tarifa;
-            $descuento->valor = $request->valorMuni[$i];
-            $descuento->orden_pagos_id = $ordenPago_id;
-            $descuento->desc_municipal_id = $request->idDes[$i];
-            $descuento->save();
+            $ordenPagoDes = new OrdenPagosDescuentos();
+            $ordenPagoDes->nombre = $nombre;
+            $ordenPagoDes->porcent = $porcentaje;
+            $ordenPagoDes->base = $base;
+            $ordenPagoDes->valor = $valor;
+            $ordenPagoDes->orden_pagos_id = $ordenPago_id;
+            $ordenPagoDes->retencion_fuente_id = $request->retencion_fuente;
+            $ordenPagoDes->save();
         }
+
+        if ($request->idDes != null){
+            for($i=0;$i< count($request->idDes); $i++){
+                $descMunicipales = DescMunicipales::findOrFail($request->idDes[$i]);
+                $descuento = new OrdenPagosDescuentos();
+                $descuento->nombre = $descMunicipales->concepto;
+                $descuento->base = 0;
+                $descuento->porcent = $descMunicipales->tarifa;
+                $descuento->valor = $request->valorMuni[$i];
+                $descuento->orden_pagos_id = $ordenPago_id;
+                $descuento->desc_municipal_id = $request->idDes[$i];
+                $descuento->save();
+            }
+        }
+
 
         if ($request->idDesOther != null){
             for($x=0;$x< count($request->idDesOther); $x++){

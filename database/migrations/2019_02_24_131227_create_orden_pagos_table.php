@@ -20,6 +20,7 @@ class CreateOrdenPagosTable extends Migration
             $table->text('nombre');
             $table->integer('valor');
             $table->integer('saldo');
+            $table->integer('iva');
             $table->enum('estado', [0, 1, 2]);
 
             $table->integer('registros_id')->unsigned();

@@ -7,6 +7,9 @@
         <a href="{{ url('/administrativo/ordenPagos') }}" class="btn btn-success">
             <span class="hide-menu">Ordenes de Pago</span></a>
     </li>
+    <li>
+        <a href="{{ url('/administrativo/ordenPagos/descuento/create/'.$ordenPago->id) }}" class="btn btn-primary"><span class="hide-menu">Descuentos</span></a>
+    </li>
 @stop
 @section('content')
     <div class="col-md-12 align-self-center">

@@ -9,6 +9,10 @@
             <span class="hide-menu"> Crear Orden de Pago</span></a>
     </li>
     <li>
+        <a href="{{ url('/administrativo/pagos') }}" class="btn btn-primary">
+            <span class="hide-menu"> Pagos</span></a>
+    </li>
+    <li>
         <a href="{{ url('/administrativo/registros') }}" class="btn btn-primary">
             <span class="hide-menu"> Registros</span></a>
     </li>
@@ -65,8 +69,6 @@
                                 <td class="text-center">{{ $ordenPagoT->registros->objeto }}</td>
                                 <td class="text-center">{{ $ordenPagoT->registros->persona->nombre }}</td>
                                 <td>
-                                    <a href="{{ url('administrativo/ordenPagos/descuento/create/'.$ordenPagoT->id) }}" title="Descuentos" class="btn-sm btn-primary"><i class="fa fa-usd"></i>&nbsp;<i class="fa fa-arrow-down"></i></a>
-                                    <a href="{{ url('administrativo/ordenPagos/liquidacion/create/'.$ordenPagoT->id) }}" title="Contabilización" class="btn-sm btn-success"><i class="fa fa-calculator"></i></a>
                                     <a href="{{ url('administrativo/ordenPagos/'.$ordenPagoT->id.'/edit') }}" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                     <a href="{{ url('administrativo/ordenPagos/'.$ordenPagoT->id) }}" title="Ver Orden de Pago" class="btn-sm btn-success"><i class="fa fa-eye"></i></a>
                                 </td>

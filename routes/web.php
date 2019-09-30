@@ -1,11 +1,5 @@
 <?php
-
-
 Route::get('/', 'VisitanteController@index');
-
-
-
-
 
 Route::get('/info', function(){
 	dd(phpinfo());
@@ -15,17 +9,32 @@ Auth::routes();
 
 //Route::get('/home', 'Cobro\HomeController@index')->name('home');
 
-
 Route::group([ 'middleware' => 'auth'] ,function(){
 	Route::get('dashboard', 'DashboardController@index');
-	Route::resource('predios', 'Hacienda\Cobro\Predial\PredioController');
+
+	Route::resource('predios', 'Cobro\PredioController');
+  Route::get('predios-sin-asignar', 'Cobro\PredioController@predioSinAsignar')->name('unnassigned');
+  Route::get('predios-asignados', 'Cobro\PredioController@predioAsignado')->name('assignor');
+  Route::post('predios-asignar', 'Cobro\PredioController@predioAsignarAdministrativeStore')->name('assignor.store');
+  Route::get('predio-expediente/{id}', 'PredioController@asignarExpediente')->name('assignor.expedient');
+  Route::get('predio-detail/{id}', 'Cobro\PredioController@show')->name('predio.detail');
+  
+  Route::post('predio-asignar', 'Cobro\PersonaPredioController@predioAsignarPersona');
+  Route::post('importar', 'Cobro\ImportController@import')->name('importar.predios');
+
+  Route::get('asignar/{id}', 'Cobro\AsignarController@index');
+  Route::resource('asignar', 'Cobro\AsignarController');
 
 	//gestion de creacion y relacion de personas
 	Route::post('persona/relacionar', 'PersonasController@PersonafindCreate')->name('persona.relacionar');
 	Route::get('persona-identtificar/{identificador}', 'PersonasController@personaIdentificar')->name('persona.identificar');
-	Route::resource('personas', 'PersonasController');
 	Route::post('avatar', 'UserController@editAvatar')->name('user-avatar');
 	Route::post('password', 'UserController@editPassword')->name('user-password');
+
+  Route::resource('personas', 'PersonasController');
+  Route::get('persona-find/{identificador}', 'PersonasController@personaFind');
+  Route::post('persona/find-create', 'PersonasController@PersonafindCreate');
+  Route::resource('personas-predios', 'Cobro\PersonaPredioController');
 	//Route::get('usuarios-tipo/{id}', 'UserController@userstype');
 
 	////////////////////admin//////////////////
@@ -45,23 +54,23 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 		Route::resource('comiteconciliacion', 'Judicial\ComiteConsiliacionController');
 		Route::resource('comparendos', 'Convivencia\ComparendoController');
 
-        //RUTAS BOLETINES
+    //RUTAS BOLETINES
 
-        Route::Resource('boletines','Administrativo\GestionDocumental\BoletinesController');
-        Route::get('/boletines/create','Administrativo\GestionDocumental\BoletinesController@create');
-
-
-        //RUTAS ARCHIVO
-
-        Route::get('/archivo/create','Administrativo\GestionDocumental\ArchivoController@create');
-        Route::Resource('archivo','Administrativo\GestionDocumental\ArchivoController');
-        Route::Resource('/archivo/manual','Administrativo\GestionDocumental\ManualContratController');
-        Route::get('/archivo/manual/create','Administrativo\GestionDocumental\ManualContratController@create');
-        Route::Resource('/archivo/plan','Administrativo\GestionDocumental\PlanAdquiController');
-        Route::get('/archivo/plan/create','Administrativo\GestionDocumental\PlanAdquiController@create');
+    Route::Resource('boletines','Administrativo\GestionDocumental\BoletinesController');
+    Route::get('/boletines/create','Administrativo\GestionDocumental\BoletinesController@create');
 
 
-        //RUTAS CORRESPONDENCIA
+    //RUTAS ARCHIVO
+
+    Route::get('/archivo/create','Administrativo\GestionDocumental\ArchivoController@create');
+    Route::Resource('archivo','Administrativo\GestionDocumental\ArchivoController');
+    Route::Resource('/archivo/manual','Administrativo\GestionDocumental\ManualContratController');
+    Route::get('/archivo/manual/create','Administrativo\GestionDocumental\ManualContratController@create');
+    Route::Resource('/archivo/plan','Administrativo\GestionDocumental\PlanAdquiController');
+    Route::get('/archivo/plan/create','Administrativo\GestionDocumental\PlanAdquiController@create');
+
+
+    //RUTAS CORRESPONDENCIA
 		Route::get('correspondencia/create/{id}','Administrativo\GestionDocumental\CorrespondenciaController@create');
 		Route::resource('correspondencia', 'Administrativo\GestionDocumental\CorrespondenciaController');
 
@@ -149,9 +158,23 @@ Route::group([ 'middleware' => 'auth'] ,function(){
         Route::resource('ordenPagos/descuento','Administrativo\OrdenPago\OrdenPagosDescuentosController');
         Route::get('ordenPagos/pay/create/{id}','Administrativo\OrdenPago\OrdenPagosController@pay');
         Route::put('ordenPagos/pay/store','Administrativo\OrdenPago\OrdenPagosController@paySave');
+        Route::get('ordenPagos/monto/create/{id}','Administrativo\OrdenPago\OrdenPagosRubrosController@create');
+        Route::put('ordenPagos/monto/store','Administrativo\OrdenPago\OrdenPagosRubrosController@store');
+        Route::delete('ordenPagos/descuento/rf/{id}','Administrativo\OrdenPago\OrdenPagosController@deleteRF');
+        Route::delete('ordenPagos/descuento/m/{id}','Administrativo\OrdenPago\OrdenPagosController@deleteM');
+        Route::delete('ordenPagos/puc/delete/{id}','Administrativo\OrdenPago\OrdenPagosController@deleteP');
+        Route::put('ordenPagos/monto/delete','Administrativo\OrdenPago\OrdenPagosRubrosController@massiveDelete');
         //PDF OrdenPago y ComprobanteEgresos
         Route::get('ordenPagos/pdf/{id}','Administrativo\OrdenPago\OrdenPagosController@pdf_OP')->name('op-pdf');
         Route::get('egresos/pdf/{id}','Administrativo\OrdenPago\OrdenPagosController@pdf_CE')->name('ce-pdf');
+
+        //PAGOS
+
+        Route::resource('pagos', 'Administrativo\Pago\PagosController');
+        Route::get('pagos/asignacion/{id}','Administrativo\Pago\PagosController@asignacion');
+        Route::put('pagos/asignacion/store','Administrativo\Pago\PagosController@asignacionStore');
+        Route::get('pagos/banks/{id}','Administrativo\Pago\PagosController@bank');
+        Route::put('pagos/banks/store','Administrativo\Pago\PagosController@bankStore');
 
         //CONTABILIDAD
 
