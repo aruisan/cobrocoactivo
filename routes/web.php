@@ -160,6 +160,10 @@ Route::group([ 'middleware' => 'auth'] ,function(){
         Route::put('ordenPagos/pay/store','Administrativo\OrdenPago\OrdenPagosController@paySave');
         Route::get('ordenPagos/monto/create/{id}','Administrativo\OrdenPago\OrdenPagosRubrosController@create');
         Route::put('ordenPagos/monto/store','Administrativo\OrdenPago\OrdenPagosRubrosController@store');
+        Route::delete('ordenPagos/descuento/rf/{id}','Administrativo\OrdenPago\OrdenPagosController@deleteRF');
+        Route::delete('ordenPagos/descuento/m/{id}','Administrativo\OrdenPago\OrdenPagosController@deleteM');
+        Route::delete('ordenPagos/puc/delete/{id}','Administrativo\OrdenPago\OrdenPagosController@deleteP');
+        Route::put('ordenPagos/monto/delete','Administrativo\OrdenPago\OrdenPagosRubrosController@massiveDelete');
         //PDF OrdenPago y ComprobanteEgresos
         Route::get('ordenPagos/pdf/{id}','Administrativo\OrdenPago\OrdenPagosController@pdf_OP')->name('op-pdf');
         Route::get('egresos/pdf/{id}','Administrativo\OrdenPago\OrdenPagosController@pdf_CE')->name('ce-pdf');
@@ -169,7 +173,8 @@ Route::group([ 'middleware' => 'auth'] ,function(){
         Route::resource('pagos', 'Administrativo\Pago\PagosController');
         Route::get('pagos/asignacion/{id}','Administrativo\Pago\PagosController@asignacion');
         Route::put('pagos/asignacion/store','Administrativo\Pago\PagosController@asignacionStore');
-
+        Route::get('pagos/banks/{id}','Administrativo\Pago\PagosController@bank');
+        Route::put('pagos/banks/store','Administrativo\Pago\PagosController@bankStore');
 
         //CONTABILIDAD
 

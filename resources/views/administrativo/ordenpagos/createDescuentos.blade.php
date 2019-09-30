@@ -26,7 +26,6 @@
             $<?php echo number_format($ordenPago->descuentos->sum('valor'),0) ?>
         </center>
         <br>
-        </div>
     </div>
 @stop
 @section('content')
@@ -61,27 +60,25 @@
                             <th class="text-center">Valor</th>
                             </thead>
                             <tbody>
-                            <tr v-for="dato in datos">
-                                <td>
-                                    <input type="hidden" name="id[]">
-                                    <div class="col-md-12">
-                                        <div class="col-md-1">
-                                            <button type="button" class="btn-sm btn-danger" v-on:click.prevent="eliminarDatos(dato.id)" ><i class="fa fa-trash-o"></i></button>
-                                        </div>
-                                        <div class="col-md-11">
-                                            <input type="text" id="retencionF" name="retencionF" style="text-align:center">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <input type="number" id="percent" name="porcent" style="text-align:center" disabled>
-                                </td>
-                                <td><input type="number" id="base" name="base" disabled style="text-align:center"></td>
-                                <td>
-                                    <input type="number" id="valor" style="text-align:center" disabled>
-                                    <input type="hidden" id="valor2" name="valor" value="">
-                                </td>
-                            </tr>
+                            @foreach($ordenPago->descuentos as $desc)
+                                @if($desc->retencion_fuente_id != null)
+                                    <tr>
+                                        <td>
+                                            <div class="col-md-12">
+                                                <div class="col-md-2 text-center">
+                                                    <button type="button" class="btn-sm btn-danger" v-on:click.prevent="eliminarDescRF({{$desc->id}})" ><i class="fa fa-trash-o"></i></button>
+                                                </div>
+                                                <div class="col-md-10 text-left">
+                                                    {{ $desc->nombre }}
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">{{ $desc->porcent }}</td>
+                                        <td class="text-center">$<?php echo number_format($desc->base,0) ?></td>
+                                        <td class="text-center">$<?php echo number_format($desc->valor,0) ?></td>
+                                    </tr>
+                                @endif
+                            @endforeach
                             <tr>
                                 <input type="hidden" name="id[]">
                                 <td>
@@ -118,6 +115,19 @@
                             <th class="text-center"><i class="fa fa-trash-o"></i></th>
                             </thead>
                             <tbody>
+                            @foreach($ordenPago->descuentos as $desc)
+                                @if($desc->retencion_fuente_id == null)
+                                    <tr>
+                                        <td class="text-center"><b>{{ $desc->desc_municipal_id }}</b></td>
+                                        <td class="text-center"><b>{{ $desc->nombre }}</b></td>
+                                        <td class="text-center"><b>{{ $desc->porcent }}</b></td>
+                                        <td class="text-center"><b>$<?php echo number_format($desc->valor,0) ?></b></td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn-sm btn-danger" v-on:click.prevent="eliminarDescM({{$desc->id}})" ><i class="fa fa-trash-o"></i></button>
+                                        </td>
+                                    </tr>
+                                @endif
+                            @endforeach
                             @for($i=0;$i< count($desMun); $i++)
                                 <tr>
                                     @if( $desMun[$i]->concepto == "Otras Contribuciones" or $desMun[$i]->concepto == "Otros Descuentos")
@@ -218,10 +228,16 @@
                     });
                 },
 
-                eliminarDatos: function(dato){
-                    var urlVigencia = '/administrativo/ordenPagos/descuento/'+dato;
+                eliminarDescRF: function(dato){
+                    var urlVigencia = '/administrativo/ordenPagos/descuento/rf/'+dato;
                     axios.delete(urlVigencia).then(response => {
+                        location.reload();
+                    });
+                },
 
+                eliminarDescM: function(dato){
+                    var urlVigencia = '/administrativo/ordenPagos/descuento/m/'+dato;
+                    axios.delete(urlVigencia).then(response => {
                         location.reload();
                     });
                 },

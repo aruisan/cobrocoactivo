@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Administrativo\OrdenPago;
 
-use App\Http\Controllers\Administrativo\Cdp\CdpController;
 use App\Model\Administrativo\Contabilidad\LevelPUC;
 use App\Model\Administrativo\Contabilidad\RegistersPuc;
 use App\Model\Administrativo\OrdenPago\OrdenPagos;
@@ -161,8 +160,6 @@ class OrdenPagosController extends Controller
                     $oPP->valor_debito = $request->valorPucD[$i];
                     $oPP->valor_credito = $request->valorPucC[$i];
                     $oPP->save();
-                    $ordenPago->estado = 1;
-                    $ordenPago->save();
                 } else {
                     Session::flash('warning','Recuerde que los totales del credito y debito deben dar sumas iguales');
                     return back();
@@ -350,6 +347,25 @@ class OrdenPagosController extends Controller
             Session::flash('warning','Ya se tienen asignados descuentos a la orden de pago, no puede ser modificada');
             return redirect('/administrativo/ordenPagos/'.$id.'/edit');
         }
+    }
+
+    public function deleteRF($id){
+
+        $retenF = OrdenPagosDescuentos::findOrFail($id);
+        $retenF->delete();
+        Session::flash('error','Descuento de la Retención de Fuente eliminado de la Orden de Pago');
+    }
+
+    public function deleteM($id){
+
+        $municipal = OrdenPagosDescuentos::findOrFail($id);
+        $municipal->delete();
+        Session::flash('error','Descuento Municipal eliminado de la Orden de Pago');
+    }
+
+    public function deleteP($id){
+        $puc = OrdenPagosPuc::findOrFail($id);
+        $puc->delete();
     }
 
     /**

@@ -10,7 +10,7 @@ class RetencionFuente extends Model implements Auditable
     use \OwenIt\Auditing\Auditable;
 
     public function orden_descuento(){
-        return $this->hasMany('App\Model\Administrativo\OrdenPago\OrdenPagosDescuentos');
+        return $this->hasOne('App\Model\Administrativo\OrdenPago\OrdenPagosDescuentos','id');
     }
 
 }
