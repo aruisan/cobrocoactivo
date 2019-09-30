@@ -21,7 +21,7 @@ class PredioController extends Controller
      */
     public function index()
     {   
-        /*if(Auth::user()->type->nombre == "Coordinador")
+        if(Auth::user()->type->nombre == "Coordinador")
         {
             $predios = Predio::all();       
         }
@@ -41,8 +41,8 @@ class PredioController extends Controller
                         })->get();  
         }
 
-        return view('predios.index', compact('predios'));*/
-        return "predios ";
+        return view('predios.index', compact('predios'));
+        // return "predios ";
     }
 
     /**

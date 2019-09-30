@@ -7,7 +7,7 @@ use App\Asignacion;
 use App\Conteo;
 use App\Notifications\AsignacionAdministrativaPredio;
 use App\PersonaPredio;
-use App\Predio;
+use App\Model\Cobro\Predio;
 use App\User;
 use Auth;
 use Carbon\Carbon;
@@ -23,28 +23,8 @@ class PredioController extends Controller
      */
     public function index()
     {   
-        return "predios";
-        if(Auth::user()->type->nombre == "Coordinador")
-        {
-            $predios = Predio::all();       
-        }
-        elseif(Auth::user()->type->nombre == "Abogado")
-        {
-            // $predios = Asignacion::where('abogado_id', Auth::user()->id)->get();
-
-            $predios = Predio::whereHas('asignacion', function ($query){
-                            $query->where('abogado_id', auth()->user()->id);
-                        })->get();  
-        }
-        elseif(Auth::user()->type->nombre == "Secretaria")
-        {
-            // $predios = Asignacion::where('secretaria_id', Auth::user()->id)->get();
-            $predios = Predio::whereHas('asignacion', function ($query){
-                            $query->where('secretaria_id', auth()->user()->id);
-                        })->get();  
-        }
-
-        return view('predios.index', compact('predios'));
+       $predios = Predio::all();
+        return view('hacienda.cobro.predios.index', compact('predios'));
     }
 
     /**
