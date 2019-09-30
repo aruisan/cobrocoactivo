@@ -20,7 +20,8 @@ Route::group([ 'middleware' => 'auth'] ,function(){
   Route::get('predio-detail/{id}', 'Cobro\PredioController@show')->name('predio.detail');
   
   Route::post('predio-asignar', 'Cobro\PersonaPredioController@predioAsignarPersona');
-  
+  Route::post('importar', 'Cobro\ImportController@import')->name('importar.predios');
+
   Route::get('asignar/{id}', 'Cobro\AsignarController@index');
   Route::resource('asignar', 'Cobro\AsignarController');
 
@@ -72,16 +73,6 @@ Route::group([ 'middleware' => 'auth'] ,function(){
     //RUTAS CORRESPONDENCIA
 		Route::get('correspondencia/create/{id}','Administrativo\GestionDocumental\CorrespondenciaController@create');
 		Route::resource('correspondencia', 'Administrativo\GestionDocumental\CorrespondenciaController');
-
-    //RUTAS COBRO COACTIVO - PREDIAL
-
-      // Route::resource('predios', 'PredioController');
-      // Route::get('predios-sin-asignar', 'PredioController@predioSinAsignar')->name('unnassigned');
-      // Route::get('predios-asignados', 'PredioController@predioAsignado')->name('assignor');
-      // Route::post('predios-asignar', 'PredioController@predioAsignarAdministrativeStore')->name('assignor.store');
-      // Route::get('predio-expediente/{id}', 'PredioController@asignarExpediente')->name('assignor.expedient');
-
-      // Route::post('predio-asignar', 'PersonaPredioController@predioAsignarPersona');
 
 		//RUTAS ACUERDOS
 

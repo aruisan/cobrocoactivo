@@ -63,7 +63,7 @@ class ImportController extends Controller
        
        	# Redirect to succesfully upload
 
-        Session::flash('message','Se han importado los predios exictosamente');
-        return redirect('/admin/predios');
+        Session::flash('success','Se han importado los predios exictosamente');
+        return redirect('predios');
     }
 }
