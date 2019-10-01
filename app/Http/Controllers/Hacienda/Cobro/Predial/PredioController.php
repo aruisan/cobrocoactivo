@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Cobro;
-use App\Model\Cobro\Asignacion;
-use App\Model\Cobro\Predio;
-use App\Model\cobro\Conteo;
-use App\Model\cobro\PersonaPredio;
+namespace App\Http\Controllers\Hacienda\Cobro\Predial;
+
+use App\Http\Controllers\Controller;
+use App\Asignacion;
+use App\Conteo;
 use App\Notifications\AsignacionAdministrativaPredio;
+use App\PersonaPredio;
+use App\Model\Cobro\Predio;
 use App\User;
 use Auth;
 use Carbon\Carbon;
@@ -21,30 +23,8 @@ class PredioController extends Controller
      */
     public function index()
     {   
-        if(Auth::user()->type){
-            if(Auth::user()->type->id == 2)
-            {
-                $predios = Predio::all();       
-            }
-            elseif(Auth::user()->type->id == 3)
-            {
-                // $predios = Asignacion::where('abogado_id', Auth::user()->id)->get();
-                $predios = Predio::whereHas('asignacion', function ($query){
-                                $query->where('abogado_id', auth()->user()->id);
-                            })->get();  
-            }
-            elseif(Auth::user()->type->id == 4)
-            {
-                // $predios = Asignacion::where('secretaria_id', Auth::user()->id)->get();
-                $predios = Predio::whereHas('asignacion', function ($query){
-                                $query->where('secretaria_id', auth()->user()->id);
-                            })->get();  
-            }
-        }
-        else{
-            $predios = Predio::all();       
-        }
-        return view('cobro.predios.index', compact('predios'));
+       $predios = Predio::all();
+        return view('hacienda.cobro.predios.index', compact('predios'));
     }
 
     /**
@@ -55,7 +35,7 @@ class PredioController extends Controller
     public function create()
     {   
         $predio = new Predio;
-        return view('cobro.predios.create', compact('predio'));
+        return view('predios.create', compact('predio'));
     }
 
     /**
@@ -66,8 +46,6 @@ class PredioController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-
         $predio = new Predio;
         
         $predio->ficha_catastral = $request->ficha_catastral;
@@ -101,10 +79,10 @@ class PredioController extends Controller
 
         if($predio->save()){
 
-            return redirect('/predios');
+            return redirect('/admin/predios');
 
         }else {
-            return view('predios.create', ['predios' => $predios]);
+        return view('admin/predios.create', ['predios' => $predios]);
         }
     }
 
@@ -116,9 +94,7 @@ class PredioController extends Controller
      */
     public function show($id)
     {
-        $predio = Predio::findOrFail($id);
-
-        return view('cobro.predios.detail', ['predio' => $predio]);
+        //
     }
 
     /**
@@ -131,7 +107,7 @@ class PredioController extends Controller
     {
         $predio = Predio::findOrFail($id);
 
-        return view('cobro.predios.edit', ['predio' => $predio]);
+        return view('predios.edit', ['predio' => $predio]);
     }
 
     /**
@@ -177,10 +153,10 @@ class PredioController extends Controller
 
         if($predio->save()){
 
-            return redirect('predios');
+            return redirect('/admin/predios');
 
         }else {
-        return view('predios.create', ['predio' => $predio]);
+        return view('admin/predios.create', ['predio' => $predio]);
         }
     }
 
@@ -195,30 +171,31 @@ class PredioController extends Controller
         $predio = Predio::findOrFail($id);
         $predio->delete();
 
-        return redirect('predios');
+        return redirect('admin/predios');
     }
 
     
 
     public function predioSinAsignar()
     {
-        $type = auth()->user()->type->id;
+
+        $type = auth()->user()->type->nombre;
         
 
-        if ($type == 2) {
+        if ($type == "Coordinador") {
             
             $predios = Predio::doesntHave('asignacion')->get();
 
         }
 
-        if ($type == 3) {
+        if ($type == "Abogado") {
             
             $predios = Predio::whereHas('asignacion', function ($query){
                             $query->where('abogado_id', auth()->user()->id)->where('secretaria_id', null);
                         })->get();     
         }        
 
-        if ($type == 4) {
+        if ($type == "Secretaria") {
             
             $predios = Predio::whereHas('asignacion', function ($query){
                             $query->where('secretaria_id', auth()->user()->id);
@@ -241,13 +218,14 @@ class PredioController extends Controller
                             $query->where('boss_id' , auth()->user()->id);
                         })->pluck('name', 'id');
 
-        return view('cobro.predios.unassigned', compact('predios' ,'usuariosTypeFilt'));
+        return view('predios.unassigned', compact('predios' ,'usuariosTypeFilt'));
     }    
 
     public function predioAsignarAdministrativeStore(Request $request)
     {   
 
-        $type = auth()->user()->type->id;
+
+        $type = auth()->user()->type->nombre;
 
 
         $predios = $request->predios;
@@ -256,7 +234,7 @@ class PredioController extends Controller
 
             foreach ($predios as $predio) {
                 
-                if ($type == 2) {
+                if ($type == "Coordinador") {
                     
                     $asignacion = new Asignacion;
                     $asignacion->abogado_id = $request->encargado;
@@ -264,7 +242,7 @@ class PredioController extends Controller
                     $asignacion->tabla = 'predios';
                     $asignacion->save();
                 }            
-                if ($type == 3) {
+                if ($type == "Abogado") {
 
                     $asignacion = Asignacion::where('cc_id', $predio)->first();
 
@@ -276,10 +254,10 @@ class PredioController extends Controller
             
             $encargado = User::find($request->encargado);
 
-            // $encargado->notify(new AsignacionAdministrativaPredio($encargado));
+            $encargado->notify(new AsignacionAdministrativaPredio($encargado));
 
             Session::flash('message','Se han asignados exitosamente');
-            return  redirect('predios');
+            return  redirect('admin/predios');
         }
 
         else {
@@ -295,24 +273,24 @@ class PredioController extends Controller
 
     public function predioAsignado(){
 
-        $type = auth()->user()->type->id;
+        $type = auth()->user()->type->nombre;
 
         // $predios = Predio::where('estado', 1)->get();
 
-        if ($type == 2) {
+        if ($type == "Coordinador") {
             
             $predios = Predio::has('asignacion')->get();
 
         }
 
-        if ($type == 3) {
+        if ($type == "Abogado") {
             
             $predios = Predio::whereHas('asignacion', function ($query){
                 $query->where('abogado_id', auth()->user()->id)->where('secretaria_id','<>', null);
             })->get();    
         }
 
-        return view('cobro.predios.assignor', compact('predios'));
+        return view('predios.assignor', compact('predios'));
     }       
 
     public function asignarExpediente($id)
