@@ -91,52 +91,57 @@ class OrdenPagosController extends Controller
 
     public function liquidacion($id)
     {
-        $Usuarios = Persona::all();
-        $data = Puc::all()->first();
-        $puc_id = $data->id;
-        $ultimoLevel = LevelPUC::where('puc_id', $puc_id)->get()->last();
+        $ordenPago = OrdenPagos::findOrfail($id);
+        if ($ordenPago->descuentos->count() == 0){
+            Session::flash('warning',' Se deben realizar primero los descuentos para poder hacer la contabilización de la orden de pago.');
+            return redirect('administrativo/ordenPagos/descuento/create/'.$ordenPago->id);
+        }else{
+            $Usuarios = Persona::all();
+            $data = Puc::all()->first();
+            $puc_id = $data->id;
+            $ultimoLevel = LevelPUC::where('puc_id', $puc_id)->get()->last();
 
-        global $lastLevel;
-        $lastLevel = $ultimoLevel->id;
+            global $lastLevel;
+            $lastLevel = $ultimoLevel->id;
 
-        $R1 = RegistersPuc::where('register_puc_id', NULL)->get();
+            $R1 = RegistersPuc::where('register_puc_id', NULL)->get();
 
-        foreach ($R1 as $r1) {
-            $codigoEnd = $r1->code;
-            $codigos[] = collect(['id' => $r1->id, 'codigo' => $codigoEnd, 'name' => $r1->name, 'register_id' => $r1->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
-            foreach ($r1->codes as $data1){
-                $reg0 = RegistersPuc::findOrFail($data1->registers_puc_id);
-                $codigo = $reg0->code;
-                $codigoEnd = "$r1->code$codigo";
-                $codigos[] = collect(['id' => $reg0->id, 'codigo' => $codigoEnd, 'name' => $reg0->name, 'register_id' => $reg0->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
-                if ($reg0->codes){
-                    foreach ($reg0->codes as $data3){
-                        $reg = RegistersPuc::findOrFail($data3->registers_puc_id);
-                        $codigo = $reg->code;
-                        $codigoF = "$codigoEnd$codigo";
-                        $codigos[] = collect(['id' => $reg->id, 'codigo' => $codigoF, 'name' => $reg->name, 'register_id' => $reg->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
-                        foreach ($reg->codes as $data4){
-                            $reg1 = RegistersPuc::findOrFail($data4->registers_puc_id);
-                            $codigo = $reg1->code;
-                            $code = "$codigoF$codigo";
-                            $codigos[] = collect(['id' => $reg1->id, 'codigo' => $code, 'name' => $reg1->name, 'register_id' => $reg1->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
-                            foreach ($reg1->rubro as $rubro){
-                                $codigo = $rubro->codigo;
-                                $code1 = "$code$codigo";
-                                $codigos[] = collect(['id' => $rubro->id, 'codigo' => $code1, 'name' => $rubro->nombre_cuenta, 'code' => $rubro->codigo, 'code_N' =>  $rubro->codigo_NIPS, 'name_N' => $rubro->nombre_NIPS, 'naturaleza' => $rubro->naturaleza,'per_id' => $rubro->persona_id, 'register_id' => $rubro->registers_puc_id]);
+            foreach ($R1 as $r1) {
+                $codigoEnd = $r1->code;
+                $codigos[] = collect(['id' => $r1->id, 'codigo' => $codigoEnd, 'name' => $r1->name, 'register_id' => $r1->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
+                foreach ($r1->codes as $data1){
+                    $reg0 = RegistersPuc::findOrFail($data1->registers_puc_id);
+                    $codigo = $reg0->code;
+                    $codigoEnd = "$r1->code$codigo";
+                    $codigos[] = collect(['id' => $reg0->id, 'codigo' => $codigoEnd, 'name' => $reg0->name, 'register_id' => $reg0->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
+                    if ($reg0->codes){
+                        foreach ($reg0->codes as $data3){
+                            $reg = RegistersPuc::findOrFail($data3->registers_puc_id);
+                            $codigo = $reg->code;
+                            $codigoF = "$codigoEnd$codigo";
+                            $codigos[] = collect(['id' => $reg->id, 'codigo' => $codigoF, 'name' => $reg->name, 'register_id' => $reg->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
+                            foreach ($reg->codes as $data4){
+                                $reg1 = RegistersPuc::findOrFail($data4->registers_puc_id);
+                                $codigo = $reg1->code;
+                                $code = "$codigoF$codigo";
+                                $codigos[] = collect(['id' => $reg1->id, 'codigo' => $code, 'name' => $reg1->name, 'register_id' => $reg1->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
+                                foreach ($reg1->rubro as $rubro){
+                                    $codigo = $rubro->codigo;
+                                    $code1 = "$code$codigo";
+                                    $codigos[] = collect(['id' => $rubro->id, 'codigo' => $code1, 'name' => $rubro->nombre_cuenta, 'code' => $rubro->codigo, 'code_N' =>  $rubro->codigo_NIPS, 'name_N' => $rubro->nombre_NIPS, 'naturaleza' => $rubro->naturaleza,'per_id' => $rubro->persona_id, 'register_id' => $rubro->registers_puc_id]);
+                                }
                             }
                         }
                     }
                 }
             }
-        }
-        $ordenPago = OrdenPagos::findOrfail($id);
-        $ordenPagoDesc = OrdenPagosDescuentos::where('orden_pagos_id',$id)->get();
-        $registro = Registro::findOrFail($ordenPago->registros_id);
-        $Pagos = OrdenPagos::where('estado','=',1);
-        $SumPagos = $Pagos->sum('valor');
+            $ordenPagoDesc = OrdenPagosDescuentos::where('orden_pagos_id',$id)->get();
+            $registro = Registro::findOrFail($ordenPago->registros_id);
+            $Pagos = OrdenPagos::where('estado','=',1);
+            $SumPagos = $Pagos->sum('valor');
 
-        return view('administrativo.ordenpagos.createLiquidacion', compact('ordenPago','registro','SumPagos','ordenPagoDesc','Usuarios','codigos'));
+            return view('administrativo.ordenpagos.createLiquidacion', compact('ordenPago','registro','SumPagos','ordenPagoDesc','Usuarios','codigos'));
+        }
     }
 
     public function liquidar(Request $request)

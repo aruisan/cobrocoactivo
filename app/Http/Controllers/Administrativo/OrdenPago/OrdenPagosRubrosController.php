@@ -43,7 +43,7 @@ class OrdenPagosRubrosController extends Controller
             foreach ($cdps as $cdp){
                 $valC[] = $cdp->valor;
             }
-            $vOP = $ordenPago->valor;
+            $vOP = $ordenPago->valor - $ordenPago->iva;
             foreach ($valC as $value){
                 if ($vOP == 0){
                     $distri[] = 0;

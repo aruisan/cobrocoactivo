@@ -8,6 +8,7 @@ use App\Model\Administrativo\Pago\Pagos;
 use App\Model\Administrativo\Pago\PagoRubros;
 use App\Model\Administrativo\Pago\PagoBanks;
 use App\Http\Controllers\Controller;
+use App\Model\Administrativo\Registro\CdpsRegistroValor;
 use Illuminate\Http\Request;
 use Session;
 
@@ -79,11 +80,29 @@ class PagosController extends Controller
 
     public function asignacion($id){
         $pago = Pagos::findOrFail($id);
-
+        $rubros = $pago->orden_pago->rubros;
         if (count($pago->orden_pago->rubros) == 1){
             return redirect('/administrativo/pagos/banks/'.$pago->id);
         } else {
-            return view('administrativo.pagos.createRubros', compact('pago'));
+            foreach ($rubros as $rubro){
+                $valC[] = $rubro->valor;
+            }
+            $vOP = $pago->valor;
+            foreach ($valC as $value){
+                if ($vOP == 0){
+                    $distri[] = 0;
+                }else {
+                    if ($vOP >= $value){
+                        $vOP = $vOP - $value;
+                        $distri[] = $value;
+                        $a[] = $vOP;
+                    } else {
+                        $distri[] = $vOP;
+                        $vOP = 0;
+                    }
+                }
+            }
+            return view('administrativo.pagos.createRubros', compact('pago','distri'));
         }
     }
 
@@ -118,7 +137,7 @@ class PagosController extends Controller
 
     public function bank($id){
         $pago = Pagos::findOrFail($id);
-        if (count($pago->rubros) > 1){
+        if (count($pago->rubros) > 0){
             $PUCS = RubrosPuc::where('naturaleza','1')->get();
 
             return view('administrativo.pagos.createBanks', compact('pago','PUCS'));
