@@ -67,9 +67,9 @@
                                 </td>
                                 <td class="text-center">{{ $pagoT->orden_pago->registros->persona->nombre }}</td>
                                 <td>
-                                    <a href="{{ url('administrativo/pagos/'.$pagoT->id.'/edit') }}" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                     <a href="{{ url('administrativo/pagos/'.$pagoT->id) }}" title="Ver Pago" class="btn-sm btn-success"><i class="fa fa-eye"></i></a>
                                     <a href="{{ url('administrativo/pagos/asignacion/'.$pagoT->id) }}" title="Asignar Monto" class="btn-sm btn-success"><i class="fa fa-usd"></i></a>
+                                    <a href="{{ url('administrativo/pagos/banks/'.$pagoT->id) }}" title="Asignar Banco" class="btn-sm btn-success"><i class="fa fa-bank"></i></a>
                                 </td>
                             </tr>
                         @endforeach
