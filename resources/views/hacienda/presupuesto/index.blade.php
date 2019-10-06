@@ -143,7 +143,7 @@
                 <div id="tabHome" class="tab-pane active"><br>
                     <div class="table-responsive">
                         <br>
-                        <table class="table table-hover table-bordered" align="100%" id="tabla_presupuesto">
+                        <table class="table table-hover table-bordered" align="100%" id="tabla_presupuesto" style="text-align: center">
                             <thead>
                             <tr>
                                 <th class="text-center">Rubro</th>
@@ -159,134 +159,170 @@
                                 <th class="text-center">Saldo Disponible</th>
                                 <th class="text-center">Saldo de CDP</th>
                                 <th class="text-center">Ordenes de Pago</th>
+                                <th class="text-center">Pagos</th>
+                                <th class="text-center">Cuentas Por Pagar</th>
+                                <th class="text-center">Reservas</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($codigos as $codigo)
                                 <tr>
                                     @if($codigo['valor'])
-                                        <td class="text-dark"><a href="{{ url('presupuesto/rubro/'.$codigo['id_rubro']) }}">{{ $codigo['codigo']}}</a></td>
+                                        <td class="text-dark" style="vertical-align:middle;"><a href="{{ url('presupuesto/rubro/'.$codigo['id_rubro']) }}">{{ $codigo['codigo']}}</a></td>
                                     @else
-                                        <td class="text-dark">{{ $codigo['codigo']}}</td>
+                                        <td class="text-dark" style="vertical-align:middle;">{{ $codigo['codigo']}}</td>
                                     @endif
-                                    <td class="text-dark">{{ $codigo['name']}}</td>
+                                    <td class="text-dark" style="vertical-align:middle;">{{ $codigo['name']}}</td>
                                      <!-- PRESUPUESTO INICIAL-->
                                     @foreach($valoresIniciales as $valorInicial)
                                         @if($valorInicial['id'] == $codigo['id'])
-                                            <td class="text-center text-dark">$ <?php echo number_format($valorInicial['valor'],0);?></td>
+                                            <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorInicial['valor'],0);?></td>
                                         @endif
                                     @endforeach
                                     @if($codigo['valor'])
-                                        <td class="text-center text-dark">$ <?php echo number_format($codigo['valor'],0);?></td>
+                                        <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($codigo['valor'],0);?></td>
                                     @endif
                                     <!-- ADICIÓN -->
                                     @foreach($valoresIniciales as $valorInicial)
                                         @if($valorInicial['id'] == $codigo['id'])
-                                            <td class="text-center text-dark">$ 0</td>
+                                            <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
                                         @endif
                                     @endforeach
                                     @foreach($valoresAdd as $valorAdd)
                                         @if($codigo['id_rubro'] == $valorAdd['id'])
-                                            <td class="text-center text-dark">$ <?php echo number_format($valorAdd['valor'],0);?></td>
+                                            <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorAdd['valor'],0);?></td>
                                         @endif
                                     @endforeach
                                     <!-- REDUCCIÓN -->
                                     @foreach($valoresIniciales as $valorInicial)
                                         @if($valorInicial['id'] == $codigo['id'])
-                                            <td class="text-center text-dark">$ 0</td>
+                                            <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
                                         @endif
                                     @endforeach
                                     @foreach($valoresRed as $valorRed)
                                         @if($codigo['id_rubro'] == $valorRed['id'])
-                                            <td class="text-center text-dark">$ <?php echo number_format($valorRed['valor'],0);?></td>
+                                            <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorRed['valor'],0);?></td>
                                         @endif
                                     @endforeach
                                     <!-- CREDITO -->
                                         @foreach($valoresIniciales as $valorInicial)
                                             @if($valorInicial['id'] == $codigo['id'])
-                                                <td class="text-center text-dark">$ 0</td>
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
                                             @endif
                                         @endforeach
                                         @foreach($valoresCred as $valorCred)
                                             @if($codigo['id_rubro'] == $valorCred['id'])
-                                                <td class="text-center text-dark">$ <?php echo number_format($valorCred['valor'],0);?></td>
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorCred['valor'],0);?></td>
                                             @endif
                                         @endforeach
                                     <!-- CONTRACREDITO -->
                                         @foreach($valoresIniciales as $valorInicial)
                                             @if($valorInicial['id'] == $codigo['id'])
-                                                <td class="text-center text-dark">$ 0</td>
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
                                             @endif
                                         @endforeach
                                         @foreach($valoresCcred as $valorCcred)
                                             @if($codigo['id_rubro'] == $valorCcred['id'])
-                                                <td class="text-center text-dark">$ <?php echo number_format($valorCcred['valor'],0);?></td>
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorCcred['valor'],0);?></td>
                                             @endif
                                         @endforeach
                                     <!-- PRESUPUESTO DEFINITIVO -->
                                     @foreach($valoresDisp as $valorDisponible)
                                         @if($valorDisponible['id'] == $codigo['id'])
-                                            <td class="text-center">$ <?php echo number_format($valorDisponible['valor'],0);?></td>
+                                            <td class="text-center" style="vertical-align:middle;">$ <?php echo number_format($valorDisponible['valor'],0);?></td>
                                         @endif
                                     @endforeach
                                     @foreach($ArrayDispon as $valorPD)
                                         @if($codigo['id_rubro'] == $valorPD['id'])
-                                            <td class="text-center text-dark">$ <?php echo number_format($valorPD['valor'],0);?></td>
+                                            <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorPD['valor'],0);?></td>
                                         @endif
                                     @endforeach
                                     <!-- CDP'S -->
                                     @foreach($valoresIniciales as $valorInicial)
                                         @if($valorInicial['id'] == $codigo['id'])
-                                            <td class="text-center text-dark">$ 0</td>
+                                            <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
                                         @endif
                                     @endforeach
                                     @foreach($valoresCdp as $valorCdp)
                                         @if($codigo['id_rubro'] == $valorCdp['id'])
-                                            <td class="text-center text-dark">$ <?php echo number_format($valorCdp['valor'],0);?></td>
+                                            <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorCdp['valor'],0);?></td>
                                         @endif
                                     @endforeach
                                     <!-- REGISTROS -->
                                     @foreach($valoresIniciales as $valorInicial)
                                         @if($valorInicial['id'] == $codigo['id'])
-                                            <td class="text-center text-dark">$ 0</td>
+                                            <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
                                         @endif
                                     @endforeach
                                     @foreach($valoresRubro as $valorRubro)
                                         @if($codigo['id_rubro'] == $valorRubro['id'])
-                                            <td class="text-center text-dark">$ <?php echo number_format($valorRubro['valor'],0);?></td>
+                                            <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorRubro['valor'],0);?></td>
                                         @endif
                                     @endforeach
                                     <!-- SALDO DISPONIBLE -->
                                     @foreach($valorDisp as $vDisp)
                                         @if($vDisp['id'] == $codigo['id'])
-                                            <td class="text-center">$ <?php echo number_format($vDisp['valor'],0);?></td>
+                                            <td class="text-center" style="vertical-align:middle;">$ <?php echo number_format($vDisp['valor'],0);?></td>
                                         @endif
                                     @endforeach
                                     @foreach($saldoDisp as $salD)
                                         @if($codigo['id_rubro'] == $salD['id'])
-                                            <td class="text-center text-dark">$ <?php echo number_format($salD['valor'],0);?></td>
+                                            <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($salD['valor'],0);?></td>
                                         @endif
                                     @endforeach
                                     <!-- SALDO DE CDP -->
                                         @foreach($valoresIniciales as $valorInicial)
                                             @if($valorInicial['id'] == $codigo['id'])
-                                                <td class="text-center text-dark">$ 0</td>
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
                                             @endif
                                         @endforeach
                                         @foreach($valorDcdp as $valorDCdp)
                                             @if($codigo['id_rubro'] == $valorDCdp['id'])
-                                                <td class="text-center text-dark">$ <?php echo number_format($valorDCdp['valor'],0);?></td>
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorDCdp['valor'],0);?></td>
                                             @endif
                                         @endforeach
                                     <!-- ORDENES DE PAGO -->
                                         @foreach($valoresIniciales as $valorInicial)
                                             @if($valorInicial['id'] == $codigo['id'])
-                                                <td class="text-center text-dark">$ 0</td>
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
                                             @endif
                                         @endforeach
                                         @foreach($valOP as $valorOP)
                                             @if($codigo['id_rubro'] == $valorOP['id'])
-                                                <td class="text-center text-dark">$ <?php echo number_format($valorOP['valor'],0);?></td>
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorOP['valor'],0);?></td>
+                                            @endif
+                                        @endforeach
+                                    <!-- PAGOS -->
+                                        @foreach($valoresIniciales as $valorInicial)
+                                            @if($valorInicial['id'] == $codigo['id'])
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
+                                            @endif
+                                        @endforeach
+                                        @foreach($valP as $valorP)
+                                            @if($codigo['id_rubro'] == $valorP['id'])
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorP['valor'],0);?></td>
+                                            @endif
+                                        @endforeach
+                                    <!-- CUENTAS POR PAGAR -->
+                                        @foreach($valoresIniciales as $valorInicial)
+                                            @if($valorInicial['id'] == $codigo['id'])
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
+                                            @endif
+                                        @endforeach
+                                        @foreach($valCP as $valorCP)
+                                            @if($codigo['id_rubro'] == $valorCP['id'])
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorCP['valor'],0);?></td>
+                                            @endif
+                                        @endforeach
+                                    <!-- RESERVAS -->
+                                        @foreach($valoresIniciales as $valorInicial)
+                                            @if($valorInicial['id'] == $codigo['id'])
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
+                                            @endif
+                                        @endforeach
+                                        @foreach($valR as $valorR)
+                                            @if($codigo['id_rubro'] == $valorR['id'])
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorR['valor'],0);?></td>
                                             @endif
                                         @endforeach
                                 </tr>

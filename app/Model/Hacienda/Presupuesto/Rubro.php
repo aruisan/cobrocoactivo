@@ -41,4 +41,8 @@ class Rubro extends Model implements Auditable
     public function rubrosMov(){
         return $this->hasMany('App\Model\Hacienda\Presupuesto\RubrosMov','rubro_id');
     }
+
+    public function pago(){
+        return $this->hasMany('App\Model\Administrativo\Pago\PagoRubros','rubro_id');
+    }
 }

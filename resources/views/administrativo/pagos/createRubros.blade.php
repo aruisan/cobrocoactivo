@@ -7,6 +7,11 @@
         <a href="{{ url('/administrativo/pagos') }}" class="btn btn-success">
             <span class="hide-menu">Pagos</span></a>
     </li>
+    <br>
+    <li>
+        <a href="{{ url('/administrativo/pagos/banks/'.$pago->id) }}" class="btn btn-primary">
+            <span class="hide-menu">Bancos</span></a>
+    </li>
 @stop
 @section('content')
     <div class="col-md-12 align-self-center" id="crud">
@@ -45,25 +50,57 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($pago->orden_pago->rubros as $rubros)
-                                <tr class="text-center">
-                                    <td>{{ $rubros->cdps_registro->rubro->name }}</td>
-                                    <td>$<?php echo number_format($rubros->saldo,0) ?></td>
-                                    <td>
-                                        <input type="number" name="valor[]" value="0" style="text-align: center" min="0" max="{{ $rubros->saldo }}">
-                                        <input type="hidden" name="idR[]" value="{{  $rubros->cdps_registro->rubro->id }}" style="text-align: center">
-                                    </td>
-                                </tr>
-                            @endforeach
+                            @if(count($pago->rubros) > 1)
+                                @foreach($pago->orden_pago->rubros as $rubros)
+                                    <?php $id = $rubros->cdps_registro->rubro->id ?>
+                                    <tr class="text-center">
+                                        <td>{{ $rubros->cdps_registro->rubro->name }}</td>
+                                        <td>$<?php echo number_format($rubros->saldo,0) ?></td>
+                                        <td>
+                                            @foreach($pago->rubros->where('rubro_id',$id) as $data)
+                                                <input type="text" name="valor[]" value="{{$data->valor}}" style="text-align: center" min="0" max="{{ $rubros->saldo }}">
+                                            @endforeach
+                                            <input type="hidden" name="idR[]" value="{{  $id }}" style="text-align: center">
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                @for($i=0;$i< count($pago->orden_pago->rubros); $i++)
+                                    <tr class="text-center">
+                                        <td>{{ $pago->orden_pago->rubros[$i]->cdps_registro->rubro->name }}</td>
+                                        <td>$<?php echo number_format($pago->orden_pago->rubros[$i]->saldo,0) ?></td>
+                                        <td>
+                                            <input type="number" name="valor[]" value="{{ $distri[$i] }}" style="text-align: center" min="0" max="{{ $pago->orden_pago->rubros[$i]->saldo }}">
+                                            <input type="hidden" name="idR[]" value="{{  $pago->orden_pago->rubros[$i]->cdps_registro->rubro->id }}" style="text-align: center">
+                                        </td>
+                                    </tr>
+                                @endfor
+                                @foreach($pago->orden_pago->rubros as $rubros)
+
+                                @endforeach
+                            @endif
                             </tbody>
                         </table>
                     </div>
-                    <br>
-                    <div class="col-md-12 align-self-center text-center">
+                    @if(count($pago->rubros) > 1)
+                        @else
                         <br>
-                        <button type="submit" class="btn btn-success">Siguiente</button>
-                    </div>
+                        <div class="col-md-12 align-self-center text-center">
+                            <br>
+                            <button type="submit" class="btn btn-success">Siguiente</button>
+                        </div>
+                    @endif
                 </form>
+                @if(count($pago->rubros) > 1)
+                    <form class="form-valide" action="{{url('/administrativo/pagos/asignacion/delete')}}" method="POST" enctype="multipart/form-data">
+                        {!! method_field('PUT') !!}
+                        {{ csrf_field() }}
+                        <input type="hidden" value="{{ $pago->id }}" name="id">
+                        <center>
+                            <button type="submit" class="btn btn-danger">Reasignar Valores</button>
+                        </center>
+                    </form>
+                @endif
             </div>
         </div>
     </div>
@@ -72,7 +109,8 @@
     <script type="text/javascript">
         $('#tabla_Pago').DataTable( {
             responsive: true,
-            "searching": false
+            "searching": false,
+            order: false
         } );
     </script>
 @stop

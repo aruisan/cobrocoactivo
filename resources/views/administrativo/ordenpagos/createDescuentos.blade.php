@@ -11,13 +11,13 @@
     <div class="card">
         <br>
         <center>
-            <h4><b>Estado Actual del Registro</b></h4>
+            <h4><b>Orden de Pago</b></h4>
             <br>
-            Valor Registro: $<?php echo number_format($ordenPago->registros->valor,0) ?>
+            Valor Orden de Pago: $<?php echo number_format($ordenPago->valor - $ordenPago->iva,0) ?>
             <br>
-            Valor Total(+IVA): $<?php echo number_format($ordenPago->registros->val_total,0) ?>
+            Valor IVA Orden de Pago: $<?php echo number_format($ordenPago->iva,0) ?>
             <br>
-            Valor Disponible: $<?php echo number_format($ordenPago->registros->saldo,0) ?>
+            Valor Total(+IVA): $<?php echo number_format($ordenPago->valor,0) ?>
         </center>
         <br>
         <center>

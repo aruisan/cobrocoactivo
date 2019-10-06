@@ -10,7 +10,7 @@
     <li><a tabindex="-1" href="{{url('/dashboard/acuerdos')}}">Acuerdos</a></li>
   </ul>
 </li>
-<li class="dropdown">
+{{-- <li class="dropdown">
   <a class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
     Cobro Coactivo
     <span class="caret"></span>
@@ -20,7 +20,7 @@
     <li><a tabindex="-1" href="{{url('/personas')}}">Personas</a></li>
 
   </ul>
-</li>
+</li> --}}
 <li class="dropdown">
     <a class="btn btn-default btn-sm" href="{{ url('/contractual') }}">
         CONTRATACIÓN

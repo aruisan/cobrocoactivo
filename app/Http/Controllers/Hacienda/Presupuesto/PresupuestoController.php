@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Model\Hacienda\Presupuesto\Rubro;
 use App\Model\Hacienda\Presupuesto\Font;
-use App\Model\Admin\Dependencia;
 use App\Model\Hacienda\Presupuesto\Vigencia;
 use App\Model\Hacienda\Presupuesto\Level;
 use App\Model\Hacienda\Presupuesto\Register;
@@ -18,6 +17,7 @@ use App\Model\Administrativo\Registro\Registro;
 use App\Model\Administrativo\OrdenPago\OrdenPagos;
 use App\Model\Administrativo\OrdenPago\OrdenPagosRubros;
 use App\Model\Administrativo\Pago\Pagos;
+use App\Model\Administrativo\Pago\PagoRubros;
 
 class PresupuestoController extends Controller
 {
@@ -309,6 +309,38 @@ class PresupuestoController extends Controller
             }
         }
 
+        //PAGOS
+
+        $pagos2 = PagoRubros::all();
+
+        foreach ($pagos2 as $val){
+            $valores1[] = ['id' => $val->rubro->id, 'val' => $val->valor];
+        }
+        foreach ($valores1 as $id1){
+            $ides[] = $id1['id'];
+        }
+        $valores3 = array_unique($ides);
+        foreach ($valores3 as $valUni){
+            $keys = array_keys(array_column($valores1, 'id'), $valUni);
+            foreach ($keys as $key){
+                $values1[] = $valores1[$key]["val"];
+            }
+            $valoresZ[] = ['id' => $valUni, 'valor' => array_sum($values1)];
+            unset($values1);
+        }
+
+        foreach ($rubros as $rub){
+            $validate = in_array($rub->id, $valores3);
+            if ($validate == true ){
+                $data = array_keys(array_column($valoresZ, 'id'), $rub->id);
+                $x[] = $valoresZ[$data[0]];
+                $valP[] = collect(['id' => $rub->id, 'valor' => $x[0]['valor']]);
+                unset($x);
+            } else {
+                $valP[] = collect(['id' => $rub->id, 'valor' => 0]);
+            }
+        }
+
         //ADICION
         foreach ($rubros as $R2){
             $ad = RubrosMov::where([['rubro_id', $R2->id],['movimiento', '=', '2']])->get();
@@ -472,8 +504,23 @@ class PresupuestoController extends Controller
             $rol= $role->id;
         }
 
+        //CUENTAS POR PAGAR
 
-        return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP','pagos'));
+        for ($i=0;$i<sizeof($valOP);$i++){
+            $valueTot = $valOP[$i]['valor'] - $valP[$i]['valor'];
+            $valCP[] = collect(['id' => $valOP[$i]['id'], 'valor' => $valueTot]);
+            unset($valueTot);
+        }
+
+        //RESERVAS
+
+        for ($i=0;$i<sizeof($valoresRubro);$i++){
+            $valTot = $valoresRubro[$i]['valor'] - $valOP[$i]['valor'];
+            $valR[] = collect(['id' => $valOP[$i]['id'], 'valor' => $valTot]);
+            unset($valTot);
+        }
+
+        return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP','pagos','valP','valCP','valR'));
     }
 
     /**
