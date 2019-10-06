@@ -31,6 +31,6 @@ class CreateRegisterRegister extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rubros');
+        Schema::dropIfExists('code_padres');
     }
 }

@@ -27,6 +27,6 @@ class CreateTableTabsPermission extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('tabs_permissions');
     }
 }

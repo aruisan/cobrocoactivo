@@ -26,7 +26,7 @@ class VisitanteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
         $vigens = Vigencia::where('vigencia', 2018)->where('tipo', 1)->get();
         $vigens = Vigencia::where('id', '>',0)->get();
         $count = count($vigens);

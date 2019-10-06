@@ -12,7 +12,7 @@ class CreateAsignacionesTable extends Migration
      * @return void
      */
     public function up()
-    {/*
+    {
         Schema::create('asignaciones', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('cc_id');
@@ -26,7 +26,7 @@ class CreateAsignacionesTable extends Migration
             $table->foreign('secretaria_id')->references('id')->on('users');
 
         });
-        */
+        
     }
 
     /**
@@ -36,6 +36,6 @@ class CreateAsignacionesTable extends Migration
      */
     public function down()
     {
-        //Schema::dropIfExists('asignaciones');
+        Schema::dropIfExists('asignaciones');
     }
 }

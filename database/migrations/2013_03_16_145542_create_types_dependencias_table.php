@@ -43,7 +43,7 @@ class CreateTypesDependenciasTable extends Migration
      */
     public function down()
     {
-        //Schema::dropIfExists('types');
+        Schema::dropIfExists('types');
         Schema::dropIfExists('dependencias');
     }
 }

@@ -16,7 +16,7 @@ class CreateFontsRubroTable extends Migration
         Schema::create('fonts_rubro', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('valor');
-            $table->bigInteger('valor_disp');
+            $table->bigInteger('valor_disp')->nullable();
 
             $table->integer('font_id')->unsigned();
             $table->foreign('font_id')->references('id')->on('fonts');

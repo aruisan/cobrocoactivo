@@ -103,11 +103,11 @@
                          @foreach ($Concejales as $key => $data)
                              <div class="col-lg-10">
                                  <h7>&nbsp;</h7>
-                                 <h4 class="media-heading"><b>{{ $data->persona->nombre }}</b></h4>
-                                 <p class="f-s-12">No C.C {{ $data->persona->num_dc }} </p>
+                                 <h4 class="media-heading"><b>{{$data->persona['nombre']}}</b></h4>
+                                 <p class="f-s-12">No C.C {{ $data->persona['num_dc'] }} </p>
                              </div>
                              <div class="col-lg-2">
-                                 <img src="{{ asset('img/concejales/'.$data->persona->num_dc.'.png')}}" class="card-img-top" width="100%">
+                                 <img src="{{ asset('img/concejales/'.$data->persona['num_dc'].'.png')}}" class="card-img-top" width="100%">
                              </div>
                              <br>
                          @endforeach

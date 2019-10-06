@@ -25,6 +25,5 @@ class AddFieldActiveTablePermission extends Migration
      */
     public function down()
     {
-        //
     }
 }

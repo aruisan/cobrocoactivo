@@ -12,7 +12,7 @@ class CreatePersonasPrediosTable extends Migration
      * @return void
      */
     public function up()
-    {/*
+    {
         Schema::create('persona_predio', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('persona_id')->unsigned();
@@ -23,7 +23,7 @@ class CreatePersonasPrediosTable extends Migration
             $table->foreign('persona_id')->references('id')->on('personas');
             $table->foreign('predio_id')->references('id')->on('predios');
         });
-        */
+        
     }
 
     /**
@@ -33,6 +33,6 @@ class CreatePersonasPrediosTable extends Migration
      */
     public function down()
     {
-        //Schema::dropIfExists('persona_predio');
+        Schema::dropIfExists('persona_predio');
     }
 }
