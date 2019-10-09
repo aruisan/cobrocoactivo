@@ -282,32 +282,40 @@ class PresupuestoController extends Controller
         //ORDEN DE PAGO
 
         $OP = OrdenPagosRubros::all();
-        foreach ($OP as $val){
-            $valores[] = ['id' => $val->cdps_registro->rubro->id, 'val' => $val->valor];
-        }
-        foreach ($valores as $id){
-            $ids[] = $id['id'];
-        }
-        $valores2 = array_unique($ids);
-        foreach ($valores2 as $valUni){
-            $keys = array_keys(array_column($valores, 'id'), $valUni);
-            foreach ($keys as $key){
-                $values[] = $valores[$key]["val"];
+        if ($OP->count() != 0){
+            foreach ($OP as $val){
+                $valores[] = ['id' => $val->cdps_registro->rubro->id, 'val' => $val->valor];
             }
-            $valoresF[] = ['id' => $valUni, 'valor' => array_sum($values)];
-            unset($values);
-        }
-        foreach ($rubros as $rub){
-            $validate = in_array($rub->id, $valores2);
-            if ($validate == true ){
-                $data = array_keys(array_column($valoresF, 'id'), $rub->id);
-                $x[] = $valoresF[$data[0]];
-                $valOP[] = collect(['id' => $rub->id, 'valor' => $x[0]['valor']]);
-                unset($x);
-            } else {
+            foreach ($valores as $id){
+                $ids[] = $id['id'];
+            }
+            $valores2 = array_unique($ids);
+            foreach ($valores2 as $valUni){
+                $keys = array_keys(array_column($valores, 'id'), $valUni);
+                foreach ($keys as $key){
+                    $values[] = $valores[$key]["val"];
+                }
+                $valoresF[] = ['id' => $valUni, 'valor' => array_sum($values)];
+                unset($values);
+            }
+            foreach ($rubros as $rub){
+                $validate = in_array($rub->id, $valores2);
+                if ($validate == true ){
+                    $data = array_keys(array_column($valoresF, 'id'), $rub->id);
+                    $x[] = $valoresF[$data[0]];
+                    $valOP[] = collect(['id' => $rub->id, 'valor' => $x[0]['valor']]);
+                    unset($x);
+                } else {
+                    $valOP[] = collect(['id' => $rub->id, 'valor' => 0]);
+                }
+            }
+        } else {
+            foreach ($rubros as $rub){
                 $valOP[] = collect(['id' => $rub->id, 'valor' => 0]);
             }
         }
+
+
 
         //PAGOS
 
