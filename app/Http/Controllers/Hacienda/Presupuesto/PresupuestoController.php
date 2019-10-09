@@ -320,31 +320,37 @@ class PresupuestoController extends Controller
         //PAGOS
 
         $pagos2 = PagoRubros::all();
+        if ($pagos2->count() != 0) {
 
-        foreach ($pagos2 as $val){
-            $valores1[] = ['id' => $val->rubro->id, 'val' => $val->valor];
-        }
-        foreach ($valores1 as $id1){
-            $ides[] = $id1['id'];
-        }
-        $valores3 = array_unique($ides);
-        foreach ($valores3 as $valUni){
-            $keys = array_keys(array_column($valores1, 'id'), $valUni);
-            foreach ($keys as $key){
-                $values1[] = $valores1[$key]["val"];
+            foreach ($pagos2 as $val) {
+                $valores1[] = ['id' => $val->rubro->id, 'val' => $val->valor];
             }
-            $valoresZ[] = ['id' => $valUni, 'valor' => array_sum($values1)];
-            unset($values1);
-        }
+            foreach ($valores1 as $id1) {
+                $ides[] = $id1['id'];
+            }
+            $valores3 = array_unique($ides);
+            foreach ($valores3 as $valUni) {
+                $keys = array_keys(array_column($valores1, 'id'), $valUni);
+                foreach ($keys as $key) {
+                    $values1[] = $valores1[$key]["val"];
+                }
+                $valoresZ[] = ['id' => $valUni, 'valor' => array_sum($values1)];
+                unset($values1);
+            }
 
-        foreach ($rubros as $rub){
-            $validate = in_array($rub->id, $valores3);
-            if ($validate == true ){
-                $data = array_keys(array_column($valoresZ, 'id'), $rub->id);
-                $x[] = $valoresZ[$data[0]];
-                $valP[] = collect(['id' => $rub->id, 'valor' => $x[0]['valor']]);
-                unset($x);
-            } else {
+            foreach ($rubros as $rub) {
+                $validate = in_array($rub->id, $valores3);
+                if ($validate == true) {
+                    $data = array_keys(array_column($valoresZ, 'id'), $rub->id);
+                    $x[] = $valoresZ[$data[0]];
+                    $valP[] = collect(['id' => $rub->id, 'valor' => $x[0]['valor']]);
+                    unset($x);
+                } else {
+                    $valP[] = collect(['id' => $rub->id, 'valor' => 0]);
+                }
+            }
+        }else {
+            foreach ($rubros as $rub) {
                 $valP[] = collect(['id' => $rub->id, 'valor' => 0]);
             }
         }
