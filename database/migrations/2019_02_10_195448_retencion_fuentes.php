@@ -13,18 +13,18 @@ class RetencionFuentes extends Migration
      */
     public function up()
     {
-        Schema::create('retencion_fuentes', function (Blueprint $table) {
-            $table->increments('id');
+        // Schema::create('retencion_fuentes', function (Blueprint $table) {
+        //     $table->increments('id');
 
-            $table->text('concepto');
-            $table->integer('uvt');
-            $table->integer('base');
-            $table->decimal('tarifa');
-            $table->integer('codigo');
-            $table->text('cuenta');
+        //     $table->text('concepto');
+        //     $table->integer('uvt');
+        //     $table->integer('base');
+        //     $table->decimal('tarifa');
+        //     $table->integer('codigo');
+        //     $table->text('cuenta');
 
-            $table->timestamps();
-        });
+        //     $table->timestamps();
+        // });
     }
 
     /**
