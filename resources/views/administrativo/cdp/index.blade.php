@@ -89,7 +89,7 @@
                                         @endif
                                     </span>
                                 </td>
-                                <td class="text-center">$<?php echo number_format($cdp->valor,0) ?></td>
+                                <td class="text-center">$<?php echo number_format($cdp->rubrosCdpValor->sum('valor_disp'),0) ?></td>
                                 @if($rol == 2)
                                 <td class="text-center">
                                     <a href="{{ url('administrativo/cdp/'.$cdp->id) }}" title="Ingresar Dinero al CDP" class="btn-sm btn-primary"><i class="fa fa-usd"></i></a>

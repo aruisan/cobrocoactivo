@@ -15,7 +15,11 @@
             <h4><b>Valor del CDP</b></h4>
         </center>
         <div class="text-center">
-            $<?php echo number_format( $cdp->valor,0) ?>
+            @if($rol == 3 and $cdp->jefe_e == 0)
+                $<?php echo number_format( $cdp->rubrosCdpValor->sum('valor_disp'),0) ?>
+                @else
+                $<?php echo number_format( $cdp->valor,0) ?>
+            @endif
         </div>
         <br>
         @if($cdp->jefe_e != "3")
