@@ -5,6 +5,7 @@ use App\Model\Cobro\Asignacion;
 use App\Model\Cobro\Predio;
 use App\Model\cobro\Conteo;
 use App\Model\cobro\PersonaPredio;
+use App\Model\Persona;
 use App\Notifications\AsignacionAdministrativaPredio;
 use App\User;
 use Auth;
@@ -14,6 +15,14 @@ use Illuminate\Support\Facades\Session;
 
 class PredioController extends Controller
 {
+
+    public function prediosApi($numdc){
+        $persona = Persona::where('num_dc', $numdc)->first(); 
+        return response()->json($persona->predios);
+    }
+
+
+
     /**
      * Display a listing of the resource.
      *

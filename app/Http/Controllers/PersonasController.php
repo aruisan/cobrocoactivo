@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class PersonasController extends Controller
 {
-     function __construct()
+    function __construct()
     {
          $this->middleware('permission:terceros-list');
          $this->middleware('permission:terceros-create', ['only' => ['create','store']]);
@@ -173,6 +173,12 @@ class PersonasController extends Controller
 
         return $persona;
         
+    }
+
+
+    public function prediosApi($numdc){
+        // return new ProductResource(Product::find($id));
+        return Persona::where('num_dc', $numdc)->fisrt();
     }
 }
   
