@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Session;
 
 class PredioController extends Controller
 {
-
     public function prediosApi($numdc){
         $persona = Persona::where('num_dc', $numdc)->first(); 
         return response()->json($persona->predios);

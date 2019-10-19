@@ -186,6 +186,9 @@ return [
         //imagenes drop zone
         Intervention\Image\ImageServiceProvider::class,
 
+        //cors
+        Barryvdh\Cors\ServiceProvider::class,
+
     ],
 
     /*
