@@ -16,14 +16,12 @@
         <table class="table table-hover">
             <tbody>
             <tr>
-                <th>#</th>
-                <th>Nombre</th>
-                <th>Dinero</th>
+                <th class="text-center">Nombre</th>
+                <th class="text-center">Dinero</th>
             </tr    >
             @foreach($cdps as $cdp)
-                <tr>
-                    <td>{{ $cdp['id'] }}</td>
-                    <td>{{ $cdp['name'] }}</td>
+                <tr class="text-center">
+                    <td>{{ $cdp['id'] }} - {{ $cdp['name'] }}</td>
                     <td>$<?php echo number_format($cdp['saldo'],0) ?></td>
                 </tr>
             @endforeach
