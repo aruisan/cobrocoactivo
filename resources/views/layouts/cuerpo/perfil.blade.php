@@ -1,9 +1,12 @@
-<button class="btn btn-primary dropdown-toggle " type="button" data-toggle="dropdown">
-    <img class="img-circle"  width="30"  src="{{Storage::url(Auth::user()->avatar)}}">
+
+
+<button class="btn btn-raised btn-primary dropdown-toggle " type="button" data-toggle="dropdown">
+    <img class="img-circle"  width="30"   style="padding:15px 0px 8px 0px;" src="{{Storage::url(Auth::user()->avatar)}}">
     {!! str_limit(Auth::user()->name, 10) !!}
     <span class="caret"></span>
 </button>
-<ul class="dropdown-menu pull-right">
+
+<ul class="dropdown-menu pull-right item-perfil">
     <form action="{{ route('user-avatar')}}" id="avatarForm" enctype="multipart/form-data" method="POST">
         {{ csrf_field() }}
         <input type="file" style="display: none" name="avatar" id="avatarInput" accept="image/*">
@@ -16,21 +19,21 @@
             </div>
         </div>
     </li>
-    <li class="text-center">
+    <li class="text-center ">
         <i class="fa fa-suitcase" aria-hidden="true"></i>
         Tipo:
         @foreach(Auth::user()->roles as $rol)
             {{ $rol->name }}
         @endforeach
     </li>
-    <li>
-        <a href="#" data-toggle="modal" data-target="#cambiarPasword">
+    <li class="item-perfil">
+        <a class="item-perfil" href="#" data-toggle="modal" data-target="#cambiarPasword">
             <i class="fa fa-unlock-alt" aria-hidden="true"></i>
             Cambiar clave 
         </a>
     </li>
-    <li>
-        <a href="{{ route('logout') }}"
+    <li class="item-perfil">
+        <a class="item-perfil" href="{{ route('logout') }}"
             onclick="event.preventDefault();
             document.getElementById('logout-form').submit();">
             <i class="fa fa-sign-out" aria-hidden="true"></i>

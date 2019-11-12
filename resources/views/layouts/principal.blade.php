@@ -86,14 +86,15 @@
 
 
   .btn-primary {
-    color: #fff;
-    background-color :rgb(9,99,90);
-    border-color: rgb(9,99,90);
+    color: #fff !important;
+    background-color :rgb(9,99,90) !important;
+    border-color: rgb(9,99,90) !important;
 }
-  .btn-primary:hover{
-      color:#0056b3;
-      text-decoration:underline;
-      background-color:transparent
+
+  .btn-primary:hover {
+      color:#0056b3 !important; 
+
+      background-color:white !important;
   }
 
 body{
@@ -116,105 +117,177 @@ box-shadow: -8px 12px 18px -6px rgba(0,0,0,0.75);
   /*position: absolute;*/
     width: 100%;
     height: 30px;
-  background-color: rgb(9,99,90);
+  background-color: #14736a !important;
+}
+
+
+.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: white;
+}
+
+
+.navbar-default .navbar-nav .open .dropdown-menu  {
+background: #14736a !important;
+}
+
+
+.item-menu{
+
+background:rgb(43, 187, 173);
+width: 100%;
+color: #fff !important;
+
+}
+
+.item-menu:focus, 
+.item-menu:hover {
+    text-decoration: none;
+    background-color: rgb(43, 187, 173) !important;
+    color: #fff !important;
+}
+
+.item-menu {
+    text-decoration: none;
+   background-color: #14736a !important;
+   color: #fff !important;
+   margin-left: 0px;
+    margin-right: 0px;
+    border: none;
+    /*box-shadow: none;*/
+    border-radius: unset;
+}
+
+.navegacion{
+  background:#14736a;
+  border-style: none;
 }
 
 </style>
 </head>
-
-<white
+<white>
       <!-- Navigation -->
   
-    <nav class="navbar navbar-custom " style="background:rgb(9,99,90);">
+    <div class="navbar navbar-custom navegacion" >
+        
+
         <div class="lema">
-            <marquee><h4 class="text-center text-white">
+            <marquee class="col-12">
+              <h4 class="text-center text-white">
                     Mesa Directiva: Presidente: Javier Rafael Rodriguez Archbold  - Primer Vicepresidente: Evis Livingston Howard  - Segundo Vicepresidente: Elsa Robinson Hawkins
                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                     Mesa Directiva: Presidente: Javier Rafael Rodriguez Archbold  - Primer Vicepresidente: Evis Livingston Howard  - Segundo Vicepresidente: Elsa Robinson Hawkins
-                </h4></marquee>
+                </h4>
+              </marquee>
         </div>
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
 
+<nav class="navbar navbar-default navegacion" role="navigation" >
+  <!-- El logotipo y el icono que despliega el menú se agrupan
+       para mostrarlos mejor en los dispositivos móviles -->
+ 
+          <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                  <span class="sr-only">Toggle navigation</span>
+                  <i class="fa fa-bars fa-2x text-white"></i>
+                </button>
+              </div><!--navbar-header-->        
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div id="navPrincipal" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav navbar-left">
-                    <li class="page-scroll">
-                        <a class="btn btn-primary text-white dropdown-toggle" type="button" data-toggle="dropdown">
+  <!-- Agrupar los enlaces de navegación, los formularios y cualquier
+       otro elemento que se pueda ocultar al minimizar la barra -->
+  <div class="collapse navbar-collapse navbar-ex1-collapse" id="navbarSupportedContent">
+    <ul class="nav navbar-nav navbar-left">
+      <li class="page-scroll ">
+                        <a class="btn btn-primary text-white dropdown-toggle item-menu" type="button" data-toggle="dropdown">
                             CONCEJO MUNICIPAL
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a data-toggle="modal" data-target="#modal-md" href="">Mesa Directiva</a></li>
-                            <li><a data-toggle="modal" data-target="#modal-pres" href="">Presupuesto</a></li>
+                            <li><a class="item-menu" data-toggle="modal" data-target="#modal-md" href="">Mesa Directiva</a></li>
+                            <li><a class="item-menu" data-toggle="modal" data-target="#modal-pres" href="">Presupuesto</a></li>
                             <!-- <li><a data-toggle="modal" data-target="#modal-rc" href="">Rendición de Cuentas</a></li> -->
                             <!-- <li><a data-toggle="modal" data-target="#modal-le" href="">Lista de Empleados</a></li> -->
-                            <li><a data-toggle="modal" data-target="#modal-lc" href="">Lista de Concejales</a></li>
-                            <li><a data-toggle="modal" data-target="#modal-boletines" href="">Boletines</a></li>
+                            <li><a class="item-menu" data-toggle="modal" data-target="#modal-lc" href="">Lista de Concejales</a></li>
+                            <li><a class="item-menu" data-toggle="modal" data-target="#modal-boletines" href="">Boletines</a></li>
                         </ul>
                     </li>
-                    <li class="page-scroll">
-                        <a class="btn btn-primary text-white dropdown-toggle" type="button" data-toggle="dropdown">
+
+
+
+
+             <li class="page-scroll">
+                        <a class="btn btn-primary text-white dropdown-toggle item-menu" type="button" data-toggle="dropdown">
                             ACUERDOS
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a data-toggle="modal" data-target="#modal-actas" href="">Actas</a></li>
-                            <li><a data-toggle="modal" data-target="#modal-acuerdos" href="">Acuerdos</a></li>
-                            <li><a data-toggle="modal" data-target="#modal-res" href="">Resoluciones</a></li>
+                            <li><a class="item-menu" data-toggle="modal" data-target="#modal-actas" href="">Actas</a></li>
+                            <li><a class="item-menu" data-toggle="modal" data-target="#modal-acuerdos" href="">Acuerdos</a></li>
+                            <li><a class="item-menu" data-toggle="modal" data-target="#modal-res" href="">Resoluciones</a></li>
                         </ul>
                     </li>
+
                     <li class="page-scroll">
-                        <a class="btn btn-primary text-white dropdown-toggle" type="button" data-toggle="dropdown">
+                        <a class="btn btn-primary text-white dropdown-toggle item-menu" type="button" data-toggle="dropdown">
                             CONTRATACIÓN
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a data-toggle="modal" data-target="#modal-manualcon" href="">Manual de Contratación</a></li>
-                            <li><a data-toggle="modal" data-target="#modal-adquisiciones" href="">Plan de Adquisiciones</a></li>
+                            <li><a class="item-menu" data-toggle="modal" data-target="#modal-manualcon" href="">Manual de Contratación</a></li>
+                            <li><a class="item-menu" data-toggle="modal" data-target="#modal-adquisiciones" href="">Plan de Adquisiciones</a></li>
                             <!-- <li><a data-toggle="modal" data-target="#modal-pc" href="">Procesos de Contratación</a></li> -->
                         </ul>
                     </li>
+
+
                     <li class="page-scroll">
-                        <a class="btn btn-primary text-white dropdown-toggle" type="button" data-toggle="dropdown">
+                        <a class="btn btn-primary text-white dropdown-toggle item-menu" type="button" data-toggle="dropdown">
                             SERVICIO AL CLIENTE
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a data-toggle="modal" data-target="#modal-contacto" href="">Contactenos</a></li>
+                            <li><a class="item-menu" data-toggle="modal" data-target="#modal-contacto" href="">Contactenos</a></li>
                             <!-- <li><a tabindex="-1" href="#">Información de Contactos</a></li> -->
                             <!-- <li><a tabindex="-1" href="#">Notificaciones</a></li> -->
                         </ul>
                     </li>
-                </ul>
+
+            </ul>
+
+  
+
                 <ul class="nav navbar-nav navbar-right">
                     <li class="hidden">
                         <a href="#page-top"></a>
                     </li>
 
                     <li class="page-scroll">
-                      <a href="" class="btn btn-link text-white" data-toggle="modal" data-target="#modal-Politicas">POLITICAS</a>
+                      <a href="" class="btn btn-link text-white item-menu" data-toggle="modal" data-target="#modal-Politicas">POLITICAS</a>
                     </li>
                     @auth
                     <li class="page-scroll">
-                        <a class="btn btn-link text-white" href="{{ url('/dashboard') }}">PLATAFORMA</a>
+                        <a class="btn btn-link text-white item-menu" href="{{ url('/dashboard') }}">PLATAFORMA</a>
                     </li>
                     @else
                      <li class="page-scroll">
-                        <a data-toggle="modal" class="btn btn-link text-white" data-target="#modal-ingresar">ENTRAR</a>
+                        <a data-toggle="modal" class="btn btn-link text-white item-menu" data-target="#modal-ingresar">ENTRAR</a>
                     </li>
                     @endauth
                     <li class="page-scroll">
                         <a id="google_translate_element"></a>
                     </li>
                 </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container-fluid -->
+          
 
-    </nav>
+
+
+
+              </div>
+
+
+            </nav>
+
+
+
+      </div>
 
           @include('alertas.errors')
           @include('alertas.success')

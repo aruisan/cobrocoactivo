@@ -15,10 +15,10 @@
     <link rel="stylesheet" href="{{asset('/assets/bootstrap/css/bootstrap.min.css')}}">
 
      <!-- Bootstrap Material Design -->
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.2/css/mdb.min.css" />
+     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.2/css/mdb.min.css" /> --}}
 
      <!-- Dropdown.js -->
-    <!-- <link href="//cdn.rawgit.com/FezVrasta/dropdown.js/master/jquery.dropdown.css" rel="stylesheet">-->
+     <link href="//cdn.rawgit.com/FezVrasta/dropdown.js/master/jquery.dropdown.css" rel="stylesheet">
 
     <link rel="shortcut icon" href="{{ asset('/img/logoSiex.png') }}" type="image/x-icon">
     <link rel="icon" href="{{ asset('/img/logoSiex.png') }}" type="image/x-icon">
@@ -54,6 +54,8 @@
     @yield('css')
 
     <style>
+
+
     .caption {
     position:absolute;
     top:0;
@@ -99,9 +101,69 @@
 }
 
 #page-wraper {
-   min-height: 1300px !important;
+   min-height: 1400px !important;
+}
+
+
+.item-menu{
+
+background:rgb(43, 187, 173);
+width: 100%;
+color: #fff !important;
+
+}
+
+.item-menu:focus, 
+.item-menu:hover {
+    text-decoration: none;
+    background-color: rgb(43, 187, 173) !important;
+    color: #fff !important;
+}
+
+.item-menu {
+    text-decoration: none;
+   background-color: #14736a !important;
+   color: #fff !important;
+   margin-left: 0px;
+    margin-right: 0px;
+    border: none;
+    /*box-shadow: none;*/
+    border-radius: unset;
+}
+
+
+/*.dropdown-menu {
+  
+    background-color: #14736a !important;
+   
+}*/
+
+.navbar {
+     min-height: 60px;
+}
+
+.item-perfil{
+     background-color: #286090 !important;
+      color: #fff !important;
+/*#286090*/
+}
+
+.btn-success:focus, .btn-success:hover {
+    color: #fff !important;
+    background-color: #358735 !important;
+    border-color: #4cae4c;
+}
+
+.btn-primary:focus, .btn-primary:hover {
+    color: #fff !important;
+    background-color: #175c97 !important;
+    border-color: #2e6da4;
+}
+.btn-primary {
+    color: #fff !important;
 }
     </style>
+
 
 
 </head>
@@ -112,44 +174,58 @@
         <!-- Navigation -->
         <nav class="navbar  navbar-dark bg-default" role="navigation"  data-offset-top="100">
           <div class="container-fluid">
-            <div class="container-fluid">
-              <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu-dependencias">
-                  <span class="sr-only">Toggle navigation</span>
-                  <i class="fa fa-bars fa-2x text-white"></i>
-                </button>
-              </div><!--navbar-header-->                    
+         
 
+
+
+              <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu-dependencias">
+                      <span class="sr-only">Toggle navigation</span>
+                      <i class="fa fa-bars fa-2x text-white"></i>
+                    </button>
+                             <br>
+                                <br> <br>
+              </div><!--navbar-header-->                    
+       
             <!-- /.navbar-header -->
-              <div class="collapse navbar-collapse navbar-ex1-collapse" id="menu-dependencias">
-                
-                <ul class="nav navbar-nav btn-group">
-                    @include('layouts.cuerpo.menu-dependencias')
-                </ul>
-                <ul class="nav navbar-nav navbar-right btn-group">
-                  <li>
-                    <a class="btn btn-danger btn-raised" data-toggle="modal" data-target="#modal-normas" title="NORMATIVIDAD">
-                      <i class="fa fa-file-text" aria-hidden="true"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="{{route('notificaciones.index')}}" class="btn btn-raised btn-primary" title="NOTIFICACIONES"><i class="fa fa-bell-o"></i>
-                      @if ($count = Auth::user()->unreadnotifications->count())
-                          <i class="fa fa-bell-o" aria-hidden="true">{{$count}}</i>
-                      @endif
-                    </a>
-                  </li>  
-                  <li class="dropdown">
-                    @include('layouts.cuerpo.perfil')
-                  </li>
-                </ul>
-              </div>
-            </div>
+                  <div class="collapse navbar-collapse navbar-ex1-collapse" id="menu-dependencias">
+                    
+                        <ul class="nav navbar-nav navbar-left">
+                            @include('layouts.cuerpo.menu-dependencias')
+                        </ul>
+
+                        <ul class="nav navbar-nav navbar-right ">
+
+                              <li>
+                                <a class="btn btn-danger btn-raised" data-toggle="modal" data-target="#modal-normas" title="NORMATIVIDAD">
+                                  <i class="fa fa-file-text" aria-hidden="true"></i>
+                                </a>
+                              </li>
+
+                              <li>
+                                <a href="{{route('notificaciones.index')}}" class="btn btn-raised btn-primary" title="NOTIFICACIONES"><i class="fa fa-bell-o"></i>
+                                  @if ($count = Auth::user()->unreadnotifications->count())
+                                      <i class="fa fa-bell-o" aria-hidden="true">{{$count}}</i>
+                                  @endif
+                                </a>
+                              </li>  
+
+                              <li class="dropdown">
+                                @include('layouts.cuerpo.perfil')
+                              </li>
+
+                        </ul>
+                  </div>
+
+           
           </div>
             <!-- /.navbar-top-links -->
             <!-- /.navbar-static-side -->
         </nav>
+
+
         <div class="navbar-default sidebar" role="navigation">
+         
           <div class="sidebar-nav">
             <ul class="nav" id="side-menu">
               @yield('sidebar')     
@@ -159,6 +235,7 @@
         </div>
 
         <div id="page-wrapper">
+         
           @include('alertas.request') 
           @yield('content')
 
