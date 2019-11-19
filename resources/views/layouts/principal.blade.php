@@ -9,12 +9,14 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.css') }}">
+   
 
+    <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.css') }}">
     <link href="{{asset('/assets/datatables-plugins/dataTables.bootstrap.css')}}" rel="stylesheet">
     <link href=" https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/buttons/1.3.1/css/buttons.dataTables.min.css" rel="stylesheet">
+  <link href="https://cdn.datatables.net/buttons/1.3.1/css/buttons.dataTables.min.css" rel="stylesheet"> 
     <link href="{{asset('/assets/datatables-responsive/dataTables.responsive.css')}}" rel="stylesheet">
+    
     <link rel="stylesheet" href="{{ asset('/assets/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/footer.css') }}">
 
@@ -318,8 +320,7 @@ color: #fff !important;
         </div>
     </footer>
 
- 
-
+      
    <!-- jQuery -->
     <script src="{{ asset('/js/jquery.js') }}"></script>
 
@@ -327,11 +328,11 @@ color: #fff !important;
     <script src="{{ asset('/assets/bootstrap/js/bootstrap.min.js') }}"></script>
 
 <!-- DataTables JavaScript -->
-<script src="{{asset('/assets/datatables/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('/assets/datatables/js/jquery.dataTables.min.js')}}"></script> 
 <script src="{{asset('/assets/datatables-plugins/dataTables.bootstrap.min.js')}}"></script>
 
 <!--data tables-->
-<script src="{{ asset('js/lib/datatables/datatables.min.js') }}"></script>
+ <script src="{{ asset('js/lib/datatables/datatables.min.js') }}"></script>
 <script src="{{ asset('js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js') }}"></script>
 <script src="{{ asset('js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js') }}"></script>
 <script src="{{ asset('js/lib/datatables/cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js') }}"></script>
@@ -340,7 +341,7 @@ color: #fff !important;
 <script src="{{ asset('js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit') }}"></script>
-    
+     
     <script type="text/javascript">
         $('#myModal').on('shown.bs.modal', function(){$('#myInput').focus(); });
     </script>

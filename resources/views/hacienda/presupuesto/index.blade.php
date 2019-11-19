@@ -1,3 +1,7 @@
+
+
+
+
 @extends('layouts.dashboard')
 @section('titulo')
     Presupuesto - 2019
@@ -139,12 +143,23 @@
                 </li>
             </ul>
             <br>
+
+       
+
+         <!-- TABLA DE PRESUPUESTO -->
+        
+        
             <div class="tab-content" style="background-color: white">
                 <div id="tabHome" class="tab-pane active"><br>
                     <div class="table-responsive">
                         <br>
-                        <table class="table table-hover table-bordered" align="100%" id="tabla_presupuesto" style="text-align: center">
-                            <thead>
+                          <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title"></h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                  <table id="tabla_presupuesto1" class="table table-bordered table-striped ">
+                  <thead>
                             <tr>
                                 <th class="text-center">Rubro</th>
                                 <th class="text-center">Nombre</th>
@@ -328,7 +343,30 @@
                                 </tr>
                             @endforeach
                             </tbody>
-                        </table>
+                    <tfoot>
+                   <tr>
+                                <th class="text-center">Rubro</th>
+                                <th class="text-center">Nombre</th>
+                                <th class="text-center">P. Inicial</th>
+                                <th class="text-center">Adición</th>
+                                <th class="text-center">Reducción</th>
+                                <th class="text-center">Credito</th>
+                                <th class="text-center">CCredito</th>
+                                <th class="text-center">P.Definitivo</th>
+                                <th class="text-center">CDP's</th>
+                                <th class="text-center">Registros</th>
+                                <th class="text-center">Saldo Disponible</th>
+                                <th class="text-center">Saldo de CDP</th>
+                                <th class="text-center">Ordenes de Pago</th>
+                                <th class="text-center">Pagos</th>
+                                <th class="text-center">Cuentas Por Pagar</th>
+                                <th class="text-center">Reservas</th>
+                            </tr>
+                    </tfoot>
+                  </table>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+
                     </div>
                 </div>
 
@@ -336,6 +374,12 @@
 
                 <div id="tabFuente" class="tab-pane fade"><br>
                     <div class="table-responsive">
+                <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title"></h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+
                         <br>
                         <table class="table table-hover table-bordered" align="100%" id="tabla_fuente">
                             <thead>
@@ -370,6 +414,10 @@
                             @endforeach
                             </tbody>
                         </table>
+                 </div><!-- /.box-body -->
+              </div><!-- /.box -->
+
+
                     </div>
                 </div>
 
@@ -379,6 +427,11 @@
                 <br>
                     <div class="table-responsive">
                         <br>
+                            <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title"></h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
                         <table class="table table-bordered" id="tabla_Rubros">
                             <thead>
                             <tr>
@@ -403,6 +456,10 @@
                             @endforeach
                             </tbody>
                         </table>
+                          </div><!-- /.box-body -->
+                       </div><!-- /.box -->
+
+
                     </div>
                 </div>
 
@@ -420,6 +477,11 @@
                         <br>
                         <a href="{{ url('administrativo/cdp') }}" class="btn btn-primary btn-block m-b-12">CDP's</a>
                         <br>
+               <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title"></h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
                         <table class="table table-bordered" id="tabla_CDP">
                             <thead>
                             <tr>
@@ -476,6 +538,7 @@
                             @endforeach
                             </tbody>
                         </table>
+
                             @else
                             <br><br>
                             <div class="alert alert-danger">
@@ -485,6 +548,10 @@
                                 </center>
                             </div>
                         @endif
+
+                            </div><!-- /.box-body -->
+                       </div><!-- /.box -->
+
                     </div>
                 </div>
 
@@ -666,6 +733,8 @@
                         </table>
                     </div>
                 </div>
+             
+             
                 <div id="tabApl" class=" tab-pane fade"><br>
                     <h2 class="text-center">Aplazamientos</h2>
                 </div>
@@ -793,27 +862,433 @@
 @stop
 @section('js')
     <script>
-        $('#tabla_Registros').DataTable( {
-            responsive: true,
-            "searching": false,
-            "pageLength": 5,
+
+
+  //Spanish
+   $('#tabla_presupuesto1').DataTable({
+      language: {
+                "lengthMenu": "Mostrar _MENU_ registros",
+                "zeroRecords": "No se encontraron resultados",
+                "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sSearch": "Buscar:",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast":"Último",
+                    "sNext":"Siguiente",
+                    "sPrevious": "Anterior"
+			     },
+			     "sProcessing":"Procesando...",
+            },
+        //para usar los botones   
+        responsive: "true",
+        dom: 'Bfrtilp',       
+        buttons:[ 
+			{
+				extend:    'excelHtml5',
+				text:      '<i class="fa fa-file-excel-o"></i> ',
+				titleAttr: 'Exportar a Excel',
+				className: 'btn btn-success'
+			},
+			{
+				extend:    'pdfHtml5',
+				text:      '<i class="fa fa-file-pdf-o"></i> ',
+				titleAttr: 'Exportar a PDF',     
+                message : 'SIEX-Providencia',
+                header :true,
+                orientation : 'landscape',
+                pageSize: 'LEGAL',
+				className: 'btn btn-danger',
+     			},
+			{
+				extend:    'print',
+				text:      '<i class="fa fa-print"></i> ',
+				titleAttr: 'Imprimir',
+				className: 'btn btn-info'
+			},
+		]	             
+ 
+           });
+          
+      
+          
+              $('#tabla_Registros').DataTable({
+   language: {
+                "lengthMenu": "Mostrar _MENU_ registros",
+                "zeroRecords": "No se encontraron resultados",
+                "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sSearch": "Buscar:",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast":"Último",
+                    "sNext":"Siguiente",
+                    "sPrevious": "Anterior"
+			     },
+			     "sProcessing":"Procesando...",
+            },
+        //para usar los botones   
+        responsive: "true",
+        dom: 'Bfrtilp',       
+        buttons:[ 
+			{
+				extend:    'copyHtml5',
+				text:      '<i class="fa fa-clone"></i> ',
+				titleAttr: 'Copiar',
+				className: 'btn btn-success'
+			},
+            {
+				extend:    'excelHtml5',
+				text:      '<i class="fa fa-file-excel-o"></i> ',
+				titleAttr: 'Exportar a Excel',
+				className: 'btn btn-success'
+			},
+			{
+				extend:    'pdfHtml5',
+                orientation : 'landscape',
+                pageSize: 'LEGAL',
+				text:      '<i class="fa fa-file-pdf-o"></i> ',
+				titleAttr: 'Exportar a PDF',
+				className: 'btn btn-danger'
+			},
+			{
+				extend:    'print',
+				text:      '<i class="fa fa-print"></i> ',
+				titleAttr: 'Imprimir',
+				className: 'btn btn-info'
+			},
+		]	                 
+ 
+           });
+
+          $('#tabla_CDP').DataTable({
+    language: {
+                "lengthMenu": "Mostrar _MENU_ registros",
+                "zeroRecords": "No se encontraron resultados",
+                "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sSearch": "Buscar:",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast":"Último",
+                    "sNext":"Siguiente",
+                    "sPrevious": "Anterior"
+			     },
+			     "sProcessing":"Procesando...",
+            },
+        //para usar los botones   
+        responsive: "true",
+        dom: 'Bfrtilp',       
+        buttons:[ 
+			{
+				extend:    'excelHtml5',
+				text:      '<i class="fa fa-file-excel-o"></i> ',
+				titleAttr: 'Exportar a Excel',
+				className: 'btn btn-success'
+			},
+			{
+				extend:    'pdfHtml5',
+				text:      '<i class="fa fa-file-pdf-o"></i> ',
+				titleAttr: 'Exportar a PDF',
+				className: 'btn btn-danger'
+			},
+			{
+				extend:    'print',
+				text:      '<i class="fa fa-print"></i> ',
+				titleAttr: 'Imprimir',
+				className: 'btn btn-info'
+			},
+		]	        
+           });
+           
+               $('#tabla_AddE').DataTable({
+   language: {
+                "lengthMenu": "Mostrar _MENU_ registros",
+                "zeroRecords": "No se encontraron resultados",
+                "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sSearch": "Buscar:",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast":"Último",
+                    "sNext":"Siguiente",
+                    "sPrevious": "Anterior"
+			     },
+			     "sProcessing":"Procesando...",
+            },
+        //para usar los botones   
+        responsive: "true",
+        dom: 'Bfrtilp',       
+        buttons:[ 
+			{
+				extend:    'excelHtml5',
+				text:      '<i class="fa fa-file-excel-o"></i> ',
+				titleAttr: 'Exportar a Excel',
+				className: 'btn btn-success'
+			},
+			{
+				extend:    'pdfHtml5',
+				text:      '<i class="fa fa-file-pdf-o"></i> ',
+				titleAttr: 'Exportar a PDF',
+				className: 'btn btn-danger'
+			},
+			{
+				extend:    'print',
+				text:      '<i class="fa fa-print"></i> ',
+				titleAttr: 'Imprimir',
+				className: 'btn btn-info'
+			},
+		]	        
+           });
+           
+        $('#tabla_RedE').DataTable({
+ language: {
+                "lengthMenu": "Mostrar _MENU_ registros",
+                "zeroRecords": "No se encontraron resultados",
+                "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sSearch": "Buscar:",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast":"Último",
+                    "sNext":"Siguiente",
+                    "sPrevious": "Anterior"
+			     },
+			     "sProcessing":"Procesando...",
+            },
+        //para usar los botones   
+        responsive: "true",
+        dom: 'Bfrtilp',       
+        buttons:[ 
+			{
+				extend:    'excelHtml5',
+				text:      '<i class="fa fa-file-excel-o"></i> ',
+				titleAttr: 'Exportar a Excel',
+				className: 'btn btn-success'
+			},
+			{
+				extend:    'pdfHtml5',
+				text:      '<i class="fa fa-file-pdf-o"></i> ',
+				titleAttr: 'Exportar a PDF',
+				className: 'btn btn-danger'
+			},
+			{
+				extend:    'print',
+				text:      '<i class="fa fa-print"></i> ',
+				titleAttr: 'Imprimir',
+				className: 'btn btn-info'
+			},
+		]	        
+           });
+
+
+               $('#tabla_Cyc').DataTable({
+    language: {
+                "lengthMenu": "Mostrar _MENU_ registros",
+                "zeroRecords": "No se encontraron resultados",
+                "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sSearch": "Buscar:",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast":"Último",
+                    "sNext":"Siguiente",
+                    "sPrevious": "Anterior"
+			     },
+			     "sProcessing":"Procesando...",
+            },
+        //para usar los botones   
+        responsive: "true",
+        dom: 'Bfrtilp',       
+        buttons:[ 
+			{
+				extend:    'excelHtml5',
+				text:      '<i class="fa fa-file-excel-o"></i> ',
+				titleAttr: 'Exportar a Excel',
+				className: 'btn btn-success'
+			},
+			{
+				extend:    'pdfHtml5',
+				text:      '<i class="fa fa-file-pdf-o"></i> ',
+				titleAttr: 'Exportar a PDF',
+				className: 'btn btn-danger'
+			},
+			{
+				extend:    'print',
+				text:      '<i class="fa fa-print"></i> ',
+				titleAttr: 'Imprimir',
+				className: 'btn btn-info'
+			},
+		]	        
+           });
+
+                     $('#tabla_OrdenPago').DataTable({
+       language: {
+                "lengthMenu": "Mostrar _MENU_ registros",
+                "zeroRecords": "No se encontraron resultados",
+                "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sSearch": "Buscar:",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast":"Último",
+                    "sNext":"Siguiente",
+                    "sPrevious": "Anterior"
+			     },
+			     "sProcessing":"Procesando...",
+            },
+        //para usar los botones   
+        responsive: "true",
+        dom: 'Bfrtilp',       
+        buttons:[ 
+			{
+				extend:    'excelHtml5',
+				text:      '<i class="fa fa-file-excel-o"></i> ',
+				titleAttr: 'Exportar a Excel',
+				className: 'btn btn-success'
+			},
+			{
+				extend:    'pdfHtml5',
+				text:      '<i class="fa fa-file-pdf-o"></i> ',
+				titleAttr: 'Exportar a PDF',
+				className: 'btn btn-danger'
+			},
+			{
+				extend:    'print',
+				text:      '<i class="fa fa-print"></i> ',
+				titleAttr: 'Imprimir',
+				className: 'btn btn-info'
+			},
+		]	              
+ 
+           });
+
+$('#tabla_Pagos').DataTable({
+        language: {
+                "lengthMenu": "Mostrar _MENU_ registros",
+                "zeroRecords": "No se encontraron resultados",
+                "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sSearch": "Buscar:",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast":"Último",
+                    "sNext":"Siguiente",
+                    "sPrevious": "Anterior"
+			     },
+			     "sProcessing":"Procesando...",
+            },
+        //para usar los botones   
+        responsive: "true",
+        dom: 'Bfrtilp',       
+        buttons:[ 
+			{
+				extend:    'excelHtml5',
+				text:      '<i class="fa fa-file-excel-o"></i> ',
+				titleAttr: 'Exportar a Excel',
+				className: 'btn btn-success'
+			},
+			{
+				extend:    'pdfHtml5',
+				text:      '<i class="fa fa-file-pdf-o"></i> ',
+				titleAttr: 'Exportar a PDF',
+				className: 'btn btn-danger'
+			},
+			{
+				extend:    'print',
+				text:      '<i class="fa fa-print"></i> ',
+				titleAttr: 'Imprimir',
+				className: 'btn btn-info'
+			},
+		]	        
+ 
+           });
+           
+            
+ $("#tabla_Rubros").DataTable({        
+        language: {
+                "lengthMenu": "Mostrar _MENU_ registros",
+                "zeroRecords": "No se encontraron resultados",
+                "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sSearch": "Buscar:",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast":"Último",
+                    "sNext":"Siguiente",
+                    "sPrevious": "Anterior"
+			     },
+			     "sProcessing":"Procesando...",
+            },
+        //para usar los botones   
+        responsive: "true",
+        dom: 'Bfrtilp',       
+        buttons:[ 
+			{
+				extend:    'excelHtml5',
+				text:      '<i class="fa fa-file-excel-o"></i> ',
+				titleAttr: 'Exportar a Excel',
+				className: 'btn btn-success',
+                customize: function( xlsx ) {
+                var sheet = xlsx.xl.worksheets['sheet1.xml'];
+                $('row:first c', sheet).attr( 's', '42' );
+                    }
+			},
+			{
+				extend:    'pdfHtml5', 
+             	text:      '<i class="fa fa-file-pdf-o"></i> ',
+				titleAttr: 'Exportar a PDF',
+				className: 'btn btn-danger'
+                
+			},
+			{
+				extend:    'print',
+				text:      '<i class="fa fa-print"></i> ',
+				titleAttr: 'Imprimir',
+				className: 'btn btn-info',
+         
+ 
+			},
+		]	        
+    });     
+    
+/*
+      $(function () {
+        $("#tabla_presupuesto1").DataTable();
+           $('#tabla_Registros').DataTable();
+          $('#tabla_CDP').DataTable();
+             $('#tabla_AddE').DataTable();
+             $('#tabla_RedE').DataTable();
+              $('#tabla_Cyc').DataTable();
+              $('#tabla_OrdenPago').DataTable();
+              $('#tabla_Pagos').DataTable();
+               $('#example2').DataTable({
+          responsive: true,
+          "paging": true,
+          "lengthChange": false,
+          "searching": false,
+          "ordering": true,
+          "info": true,
+          "autoWidth": false,
             dom: 'Bfrtip',
             buttons: [
-                'copy', 'csv', 'excel', 'print'
+                'pdf' ,'copy', 'csv', 'excel', 'print'
             ]
-        } );
+         
+        });
+      });
 
-        $('#tabla_CDP').DataTable( {
-            responsive: true,
-            "searching": false,
-            "pageLength": 5,
-            dom: 'Bfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'print'
-            ]
-        } );
-
-        $('#tabla_Rubros').DataTable( {
+*/
+      /*  $('#tabla_AddE').DataTable( {
             responsive: true,
             "searching": true,
             "pageLength": 5,
@@ -821,76 +1296,7 @@
             buttons: [
                 'pdf' ,'copy', 'csv', 'excel', 'print'
             ]
-        } );
-
-        $('#tabla_presupuesto').DataTable( {
-            responsive: true,
-            "searching": false,
-            "ordering": false,
-            dom: 'Bfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'print'
-            ]
-        } );
-
-        $('#tabla_fuentes').DataTable( {
-            responsive: true,
-            "searching": false,
-            dom: 'Bfrtip',
-            buttons: [
-                'pdf' ,'copy', 'csv', 'excel', 'print'
-            ]
-        } );
-
-        $('#tabla_AddE').DataTable( {
-            responsive: true,
-            "searching": true,
-            "pageLength": 5,
-            dom: 'Bfrtip',
-            buttons: [
-                'pdf' ,'copy', 'csv', 'excel', 'print'
-            ]
-        } );
-
-        $('#tabla_RedE').DataTable( {
-            responsive: true,
-            "searching": true,
-            "pageLength": 5,
-            dom: 'Bfrtip',
-            buttons: [
-                'pdf' ,'copy', 'csv', 'excel', 'print'
-            ]
-        } );
-
-        $('#tabla_Cyc').DataTable( {
-            responsive: true,
-            "searching": true,
-            "pageLength": 5,
-            dom: 'Bfrtip',
-            buttons: [
-                'pdf' ,'copy', 'csv', 'excel', 'print'
-            ]
-        } );
-
-        $('#tabla_OrdenPago').DataTable( {
-            responsive: true,
-            "searching": true,
-            "pageLength": 5,
-            dom: 'Bfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'print'
-            ]
-        } );
-
-        $('#tabla_Pagos').DataTable( {
-            responsive: true,
-            "searching": true,
-            "pageLength": 5,
-            dom: 'Bfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'print'
-            ]
-        } );
+        } );*/
 
     </script>
 @stop
