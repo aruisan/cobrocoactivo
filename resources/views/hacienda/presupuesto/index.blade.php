@@ -75,7 +75,7 @@
         @if($V != "Vacio")
         <div class="breadcrumb text-center">
             <strong>
-                <h4><b>Presupuesto Año 2019</b></h4>
+                <h4 class="titulo_presupuesto"><b>Presupuesto Año 2019</b></h4>
             </strong>
         </div>
             <ul class="nav nav-pills">
@@ -142,9 +142,7 @@
                     <a class="nav-link" data-toggle="pill" href="#tabP">Pagos</a>
                 </li>
             </ul>
-            <br>
-
-       
+              
 
          <!-- TABLA DE PRESUPUESTO -->
         
@@ -154,9 +152,7 @@
                     <div class="table-responsive">
                         <br>
                           <div class="box">
-                <div class="box-header">
-                  <h3 class="box-title"></h3>
-                </div><!-- /.box-header -->
+             
                 <div class="box-body">
                   <table id="tabla_presupuesto1" class="table table-bordered table-striped ">
                   <thead>
@@ -375,9 +371,7 @@
                 <div id="tabFuente" class="tab-pane fade"><br>
                     <div class="table-responsive">
                 <div class="box">
-                <div class="box-header">
-                  <h3 class="box-title"></h3>
-                </div><!-- /.box-header -->
+              
                 <div class="box-body">
 
                         <br>
@@ -435,9 +429,7 @@
                     <div class="table-responsive">
                         <br>
                             <div class="box">
-                <div class="box-header">
-                  <h3 class="box-title"></h3>
-                </div><!-- /.box-header -->
+             
                 <div class="box-body">
                         <table class="table table-bordered" id="tabla_Rubros">
                             <thead>
@@ -485,9 +477,7 @@
                         <a href="{{ url('administrativo/cdp') }}" class="btn btn-primary btn-block m-b-12">CDP's</a>
                         <br>
                <div class="box">
-                <div class="box-header">
-                  <h3 class="box-title"></h3>
-                </div><!-- /.box-header -->
+               
                 <div class="box-body">
                         <table class="table table-bordered" id="tabla_CDP">
                             <thead>
@@ -627,13 +617,13 @@
                 <!-- TABLAS DE ADICIONES -->
 
                 <div id="tabAddIng" class=" tab-pane fade"><br>
-                    <h2 class="text-center">Adiciones de Ingresos</h2>
+                    <h2 class="text-center ">Adiciones de Ingresos</h2>
                 </div>
 
 
                 <br>
                 <div id="tabAddEgr" class=" tab-pane fade"><br>
-                    <h2 class="text-center">Adiciones de Egresos</h2>
+                    <h2 class="text-center tituloIngresos">Adiciones de Egresos</h2>
                     <br>
                     <div class="table-responsive">
                         <table class="table table-bordered" id="tabla_AddE">
@@ -670,8 +660,8 @@
                 <div id="tabRedIng" class=" tab-pane fade"><br>
                     <h2 class="text-center">Reducciones de Ingresos</h2>
                 </div>
-                <div id="tabRedEgr" class=" tab-pane fade"><br>
-                    <h2 class="text-center">Reducciones de Egresos</h2>
+                <div id="tabRedEgr" class=" tab-pane fade "><br>
+                    <h2 class="text-center tituloEgresos">Reducciones de Egresos</h2>
                     <br>
                     <div class="table-responsive">
                         <table class="table table-bordered" id="tabla_RedE">

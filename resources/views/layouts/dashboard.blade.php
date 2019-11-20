@@ -5,7 +5,7 @@
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -123,9 +123,80 @@
 #page-wraper {
    min-height: 1400px !important;
 }
+@media screen and (max-width: 420px){
+
+          .titulo_presupuesto,
+          .tituloIngresos,
+          .tituloEgresos,
+          .tituloOrden,
+          .tituloPago{
+            font-size:5vw !important;
+            }
+
+        table th, table tr,table td{
+          font-size:2.7vw !important;
+          }
+
+       .formularioOrdenLabel, 
+       .formularioRegistoLabel{ 
+            font-size:2.7vw !important;
+          
+           }
+            .formularioOrdenTitulo{ 
+            font-size:4vw !important;
+          
+           }
 
 
+        li .nav-link,
+        .dataTables_info, 
+        .dataTables_length, 
+        .paginate_button, 
+        .dataTables_filter {
+          font-size:3vw !important;
+          }
 
+
+            .formularioRegistro,
+         .formularioOrden{ 
+            border: 1px solid #ccc;
+            border-radius: 2%;
+            padding-bottom:10px;
+          
+           }
+          
+}
+
+@media screen and (min-width: 421px){
+
+          .titulo_presupuesto,
+          .tituloIngresos,
+          .tituloEgresos,
+          .tituloOrden,
+          .tituloPago{
+            font-size:19px;
+            }
+
+        table th, table tr,table td{
+           font-size:13px !important;
+          }
+
+  
+
+       }
+
+       @media screen and (min-width: 992px){
+
+         
+         .formularioRegistro,
+         .formularioOrden{ 
+            border: 1px solid #ccc;
+            border-radius: 2%;
+            padding-bottom:10px;
+            height:560px;
+           }
+
+       }
 
 .item-menu:focus, 
 .item-menu:hover {
@@ -250,27 +321,7 @@
               
                  @include('layouts.cuerpo.perfil') 
           
-              <!-- Control Sidebar Toggle Button -->
-         <li class="dropdown ">
-   <a class="btn btn-default btn-sm dropdown-toggle item-menu" type="button" data-toggle="dropdown" title="Configuración">
-   <i class="fa fa-cogs" aria-hidden="true"></i>
-   <span class="caret"></span>
-   </a>
-   <ul class="dropdown-menu">
-      <li><a class="item-menu" id="google_translate_element"></a></li>
-      <li class="disabled item-menu" ><a tabindex="-1" href="#">Configuración basica</a></li>
-      <li><a class="item-menu" tabindex="-1" href="{{ route('dependencias.index') }}">Gestión de Dependencias</a></li>
-      <li><a class="hidden"  tabindex="-1" href="{{ route('rutas.index') }}">Rutas</a></li>
-      @can('funcionario-list')
-      <li><a class="item-menu" tabindex="-1" href="{{ route('funcionarios.index') }}">Gestión de Funcionarios</a></li>
-      @endcan
-      @can('role-list')
-      <li><a class="item-menu" tabindex="-1" href="{{ route('roles.index') }}">Gestión de Roles</a></li>
-      @endcan
-      <li><a class="item-menu" tabindex="-1" href="{{route('personas.index')}}">Terceros</a></li>
-      <li><a class="item-menu" tabindex="-1" href="{{route('audits.index')}}">Logs</a></li>
-   </ul>
-</li>
+
             </ul>
           </div>
 
@@ -314,7 +365,6 @@
         <nav class="navbar  navbar-dark bg-default  fondo-menu" role="navigation"  data-offset-top="100">
           <div class="container-fluid">
          
-           
           </div>
             <!-- /.navbar-top-links -->
             <!-- /.navbar-static-side -->

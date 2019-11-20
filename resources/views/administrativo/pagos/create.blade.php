@@ -12,13 +12,13 @@
     <div class="col-md-12 align-self-center">
         <div class="row justify-content-center">
             <br>
-            <center><h2>Nuevo Pago</h2></center>
+            <center><h2 class="tituloPago">Nuevo Pago</h2></center>
             <div class="form-validation">
                 <form class="form-valide" action="{{url('/administrativo/pagos')}}" method="POST" enctype="multipart/form-data">
                     <hr>
                     {{ csrf_field() }}
                     <div class="col-md-12 text-center">
-                        <h2>Seleccione la orden de pago correspondiente:</h2>
+                        <h2 class="tituloPago">Seleccione la orden de pago correspondiente:</h2>
                     </div>
                     <div class="col-md-12 text-center">
                         <br>

@@ -17,7 +17,8 @@ $(document).ready(function() {
 			   },
 			   "sProcessing":"Procesando...",
 		  },
-	  //para usar los botones   
+	  //para usar los botones
+	  "pageLength": 5,   
 	  responsive: "true",
 	  dom: 'Bfrtilp',       
 	  buttons:[ 
@@ -71,7 +72,8 @@ $(document).ready(function() {
 			   },
 			   "sProcessing":"Procesando...",
 		  },
-	  //para usar los botones   
+	  //para usar los botones  
+	  "pageLength": 5,  
 	  responsive: "true",
 	  dom: 'Bfrtilp',       
 	  buttons:[ 
@@ -127,6 +129,7 @@ $(document).ready(function() {
 			   "sProcessing":"Procesando...",
 		  },
 	  //para usar los botones   
+	  "pageLength": 5,  
 	  responsive: "true",
 	  dom: 'Bfrtilp',       
 	  buttons:[ 
@@ -178,6 +181,7 @@ $(document).ready(function() {
 			   "sProcessing":"Procesando...",
 		  },
 	  //para usar los botones   
+	  "pageLength": 5,  
 	  responsive: "true",
 	  dom: 'Bfrtilp',       
 	  buttons:[ 
@@ -225,6 +229,7 @@ language: {
 			   "sProcessing":"Procesando...",
 		  },
 	  //para usar los botones   
+	  "pageLength": 5,  
 	  responsive: "true",
 	  dom: 'Bfrtilp',       
 	  buttons:[ 
@@ -273,6 +278,7 @@ language: {
 			   "sProcessing":"Procesando...",
 		  },
 	  //para usar los botones   
+	  "pageLength": 5,  
 	  responsive: "true",
 	  dom: 'Bfrtilp',       
 	  buttons:[ 
@@ -324,6 +330,7 @@ language: {
 			   "sProcessing":"Procesando...",
 		  },
 	  //para usar los botones   
+	  "pageLength": 5,  
 	  responsive: "true",
 	  dom: 'Bfrtilp',       
 	  buttons:[ 
@@ -373,6 +380,7 @@ $('#tabla_fuente').DataTable({
 			   "sProcessing":"Procesando...",
 		  },
 	  //para usar los botones   
+	  "pageLength": 5,  
 	  responsive: "true",
 	  dom: 'Bfrtilp',       
 	  buttons:[ 
@@ -472,6 +480,7 @@ $("#tabla_Rubros").DataTable({
 			   "sProcessing":"Procesando...",
 		  },
 	  //para usar los botones   
+	  "pageLength": 5,  
 	  responsive: "true",
 	  dom: 'Bfrtilp',       
 	  buttons:[ 
