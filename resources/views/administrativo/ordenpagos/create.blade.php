@@ -23,6 +23,11 @@
                     <div class="col-md-12 text-center">
                         <br>
                         <div class="table-responsive">
+                          <div class="box">
+                                <div class="box-header">
+                                <h3 class="box-title"></h3>
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
                             @if(count($Registros) >= 1)
                                 <br>
                                 <table class="display" id="tabla_Registros">
@@ -57,6 +62,7 @@
                                     @endforeach
                                     </tbody>
                                 </table>
+
                             @else
                                 <br>
                                 <div class="alert alert-danger">
@@ -66,6 +72,12 @@
                                     </center>
                                 </div>
                             @endif
+
+                               </div><!-- /.box-body -->
+                             </div><!-- /.box -->
+
+
+                          </div>
                         </div>
                     </div>
                     <div class="col-md-12" style="display: none; background-color: white" id="form" name="form">
@@ -179,10 +191,59 @@
 @section('js')
     <script type="text/javascript">
         $('#tabla_Registros').DataTable( {
-            responsive: true,
-            "searching": false,
-            "pageLength": 5
-        } );
+             language: {
+			  "lengthMenu": "Mostrar _MENU_ registros",
+			  "zeroRecords": "No se encontraron resultados",
+			  "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+			  "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+			  "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+			  "sSearch": "Buscar:",
+			  "oPaginate": {
+				  "sFirst": "Primero",
+				  "sLast":"Último",
+				  "sNext":"Siguiente",
+				  "sPrevious": "Anterior"
+			   },
+			   "sProcessing":"Procesando...",
+		  },
+	  //para usar los botones   
+      "pageLength": 5,
+      responsive: "true",
+	  dom: 'Bfrtilp',       
+	  buttons:[ 
+			  {
+			  extend:    'copyHtml5',
+			  text:      '<i class="fa fa-clone"></i> ',
+			  titleAttr: 'Copiar',
+			  className: 'btn btn-primary'
+		  },
+		  {
+			  extend:    'excelHtml5',
+			  text:      '<i class="fa fa-file-excel-o"></i> ',
+			  titleAttr: 'Exportar a Excel',
+			  className: 'btn btn-success'
+		  },
+		  {
+			  extend:    'pdfHtml5',
+			  text:      '<i class="fa fa-file-pdf-o"></i> ',
+			  titleAttr: 'Exportar a PDF',     
+			  message : 'SIEX',
+			  header :true,
+              	exportOptions: {
+				  columns: [ 0,1,2,3,4]
+					},
+			  pageSize: 'LEGAL',
+			  className: 'btn btn-danger',
+			   },
+		  {
+			  extend:    'print',
+			  text:      '<i class="fa fa-print"></i> ',
+			  titleAttr: 'Imprimir',
+			  className: 'btn btn-info'
+		  },
+	  ]	             
+
+		 });
 
         $(document).ready(function() {
             var table = $('#tabla_Registros').DataTable();

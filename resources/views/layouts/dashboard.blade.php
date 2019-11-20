@@ -50,6 +50,8 @@
     <!-- Select 2 -->
     <link href="{{ asset('/css/select2.min.css') }}" rel="stylesheet" type="text/css">
     
+    <link href="https://cdn.datatables.net/v/bs-3.3.7/jszip-3.1.3/pdfmake-0.1.27/dt-1.10.15/b-1.3.1/b-html5-1.3.1/b-print-1.3.1/datatables.min.css" rel="stylesheet"/>
+
      <!-- Font Awesome -->
     {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> --}}
    
@@ -57,10 +59,10 @@
     {{-- <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> --}}
    
     {{-- <link href="https://cdn.datatables.net/buttons/1.3.1/css/buttons.dataTables.min.css" rel="stylesheet"> --}}
-     {{-- <link href="{{asset('/assets/datatables-plugins/dataTables.bootstrap.css')}}" rel="stylesheet"> --}}
+     <link href="{{asset('/assets/datatables-plugins/dataTables.bootstrap.css')}}" rel="stylesheet">
    
     <!-- DataTables Responsive CSS -->
-    {{-- <link href="{{asset('/assets/datatables-responsive/dataTables.responsive.css')}}" rel="stylesheet"> --}}
+    <link href="{{asset('/assets/datatables-responsive/dataTables.responsive.css')}}" rel="stylesheet">
   
     <!-- Bootstrap Material Design -->
      {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.2/css/mdb.min.css" /> --}}
@@ -365,6 +367,7 @@
     <script src="{{asset('/assets/adminLTE/js/app.min.js')}}"></script>
     <!-- Select 2-->
     <script src="{{ asset('js/lib/select2/select2.min.js') }}"></script>
+   
 
     <!-- DataTables -->
     <script src="{{ asset('/assets/adminLTE/plugins/datatables/jquery.dataTables.min.js') }}"></script> 
@@ -411,8 +414,6 @@
      <!-- SlimScroll -->
     {{-- <script src="{{ asset('/assets/adminLTE/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script> --}}
     
-    <!-- jQuery -->
-    {{-- <script src="{{asset('/js/jquery.js')}}"></script> --}}
 
 
     @yield('js')
