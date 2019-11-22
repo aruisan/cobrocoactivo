@@ -164,6 +164,20 @@
             padding-bottom:10px;
           
            }
+
+           .fotoConcejal{
+
+          width:40% !important;
+          }
+
+          .nombreConcejal{
+
+            font-size:4vw !important;
+          }
+          .nConcejal{
+            font-size:3vw !important;
+          }
+
           
 }
 
@@ -180,8 +194,17 @@
         table th, table tr,table td{
            font-size:13px !important;
           }
+.fotoConcejal{
 
-  
+ width:170px !important;
+ }
+  .nombreConcejal{
+
+    font-size:18px !important;
+  }
+  .nConcejal{
+     font-size:16px !important;
+  }
 
        }
 
@@ -339,7 +362,8 @@ ul.menu-social li a::before {
 }
 
  .formularioFuncionarios, 
- .formularioTerceros{ 
+ .formularioTerceros,
+ .formularioConcejal{ 
             border: 1px solid #ccc;
             border-radius: 3% ;
             padding-bottom:10px;
