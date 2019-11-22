@@ -14,7 +14,7 @@
 @section('content')
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-12">
 				 @include('personas.partials._form', ['persona' => $persona, 'route' => 'personas.store', 'method' => 'POST'])
 			</div>
 		</div>

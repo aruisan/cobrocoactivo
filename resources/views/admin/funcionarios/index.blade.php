@@ -8,7 +8,7 @@
 @section('content')
 <div class="row">
     <div class="col-lg-12 margin-tb">
-            <h2 class="text-center">administración Funcionarios</h2>
+            <h2 class="text-center">Administración Funcionarios</h2>
     </div>
 </div>
 

@@ -210,8 +210,7 @@
 .item-menu {
     text-decoration: none;
    background-color: rgb(43, 125, 210) !important;
-   
-   color: #fff !important;
+    color: #fff !important;
    margin-left: 0px;
     margin-right: 0px;
     border: none;
@@ -219,9 +218,8 @@
     border-radius: unset;
 }
 
-.main-header .navbar-custom-menu a, .main-header .navbar-right a {
-    color: white;
-}
+
+
 
 /*.dropdown-menu {
   
@@ -267,8 +265,8 @@
 .iconos-footer {
 	display: block;
 	position: fixed;
-	width: 100%;
-	left: 0;
+	width: 100px;
+	right: 0;
 	bottom: 0;
 }
 
@@ -328,6 +326,35 @@ ul.menu-social li a::before {
       border-color: #2b7dd2 !important;
       color:white !important;
 }
+.btn-primary.active, 
+.btn-primary:active, 
+.open>.dropdown-toggle.btn-primary {
+    color: white !important;
+    background-color: #1c5d95 !important;
+}
+.main-header 
+.navbar-custom-menu a, 
+.main-header .navbar-right a {
+    color: white;
+}
+
+ .formularioFuncionarios, 
+ .formularioTerceros{ 
+            border: 1px solid #ccc;
+            border-radius: 3% ;
+            padding-bottom:10px;
+             align-items: center !important;
+             
+          
+           }
+
+           .inputCenter{
+             align:center !important;
+        
+              margin-right: 15px;
+            margin-left: 15px;"
+           }
+    
 
     </style>
 

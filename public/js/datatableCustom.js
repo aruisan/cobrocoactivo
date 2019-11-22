@@ -462,7 +462,7 @@ $('#tabla_Pagos').DataTable({
 
 		 });
 		 
-		  
+  	  
 $("#tabla_Rubros").DataTable({        
 	  language: {
 			  "lengthMenu": "Mostrar _MENU_ registros",
@@ -522,3 +522,4 @@ $("#tabla_Rubros").DataTable({
 	  ]	        
   });     
 });
+
