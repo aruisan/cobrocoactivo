@@ -264,6 +264,70 @@
  /* verde oscuro rgba(20,115,106,1)  */
 
 }
+.iconos-footer {
+	display: block;
+	position: fixed;
+	width: 100%;
+	left: 0;
+	bottom: 0;
+}
+
+.iconos-footer  ul.menu-footer {
+	list-style: none;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-flex-wrap: nowrap;
+	-ms-flex-wrap: nowrapwrap;
+	flex-wrap: nowrap;
+}
+
+.iconos-footer  ul.menu-footer li {
+	flex: 0 1 40px;
+	height: 40px;
+}
+
+.iconos-footer  ul.menu-footer li.next {
+	flex: 1 1 auto;
+}
+
+ul.menu-social li a::before {
+
+	display: inline-block;
+	font-family: FontAwesome;
+	font-size: 20px;
+	vertical-align: middle;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	line-height: 40px;
+}
+.iconoNotificaciones {
+  
+	content: "\f0a2";
+ 
+}
+.iconoNormatividad{
+	content: "\f0f6";
+
+}
+.social-item{
+   background-color:#2b7dd2 !important;
+   border-radius:3px;
+   border:1px solid #2b7dd2;
+   margin-left:3px;
+    color:white !important;
+
+}
+
+.item-perfil{
+      background-color: #2b7dd2 !important;
+      border-color: #2b7dd2 !important;
+      color:white !important;
+}
 
     </style>
 
@@ -273,75 +337,38 @@
 
 <body style="display: flex">
     <div id="wrapper">
-      <header class="main-header fondo-menu">
-
-        <!-- Logo -->
-        <a href="#" class="logo fondo-menu">
-          <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini"><b>S</b>IEX</span>
-          <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"> <img src="{{ asset('/img/logoBlancoSiex.png') }}" width="90px"/></span>
-        </a>
-
-        <!-- Header Navbar: style can be found in header.less -->
-        <nav class="navbar navbar-static-top  fondo-menu" role="navigation">
-          <!-- Sidebar toggle button-->
-          <!-- <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>
-          </a> -->
-          <!-- Navbar Right Menu -->
-          <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">
-              <!-- Messages: style can be found in dropdown.less-->
-              <li class="dropdown messages-menu">
-               
-              <li>
-                                <a class="btn btn-raised" data-toggle="modal" data-target="#modal-normas" title="NORMATIVIDAD">
-                                  <i class="fa fa-file-text" aria-hidden="true"></i>
-                                </a>
-                              </li>
-
-                            </li>
-              <!-- Notifications: style can be found in dropdown.less -->
-
-
-              <li class="dropdown notifications-menu">
-                 <a href="{{route('notificaciones.index')}}" 
-                  class="btn btn-raised " 
-                  title="NOTIFICACIONES">
-                    <i class="fa fa-bell-o"></i>
-                                  @if ($count = Auth::user()->unreadnotifications->count())
-                                      <i class="fa fa-bell-o" aria-hidden="true">{{$count}}</i>
-                                  @endif
-                                </a>
-                  
-               </li>
-        
-              
-              
-                 @include('layouts.cuerpo.perfil') 
-          
-
-            </ul>
-          </div>
-
-        </nav>
-
-   
-
               <!-- Navigation -->
-              <nav class="navbar  navbar-dark bg-default  fondo-menu" role="navigation"  data-offset-top="100">
+        <nav class="navbar  navbar-dark bg-default  fondo-menu" role="navigation"  data-offset-top="100">
           <div class="container-fluid">
          
+          <div class="navbar-header">
+             <header class="main-header fondo-menu">
+    
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="row">
 
-
-              <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu-dependencias">
+           <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
+                    <!-- Logo -->
+                    <a href="http://siex.com.co/" class="logo fondo-menu">
+                      <!-- mini logo for sidebar mini 50x50 pixels -->
+                      <span class="logo-mini"><b>S</b>IEX</span>
+                      <!-- logo for regular state and mobile devices -->
+                      <span class="logo-lg"> <img src="{{ asset('/img/logoBlancoSiex.png') }}" width="90px"/></span>
+                    </a>
+                    </div>
+ 
+<div class="col-xs-6 col-sm-6 col-md-6 col-lg-9">
+                      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu-dependencias">
                       <span class="sr-only">Toggle navigation</span>
                       <i class="fa fa-bars fa-2x text-white"></i>
                     </button>
                              <br>
                                 <br> <br>
+                  </div>
+             </div>
+      </div>
+
+                   </header>
               </div><!--navbar-header-->                    
        
             <!-- /.navbar-header -->
@@ -360,15 +387,8 @@
         </nav>
 
 
-      </header>
-        <!-- Navigation -->
-        <nav class="navbar  navbar-dark bg-default  fondo-menu" role="navigation"  data-offset-top="100">
-          <div class="container-fluid">
-         
-          </div>
-            <!-- /.navbar-top-links -->
-            <!-- /.navbar-static-side -->
-        </nav>
+      
+     
 
 
         <div class="navbar-default sidebar" role="navigation">
@@ -400,6 +420,46 @@
 
     </div>
     <!-- /#wrapper -->
+
+<aside class="iconos-footer">
+	<ul class="menu-footer">
+	      
+         
+                
+         <li class="social-item">
+                 <span class="iconoNormatividad">  
+                          <a data-toggle="modal" data-target="#modal-normas" title="NORMATIVIDAD">
+                        <i class="fa fa-file-text item-perfil" style="padding-top:10px;"></i> </a>
+                  </span>                           
+                   
+                  
+               </li>  
+
+              <!-- Notifications: style can be found in dropdown.less -->
+
+
+              <li class="dropdown notifications-menu social-item">
+                 <span class="iconoNotificaciones">  
+                     <a href="{{route('notificaciones.index')}}"  class="btn btn-raised " title="NOTIFICACIONES">
+                        <i class="fa fa-bell-o item-perfil"></i>
+                  </span>
+                                  @if ($count = Auth::user()->unreadnotifications->count())
+                                    
+                                    <span class="iconoNotificaciones">  
+                                    <i class="fa fa-bell-o item-perfil" aria-hidden="true">{{$count}}</i>
+                                    </span>
+                                  
+                                  @endif 
+                            
+                        </a>
+                  
+               </li>  
+              
+	</ul>
+</aside><!-- .social-sharing -->
+
+
+
 
 
     <!-- Translate-->
