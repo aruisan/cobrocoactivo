@@ -22,7 +22,7 @@
                                   <table class="table table-bordered">
                                   <tr>
                                     <th class="text-center">No</th>
-                                    <th class="text-center">Name</th>
+                                    <th class="text-center">Nombre</th>
                                     <th class="text-center">Email</th>
                                     <th class="text-center">Roles</th>
                                     <th class="text-center">Tipo</th>

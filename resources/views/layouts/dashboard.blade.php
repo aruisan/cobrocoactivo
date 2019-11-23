@@ -363,6 +363,8 @@ ul.menu-social li a::before {
 
  .formularioFuncionarios, 
  .formularioTerceros,
+ .formularioImpuestos,
+ .formularioContractual,
  .formularioConcejal{ 
             border: 1px solid #ccc;
             border-radius: 3% ;
