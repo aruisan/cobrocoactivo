@@ -35,11 +35,18 @@
             <i class="fa fa-caret-down"></i>
         </a>
         <ul class="dropdown-menu dropdown-user">
+            <li class="dropdown-submenu">
+                <a class="test btn btn-primary text-left" href="#">Contractual &nbsp;<span class="fa fa-caret-right"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ url('/presupuesto/informes/contractual/homologar') }}" class="btn btn-success text-left">Homologar</a></li>
+                    <li><a data-toggle="modal" data-target="#reporteHomologar" class="btn btn-success text-left">Reporte</a></li>
+                </ul>
+            </li>
             <li>
                 <a href="#" class="btn btn-primary text-left">FUT </a>
             </li>
             <li>
-                <a href="#" class="btn btn-primary text-left">Niveles</a>
+                <a href="{{ url('/presupuesto/informes/lvl/1') }}" class="btn btn-primary text-left">Niveles</a>
             </li>
             <li>
                 <a href="#" class="btn btn-primary text-left">Comparativo (Ingresos - Gastos)</a>
@@ -67,6 +74,7 @@
     </li>
 @stop
 @section('content')
+    @include('modal.Informes.reporte')
     <div class="col-md-12 align-self-center">
         @if($V != "Vacio")
         <div class="breadcrumb text-center">

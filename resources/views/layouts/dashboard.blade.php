@@ -172,8 +172,6 @@
         @include('administrativo.gestiondocumental.boletines.modals.modals')
         @include('administrativo.gestiondocumental.acuerdos.modals.modals')
 
-       
-
     </div>
     <!-- /#wrapper -->
 

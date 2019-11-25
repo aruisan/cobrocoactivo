@@ -107,7 +107,8 @@ class ReportsController extends Controller
                         $data[] = collect(['id' => $code->id, 'Cred' => 0, 'Deb' => 0]);
                     }
                 }
-                return view('administrativo.contabilidad.informes.index', compact('nivel', 'niveles', 'fila', 'codes','data'));
+                $lvl = $level;
+                return view('administrativo.contabilidad.informes.index', compact('nivel', 'niveles', 'fila', 'codes','data','lvl'));
             } else {
                 Session::flash('error','Actualmente no existen rubros en el PUC. Se recomienda crearlos.');
                 return back();

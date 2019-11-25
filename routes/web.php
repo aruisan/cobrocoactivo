@@ -271,7 +271,15 @@ Route::group([ 'middleware' => 'auth'] ,function(){
     Route::put('presupuesto/rubro/m/{m}/{id}', 'Hacienda\Presupuesto\RubrosMovController@movimiento');
 	Route::resource('presupuesto/FontRubro', 'Hacienda\Presupuesto\FontRubroController');
 	Route::resource('presupuesto/FontRubro/saldo', 'Hacienda\Presupuesto\FontRubroController@saldoFont');
-	
+
+        //INFORMES PRESUPUESTO
+
+        Route::resource('presupuesto/informes','Hacienda\Presupuesto\Informes\ReportsController');
+        Route::get('presupuesto/informes/lvl/{id}','Hacienda\Presupuesto\Informes\ReportsController@lvl');
+        Route::get('presupuesto/informes/rubros/{id}','Hacienda\Presupuesto\Informes\ReportsController@rubros');
+
+        Route::resource('presupuesto/informes/contractual/homologar','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController');
+        Route::put('presupuesto/informes/contractual/reporte','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@report');
     ////// RUTAS PLAN DE DESARROLLO
 	Route::resource('pdd','Planeacion\Pdd\PdesarrolloController');
 	Route::get('pdd/data/create/{pdd}','Planeacion\Pdd\EjesController@create');

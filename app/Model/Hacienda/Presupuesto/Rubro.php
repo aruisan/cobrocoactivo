@@ -45,4 +45,8 @@ class Rubro extends Model implements Auditable
     public function pago(){
         return $this->hasMany('App\Model\Administrativo\Pago\PagoRubros','rubro_id');
     }
+
+    public function codeCo(){
+        return $this->hasOne('App\Model\Hacienda\Presupuesto\Informes\CodeContractuales', 'id', 'code_contractuales_id');
+    }
 }

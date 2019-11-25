@@ -18,6 +18,8 @@ use App\Model\Administrativo\OrdenPago\OrdenPagos;
 use App\Model\Administrativo\OrdenPago\OrdenPagosRubros;
 use App\Model\Administrativo\Pago\Pagos;
 use App\Model\Administrativo\Pago\PagoRubros;
+use App\Model\Hacienda\Presupuesto\Informes\CodeContractuales;
+
 
 class PresupuestoController extends Controller
 {
@@ -534,7 +536,11 @@ class PresupuestoController extends Controller
             unset($valTot);
         }
 
-        return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP','pagos','valP','valCP','valR'));
+        //CODE CONTRACTUALES
+
+        $codeCon = CodeContractuales::all();
+
+        return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP','pagos','valP','valCP','valR','codeCon'));
     }
 
     /**

@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @section('titulo')
-    Informes
+    Informe Presupuestal Nivel {{ $lvl }}
 @stop
 @section('sidebar')
     <li class="dropdown">
@@ -10,17 +10,17 @@
             <i class="fa fa-caret-down"></i>
         </a>
         <ul class="dropdown-menu dropdown-user">
-            @foreach($niveles as $level)
-                <li><a href="/administrativo/contabilidad/informes/lvl/{{$level->level}}" class="btn btn-primary">Nivel {{ $level->level }}</a></li>
+            @foreach($levels as $level)
+                <li><a href="/presupuesto/informes/lvl/{{$level->level}}" class="btn btn-primary">Nivel {{ $level->level }}</a></li>
             @endforeach
-            <li><a href="/administrativo/contabilidad/informes/rubros/{{ $niveles[0]->puc_id }}" class="btn btn-primary">Rubros</a></li>
+            <li><a href="/presupuesto/informes/rubros/{{$vigencia[0]->id}}" class="btn btn-primary">Rubros</a></li>
         </ul>
     </li>@stop
 @section('content')
     <div class="col-md-12 align-self-center">
         <div class="breadcrumb text-center">
             <strong>
-                <h4><b>Informes</b></h4>
+                <h4><b>Informes Presupuestales Por Niveles</b></h4>
                 <p>
                 <h4><b>Nivel {{ $lvl }}</b></h4>
             </strong>
@@ -29,22 +29,19 @@
             <table class="table table-bordered hover" id="tabla">
                 <hr>
                 <thead>
-                    <th class="text-center">Código</th>
-                    <th class="text-center">Nombre</th>
-                    <th class="text-center">Debito</th>
-                    <th class="text-center">Credito</th>
+                    <tr>
+                        <th colspan="2" class="text-center">Informe Presupuestal Nivel {{ $lvl }}</th>
+                    </tr>
+                    <tr>
+                        <th class="text-center">Código</th>
+                        <th class="text-center">Nombre</th>
+                    </tr>
                 </thead>
                 <tbody>
-                @foreach($codes as $code)
+                @foreach($values as $value)
                     <tr>
-                        <td class="text-center">{{$code->code}}</td>
-                        <td class="text-center">{{$code->name}}</td>
-                        @foreach($data as $d)
-                            @if($code->id == $d['id'])
-                                <td>$ <?php echo number_format($d['Deb'],0);?></td>
-                                <td>$ <?php echo number_format($d['Cred'],0);?></td>
-                            @endif
-                        @endforeach
+                        <td class="text-center">{{$value['code']}}</td>
+                        <td class="text-center">{{$value['name']}}</td>
                     </tr>
                 @endforeach
                 </tbody>
