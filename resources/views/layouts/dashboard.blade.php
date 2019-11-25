@@ -370,7 +370,9 @@ ul.menu-social li a::before {
  .formularioConcejal,
  .formularioAdquisicion,
  .formularioBoletin,
- .formularioAcuerdo{ 
+  .formularioResolucion,
+ .formularioAcuerdo,
+ .formularioActa{ 
             border: 1px solid #ccc;
             border-radius: 3% ;
             padding-bottom:10px;

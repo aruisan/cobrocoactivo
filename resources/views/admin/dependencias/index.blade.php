@@ -77,9 +77,11 @@
             created: function(){
                 this.getDatos();
             },
+          
             data:{
                 datos: [],
             },
+            
             methods:{
                 getDatos: function(){
                     var ruta = '/admin/dependencias/create';
@@ -128,7 +130,11 @@
                     $('#tabla tbody tr:first').before('<tr><td><input type="text" class="form-control" name="name[]" required></td><td class="text-center"><button class="borrar btn btn-danger btn-sm"><i class="fa fa-minus"></i></button></td></tr>');
 
                 }
+
+                
             }
+
+
         });
     </script>
 @stop

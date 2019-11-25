@@ -94,7 +94,7 @@
                     <span class="input-group-addon"><i class="fa fa-check" aria-hidden="true"></i></span>
                     <select class="form-control" name="estado">
                         <option value="0">Pendiente</option>
-                        <option value="1">Aprovado</option>
+                        <option value="1">Aprobado</option>
                         <option value="2">Rechazado</option>
                         <option value="3">Archivado</option>
                     </select>
