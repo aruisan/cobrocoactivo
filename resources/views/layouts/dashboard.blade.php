@@ -365,7 +365,12 @@ ul.menu-social li a::before {
  .formularioTerceros,
  .formularioImpuestos,
  .formularioContractual,
- .formularioConcejal{ 
+ .formularioCorrespondencia,
+ .formularioArchivo,
+ .formularioConcejal,
+ .formularioAdquisicion,
+ .formularioBoletin,
+ .formularioAcuerdo{ 
             border: 1px solid #ccc;
             border-radius: 3% ;
             padding-bottom:10px;
