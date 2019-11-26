@@ -16,7 +16,7 @@ class CreateCodeContractualesTable extends Migration
         Schema::create('code_contractuales', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('code');
+            $table->string('code');
             $table->string('name');
 
             $table->timestamps();

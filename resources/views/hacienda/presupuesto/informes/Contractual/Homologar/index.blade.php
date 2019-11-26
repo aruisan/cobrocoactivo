@@ -2,6 +2,15 @@
 @section('titulo')
     Homologar
 @stop
+@section('sidebar')
+    @if( $rol == 2)
+        <li>
+            <a href="{{ url('presupuesto/informes/contractual/homologar/create') }}" class="btn btn-success">
+                <i class="fa fa-plus"></i>
+                <span class="hide-menu"> Añadir Codigo Contractual</span></a>
+        </li>
+    @endif
+@stop
 @section('content')
     <div class="col-md-12 align-self-center">
         <div class="breadcrumb text-center">

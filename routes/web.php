@@ -279,7 +279,9 @@ Route::group([ 'middleware' => 'auth'] ,function(){
         Route::get('presupuesto/informes/rubros/{id}','Hacienda\Presupuesto\Informes\ReportsController@rubros');
 
         Route::resource('presupuesto/informes/contractual/homologar','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController');
+        Route::get('presupuesto/informes/contractual/homologar/create','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@create');
         Route::put('presupuesto/informes/contractual/reporte','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@report');
+
     ////// RUTAS PLAN DE DESARROLLO
 	Route::resource('pdd','Planeacion\Pdd\PdesarrolloController');
 	Route::get('pdd/data/create/{pdd}','Planeacion\Pdd\EjesController@create');
