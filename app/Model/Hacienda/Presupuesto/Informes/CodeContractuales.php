@@ -12,7 +12,7 @@ class CodeContractuales extends Model implements Auditable
 
     public function rubro(){
 
-        return $this->belongsTo('App\Model\Hacienda\Presupuesto\Rubro','id');
+        return $this->belongsTo('App\Model\Hacienda\Presupuesto\Rubro','id','code_contractuales_id');
 
     }
 }

@@ -18,12 +18,13 @@
         <table class="table table-bordered hover" id="tabla">
             <thead>
                 <tr>
-                    <th colspan="3" class="text-center">Códigos Contractuales Almacenados</th>
+                    <th colspan="4" class="text-center">Códigos Contractuales Almacenados</th>
                 </tr>
                 <tr>
                     <th class="text-center">Id</th>
                     <th class="text-center">Código</th>
                     <th class="text-center">Nombre</th>
+                    <th class="text-center">Estado</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,6 +33,15 @@
                     <td class="text-center">{{$value->id}}</td>
                     <td class="text-center">{{$value->code}}</td>
                     <td class="text-center">{{$value->name}}</td>
+                    <td class="text-center">
+                        <span class="badge badge-pill badge-danger">
+                            @if($value->estado == "0")
+                                Activado
+                            @else
+                                Desactivado
+                            @endif
+                        </span>
+                    </td>
                 </tr>
             @endforeach
             </tbody>

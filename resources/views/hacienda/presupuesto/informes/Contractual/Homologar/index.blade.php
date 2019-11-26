@@ -6,8 +6,13 @@
     @if( $rol == 2)
         <li>
             <a href="{{ url('presupuesto/informes/contractual/homologar/create') }}" class="btn btn-success">
-                <i class="fa fa-plus"></i>
-                <span class="hide-menu"> Añadir Codigo Contractual</span></a>
+                <i class="fa fa-plus"></i>&nbsp;
+                <span class="hide-menu"> Añadir Código Contractual</span></a>
+        </li>
+        <li>
+            <a href="{{ url('presupuesto/informes/contractual/asignar') }}" class="btn btn-success">
+                <i class="fa fa-plus"></i>&nbsp;
+                <span class="hide-menu"> Asignar Código Contractual</span></a>
         </li>
     @endif
 @stop
@@ -22,6 +27,9 @@
             <table class="table table-bordered hover" id="tabla">
                 <hr>
                 <thead>
+                    <tr>
+                        <th colspan="5" class="text-center">Tabla de Rubros con sus Códigos Contractuales Asignados</th>
+                    </tr>
                     <tr>
                         <th class="text-center">Código</th>
                         <th class="text-center">Rubro</th>
@@ -42,6 +50,44 @@
                 @endforeach
                 </tbody>
             </table>
+            <br>
+            <hr>
+            <br>
+            <table class="table table-bordered hover" id="tabla2">
+                <thead>
+                <tr>
+                    <th colspan="5" class="text-center">Códigos Contractuales</th>
+                </tr>
+                <tr>
+                    <th class="text-center">Id</th>
+                    <th class="text-center">Código</th>
+                    <th class="text-center">Nombre</th>
+                    <th class="text-center">Estado</th>
+                    <th class="text-center">Editar</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($codes as $value)
+                    <tr>
+                        <td class="text-center">{{$value->id}}</td>
+                        <td class="text-center">{{$value->code}}</td>
+                        <td class="text-center">{{$value->name}}</td>
+                        <td class="text-center">
+                            <span class="badge badge-pill badge-danger">
+                                @if($value->estado == "0")
+                                    Activado
+                                @else
+                                    Desactivado
+                                @endif
+                            </span>
+                        </td>
+                        <td class="text-center">
+                            <a href="{{ url('presupuesto/informes/contractual/homologar/'.$value->id.'/edit') }}" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 @stop
@@ -49,6 +95,16 @@
 @section('js')
     <script>
         $('#tabla').DataTable( {
+            responsive: true,
+            "searching": true,
+            ordering: false,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'print'
+            ]
+        } );
+
+        $('#tabla2').DataTable( {
             responsive: true,
             "searching": true,
             ordering: false,

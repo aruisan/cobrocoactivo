@@ -18,6 +18,7 @@ class CreateCodeContractualesTable extends Migration
 
             $table->string('code');
             $table->string('name');
+            $table->enum('estado', [0, 1]);
 
             $table->timestamps();
         });
