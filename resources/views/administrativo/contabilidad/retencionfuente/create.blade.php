@@ -9,7 +9,7 @@
 
 @section('content')
 
-<div class="col-lg-12 formularioImpuestos">
+<div class="col-lg-12 formularioRetencion">
 
 
         <div class="row">

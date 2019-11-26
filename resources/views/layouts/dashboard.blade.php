@@ -129,7 +129,8 @@
           .tituloIngresos,
           .tituloEgresos,
           .tituloOrden,
-          .tituloPago{
+          .tituloPago,
+          .tituloAside{
             font-size:5vw !important;
             }
 
@@ -187,7 +188,8 @@
           .tituloIngresos,
           .tituloEgresos,
           .tituloOrden,
-          .tituloPago{
+          .tituloPago,
+          .tituloAside{
             font-size:19px;
             }
 
@@ -364,6 +366,7 @@ ul.menu-social li a::before {
  .formularioFuncionarios, 
  .formularioTerceros,
  .formularioImpuestos,
+ .formularioRetencion,
  .formularioContractual,
  .formularioCorrespondencia,
  .formularioArchivo,

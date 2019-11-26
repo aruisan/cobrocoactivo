@@ -117,7 +117,7 @@
 
     <div class="row">
         <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-            <label>Fecha de Aproibación: </label>
+            <label>Fecha de Aprobación: </label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
                 <input type="date" name="ff_aprobacion" class="form-control" required>

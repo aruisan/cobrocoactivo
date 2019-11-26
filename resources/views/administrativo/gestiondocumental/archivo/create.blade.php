@@ -92,7 +92,7 @@
                 <span class="input-group-addon"><i class="fa fa-hashtag" aria-hidden="true"></i></span>
                 <input type="text" name="consecutivo" class="form-control" required>
             </div>
-            <small class="form-text text-muted">Concecutivo del Archivo</small>
+            <small class="form-text text-muted">Consecutivo del Archivo</small>
         </div>
     </div>
 
@@ -104,7 +104,7 @@
                 <span class="input-group-addon"><i class="fa fa-check" aria-hidden="true"></i></span>
                 <select class="form-control" name="estado">
                         <option value="0">Pendiente</option>
-                        <option value="1">Aprovado</option>
+                        <option value="1">Aprobado</option>
                         <option value="2">Rechazado</option>
                         <option value="3">Archivado</option>
                 </select>
