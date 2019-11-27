@@ -564,7 +564,7 @@ ul.menu-social li a::before {
 
     <script src="{{asset('js/myJs.js')}}"></script>
     <!-- Bootstrap 3.3.5 -->
-    <script src="{{asset('/assets/adminLTE/bootstrap/js/bootstrap.min.js')}}"></script>
+    {{-- <script src="{{asset('/assets/adminLTE/bootstrap/js/bootstrap.min.js')}}"></script> --}}
     <!-- FastClick -->
     <script src="{{asset('/assets/adminLTE/plugins/fastclick/fastclick.min.js')}}"></script>
     <!-- AdminLTE App -->
