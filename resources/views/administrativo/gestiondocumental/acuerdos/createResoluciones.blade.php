@@ -16,6 +16,7 @@
         <h2 class="text-center"> Agregar Resolución</h2>
     </div>
 </div>
+
 <div class="row inputCenter"  style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #3d7e9a; ">
     <br>
     <hr>

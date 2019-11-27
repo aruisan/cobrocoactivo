@@ -43,13 +43,13 @@
 		</ul>
 		<br>
 		@isset($predios)
-	
+	    <div class="table-responsive">
 			<table class="table table-bordered cell-border table-hover" id="example"  data-form="deleteForm">
 			<thead>
 		        <tr class="active">
-		            <th class="text-center">FICHA CATASTRAL</th>
-		            <th class="text-center">MATRICULA INMOBILARIA</th>
-		            <th class="text-center">Direccion</th>
+		            <th class="text-center">Ficha Catastral</th>
+		            <th class="text-center">Matricula Inmobiliaria</th>
+		            <th class="text-center">Dirección</th>
 		            <th class="text-center">Nombre</th>
 		            {{-- @if(Auth::user()->type->expediente == 1) --}}
 		        		<th class="text-center"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span></th>
@@ -94,14 +94,71 @@
 			{{-- {{ $predios->links() }} --}}
 		@endisset	
 	</div>
-
+	</div>
 @stop
 
 @section('js')
-  {{--  <script>
+   <script>
 		$(document).ready(function() {
-		    $('#example').DataTable();
+		 
+
+               $('#example').DataTable({
+	language: {
+			  "lengthMenu": "Mostrar _MENU_ registros",
+			  "zeroRecords": "No se encontraron resultados",
+			  "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+			  "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+			  "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+			  "sSearch": "Buscar:",
+			  "oPaginate": {
+				  "sFirst": "Primero",
+				  "sLast":"Último",
+				  "sNext":"Siguiente",
+				  "sPrevious": "Anterior"
+			   },
+			   "sProcessing":"Procesando...",
+		  },
+	  //para usar los botones
+	  "pageLength": 5,   
+	  responsive: "true",
+	  dom: 'Bfrtilp',       
+	  buttons:[ 
+			  {
+			  extend:    'copyHtml5',
+			  text:      '<i class="fa fa-clone"></i> ',
+			  titleAttr: 'Copiar',
+			  className: 'btn btn-primary'
+			    
+		  },
+		  {
+			  extend:    'excelHtml5',
+			  text:      '<i class="fa fa-file-excel-o"></i> ',
+			  titleAttr: 'Exportar a Excel',
+			  className: 'btn btn-success',
+			  title: 'Predios'
+		  },
+		  {
+			  extend:    'pdfHtml5',
+			  text:      '<i class="fa fa-file-pdf-o"></i> ',
+			  titleAttr: 'Exportar a PDF',     
+			  message : 'SIEX-Providencia',
+			  header :true,
+			  orientation : 'landscape',
+			  pageSize: 'LEGAL',
+			  className: 'btn btn-danger',
+			  title: 'Predios'
+			   },
+		  {
+			  extend:    'print',
+			  text:      '<i class="fa fa-print"></i> ',
+			  titleAttr: 'Imprimir',
+			  className: 'btn btn-info',
+			  title: 'Predios'
+		  },
+	  ]	             
+
+		 });
 		} );
-   </script> --}}
+   </script>
 @stop
 		            {{-- _token: '{{csrf_token()}}', --}}
