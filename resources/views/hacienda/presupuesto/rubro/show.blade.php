@@ -251,7 +251,7 @@
         <hr>
         @if($files != 0)
             <center>
-                <h3>Archivios Correspondientes a los Movimientos del Rubro</h3>
+                <h3>Archivos Correspondientes a los Movimientos del Rubro</h3>
             </center>
             <hr>
             <br>
@@ -265,10 +265,11 @@
                         @elseif($file['mov'] == 3)
                             <a href="{{Storage::url($file['ruta'])}}" title="Ver" class="btn btn-success"><i class="fa fa-file-pdf-o">&nbsp; Reducción</i></a>
                         @endif
-
                     @endforeach
                 </div>
             </div>
+            <br>
+            <br>
         @endif
     </div>
     @include('modal.adicionRubro')
