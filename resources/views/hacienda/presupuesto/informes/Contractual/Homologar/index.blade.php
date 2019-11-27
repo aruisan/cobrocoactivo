@@ -23,6 +23,7 @@
                 <h4><b>Homologar</b></h4>
             </strong>
         </div>
+        @if(isset($Rubros))
         <div class="table-responsive">
             <table class="table table-bordered hover" id="tabla">
                 <hr>
@@ -50,9 +51,25 @@
                 @endforeach
                 </tbody>
             </table>
+            @else
+                <br><br>
+                <div class="alert alert-danger">
+                    <center>
+                       Ningun rubro tiene asignado un código contractual, se recomienda hacerlo.
+                        <br>
+                        <br>
+                        @if( $rol == 2)
+                            <a href="{{ url('presupuesto/informes/contractual/asignar') }}" class="btn btn-success">
+                                <i class="fa fa-plus"></i>&nbsp;
+                                <span class="hide-menu"> Asignar Código Contractual</span></a>
+                        @endif
+                    </center>
+                </div>
+            @endif
             <br>
             <hr>
             <br>
+            @if($codes->count() != 0)
             <table class="table table-bordered hover" id="tabla2">
                 <thead>
                 <tr>
@@ -88,6 +105,19 @@
                 @endforeach
                 </tbody>
             </table>
+            @else
+                <br><br>
+                <div class="alert alert-danger">
+                    <center>
+                        No hay códigos contractuales almacenados en el software, se recomienda hacerlo. <br><br>
+                        @if( $rol == 2)
+                            <a href="{{ url('presupuesto/informes/contractual/homologar/create') }}" class="btn btn-success">
+                                <i class="fa fa-plus"></i>&nbsp;
+                                <span class="hide-menu"> Añadir Código Contractual</span></a>
+                        @endif
+                    </center>
+                </div>
+            @endif
         </div>
     </div>
 @stop

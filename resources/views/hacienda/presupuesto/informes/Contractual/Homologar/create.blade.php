@@ -14,39 +14,41 @@
 </div>
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
     <hr>
-    <div class="table-responsive">
-        <table class="table table-bordered hover" id="tabla">
-            <thead>
-                <tr>
-                    <th colspan="4" class="text-center">Códigos Contractuales Almacenados</th>
-                </tr>
-                <tr>
-                    <th class="text-center">Id</th>
-                    <th class="text-center">Código</th>
-                    <th class="text-center">Nombre</th>
-                    <th class="text-center">Estado</th>
-                </tr>
-            </thead>
-            <tbody>
-            @foreach($codes as $value)
-                <tr>
-                    <td class="text-center">{{$value->id}}</td>
-                    <td class="text-center">{{$value->code}}</td>
-                    <td class="text-center">{{$value->name}}</td>
-                    <td class="text-center">
-                        <span class="badge badge-pill badge-danger">
-                            @if($value->estado == "0")
-                                Activado
-                            @else
-                                Desactivado
-                            @endif
-                        </span>
-                    </td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
-    </div>
+    @if($codes->count() != 0)
+        <div class="table-responsive">
+            <table class="table table-bordered hover" id="tabla">
+                <thead>
+                    <tr>
+                        <th colspan="4" class="text-center">Códigos Contractuales Almacenados</th>
+                    </tr>
+                    <tr>
+                        <th class="text-center">Id</th>
+                        <th class="text-center">Código</th>
+                        <th class="text-center">Nombre</th>
+                        <th class="text-center">Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach($codes as $value)
+                    <tr>
+                        <td class="text-center">{{$value->id}}</td>
+                        <td class="text-center">{{$value->code}}</td>
+                        <td class="text-center">{{$value->name}}</td>
+                        <td class="text-center">
+                            <span class="badge badge-pill badge-danger">
+                                @if($value->estado == "0")
+                                    Activado
+                                @else
+                                    Desactivado
+                                @endif
+                            </span>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+    @endif
 </div>
 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
     <br>
