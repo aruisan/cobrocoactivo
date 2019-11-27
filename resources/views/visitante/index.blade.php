@@ -25,10 +25,10 @@
             <img class="card-img-top" src="{{ asset('img/masporlasislas.png') }}" alt="Card image cap" width="180">
         </div>
     </div>
-<div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12"  style="padding-left: 10%;">
 
     <center>
-        <img src="{{ asset('img/img1.png') }}" width="auto">
+        <img src="{{ asset('img/img1.png') }}" width="100%">
     <!--
         <video width="1000" class="media-object" autoplay controls>
             <source src=" {{ asset('video/marque.mp4') }}" type="video/mp4">

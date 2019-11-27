@@ -1,7 +1,7 @@
 
 <li class="page-scroll ">
    <a class="btn btn-default btn-sm dropdown-toggle item-menu" type="button" data-toggle="dropdown">
-   SECRETARIA
+    SECRETARIA
    <span class="caret"></span>
    </a>
    <ul class="dropdown-menu">
@@ -25,7 +25,7 @@
 --}}
 <li class="dropdown ">
    <a class="btn btn-default btn-sm item-menu" href="{{ url('/contractual') }}">
-   CONTRATACIÓN
+    CONTRATACIÓN
    </a>
 </li>
 
@@ -121,4 +121,8 @@
       <li><a class="item-menu" tabindex="-1" href="{{route('personas.index')}}">Terceros</a></li>
       <li><a class="item-menu" tabindex="-1" href="{{route('audits.index')}}">Logs</a></li>
    </ul>
+</li>
+ <li class="dropdown messages-menu">
+               
+                 @include('layouts.cuerpo.perfil') 
 </li>

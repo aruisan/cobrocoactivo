@@ -1,3 +1,7 @@
+
+
+
+
 @extends('layouts.dashboard')
 @section('titulo')
     Presupuesto - 2019
@@ -79,7 +83,7 @@
         @if($V != "Vacio")
         <div class="breadcrumb text-center">
             <strong>
-                <h4><b>Presupuesto Año 2019</b></h4>
+                <h4 class="titulo_presupuesto"><b>Presupuesto Año 2019</b></h4>
             </strong>
         </div>
             <ul class="nav nav-pills">
@@ -146,13 +150,20 @@
                     <a class="nav-link" data-toggle="pill" href="#tabP">Pagos</a>
                 </li>
             </ul>
-            <br>
+              
+
+         <!-- TABLA DE PRESUPUESTO -->
+        
+        
             <div class="tab-content" style="background-color: white">
                 <div id="tabHome" class="tab-pane active"><br>
                     <div class="table-responsive">
                         <br>
-                        <table class="table table-hover table-bordered" align="100%" id="tabla_presupuesto" style="text-align: center">
-                            <thead>
+                          <div class="box">
+             
+                <div class="box-body">
+                  <table id="tabla_presupuesto1" class="table table-bordered table-striped ">
+                  <thead>
                             <tr>
                                 <th class="text-center">Rubro</th>
                                 <th class="text-center">Nombre</th>
@@ -336,7 +347,30 @@
                                 </tr>
                             @endforeach
                             </tbody>
-                        </table>
+                    <tfoot>
+                   <tr>
+                                <th class="text-center">Rubro</th>
+                                <th class="text-center">Nombre</th>
+                                <th class="text-center">P. Inicial</th>
+                                <th class="text-center">Adición</th>
+                                <th class="text-center">Reducción</th>
+                                <th class="text-center">Credito</th>
+                                <th class="text-center">CCredito</th>
+                                <th class="text-center">P.Definitivo</th>
+                                <th class="text-center">CDP's</th>
+                                <th class="text-center">Registros</th>
+                                <th class="text-center">Saldo Disponible</th>
+                                <th class="text-center">Saldo de CDP</th>
+                                <th class="text-center">Ordenes de Pago</th>
+                                <th class="text-center">Pagos</th>
+                                <th class="text-center">Cuentas Por Pagar</th>
+                                <th class="text-center">Reservas</th>
+                            </tr>
+                    </tfoot>
+                  </table>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+
                     </div>
                 </div>
 
@@ -344,6 +378,10 @@
 
                 <div id="tabFuente" class="tab-pane fade"><br>
                     <div class="table-responsive">
+                <div class="box">
+              
+                <div class="box-body">
+
                         <br>
                         <table class="table table-hover table-bordered" align="100%" id="tabla_fuente">
                             <thead>
@@ -366,18 +404,29 @@
                                             <td class="text-center text-dark">$ <?php echo number_format($valorInicial['valor'],0);?>.00</td>
                                         @endif
                                     @endforeach
-                                    @if($codigo['valor'])
-                                        <td class="text-center text-dark">$ <?php echo number_format($codigo['valor'],0);?>.00</td>
+                                   
+                                  
+
+                                    @if($codigo['valor']!=null)
+                                    <td class="text-center text-dark">$ <?php echo number_format($codigo['valor'],0);?>.00</td>
+                                    @elseif($codigo['valor']==null)
+                                     <td class="text-center text-dark"></td>
                                     @endif
+                                    
                                     @foreach($FRubros as $FRubro)
                                         @if($FRubro['rubro_id'] == $codigo['id_rubro'])
-                                            <td class="text-center text-dark">$ <?php echo number_format($FRubro["valor"],0);?>.00</td>
-                                        @endif
+                                              <td class="text-center text-dark">$ <?php echo number_format($FRubro["valor"],0);?>.00</td>
+                                           @endif
                                     @endforeach
+
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
+                 </div><!-- /.box-body -->
+              </div><!-- /.box -->
+
+
                     </div>
                 </div>
 
@@ -387,6 +436,9 @@
                 <br>
                     <div class="table-responsive">
                         <br>
+                            <div class="box">
+             
+                <div class="box-body">
                         <table class="table table-bordered" id="tabla_Rubros">
                             <thead>
                             <tr>
@@ -411,6 +463,10 @@
                             @endforeach
                             </tbody>
                         </table>
+                          </div><!-- /.box-body -->
+                       </div><!-- /.box -->
+
+
                     </div>
                 </div>
 
@@ -428,6 +484,9 @@
                         <br>
                         <a href="{{ url('administrativo/cdp') }}" class="btn btn-primary btn-block m-b-12">CDP's</a>
                         <br>
+               <div class="box">
+               
+                <div class="box-body">
                         <table class="table table-bordered" id="tabla_CDP">
                             <thead>
                             <tr>
@@ -484,6 +543,7 @@
                             @endforeach
                             </tbody>
                         </table>
+
                             @else
                             <br><br>
                             <div class="alert alert-danger">
@@ -493,6 +553,10 @@
                                 </center>
                             </div>
                         @endif
+
+                            </div><!-- /.box-body -->
+                       </div><!-- /.box -->
+
                     </div>
                 </div>
 
@@ -561,13 +625,13 @@
                 <!-- TABLAS DE ADICIONES -->
 
                 <div id="tabAddIng" class=" tab-pane fade"><br>
-                    <h2 class="text-center">Adiciones de Ingresos</h2>
+                    <h2 class="text-center ">Adiciones de Ingresos</h2>
                 </div>
 
 
                 <br>
                 <div id="tabAddEgr" class=" tab-pane fade"><br>
-                    <h2 class="text-center">Adiciones de Egresos</h2>
+                    <h2 class="text-center tituloIngresos">Adiciones de Egresos</h2>
                     <br>
                     <div class="table-responsive">
                         <table class="table table-bordered" id="tabla_AddE">
@@ -604,8 +668,8 @@
                 <div id="tabRedIng" class=" tab-pane fade"><br>
                     <h2 class="text-center">Reducciones de Ingresos</h2>
                 </div>
-                <div id="tabRedEgr" class=" tab-pane fade"><br>
-                    <h2 class="text-center">Reducciones de Egresos</h2>
+                <div id="tabRedEgr" class=" tab-pane fade "><br>
+                    <h2 class="text-center tituloEgresos">Reducciones de Egresos</h2>
                     <br>
                     <div class="table-responsive">
                         <table class="table table-bordered" id="tabla_RedE">
@@ -674,6 +738,8 @@
                         </table>
                     </div>
                 </div>
+             
+             
                 <div id="tabApl" class=" tab-pane fade"><br>
                     <h2 class="text-center">Aplazamientos</h2>
                 </div>
@@ -800,105 +866,10 @@
         </div>
 @stop
 @section('js')
-    <script>
-        $('#tabla_Registros').DataTable( {
-            responsive: true,
-            "searching": false,
-            "pageLength": 5,
-            dom: 'Bfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'print'
-            ]
-        } );
+   
 
-        $('#tabla_CDP').DataTable( {
-            responsive: true,
-            "searching": false,
-            "pageLength": 5,
-            dom: 'Bfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'print'
-            ]
-        } );
+      <!-- Datatables personalizadas buttons-->
+    <script src="{{ asset('/js/datatableCustom.js') }}"></script>
 
-        $('#tabla_Rubros').DataTable( {
-            responsive: true,
-            "searching": true,
-            "pageLength": 5,
-            dom: 'Bfrtip',
-            buttons: [
-                'pdf' ,'copy', 'csv', 'excel', 'print'
-            ]
-        } );
 
-        $('#tabla_presupuesto').DataTable( {
-            responsive: true,
-            "searching": false,
-            "ordering": false,
-            dom: 'Bfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'print'
-            ]
-        } );
-
-        $('#tabla_fuentes').DataTable( {
-            responsive: true,
-            "searching": false,
-            dom: 'Bfrtip',
-            buttons: [
-                'pdf' ,'copy', 'csv', 'excel', 'print'
-            ]
-        } );
-
-        $('#tabla_AddE').DataTable( {
-            responsive: true,
-            "searching": true,
-            "pageLength": 5,
-            dom: 'Bfrtip',
-            buttons: [
-                'pdf' ,'copy', 'csv', 'excel', 'print'
-            ]
-        } );
-
-        $('#tabla_RedE').DataTable( {
-            responsive: true,
-            "searching": true,
-            "pageLength": 5,
-            dom: 'Bfrtip',
-            buttons: [
-                'pdf' ,'copy', 'csv', 'excel', 'print'
-            ]
-        } );
-
-        $('#tabla_Cyc').DataTable( {
-            responsive: true,
-            "searching": true,
-            "pageLength": 5,
-            dom: 'Bfrtip',
-            buttons: [
-                'pdf' ,'copy', 'csv', 'excel', 'print'
-            ]
-        } );
-
-        $('#tabla_OrdenPago').DataTable( {
-            responsive: true,
-            "searching": true,
-            "pageLength": 5,
-            dom: 'Bfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'print'
-            ]
-        } );
-
-        $('#tabla_Pagos').DataTable( {
-            responsive: true,
-            "searching": true,
-            "pageLength": 5,
-            dom: 'Bfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'print'
-            ]
-        } );
-
-    </script>
 @stop

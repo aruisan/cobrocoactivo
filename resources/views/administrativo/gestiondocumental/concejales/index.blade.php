@@ -23,11 +23,11 @@
                             @foreach ($Concejales as $key => $data)
                                 <div class="media">
                                     <div class="col-lg-2">
-                                        <a href="{{ asset('/dashboard/concejales/'.$data->id.'/edit') }}"><img src="{{ asset('img/concejales/'.$data->persona->num_dc.'.png')}}" class="card-img-top" width="100%"></a>
+                                        <a  href="{{ asset('/dashboard/concejales/'.$data->id.'/edit') }}"><img src="{{ asset('img/concejales/'.$data->persona->num_dc.'.png')}}" class="fotoConcejal" ></a>
                                     </div>
                                     <div class="col-lg-10">
-                                        <h4 class="media-heading"><b>{{ $data->persona->nombre }}</b></h4>
-                                        <p class="f-s-12">No C.C {{ $data->persona->num_dc }} </p>
+                                        <h4 class="media-heading nombreConcejal"><b>{{ $data->persona->nombre }}</b></h4>
+                                        <p class="f-s-12 nConcejal">No C.C {{ $data->persona->num_dc }} </p>
                                     </div>
                                 </div>
                                 <hr>

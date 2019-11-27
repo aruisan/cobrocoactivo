@@ -72,22 +72,31 @@
             $(this).closest('tr').remove();
         });
 
-        new Vue({
+
+        new Vue(
+            {
             el: '#crud',
             created: function(){
                 this.getDatos();
             },
+          
             data:{
                 datos: []
+               
             },
-            methods:{
+       
+             methods:{
 
                 nuevaFila: function(){
                     var dependencia=parseInt($("#tabla tr").length);
                     $('#tabla tr:last').after('<tr><td><input type="text" class="form-control" name="nombre[]" required></td><td class="text-center"><input type="button" class="borrar btn btn-danger" value="-" /></td></tr>');
 
                 }
-            }
+            },
+                        
+            
         });
+
+        
     </script>
 @stop

@@ -3,20 +3,28 @@
     <li><a href="{{ route('correspondencia.index') }}" class="btn btn-primary">Correspondencias</a></li>
 @stop
 @section('content')
+
+
+<div class="col-12 formularioCorrespondencia">
     <div class="row">
         <br>
-        <div class="col-lg-12 margin-tb">
+        <div class="col-lg-12 ">
             <h2 class="text-center"> Creación de Correspondencia de {{ $tipo }}</h2>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
+
+    
+     <div class="row inputCenter"  style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #3d7e9a; ">
+         
         <br>
         <hr>
         {!! Form::open(array('route' => 'correspondencia.store','method'=>'POST','enctype'=>'multipart/form-data')) !!}
+       
+       
         <input type="hidden" name="tipo_doc" value="{{ $id }}">
         <input type="hidden" name="id_resp" value="{{ $idResp }}">
         <div class="row">
-            <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group col-xs-11 col-sm-11 col-md-6 col-lg-6"> 
                 <label>Nombre: </label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-file" aria-hidden="true"></i></span>
@@ -24,9 +32,8 @@
                 </div>
                 <small class="form-text text-muted">Nombre que se desee asignar a la correspondencia</small>
             </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+      
+            <div class="form-group col-xs-11 col-sm-11 col-md-6 col-lg-6"> 
                 <label>Fecha de la Correspondencia: </label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
@@ -36,7 +43,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group col-xs-11 col-sm-11 col-md-6 col-lg-6"> 
                 <label>Consecutivo: </label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-hashtag" aria-hidden="true"></i></span>
@@ -44,9 +51,9 @@
                 </div>
                 <small class="form-text text-muted">Consecutivo asignado a la correspondencia</small>
             </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+        
+
+        <div class="form-group col-xs-11 col-sm-11 col-md-6 col-lg-6"> 
                 <label>Fecha de Aprobación: </label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
@@ -56,8 +63,10 @@
             </div>
         </div>
         @if( $id == 0)
+
+
             <div class="row">
-                <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <div class="form-group col-xs-11 col-sm-11 col-md-6 col-lg-6"> 
                     <label>Número de correspondencia: </label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-hashtag" aria-hidden="true"></i></span>
@@ -65,9 +74,8 @@
                     </div>
                     <small class="form-text text-muted">Número asignado a la correspondencia</small>
                 </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            
+                <div class="form-group col-xs-11 col-sm-11 col-md-6 col-lg-6"> 
                     <label>Fecha de Vencimiento: </label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
@@ -77,23 +85,24 @@
                 </div>
             </div>
         @endif
-        <div class="row">
-            <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+    
+      <div class="row">
+      
+       <div class="form-group col-xs-11 col-sm-11 col-md-6 col-lg-6"> 
                 <label>Estado actual de la correspondencia: </label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-check" aria-hidden="true"></i></span>
                     <select class="form-control" name="estado">
                         <option value="0">Pendiente</option>
-                        <option value="1">Aprovado</option>
+                        <option value="1">Aprobado</option>
                         <option value="2">Rechazado</option>
                         <option value="3">Archivado</option>
                     </select>
                 </div>
                 <small class="form-text text-muted">Seleccionar el estado en el que se encuentra la correspondencia</small>
             </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+     
+            <div class="form-group col-xs-11 col-sm-11 col-md-6 col-lg-6"> 
                 <label>Fecha de Salida: </label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
@@ -101,9 +110,12 @@
                 </div>
                 <small class="form-text text-muted">Fecha de Salida de la Correspondencia</small>
             </div>
+      
         </div>
+        
         <div class="row">
-            <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+    
+     <div class="form-group col-xs-11 col-sm-11 col-md-6 col-lg-6"> 
                 <label>Tercero: </label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
@@ -115,9 +127,8 @@
                 </div>
                 <small class="form-text text-muted">Relacionar persona a la correspondencia</small>
             </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+      
+            <div class="form-group col-xs-11 col-sm-11 col-md-6 col-lg-6"> 
                 <label>Respuesta: </label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-file" aria-hidden="true"></i></span>
@@ -128,7 +139,7 @@
         </div>
         @if( $id == 0)
             <div class="row">
-                <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+              <div class="form-group col-xs-11 col-sm-11 col-md-12 col-lg-12"> 
                     <label>Subir Archivo: </label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></span>
@@ -139,7 +150,7 @@
             </div>
         @else
             <div class="row">
-                <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                 <div class="form-group col-xs-11 col-sm-11 col-md-12 col-lg-12"> 
                     <label>Subir Archivo: </label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></span>
@@ -154,4 +165,5 @@
         </div>
         {!! Form::close() !!}
     </div>
+      </div>
 @stop

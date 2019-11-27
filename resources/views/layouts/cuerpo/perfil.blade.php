@@ -1,6 +1,6 @@
 
 
-<button class="btn btn-raised btn-primary dropdown-toggle " type="button" data-toggle="dropdown">
+<button class="btn btn-raised btn-primary dropdown-toggle item-perfil" type="button" data-toggle="dropdown">
     <img class="img-circle"  width="30"   style="padding:15px 0px 8px 0px;" src="{{Storage::url(Auth::user()->avatar)}}">
     {!! str_limit(Auth::user()->name, 10) !!}
     <span class="caret"></span>
