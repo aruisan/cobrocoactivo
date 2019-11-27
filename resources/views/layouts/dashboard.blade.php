@@ -179,6 +179,13 @@
             font-size:3vw !important;
           }
 
+         .img-circle {
+          border-radius: 50% !important;
+          width: 70px !important;
+          height: 70px !important;
+           margin-left:30% !important;
+        }
+
           
 }
 
@@ -193,20 +200,33 @@
             font-size:19px;
             }
 
-        table th, table tr,table td{
-           font-size:13px !important;
+          table th, table tr,table td{
+            font-size:13px !important;
+            }
+
+
+          .fotoConcejal{
+
+          width:170px !important;
           }
-.fotoConcejal{
 
- width:170px !important;
- }
-  .nombreConcejal{
 
-    font-size:18px !important;
-  }
-  .nConcejal{
-     font-size:16px !important;
-  }
+          .nombreConcejal{
+
+            font-size:18px !important;
+          }
+
+          
+          .nConcejal{
+            font-size:16px !important;
+          }
+
+             .img-circle {
+            border-radius: 50% !important;
+            width: 70px !important;
+            height: 70px !important;
+           margin-left:50% !important;
+          }
 
        }
 
@@ -220,6 +240,13 @@
             padding-bottom:10px;
             height:560px;
            }
+
+           .img-circle {
+            border-radius: 50% !important;
+            width: 70px !important;
+            height: 70px !important;
+           margin-left:37% !important;
+          }
 
        }
 
@@ -390,7 +417,13 @@ ul.menu-social li a::before {
               margin-right: 15px;
             margin-left: 15px;"
            }
-    
+ 
+
+.img-circle-mn{
+  border-radius: 50% !important;
+    width: 30px !important;
+    height: 30px !important;
+}
 
     </style>
 
