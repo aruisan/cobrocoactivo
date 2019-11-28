@@ -18,6 +18,7 @@ $(document).ready(function() {
 			   "sProcessing":"Procesando...",
 		  },
 	  //para usar los botones
+	  
 	  "pageLength": 5,   
 	  responsive: "true",
 	  dom: 'Bfrtilp',       
@@ -57,6 +58,7 @@ $(document).ready(function() {
 	
 		
 			$('#tabla_Registros').DataTable({
+				
  language: {
 			  "lengthMenu": "Mostrar _MENU_ registros",
 			  "zeroRecords": "No se encontraron resultados",

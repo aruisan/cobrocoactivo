@@ -6,13 +6,22 @@
     <li> <a class="btn btn-primary" href="{{ asset('/presupuesto/informes/contractual/homologar') }}"><span class="hide-menu">Homologar</span></a></li>
 @stop
 @section('content')
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<div class="row">
+<div class="col-xs-0 col-sm-0 col-md-3 col-lg-3 ">
+</div>
+
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 formularioContractual">
 <div class="row">
     <br>
     <div class="col-lg-12 margin-tb">
         <h2 class="text-center"> Editar Código Contractual</h2>
     </div>
 </div>
-<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
+
+
+  <div class="row inputCenter" style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #3d7e9a; ">
     <hr>
     <br>
     <form action="{{ asset('presupuesto/informes/contractual/homologar/'.$codigo->id) }}" method="POST"  class="form" enctype="multipart/form-data">
@@ -83,6 +92,12 @@
             <button class="btn btn-danger btn-raised btn-lg">Eliminar</button>
         </form>
     </div>
+</div>
+
+</div>
+<div class="col-xs-0 col-sm-0 col-md-3 col-lg-3 ">
+</div>
+</div>
 </div>
 @endsection
 @section('js')
