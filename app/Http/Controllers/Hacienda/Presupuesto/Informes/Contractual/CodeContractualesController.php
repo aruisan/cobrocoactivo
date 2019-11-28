@@ -149,16 +149,21 @@ class CodeContractualesController extends Controller
             }
         }
 
+        $codes = CodeContractuales::all();
+
         if (isset($Rubros)){
             $roles = auth()->user()->roles;
             foreach ($roles as $role){
                 $rol= $role->id;
             }
-            $codes = CodeContractuales::all();
+
             return view('hacienda.presupuesto.informes.Contractual.Homologar.index',compact('rubros','Rubros','rol','codes'));
         } else {
-            Session::flash('error','Actualmente ningun rubro tiene asignado un código contractual.');
-            return back();
+            $roles = auth()->user()->roles;
+            foreach ($roles as $role){
+                $rol= $role->id;
+            }
+            return view('hacienda.presupuesto.informes.Contractual.Homologar.index',compact('rubros','rol','codes'));
         }
     }
 
