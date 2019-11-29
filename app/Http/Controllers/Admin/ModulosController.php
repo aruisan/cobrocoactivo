@@ -1,0 +1,156 @@
+<?php
+
+
+namespace App\Http\Controllers\Admin;
+
+
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use DB;
+use App\Model\Admin\Modulo;
+use App\TabsPermission;
+
+
+class ModulosController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function index(Request $request)
+    {
+        $modulos = Modulo::orderBy('name','ASC')->paginate(5);
+        return view('admin.modulos.index',compact('modulos'))
+            ->with('i', ($request->input('page', 1) - 1) * 5);
+    }
+
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+        $tabs =  TabsPermission::orderBy('id','ASC')->pluck('nombre', 'id');
+        return view('admin.modulos.create',compact('tabs'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|unique:modulos,name',
+           
+        ]);
+        
+   
+
+        $name = $request->input('name');
+        $tabs = $request->input('tabs');
+
+        $Modulos = new Modulo();
+        $Modulos->name = $name;
+        $Modulos->tabs_permission_id= $tabs;
+      
+        $Modulos->save();
+
+        // $modulo = Modulo::create(['name' => $request->input('name')],['tabs_permission_id' => $request->input('tabs')]);
+       
+        return redirect()->route('modulos.index')
+                        ->with('success','Modulo creado satisfactoriamente');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        // $modulo = Modulo::find($id);
+      
+
+        // return view('admin.modulos.show',compact('modulo'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+
+        $modulo = Modulo::find($id);
+        $tabs =  TabsPermission::all();
+        return view('admin.modulos.edit',compact('modulo','tabs'));
+
+
+
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+                $this->validate($request, [
+                    'name' => 'required',
+            
+                ]);
+
+        $Modulos = Modulo::findOrFail($id);
+        $name = $request->input('name');
+        $tabs = $request->input('tabs');
+
+        
+       
+        // $Modulos->name = $name;
+        // $Modulos->tabs_permission_id = $tabs;
+        // $Modulos->save();
+
+
+        $ne =  TabsPermission::find($id);
+    
+       $nombresPER= $ne->name;
+    // if($tab->id == $modulo->tabs_permission_id) {
+        return $nombresPER;
+    // }
+  
+
+    // endforeach
+
+        // return redirect()->route('modulos.index')
+        //                 ->with('success','Modulo actualizado satisfactoriamente');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+        DB::table("modulos")->where('id',$id)->delete();
+        return redirect()->route('modulos.index')
+                        ->with('error','Modulo Borrado Satisfactoriamente');
+    }
+}

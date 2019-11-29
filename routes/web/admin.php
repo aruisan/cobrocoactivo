@@ -214,6 +214,13 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 	Route::group(['prefix' => 'admin'] ,function () 
 	{
 
+
+        //crud Modulos
+        Route::resource('modulos','Admin\ModulosController');
+
+        //crud Permisos
+        Route::resource('permisos','Admin\PermissionController');
+
 	    //AUDITS
         Route::resource('audits','Admin\AuditsController');
 

@@ -129,7 +129,8 @@
                             @foreach($terceros as $tercero)
                                 <option value="{{$tercero->id}}" @if($tercero->id == $CorrespondenciaE->tercero_id) selected @endif>{{$tercero->nombre}}</option>
                             @endforeach
-                        </select>
+                           
+                        </select> 
                     </div>
                     <small class="form-text text-muted">Relacionar persona a la correspondencia</small>
                 </div>

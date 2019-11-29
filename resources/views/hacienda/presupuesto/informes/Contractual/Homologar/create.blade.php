@@ -6,19 +6,67 @@
     <li> <a class="btn btn-primary" href="{{ asset('/presupuesto/informes/contractual/homologar') }}"><span class="hide-menu">Homologar</span></a></li>
 @stop
 @section('content')
-<div class="row">
-    <br>
-    <div class="col-lg-12 margin-tb">
-        <h2 class="text-center"> Añadir Código Contractual</h2>
+
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+        <div class="row">
+
+
+                <div class="col-xs-0 col-sm-0 col-md-3 col-lg-3 ">
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 formularioContractual">
+                <div class="row">
+                    <br>
+                    <div class="col-lg-12 margin-tb">
+                        <h2 class="text-center"> Añadir Código Contractual</h2>
+                    </div>
+                </div>
+
+
+
+            <div class="row inputCenter" style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #3d7e9a; ">
+                <br>
+                {!! Form::open(array('route' => 'homologar.store','method'=>'POST','enctype'=>'multipart/form-data')) !!}
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <label>Código: </label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-hashtag" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="code" required>
+                        </div>
+                        <small class="form-text text-muted">Código Contractual</small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <label>Nombre: </label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-file" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="name" required>
+                        </div>
+                        <small class="form-text text-muted">Nombre Contractual</small>
+                    </div>
+                </div>
+                <br>
+                <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                    <button class="btn btn-success btn-raised btn-lg">Añadir</button>
+                </div>
+                {!! Form::close() !!}
+            </div>
+
+                 <div class="col-xs-0 col-sm-0 col-md-3 col-lg-3 ">
+                </div>
+        </div>
     </div>
-</div>
+
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
     <hr>
     <div class="table-responsive">
         <table class="table table-bordered hover" id="tabla">
             <thead>
                 <tr>
-                    <th colspan="4" class="text-center">Códigos Contractuales Almacenados</th>
+                  <th colspan="4" class="text-center">  <strong><h4>Códigos Contractuales Almacenados</h4><strong></th> 
                 </tr>
                 <tr>
                     <th class="text-center">Id</th>
@@ -48,35 +96,8 @@
         </table>
     </div>
 </div>
-<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
-    <br>
-    {!! Form::open(array('route' => 'homologar.store','method'=>'POST','enctype'=>'multipart/form-data')) !!}
-    <div class="row">
-        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <label>Código: </label>
-            <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-hashtag" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" name="code" required>
-            </div>
-            <small class="form-text text-muted">Código Contractual</small>
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <label>Nombre: </label>
-            <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-file" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" name="name" required>
-            </div>
-            <small class="form-text text-muted">Nombre Contractual</small>
-        </div>
-    </div>
-    <br>
-    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-        <button class="btn btn-success btn-raised btn-lg">Añadir</button>
-    </div>
-    {!! Form::close() !!}
-</div>
+
+
 @endsection
 @section('js')
     <script>
