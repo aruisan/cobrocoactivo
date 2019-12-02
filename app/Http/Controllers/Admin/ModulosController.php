@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use DB;
 use App\Model\Admin\Modulo;
 use App\TabsPermission;
+use App\Model\Permission;
 
 
 class ModulosController extends Controller
@@ -112,32 +113,53 @@ class ModulosController extends Controller
     {
                 $this->validate($request, [
                     'name' => 'required',
-            
                 ]);
 
-        $Modulos = Modulo::findOrFail($id);
-        $name = $request->input('name');
-        $tabs = $request->input('tabs');
+                $Modulos = Modulo::find($id);
+                $name = $request->input('name');
 
+                $moduloNombre = Modulo::where("name","=",$name)
+                ->where("id",'!=',$id)->get();
+                $ModulCount = $moduloNombre->count();
+
+
+                $permisos = Permission::where("modulo_id","=",$id)->get();
+                $PermisCount = $permisos->count();
+               
+                if($ModulCount<=0){   
+                              
+                            if($PermisCount>0){                      
+                                return 
+                                redirect()->route('modulos.index')
+                                                ->with('error','El Modulo no se puede editar, porque existen permisos '.$PermisCount.' asociados');
+                                }
+                
+                            else{  
+                                    $Modulos = Modulo::findOrFail($id);
+                                    $name = $request->input('name');
+                                    $tabs = $request->input('tabs');
+
+                                    $Modulos->name = $name;
+                                    $Modulos->tabs_permission_id = $tabs;
+                                    $Modulos->save();
+
+                                    return redirect()->route('modulos.index')
+                                            ->with('success','Modulo actualizado satisfactoriamente');
+                        
+                            }
+
+                   }
+            else{
+                return 
+                redirect()->route('modulos.index')
+                                ->with('error','El Modulo no se puede editar, porque existe otro modulo con el mismo nombre');
+          
+            }
         
-       
-        // $Modulos->name = $name;
-        // $Modulos->tabs_permission_id = $tabs;
-        // $Modulos->save();
+      
 
 
-        $ne =  TabsPermission::find($id);
-    
-       $nombresPER= $ne->name;
-    // if($tab->id == $modulo->tabs_permission_id) {
-        return $nombresPER;
-    // }
-  
-
-    // endforeach
-
-        // return redirect()->route('modulos.index')
-        //                 ->with('success','Modulo actualizado satisfactoriamente');
+      
     }
 
     /**
@@ -148,9 +170,22 @@ class ModulosController extends Controller
      */
     public function destroy($id)
     {
-        //
-        DB::table("modulos")->where('id',$id)->delete();
-        return redirect()->route('modulos.index')
-                        ->with('error','Modulo Borrado Satisfactoriamente');
+
+        $permisos = Permission::where("modulo_id","=",$id)->get();
+        $PermisCount = $permisos->count();
+       
+
+        if($PermisCount>0){
+          
+        return 
+        redirect()->route('modulos.index')
+                        ->with('error','El Modulo no se puede borrar, porque existen permisos '.$PermisCount.' asociados');
+        }else{
+              
+            DB::table("modulos")->where('id',$id)->delete();
+                    return redirect()->route('modulos.index')
+                                    ->with('error','Modulo Borrado Satisfactoriamente');
+        }
+     
     }
 }

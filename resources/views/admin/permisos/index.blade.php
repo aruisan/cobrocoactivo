@@ -13,8 +13,12 @@
     </div>
 </div>
 
-
-<table class="table table-bordered" id="permisos">
+ <div class="table-responsive">
+                        <br>
+                          <div class="box">
+             
+                <div class="box-body">
+<table class="table table-bordered" id="permiso">
   <tr>
      <th class="text-center">No</th>
      <th class="text-center">Nombre</th>
@@ -41,7 +45,9 @@
     @endforeach
 </table>
 
-
+</div>
+</div>
+</div>
 {!! $permisos->render() !!}
 
 
@@ -49,8 +55,8 @@
 
 
 @section('js')
+
    <script>
-		   
-		
+		  		
    </script>
 @stop

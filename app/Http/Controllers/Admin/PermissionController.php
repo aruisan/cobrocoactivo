@@ -49,31 +49,40 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        //
-
+   
 
         $modulo_id = $request->input('modulo_id');
         $ModulosDB = Modulo::find($modulo_id);
         $name = ($ModulosDB->name).'-'.($request->input('tipo'));    
         $activo = $request->input('activo');
 
-        // $this->validate($request, [
-        //      $name => 'required|unique',
-           
-        // ]);
-
+        
+        $permisos = Permission::where("name","=",$name)->get();
+        $PermisCount = $permisos->count();
        
-        $Permisos = new Permission();
-        $Permisos->name = $name;
-        $Permisos->alias=$request->input('tipo');
-        $Permisos->guard_name='web';
-        $Permisos->activo=$activo;
-        $Permisos->modulo_id=$modulo_id;
-        $Permisos->save();
 
+        if($PermisCount>0){                      
+            return 
+            redirect()->route('permisos.create')
+                            ->with('error','El Permiso no se puede crear, porque ya existe un permiso con ese nombre ');
+            }
+            
+            else{
+
+                    $Permisos = new Permission();
+                    $Permisos->name = $name;
+                    $Permisos->alias=$request->input('tipo');
+                    $Permisos->guard_name='web';
+                    $Permisos->activo=$activo;
+                    $Permisos->modulo_id=$modulo_id;
+                    $Permisos->save();
+
+                
+                    return redirect()->route('permisos.index')
+                                    ->with('success','Permiso creado satisfactoriamente');
+            }
        
-        return redirect()->route('permisos.index')
-                        ->with('success','Permiso creado satisfactoriamente');
+   
     }
 
 

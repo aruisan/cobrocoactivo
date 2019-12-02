@@ -8,21 +8,29 @@
   @include('admin.permisos.cuerpo.aside')
 @stop
 @section('content')
-<div class="row">
-    <div class="col-lg-12 margin-tb">
-            <h2 class="text-center"> Editar Modulo</h2>
-    </div>
-</div>
+
+<div class="col-12 formularioModulos">
+
+
+        <div class="row">
+            <div class="col-lg-12 margin-tb">
+                    <h2 class="text-center"> Editar Modulo</h2>
+            </div>
+        </div>
 
 {!! Form::model($modulo, ['method' => 'PATCH','route' => ['modulos.update', $modulo->id]]) !!}
-<div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group">
-            <strong>Nombre:</strong>
-            {!! Form::text('name', null, array('placeholder' => 'Nombre de modulo','class' => 'form-control','name'=>'name'));   !!}
-        </div>
+
+
+            <div class="row inputCenter" style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #3d7e9a; ">
+            
+                <div class="col-xs-11 col-sm-11 col-md-6 col-lg-6">  
+                    <div class="form-group">
+                        <strong>Nombre:</strong>
+                        {!! Form::text('name', null, array('placeholder' => 'Nombre de modulo','class' => 'form-control','name'=>'name'));   !!}
+                    </div>
    
-    </div>
+                </div>
+
   <div class="col-xs-11 col-sm-11 col-md-6 col-lg-6">  
                     <div class="form-group">
                                 <strong>Categoria:</strong>
@@ -39,9 +47,13 @@
                  
                 </div>
 
-   
-    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-        <button type="submit" class="btn btn-success btn-sm">Guardar</button>
+             <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                        <button type="submit" class="btn btn-success btn-sm">Guardar</button>
+                    </div>
+                </div>
+
+       
     </div>
 </div>
 {!! Form::close() !!}
