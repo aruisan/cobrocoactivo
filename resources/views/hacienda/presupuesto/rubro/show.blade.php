@@ -101,8 +101,8 @@
                 <tbody>
                 @foreach($fuentesR as  $fuentes)
                     <tr>
-                        <td>{{ $fuentes->font->code }}</td>
-                        <td>{{ $fuentes->font->name }}</td>
+                        <td>{{ $fuentes->fontVigencia->font->code }}</td>
+                        <td>{{ $fuentes->fontVigencia->font->name }}</td>
                         <td class="text-center">$ <?php echo number_format($fuentes['valor'],0);?>.00</td>
                         <td class="text-center">$ <?php echo number_format($fuentes['valor_disp'],0);?>.00</td>
                     </tr>
@@ -213,32 +213,32 @@
                 @foreach($fuentesR as $fuentes)
                     <tr>
                         <td>{{ $fuentes->id }}</td>
-                        <td>{{ $fuentes->font->name }}</td>
+                        <td>{{ $fuentes->fontVigencia->font->name }}</td>
                         <td class="text-center">$ <?php echo number_format($fuentes['valor'],0);?>.00</td>
                         <td class="text-center">
                             @foreach($valores as $valAdd)
-                                @if($fuentes->font_id == $valAdd['id'])
+                                @if($fuentes->fontVigencia->font_id == $valAdd['id'])
                                     $ <?php echo number_format($valAdd['adicion'],0);?>.00
                                 @endif
                             @endforeach
                         </td>
                         <td class="text-center">
                             @foreach($valores as $valAdd)
-                                @if($fuentes->font_id == $valAdd['id'])
+                                @if($fuentes->fontVigencia->font_id == $valAdd['id'])
                                     $ <?php echo number_format($valAdd['reduccion'],0);?>.00
                                 @endif
                             @endforeach
                         </td>
                         <td class="text-center">
                             @foreach($valores as $valAdd)
-                                @if($fuentes->font_id == $valAdd['id'])
+                                @if($fuentes->fontVigencia->font_id == $valAdd['id'])
                                     $ <?php echo number_format($valAdd['credito'],0);?>.00
                                 @endif
                             @endforeach
                         </td>
                         <td class="text-center">
                             @foreach($valores as $valAdd)
-                                @if($fuentes->font_id == $valAdd['id'])
+                                @if($fuentes->fontVigencia->font_id == $valAdd['id'])
                                     $ <?php echo number_format($valAdd['ccredito'],0);?>.00
                                 @endif
                             @endforeach

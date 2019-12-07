@@ -11,8 +11,8 @@ class FontsRubro extends Model implements Auditable
 
 	protected $table = 'fonts_rubro';
 	
-    public function font(){
-		return $this->hasOne('App\Model\Hacienda\Presupuesto\Font','id','font_id');
+    public function fontVigencia(){
+		return $this->hasOne('App\Model\Hacienda\Presupuesto\FontsVigencia','id','font_vigencia_id');
 	}
 
     public function rubrosCdpValor(){

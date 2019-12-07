@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFontsTable extends Migration
+class UpdateVigenciasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateFontsTable extends Migration
      */
     public function up()
     {
-        Schema::create('fonts', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::table('vigencias', function(Blueprint $table){
 
-            $table->string('name')->nullable();
-            $table->string('code');
+            $table->enum('estado', [0, 1])->nullable()->after('user_id');
 
-            $table->timestamps();
         });
     }
 
@@ -30,6 +27,6 @@ class CreateFontsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fonts');
+        //
     }
 }

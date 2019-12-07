@@ -14,7 +14,7 @@ class Vigencia extends Model implements Auditable
 	}
 
 	public function fonts(){
-		return $this->hasMany('App\Model\Hacienda\Presupuesto\Font','vigencia_id');
+		return $this->hasMany('App\Model\Hacienda\Presupuesto\FontsVigencia','vigencia_id');
 	}
 
 	public function levels(){
