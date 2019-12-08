@@ -291,8 +291,12 @@ class CodeContractualesController extends Controller
         }
 
         $codigos = CodeContractuales::where('estado','0')->get();
-
-        return view('hacienda.presupuesto.informes.Contractual.Homologar.asignar',compact('codigos','Rubros'));
+        if ($codigos->count() != 0){
+            return view('hacienda.presupuesto.informes.Contractual.Homologar.asignar',compact('codigos','Rubros'));
+        } else {
+            Session::flash('error','Actualmente no hay códigos contractuales almacenados, se deben almacenar primero para poder asignarlos a un rubro.');
+            return back();
+        }
     }
 
     public function rubroStore(Request $request){
