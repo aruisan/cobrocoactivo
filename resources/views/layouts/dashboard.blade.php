@@ -18,6 +18,7 @@
     <!-- jvectormap -->
     <link rel="stylesheet" href="{{asset('/assets/adminLTE/plugins/jvectormap/jquery-jvectormap-1.2.2.css') }}">
     <!-- Theme style -->
+     <link rel="stylesheet" href="{{asset('/assets/adminLTE/style.css') }}">
     <link rel="stylesheet" href="{{asset('/assets/adminLTE/css/AdminLTE.min.css') }}">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
@@ -31,8 +32,9 @@
     <link href=" https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="{{asset('/assets/sb-admin/css/sb-admin-2.css')}}" rel="stylesheet">
+    <link  rel="stylesheet"  href="{{asset('/assets/sb-admin/css/sb-admin-2.css')}}">
 
+ 
     <!-- DataTables -->
     <link rel="stylesheet" href="{{asset('/assets/adminLTE/plugins/datatables/dataTables.bootstrap.css') }}">
     <!-- Morris Charts CSS -->
@@ -69,7 +71,7 @@
 
      <!-- Dropdown.js -->
      {{-- <link href="//cdn.rawgit.com/FezVrasta/dropdown.js/master/jquery.dropdown.css" rel="stylesheet"> --}}
-    
+     
     @yield('css')
 
     <style>
@@ -402,7 +404,9 @@ ul.menu-social li a::before {
  .formularioBoletin,
   .formularioResolucion,
  .formularioAcuerdo,
- .formularioActa{ 
+ .formularioActa,
+  .formularioModulos,
+   .formularioPermisos{ 
             border: 1px solid #ccc;
             border-radius: 3% ;
             padding-bottom:10px;
@@ -424,6 +428,8 @@ ul.menu-social li a::before {
     width: 30px !important;
     height: 30px !important;
 }
+
+
 
     </style>
 
@@ -565,11 +571,13 @@ ul.menu-social li a::before {
     <script src="{{asset('js/myJs.js')}}"></script>
     <!-- Bootstrap 3.3.5 -->
     {{-- <script src="{{asset('/assets/adminLTE/bootstrap/js/bootstrap.min.js')}}"></script> --}}
+    <script src="{{asset('/assets/adminLTE/script.js')}}"></script>
     <!-- FastClick -->
     <script src="{{asset('/assets/adminLTE/plugins/fastclick/fastclick.min.js')}}"></script>
     <!-- AdminLTE App -->
     <script src="{{asset('/assets/adminLTE/js/app.min.js')}}"></script>
     <!-- Select 2-->
+
     <script src="{{ asset('js/lib/select2/select2.min.js') }}"></script>
    
 
@@ -621,6 +629,9 @@ ul.menu-social li a::before {
 
 
     @yield('js')
+    <script type="text/javascript">
+   
+    </script>
 
 </body>
 

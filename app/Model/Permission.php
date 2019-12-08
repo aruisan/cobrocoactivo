@@ -1,12 +1,18 @@
 <?php
 
-namespace App\Molde;
 
-use Illuminate\Database\Eloquent\Model;
-use Spatie\Permission\Models\Permission;
+namespace App\Model;
+
+use Illuminate\Database\Eloquent\Model; 
+
 
 class Permission extends Model
-{  
+{
+ 
+
+    protected $fillable = ['name','modulo_id','activo'];
+
+
 
    public function modulo()
    {

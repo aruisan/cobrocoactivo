@@ -384,6 +384,7 @@ $('#tabla_fuente').DataTable({
 	  //para usar los botones   
 	  "pageLength": 5,  
 	  responsive: "true",
+	  ordering: "false",
 	  dom: 'Bfrtilp',       
 	  buttons:[ 
 			  {
@@ -414,6 +415,8 @@ $('#tabla_fuente').DataTable({
 	  ]	        
 
 		 });
+
+		 
 
 $('#tabla_Pagos').DataTable({
 	  language: {

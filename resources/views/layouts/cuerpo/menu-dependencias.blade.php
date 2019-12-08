@@ -75,13 +75,13 @@
 </li>
 
 <li class="dropdown ">
-   <a class="btn btn-default btn-sm dropdown-toggle item-menu" type="button" data-toggle="dropdown">
+   <a class="btn btn-default btn-sm dropdown-toggle item-menu" type="button" data-toggle="dropdown" data-submenu="">
    JURIDICA
    <span class="caret"></span>
    </a>
    <ul class="dropdown-menu">
       <li class="dropdown-submenu">
-         <a class="test item-menu" href="#">Cobro Coactivo <span class="fa fa-caret-right"></span></a>
+         <a class="dropdown-item item-menu" href="#" >Cobro Coactivo </a>
          <ul class="dropdown-menu">
             <li><a class="item-menu" href="#">Predial</a></li>
             <li><a class="item-menu" href="#">Industria y Comercio (ICA)</a></li>
@@ -91,7 +91,7 @@
          </ul>
       </li>
       <li class="dropdown-submenu">
-         <a class="test item-menu" href="#">Demandas <span class="fa fa-caret-right"></span></a>
+         <a class="dropdown-item item-menu " href="#">Demandas</a>
          <ul class="dropdown-menu">
             <li><a class="item-menu" href="#">Demandante</a></li>
             <li><a class="item-menu" href="#">Demandado</a></li>
@@ -101,24 +101,36 @@
       <li><a class="item-menu" tabindex="-1" href="#">Policivos</a></li>
    </ul>
 </li>
-
+  
 <li class="dropdown ">
    <a class="btn btn-default btn-sm dropdown-toggle item-menu" type="button" data-toggle="dropdown" title="Configuración">
    <i class="fa fa-cogs" aria-hidden="true"></i>
    <span class="caret"></span>
    </a>
    <ul class="dropdown-menu">
+      
       <li><a class="item-menu" id="google_translate_element"></a></li>
+      
       <li class="disabled item-menu" ><a tabindex="-1" href="#">Configuración basica</a></li>
+     
       <li><a class="item-menu" tabindex="-1" href="{{ route('dependencias.index') }}">Gestión de Dependencias</a></li>
+     
       <li><a class="hidden"  tabindex="-1" href="{{ route('rutas.index') }}">Rutas</a></li>
+     
       @can('funcionario-list')
       <li><a class="item-menu" tabindex="-1" href="{{ route('funcionarios.index') }}">Gestión de Funcionarios</a></li>
       @endcan
+     
       @can('role-list')
       <li><a class="item-menu" tabindex="-1" href="{{ route('roles.index') }}">Gestión de Roles</a></li>
       @endcan
+     
+       @can('role-list')
+      <li><a class="item-menu" tabindex="-1" href="{{ route('modulos.index') }}">Gestión de Modulos</a></li>
+      @endcan
+    
       <li><a class="item-menu" tabindex="-1" href="{{route('personas.index')}}">Terceros</a></li>
+     
       <li><a class="item-menu" tabindex="-1" href="{{route('audits.index')}}">Logs</a></li>
    </ul>
 </li>
@@ -126,3 +138,4 @@
                
                  @include('layouts.cuerpo.perfil') 
 </li>
+
