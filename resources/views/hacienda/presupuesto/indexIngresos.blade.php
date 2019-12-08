@@ -1,10 +1,6 @@
-
-
-
-
 @extends('layouts.dashboard')
 @section('titulo')
-    Presupuesto Egresos - {{ $añoActual }}
+    Presupuesto Ingresos - {{ $añoActual }}
 @stop
 @section('sidebar')
     @if($V != "Vacio")
@@ -12,8 +8,8 @@
     @endif
     <li> <a href="#" class="btn btn-primary hidden"><i class="fa fa-edit"></i><span class="hide-menu">&nbsp; Cambiar Vigencia</span></a></li>
     <li>
-        <a href="{{ url('/presupuestoIng') }}" class="btn btn-success">
-            <span class="hide-menu"> Presupuesto de Ingresos</span></a>
+        <a href="{{ url('/presupuesto') }}" class="btn btn-success">
+            <span class="hide-menu"> Presupuesto de Egresos</span></a>
     </li>
     @if($V != "Vacio")
         <li class="dropdown">
@@ -45,11 +41,13 @@
         </li>
     @endif
     @if($V == "Vacio")
-        <li>
-            <a href="{{ url('/presupuesto/vigencia/create/0') }}" class="btn btn-primary">
-                <i class="fa fa-plus"></i>
-                <span class="hide-menu"> Nuevo Presupuesto de Egresos</span></a>
-        </li>
+        @if($V == "Vacio")
+            <li>
+                <a href="{{ url('/presupuesto/vigencia/create/1') }}" class="btn btn-primary">
+                    <i class="fa fa-plus"></i>
+                    <span class="hide-menu"> Nuevo Presupuesto de Ingresos</span></a>
+            </li>
+        @endif
     @endif
 @stop
 @section('content')
@@ -60,7 +58,7 @@
         @if($V != "Vacio")
         <div class="breadcrumb text-center">
             <strong>
-                <h4><b>Presupuesto de Egresos Año {{ $añoActual }}</b></h4>
+                <h4><b>Presupuesto de Ingresos Año {{ $añoActual }}</b></h4>
             </strong>
         </div>
             <ul class="nav nav-pills">
@@ -127,20 +125,13 @@
                     <a class="nav-link" data-toggle="pill" href="#tabP">Pagos</a>
                 </li>
             </ul>
-              
-
-         <!-- TABLA DE PRESUPUESTO -->
-        
-        
+            <br>
             <div class="tab-content" style="background-color: white">
                 <div id="tabHome" class="tab-pane active"><br>
                     <div class="table-responsive">
                         <br>
-                          <div class="box">
-             
-                <div class="box-body">
-                  <table id="tabla_presupuesto1" class="table table-bordered table-striped ">
-                  <thead>
+                        <table class="table table-hover table-bordered" align="100%" id="tabla_presupuesto" style="text-align: center">
+                            <thead>
                             <tr>
                                 <th class="text-center">Rubro</th>
                                 <th class="text-center">Nombre</th>
@@ -179,9 +170,9 @@
                                         <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($codigo['valor'],0);?></td>
                                     @endif
                                     <!-- ADICIÓN -->
-                                    @foreach($valoresFinAdd as $valorFinAdd)
-                                        @if($valorFinAdd['id'] == $codigo['id'])
-                                            <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorFinAdd['valor'],0);?></td>
+                                    @foreach($valoresIniciales as $valorInicial)
+                                        @if($valorInicial['id'] == $codigo['id'])
+                                            <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
                                         @endif
                                     @endforeach
                                     @foreach($valoresAdd as $valorAdd)
@@ -190,20 +181,20 @@
                                         @endif
                                     @endforeach
                                     <!-- REDUCCIÓN -->
-                                        @foreach($valoresFinRed as $valorFinRed)
-                                            @if($valorFinRed['id'] == $codigo['id'])
-                                                <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorFinRed['valor'],0);?></td>
-                                            @endif
-                                        @endforeach
+                                    @foreach($valoresIniciales as $valorInicial)
+                                        @if($valorInicial['id'] == $codigo['id'])
+                                            <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
+                                        @endif
+                                    @endforeach
                                     @foreach($valoresRed as $valorRed)
                                         @if($codigo['id_rubro'] == $valorRed['id'])
                                             <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorRed['valor'],0);?></td>
                                         @endif
                                     @endforeach
                                     <!-- CREDITO -->
-                                        @foreach($valoresFinCred as $valorFinCred)
-                                            @if($valorFinCred['id'] == $codigo['id'])
-                                                <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorFinCred['valor'],0);?></td>
+                                        @foreach($valoresIniciales as $valorInicial)
+                                            @if($valorInicial['id'] == $codigo['id'])
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
                                             @endif
                                         @endforeach
                                         @foreach($valoresCred as $valorCred)
@@ -212,9 +203,9 @@
                                             @endif
                                         @endforeach
                                     <!-- CONTRACREDITO -->
-                                        @foreach($valoresFinCCred as $valorFinCCred)
-                                            @if($valorFinCCred['id'] == $codigo['id'])
-                                                <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorFinCCred['valor'],0);?></td>
+                                        @foreach($valoresIniciales as $valorInicial)
+                                            @if($valorInicial['id'] == $codigo['id'])
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
                                             @endif
                                         @endforeach
                                         @foreach($valoresCcred as $valorCcred)
@@ -234,9 +225,9 @@
                                         @endif
                                     @endforeach
                                     <!-- CDP'S -->
-                                    @foreach($valoresFinCdp as $valorFinCdp)
-                                        @if($valorFinCdp['id'] == $codigo['id'])
-                                            <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorFinCdp['valor'],0);?></td>
+                                    @foreach($valoresIniciales as $valorInicial)
+                                        @if($valorInicial['id'] == $codigo['id'])
+                                            <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
                                         @endif
                                     @endforeach
                                     @foreach($valoresCdp as $valorCdp)
@@ -245,9 +236,9 @@
                                         @endif
                                     @endforeach
                                     <!-- REGISTROS -->
-                                    @foreach($valoresFinReg as $valorFinReg)
-                                        @if($valorFinReg['id'] == $codigo['id'])
-                                            <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorFinReg['valor'],0);?></td>
+                                    @foreach($valoresIniciales as $valorInicial)
+                                        @if($valorInicial['id'] == $codigo['id'])
+                                            <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
                                         @endif
                                     @endforeach
                                     @foreach($valoresRubro as $valorRubro)
@@ -267,87 +258,64 @@
                                         @endif
                                     @endforeach
                                     <!-- SALDO DE CDP -->
-                                    @foreach($valorFcdp as $valFcdp)
-                                        @if($valFcdp['id'] == $codigo['id'])
-                                            <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valFcdp['valor'],0);?></td>
-                                        @endif
-                                    @endforeach
-                                    @foreach($valorDcdp as $valorDCdp)
-                                        @if($codigo['id_rubro'] == $valorDCdp['id'])
-                                            <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorDCdp['valor'],0);?></td>
-                                        @endif
-                                    @endforeach
+                                        @foreach($valoresIniciales as $valorInicial)
+                                            @if($valorInicial['id'] == $codigo['id'])
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
+                                            @endif
+                                        @endforeach
+                                        @foreach($valorDcdp as $valorDCdp)
+                                            @if($codigo['id_rubro'] == $valorDCdp['id'])
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorDCdp['valor'],0);?></td>
+                                            @endif
+                                        @endforeach
                                     <!-- ORDENES DE PAGO -->
-                                    @foreach($valoresFinOp as $valFinOp)
-                                        @if($valFinOp['id'] == $codigo['id'])
-                                            <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valFinOp['valor'],0);?></td>
-                                        @endif
-                                    @endforeach
-                                    @foreach($valOP as $valorOP)
-                                        @if($codigo['id_rubro'] == $valorOP['id'])
-                                            <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorOP['valor'],0);?></td>
-                                        @endif
-                                    @endforeach
+                                        @foreach($valoresIniciales as $valorInicial)
+                                            @if($valorInicial['id'] == $codigo['id'])
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
+                                            @endif
+                                        @endforeach
+                                        @foreach($valOP as $valorOP)
+                                            @if($codigo['id_rubro'] == $valorOP['id'])
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorOP['valor'],0);?></td>
+                                            @endif
+                                        @endforeach
                                     <!-- PAGOS -->
-                                    @foreach($valoresFinP as $valFinP)
-                                        @if($valFinP['id'] == $codigo['id'])
-                                            <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valFinP['valor'],0);?></td>
-                                        @endif
-                                    @endforeach
-                                    @foreach($valP as $valorP)
-                                        @if($codigo['id_rubro'] == $valorP['id'])
-                                            <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorP['valor'],0);?></td>
-                                        @endif
-                                    @endforeach
+                                        @foreach($valoresIniciales as $valorInicial)
+                                            @if($valorInicial['id'] == $codigo['id'])
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
+                                            @endif
+                                        @endforeach
+                                        @foreach($valP as $valorP)
+                                            @if($codigo['id_rubro'] == $valorP['id'])
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorP['valor'],0);?></td>
+                                            @endif
+                                        @endforeach
                                     <!-- CUENTAS POR PAGAR -->
-                                    @foreach($valoresFinC as $valFinC)
-                                        @if($valFinC['id'] == $codigo['id'])
-                                            <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valFinC['valor'],0);?></td>
-                                        @endif
-                                    @endforeach
-                                    @foreach($valCP as $valorCP)
-                                        @if($codigo['id_rubro'] == $valorCP['id'])
-                                            <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorCP['valor'],0);?></td>
-                                        @endif
-                                    @endforeach
+                                        @foreach($valoresIniciales as $valorInicial)
+                                            @if($valorInicial['id'] == $codigo['id'])
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
+                                            @endif
+                                        @endforeach
+                                        @foreach($valCP as $valorCP)
+                                            @if($codigo['id_rubro'] == $valorCP['id'])
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorCP['valor'],0);?></td>
+                                            @endif
+                                        @endforeach
                                     <!-- RESERVAS -->
-                                    @foreach($valoresFinRes as $valFinRes)
-                                        @if($valFinRes['id'] == $codigo['id'])
-                                            <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valFinRes['valor'],0);?></td>
-                                        @endif
-                                    @endforeach
-                                    @foreach($valR as $valorR)
-                                        @if($codigo['id_rubro'] == $valorR['id'])
-                                            <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorR['valor'],0);?></td>
-                                        @endif
-                                    @endforeach
+                                        @foreach($valoresIniciales as $valorInicial)
+                                            @if($valorInicial['id'] == $codigo['id'])
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
+                                            @endif
+                                        @endforeach
+                                        @foreach($valR as $valorR)
+                                            @if($codigo['id_rubro'] == $valorR['id'])
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorR['valor'],0);?></td>
+                                            @endif
+                                        @endforeach
                                 </tr>
                             @endforeach
                             </tbody>
-                    <tfoot>
-                   <tr>
-                                <th class="text-center">Rubro</th>
-                                <th class="text-center">Nombre</th>
-                                <th class="text-center">P. Inicial</th>
-                                <th class="text-center">Adición</th>
-                                <th class="text-center">Reducción</th>
-                                <th class="text-center">Credito</th>
-                                <th class="text-center">CCredito</th>
-                                <th class="text-center">P.Definitivo</th>
-                                <th class="text-center">CDP's</th>
-                                <th class="text-center">Registros</th>
-                                <th class="text-center">Saldo Disponible</th>
-                                <th class="text-center">Saldo de CDP</th>
-                                <th class="text-center">Ordenes de Pago</th>
-                                <th class="text-center">Pagos</th>
-                                <th class="text-center">Cuentas Por Pagar</th>
-                                <th class="text-center">Reservas</th>
-                            </tr>
-                    </tfoot>
-                  </table>
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->
-
+                        </table>
                     </div>
                 </div>
 
@@ -355,10 +323,6 @@
 
                 <div id="tabFuente" class="tab-pane fade"><br>
                     <div class="table-responsive">
-                <div class="box">
-              
-                <div class="box-body">
-
                         <br>
                         <table class="table table-hover table-bordered" align="100%" id="tabla_fuente">
                             <thead>
@@ -381,29 +345,18 @@
                                             <td class="text-center text-dark">$ <?php echo number_format($valorInicial['valor'],0);?>.00</td>
                                         @endif
                                     @endforeach
-                                   
-                                  
-
-                                    @if($codigo['valor']!=null)
-                                    <td class="text-center text-dark">$ <?php echo number_format($codigo['valor'],0);?>.00</td>
-                                    @elseif($codigo['valor']==null)
-                                     <td class="text-center text-dark"></td>
+                                    @if($codigo['valor'])
+                                        <td class="text-center text-dark">$ <?php echo number_format($codigo['valor'],0);?>.00</td>
                                     @endif
-                                    
                                     @foreach($FRubros as $FRubro)
                                         @if($FRubro['rubro_id'] == $codigo['id_rubro'])
-                                              <td class="text-center text-dark">$ <?php echo number_format($FRubro["valor"],0);?>.00</td>
-                                           @endif
+                                            <td class="text-center text-dark">$ <?php echo number_format($FRubro["valor"],0);?>.00</td>
+                                        @endif
                                     @endforeach
-
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
-                 </div><!-- /.box-body -->
-              </div><!-- /.box -->
-
-
                     </div>
                 </div>
 
@@ -413,9 +366,6 @@
                 <br>
                     <div class="table-responsive">
                         <br>
-                            <div class="box">
-             
-                <div class="box-body">
                         <table class="table table-bordered" id="tabla_Rubros">
                             <thead>
                             <tr>
@@ -440,10 +390,6 @@
                             @endforeach
                             </tbody>
                         </table>
-                          </div><!-- /.box-body -->
-                       </div><!-- /.box -->
-
-
                     </div>
                 </div>
 
@@ -458,28 +404,28 @@
                 <div id="tabCert" class=" tab-pane fade"><br>
                     <div class="table-responsive">
                         @if(isset($cdps))
-                            <br>
-                            <a href="{{ url('administrativo/cdp') }}" class="btn btn-primary btn-block m-b-12">CDP's</a>
-                            <br>
-                            <table class="table table-bordered" id="tabla_CDP">
-                                <thead>
+                        <br>
+                        <a href="{{ url('administrativo/cdp') }}" class="btn btn-primary btn-block m-b-12">CDP's</a>
+                        <br>
+                        <table class="table table-bordered" id="tabla_CDP">
+                            <thead>
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th class="text-center">Objeto</th>
+                                <th class="text-center">Valor</th>
+                                <th class="text-center">Estado Secretaria</th>
+                                <th class="text-center">Estado Jefe</th>
+                                <th class="text-center">Ver</th>
+                                <th class="text-center">Archivo</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($cdps as $cdp)
                                 <tr>
-                                    <th class="text-center">#</th>
-                                    <th class="text-center">Objeto</th>
-                                    <th class="text-center">Valor</th>
-                                    <th class="text-center">Estado Secretaria</th>
-                                    <th class="text-center">Estado Jefe</th>
-                                    <th class="text-center">Ver</th>
-                                    <th class="text-center">Archivo</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($cdps as $cdp)
-                                    <tr>
-                                        <td class="text-center">{{ $cdp['id'] }}</td>
-                                        <td class="text-center">{{ $cdp['name'] }}</td>
-                                        <td class="text-center">$ <?php echo number_format($cdp['valor'],0);?>.00</td>
-                                        <td class="text-center">
+                                    <td class="text-center">{{ $cdp['id'] }}</td>
+                                    <td class="text-center">{{ $cdp['name'] }}</td>
+                                    <td class="text-center">$ <?php echo number_format($cdp['valor'],0);?>.00</td>
+                                    <td class="text-center">
                                         <span class="badge badge-pill badge-danger">
                                             @if($cdp['secretaria_e'] == "0")
                                                 Pendiente
@@ -491,8 +437,8 @@
                                                 Enviado
                                             @endif
                                         </span>
-                                        </td>
-                                        <td class="text-center">
+                                            </td>
+                                            <td class="text-center">
                                         <span class="badge badge-pill badge-danger">
                                             @if($cdp['jefe_e'] == "0")
                                                 Pendiente
@@ -506,18 +452,18 @@
                                                 En Espera
                                             @endif
                                         </span>
-                                        </td>
-                                        <td class="text-center">
-                                            <a href="{{ url('administrativo/cdp/'.$cdp['id']) }}" title="Ver" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
-                                        </td>
-                                        <td class="text-center">
-                                            <a href="{{ route('cpd-pdf', $cdp['id']) }}" target="_blank" title="certificado" class="btn-sm btn-danger"><i class="fa fa-file-pdf-o"></i></a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        @else
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ url('administrativo/cdp/'.$cdp['id']) }}" title="Ver" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ route('cpd-pdf', $cdp['id']) }}" target="_blank" title="certificado" class="btn-sm btn-danger"><i class="fa fa-file-pdf-o"></i></a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                            @else
                             <br><br>
                             <div class="alert alert-danger">
                                 <center>
@@ -526,10 +472,6 @@
                                 </center>
                             </div>
                         @endif
-
-                            </div><!-- /.box-body -->
-                       </div><!-- /.box -->
-
                     </div>
                 </div>
 
@@ -598,13 +540,13 @@
                 <!-- TABLAS DE ADICIONES -->
 
                 <div id="tabAddIng" class=" tab-pane fade"><br>
-                    <h2 class="text-center ">Adiciones de Ingresos</h2>
+                    <h2 class="text-center">Adiciones de Ingresos</h2>
                 </div>
 
 
                 <br>
                 <div id="tabAddEgr" class=" tab-pane fade"><br>
-                    <h2 class="text-center tituloIngresos">Adiciones de Egresos</h2>
+                    <h2 class="text-center">Adiciones de Egresos</h2>
                     <br>
                     <div class="table-responsive">
                         <table class="table table-bordered" id="tabla_AddE">
@@ -641,8 +583,8 @@
                 <div id="tabRedIng" class=" tab-pane fade"><br>
                     <h2 class="text-center">Reducciones de Ingresos</h2>
                 </div>
-                <div id="tabRedEgr" class=" tab-pane fade "><br>
-                    <h2 class="text-center tituloEgresos">Reducciones de Egresos</h2>
+                <div id="tabRedEgr" class=" tab-pane fade"><br>
+                    <h2 class="text-center">Reducciones de Egresos</h2>
                     <br>
                     <div class="table-responsive">
                         <table class="table table-bordered" id="tabla_RedE">
@@ -711,8 +653,6 @@
                         </table>
                     </div>
                 </div>
-             
-             
                 <div id="tabApl" class=" tab-pane fade"><br>
                     <h2 class="text-center">Aplazamientos</h2>
                 </div>
@@ -832,22 +772,117 @@
         @else
             <div class="breadcrumb text-center">
                 <strong>
-                    <h4><b>Presupuesto de Egresos Año {{ $añoActual }}</b></h4>
+                    <h4><b>Presupuesto de Ingresos Año {{ $añoActual }}</b></h4>
                 </strong>
             </div>
             <br><br>
             <div class="alert alert-danger">
-                No se ha creado un presupuesto actual de egresos, para crearlo de click al siguiente link:
-                <a href="{{ url('presupuesto/vigencia/create/0') }}" class="alert-link">Crear Presupuesto de Egresos</a>.
+                No se ha creado un presupuesto actual de ingresos, para crearlo de click al siguiente link:
+                <a href="{{ url('presupuesto/vigencia/create/1') }}" class="alert-link">Crear Presupuesto de Ingresos</a>.
             </div>
         @endif
         </div>
 @stop
 @section('js')
-   
+    <script>
+        $('#tabla_Registros').DataTable( {
+            responsive: true,
+            "searching": false,
+            "pageLength": 5,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'print'
+            ]
+        } );
 
-      <!-- Datatables personalizadas buttons-->
-    <script src="{{ asset('/js/datatableCustom.js') }}"></script>
+        $('#tabla_CDP').DataTable( {
+            responsive: true,
+            "searching": false,
+            "pageLength": 5,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'print'
+            ]
+        } );
 
+        $('#tabla_Rubros').DataTable( {
+            responsive: true,
+            "searching": true,
+            "pageLength": 5,
+            dom: 'Bfrtip',
+            buttons: [
+                'pdf' ,'copy', 'csv', 'excel', 'print'
+            ]
+        } );
 
+        $('#tabla_presupuesto').DataTable( {
+            responsive: true,
+            "searching": false,
+            "ordering": false,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'print'
+            ]
+        } );
+
+        $('#tabla_fuentes').DataTable( {
+            responsive: true,
+            "searching": false,
+            dom: 'Bfrtip',
+            buttons: [
+                'pdf' ,'copy', 'csv', 'excel', 'print'
+            ]
+        } );
+
+        $('#tabla_AddE').DataTable( {
+            responsive: true,
+            "searching": true,
+            "pageLength": 5,
+            dom: 'Bfrtip',
+            buttons: [
+                'pdf' ,'copy', 'csv', 'excel', 'print'
+            ]
+        } );
+
+        $('#tabla_RedE').DataTable( {
+            responsive: true,
+            "searching": true,
+            "pageLength": 5,
+            dom: 'Bfrtip',
+            buttons: [
+                'pdf' ,'copy', 'csv', 'excel', 'print'
+            ]
+        } );
+
+        $('#tabla_Cyc').DataTable( {
+            responsive: true,
+            "searching": true,
+            "pageLength": 5,
+            dom: 'Bfrtip',
+            buttons: [
+                'pdf' ,'copy', 'csv', 'excel', 'print'
+            ]
+        } );
+
+        $('#tabla_OrdenPago').DataTable( {
+            responsive: true,
+            "searching": true,
+            "pageLength": 5,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'print'
+            ]
+        } );
+
+        $('#tabla_Pagos').DataTable( {
+            responsive: true,
+            "searching": true,
+            "pageLength": 5,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'print'
+            ]
+        } );
+
+    </script>
 @stop
