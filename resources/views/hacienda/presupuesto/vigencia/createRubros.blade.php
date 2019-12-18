@@ -3,11 +3,7 @@
     Creación de Rubros
 @stop
 @section('sidebar')
-	@if($vigencia->tipo == 0)
     <li> <a href="{{ url('/presupuesto') }}" class="btn btn-success"><i class="fa fa-money"></i><span class="hide-menu">&nbsp; Presupuesto</span></a></li>
-	@elseif($vigencia->tipo == 1)
-		<li> <a href="{{ url('/presupuestoIng') }}" class="btn btn-success"><i class="fa fa-money"></i><span class="hide-menu">&nbsp; Presupuesto</span></a></li>
-	@endif
     <li class="dropdown">
         <a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown" href="#">
             <span class="hide-menu">Niveles</span>

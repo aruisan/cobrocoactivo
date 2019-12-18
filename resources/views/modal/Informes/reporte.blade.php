@@ -9,7 +9,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h3 class="modal-title">Reporte Contractual</h3>
                 </div>
-                <div class="modal-body text-center">
+                <div class="modal-body text-center" id="prog">
                     <h4>Seleccione el codigo contractual del que desee obtener el reporte </h4>
                     <br>
                     <select class="form-control text-center" name="code" required>

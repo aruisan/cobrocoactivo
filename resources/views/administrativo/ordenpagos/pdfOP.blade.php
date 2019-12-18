@@ -142,13 +142,13 @@
 					<tr class="text-center">
 						<td>
 							@for($x = 0; $x < count($infoRubro); $x++)
-								@if($infoRubro[$x]['id_rubro'] == $R->cdpRegistroValor[$i]->fontRubro->fontVigencia->rubro_id)
+								@if($infoRubro[$x]['id_rubro'] == $R->cdpRegistroValor[$i]->fontRubro->rubro->id)
 									{{ $infoRubro[$x]['codigo'] }}
 								@endif
 							@endfor
 						</td>
 						<td>{{ $R->cdpRegistroValor[$i]->fontRubro->rubro->name}}</td>
-						<td>{{ $R->cdpRegistroValor[$i]->fontRubro->fontVigencia->font->code }} - {{ $R->cdpRegistroValor[$i]->fontRubro->fontVigencia->font->name }}</td>
+						<td>{{ $R->cdpRegistroValor[$i]->fontRubro->font->code }} - {{ $R->cdpRegistroValor[$i]->fontRubro->font->name }}</td>
 						<td>{{ $OrdenPago->registros->objeto }}</td>
 						<td>$ <?php echo number_format($OrdenPago->registros->valor,0);?></td>
 					</tr>
