@@ -62,10 +62,57 @@
             "searching": true,
             ordering: false,
             paging: false,
+            
+            language: {
+			  "lengthMenu": "Mostrar _MENU_ registros",
+			  "zeroRecords": "No se encontraron resultados",
+			  "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+			  "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+			  "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+			  "sSearch": "Buscar:",
+			  "oPaginate": {
+				  "sFirst": "Primero",
+				  "sLast":"Último",
+				  "sNext":"Siguiente",
+				  "sPrevious": "Anterior"
+			   },
+			   "sProcessing":"Procesando...",
+		  },
             dom: 'Bfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'print'
-            ]
+            buttons:[ 
+			  {
+			  extend:    'copyHtml5',
+			  text:      '<i class="fa fa-clone"></i> ',
+			  titleAttr: 'Copiar',
+			  className: 'btn btn-primary'
+			    
+		  },
+		  {
+			  extend:    'excelHtml5',
+			  text:      '<i class="fa fa-file-excel-o"></i> ',
+			  titleAttr: 'Exportar a Excel',
+			  className: 'btn btn-success',
+			  title: 'Predios'
+		  },
+		  {
+			  extend:    'pdfHtml5',
+			  text:      '<i class="fa fa-file-pdf-o"></i> ',
+			  titleAttr: 'Exportar a PDF',     
+			  message : 'SIEX-Providencia',
+			  header :true,
+			  orientation : 'landscape',
+			  pageSize: 'LEGAL',
+			  className: 'btn btn-danger',
+			  title: 'Predios'
+			   },
+		  {
+			  extend:    'print',
+			  text:      '<i class="fa fa-print"></i> ',
+			  titleAttr: 'Imprimir',
+			  className: 'btn btn-info',
+			  title: 'Predios'
+		  },
+	  ]	             
         } );
     </script>
 @stop
