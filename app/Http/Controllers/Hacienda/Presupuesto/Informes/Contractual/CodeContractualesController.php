@@ -149,16 +149,21 @@ class CodeContractualesController extends Controller
             }
         }
 
+        $codes = CodeContractuales::all();
+
         if (isset($Rubros)){
             $roles = auth()->user()->roles;
             foreach ($roles as $role){
                 $rol= $role->id;
             }
-            $codes = CodeContractuales::all();
+
             return view('hacienda.presupuesto.informes.Contractual.Homologar.index',compact('rubros','Rubros','rol','codes'));
         } else {
-            Session::flash('error','Actualmente ningun rubro tiene asignado un código contractual.');
-            return back();
+            $roles = auth()->user()->roles;
+            foreach ($roles as $role){
+                $rol= $role->id;
+            }
+            return view('hacienda.presupuesto.informes.Contractual.Homologar.index',compact('rubros','rol','codes'));
         }
     }
 
@@ -286,8 +291,12 @@ class CodeContractualesController extends Controller
         }
 
         $codigos = CodeContractuales::where('estado','0')->get();
-
-        return view('hacienda.presupuesto.informes.Contractual.Homologar.asignar',compact('codigos','Rubros'));
+        if ($codigos->count() != 0){
+            return view('hacienda.presupuesto.informes.Contractual.Homologar.asignar',compact('codigos','Rubros'));
+        } else {
+            Session::flash('error','Actualmente no hay códigos contractuales almacenados, se deben almacenar primero para poder asignarlos a un rubro.');
+            return back();
+        }
     }
 
     public function rubroStore(Request $request){

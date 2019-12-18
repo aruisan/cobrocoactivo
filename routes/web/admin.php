@@ -261,35 +261,41 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
 	});
 
-	////// RUTAS PRESUPUESTO
+	////// RUTAS PRESUPUESTO EGRESOS
+
+            Route::Resource('presupuesto', 'Hacienda\Presupuesto\PresupuestoController');
+            Route::get('presupuesto/vigencia/create/{tipo}', 'Hacienda\Presupuesto\VigenciaController@create');
+            Route::resource('presupuesto/vigencia', 'Hacienda\Presupuesto\VigenciaController');
+            Route::get('presupuesto/level/create/{vigencia}', 'Hacienda\Presupuesto\LevelController@create');
+            Route::resource('presupuesto/level', 'Hacienda\Presupuesto\LevelController');
+            Route::get('presupuesto/registro/create/{vigencia}/{level}', 'Hacienda\Presupuesto\RegistroController@create');
+            Route::resource('presupuesto/registro', 'Hacienda\Presupuesto\RegistroController');
+            Route::get('presupuesto/font/create/{vigencia}', 'Hacienda\Presupuesto\FontsController@create');
+            Route::resource('presupuesto/font', 'Hacienda\Presupuesto\FontsController');
+            Route::get('presupuesto/rubro/create/{vigencia}', 'Hacienda\Presupuesto\RubrosController@create');
+            Route::resource('presupuesto/rubro', 'Hacienda\Presupuesto\RubrosController');
+            Route::put('presupuesto/rubro/m/{m}/{id}', 'Hacienda\Presupuesto\RubrosMovController@movimiento');
+            Route::resource('presupuesto/FontRubro', 'Hacienda\Presupuesto\FontRubroController');
+            Route::resource('presupuesto/FontRubro/saldo', 'Hacienda\Presupuesto\FontRubroController@saldoFont');
+
+                //INFORMES PRESUPUESTO EGRESOS
+
+                Route::resource('presupuesto/informes','Hacienda\Presupuesto\Informes\ReportsController');
+                Route::get('presupuesto/informes/lvl/{id}','Hacienda\Presupuesto\Informes\ReportsController@lvl');
+                Route::get('presupuesto/informes/rubros/{id}','Hacienda\Presupuesto\Informes\ReportsController@rubros');
+
+                Route::resource('presupuesto/informes/contractual/homologar','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController');
+                Route::get('presupuesto/informes/contractual/homologar/create','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@create');
+                Route::put('presupuesto/informes/contractual/reporte','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@report');
+                Route::get('presupuesto/informes/contractual/asignar','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@rubros');
+                Route::put('presupuesto/informes/contractual/asignar/store', 'Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@rubroStore');
 
 
-	Route::Resource('presupuesto', 'Hacienda\Presupuesto\PresupuestoController');
-	Route::get('presupuesto/vigencia/create/{tipo}', 'Hacienda\Presupuesto\VigenciaController@create');
-	Route::resource('presupuesto/vigencia', 'Hacienda\Presupuesto\VigenciaController');
-	Route::get('presupuesto/level/create/{vigencia}', 'Hacienda\Presupuesto\LevelController@create');
-	Route::resource('presupuesto/level', 'Hacienda\Presupuesto\LevelController');
-	Route::get('presupuesto/registro/create/{vigencia}/{level}', 'Hacienda\Presupuesto\RegistroController@create');
-	Route::resource('presupuesto/registro', 'Hacienda\Presupuesto\RegistroController');
-	Route::get('presupuesto/font/create/{vigencia}', 'Hacienda\Presupuesto\FontsController@create');
-	Route::resource('presupuesto/font', 'Hacienda\Presupuesto\FontsController');
-	Route::get('presupuesto/rubro/create/{vigencia}', 'Hacienda\Presupuesto\RubrosController@create');
-	Route::resource('presupuesto/rubro', 'Hacienda\Presupuesto\RubrosController');
-    Route::put('presupuesto/rubro/m/{m}/{id}', 'Hacienda\Presupuesto\RubrosMovController@movimiento');
-	Route::resource('presupuesto/FontRubro', 'Hacienda\Presupuesto\FontRubroController');
-	Route::resource('presupuesto/FontRubro/saldo', 'Hacienda\Presupuesto\FontRubroController@saldoFont');
 
-        //INFORMES PRESUPUESTO
+    ////// RUTAS PRESUPUESTO INGRESOS
 
-        Route::resource('presupuesto/informes','Hacienda\Presupuesto\Informes\ReportsController');
-        Route::get('presupuesto/informes/lvl/{id}','Hacienda\Presupuesto\Informes\ReportsController@lvl');
-        Route::get('presupuesto/informes/rubros/{id}','Hacienda\Presupuesto\Informes\ReportsController@rubros');
 
-        Route::resource('presupuesto/informes/contractual/homologar','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController');
-        Route::get('presupuesto/informes/contractual/homologar/create','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@create');
-        Route::put('presupuesto/informes/contractual/reporte','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@report');
-        Route::get('presupuesto/informes/contractual/asignar','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@rubros');
-        Route::put('presupuesto/informes/contractual/asignar/store', 'Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@rubroStore');
+            Route::get('presupuestoIng','Hacienda\Presupuesto\PresupuestoController@ingresos');
 
 
     ////// RUTAS PLAN DE DESARROLLO

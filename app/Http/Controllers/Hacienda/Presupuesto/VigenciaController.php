@@ -45,6 +45,7 @@ class VigenciaController extends Controller
             $vigencia->numero_decreto = $request->decreto;
             $vigencia->fecha = $request->fecha;
             $vigencia->user_id = 1;
+            $vigencia->estado = '0';
             $vigencia->save();
 
             Session::flash('success','La Vigencia se ha creado exitosamente');

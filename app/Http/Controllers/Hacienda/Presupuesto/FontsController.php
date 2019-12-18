@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Hacienda\Presupuesto;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Model\Hacienda\Presupuesto\FontsVigencia;
 use App\Model\Hacienda\Presupuesto\Font;
 use App\Model\Hacienda\Presupuesto\Vigencia;
 use App\Model\Hacienda\Presupuesto\Level;
@@ -17,7 +18,8 @@ class FontsController extends Controller
     {
         $vigencia = Vigencia::findOrFail($vigencia_id);
         $niveles = Level::where('vigencia_id', $vigencia_id)->get();
-        $levels = Font::where('vigencia_id', $vigencia_id)->count();
+        $levels = FontsVigencia::where('vigencia_id', $vigencia_id)->count();
+        $fonts = FontsVigencia::where('vigencia_id', $vigencia_id)->get();
 
         if($levels == 0){
            $fila = $vigencia->ultimo;
@@ -26,7 +28,7 @@ class FontsController extends Controller
         }else if( $vigencia->ultimo > $levels){
             $fila = $vigencia->ultimo - $levels;
         }
-        return view('hacienda.presupuesto.vigencia.createFonts', compact('vigencia', 'fila', 'niveles'));
+        return view('hacienda.presupuesto.vigencia.createFonts', compact('vigencia', 'fila', 'niveles','fonts'));
     }
 
     /**
@@ -53,32 +55,25 @@ class FontsController extends Controller
                 $font = new Font();
                 $font->name = $name[$i];
                 $font->code = $code[$i];
-                $font->valor = $valor[$i];
-                $font->vigencia_id = $vigencia;
                 $font->save();
+
+                $fontVig = new FontsVigencia();
+                $fontVig->valor = $valor[$i];
+                $fontVig->vigencia_id = $vigencia;
+                $fontVig->font_id = $font->id;
+                $fontVig->save();
             }
         }
 
        return  back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
-        $data = Font::where('vigencia_id', $id)->get();
+        $data = FontsVigencia::where('vigencia_id', $id)->get();
 
         return $data;
-
-
-        /*$data = Level::where('vigencia_id', $id)->get();
-
-
-        return $data;*/
     }
 
     /**
@@ -92,34 +87,23 @@ class FontsController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+
     public function update($id, $name, $valor, $code)
     {
         //dd($name);
-        $font = Font::findOrFail($id);
-        $font->name = $name;
-        $font->code = $code;
+        $font = FontsVigencia::findOrFail($id);
         $font->valor = $valor;
         $font->save();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+
     public function destroy($id)
     {   
-        $font = Font::find($id);
+        $font = FontsVigencia::find($id);
         if($font->fontsRubro->sum('valor')){
-            Session::flash('warning', 'tiene $'.$font->fontsRubro->sum('valor').' usados en rubros.');
+            Session::flash('warning', 'Esta usando dinero de esa fuente en rubros.');
         }else{
             $font->delete();
             Session::flash('error','Fuente Eliminada correctamente');
