@@ -35,13 +35,20 @@ class VisitanteController extends Controller
     {
         $añoActual = Carbon::now()->year;
         $vigens = Vigencia::where('vigencia', $añoActual)->where('tipo', 0)->where('estado', '0')->get();
-        dd($vigens);
         $Concejales = Concejal::all();
 
         if ($vigens->count() == 0){
             $V = "Vacio";
-            return view('visitante.index', compact('V', 'Concejales'));
-            //return view('hacienda.presupuesto.index', compact('V', 'añoActual'));
+
+            $Boletines = Documents::where('type','=','Boletines')->get();
+            $Acuerdos = Documents::where('type','=','Acuerdos')->get();
+            $Actas = Documents::where('type','=','Actas')->get();
+            $Resoluciones = Documents::where('type','=','Resoluciones')->get();
+            $ManualC = Documents::where('type','=','Manual de contratación')->get();
+            $PlanA = Documents::where('type','=','Plan de adquisiones')->get();
+
+            return view('visitante.index', compact('V', 'Concejales', 'añoActual','Boletines','Actas','Acuerdos','Resoluciones','ManualC','PlanA'));
+
         } else {
             $V = $vigens[0]->id;
             $vigencia_id = $V;
