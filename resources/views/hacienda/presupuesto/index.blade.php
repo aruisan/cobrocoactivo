@@ -40,7 +40,7 @@
         </a>
         <ul class="dropdown-menu dropdown-user">
             <li class="dropdown-submenu">
-                <a class="test btn btn-primary text-left" href="#">Contractual &nbsp;<span class="fa fa-caret-right"></span></a>
+                <a class="test btn btn-primary text-left" href="#">Contractual &nbsp;</a>
                 <ul class="dropdown-menu">
                     <li><a href="{{ url('/presupuesto/informes/contractual/homologar') }}" class="btn btn-success text-left">Homologar</a></li>
                     <li><a data-toggle="modal" data-target="#reporteHomologar" class="btn btn-success text-left">Reporte</a></li>

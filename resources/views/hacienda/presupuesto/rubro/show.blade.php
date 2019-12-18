@@ -42,7 +42,7 @@
     @endif
 @stop
 @section('content')
-    <div class="col-md-12 align-self-center">
+    <div class="col-md-12 align-self-center formularioRubro">
         <div class="row justify-content-center">
             <center><h2>{{ $rubro->name }}</h2></center>
             <div class="form-validation">
@@ -81,7 +81,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-12 align-self-center">
+    <div class="col-md-12 align-self-center formularioRubro">
         <hr>
         <center>
             <h3>Fuentes del Rubro</h3>
@@ -111,7 +111,8 @@
             </table>
         </div>
     </div>
-    <div class="col-md-12 align-self-center" style="background-color: white">
+    <br>
+    <div class="col-md-12 align-self-center formularioRubro" style="background-color: white">
         <br>
         <hr>
         <center>
@@ -158,7 +159,8 @@
             </table>
         </div>
     </div>
-    <div class="col-md-12 align-self-center" style="background-color: white">
+    <br>
+    <div class="col-md-12 align-self-center formularioRubro" style="background-color: white">
         <br>
         <hr>
         <center>
@@ -189,7 +191,7 @@
             </table>
         </div>
     </div>
-    <div class="col-md-12 align-self-center" style="background-color: white">
+    <div class="col-md-12 align-self-center formularioRubro" style="background-color: white">
         <hr>
         <center>
             <h3>Movimientos del Rubro</h3>
@@ -277,49 +279,9 @@
     @stop
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="{{ asset('/js/datatableRubro.js') }}"></script>
     <script>
-        $(document).ready(function() {
-            $('#tablaFuentesR').DataTable( {
-                responsive: true,
-                "searching": false,
-                "pageLength": 5,
-                dom: 'Bfrtip',
-                buttons: [
-                    'copy', 'csv', 'excel', 'print'
-                ]
-            } );
-
-            $('#tablaCDPs').DataTable( {
-                responsive: true,
-                "searching": false,
-                "pageLength": 5,
-                dom: 'Bfrtip',
-                buttons: [
-                    'copy', 'csv', 'excel', 'print'
-                ]
-            } );
-
-            $('#tablaRegistros').DataTable( {
-                responsive: true,
-                "searching": false,
-                "pageLength": 5,
-                dom: 'Bfrtip',
-                buttons: [
-                    'copy', 'csv', 'excel', 'print'
-                ]
-            } );
-
-            $('#tablaMovimientos').DataTable( {
-                responsive: true,
-                "searching": false,
-                "pageLength": 5,
-                dom: 'Bfrtip',
-                buttons: [
-                    'copy', 'csv', 'excel', 'print'
-                ]
-            } );
-        } );
-
+       
         var visto = null;
         function ver(num) {
             obj = document.getElementById(num);
