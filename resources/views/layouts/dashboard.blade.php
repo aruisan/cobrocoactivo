@@ -165,7 +165,7 @@
         @include('administrativo.gestiondocumental.acuerdos.modals.modals')
   
   <footer id="myFooter">
-        <div class="container-fluid">
+   
             <div class="row">
              
               <div class="col-sm-12 col-md-4 text-center" style="padding: 5px 0">
@@ -187,7 +187,7 @@
                     <a href="http://altaespecialidad.co/"><img class="img-foo" src="{{ asset('/img/logoOrigin.png') }}"  /></a>
                 </div>
 
-            </div>
+      
         </div>
         <div >
               </div>
