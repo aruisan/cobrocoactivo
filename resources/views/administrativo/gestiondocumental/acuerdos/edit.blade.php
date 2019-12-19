@@ -15,7 +15,7 @@
 </div>
 
 
-<div class="row inputCenter"  style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #3d7e9a; ">
+<div class="row inputCenter"  style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #efb827; ">
     <hr>
     <form action="{{ asset('/dashboard/acuerdos/'.$Acuerdo->id) }}" method="POST"  class="form" enctype="multipart/form-data">
         {!! method_field('PUT') !!}

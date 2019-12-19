@@ -3,6 +3,33 @@
  * Copyright 2014 Vasily A. (https://github.com/vsn4ik)
  * Licensed under MIT (https://github.com/vsn4ik/bootstrap-submenu/blob/master/LICENSE)
  */
+ #myFooter {
+  z-index: 1px;
+clear: both;
+  background-color: #fff ;
+  color:rgb(149, 8, 8);
+  -webkit-box-shadow: -2px -15px 13px -1px rgb(124, 124, 119);
+-moz-box-shadow: -2px -15px 13px -1px rgb(150, 150, 145);
+box-shadow: -2px -15px 13px -1px rgb(145, 145, 141);
+}
+
+.img-foo{
+  width: 50px !important;
+  text-align: center;
+ }
+
+ .text-foo{margin-top: 5px;}
+
+#myFooter a {
+  color: rgb(149, 8, 8);
+  text-decoration: none;
+}
+
+#myFooter a:hover,
+#myFooter a:focus {
+  text-decoration: none;
+  color: rgb(149, 8, 8);
+}
 
 .dropdown-submenu > a:after {
   content: "";
@@ -13,6 +40,10 @@
   .dropdown-submenu {
     position: relative;
   }
+  .text-foo{margin-top: 20px;}
+   .img-foo{
+    width: 100px !important;
+   }
   .dropdown-submenu > a:after {
     margin-top: 6px;
     border-left: 4px dashed;
@@ -269,16 +300,24 @@ color: black;
 .item-menu:focus, 
 .item-menu:hover {
   text-decoration: none;
-  background-color: white !important;
-  color: #333 !important;
+  background-color: rgb(149, 8, 8) !important;
+  color: #fff !important;
+  border-radius:3px;
+
+}
+
+.item-menu.active {
+  text-decoration: none;
+  background-color: rgb(149, 8, 8) !important;
+  color: #fff !important;
   border-radius:3px;
 
 }
 
 .item-menu {
   text-decoration: none;
- background-color: rgb(43, 125, 210) !important;
-  color: #fff !important;
+ background-color: #fff !important;
+  color:rgb(149, 8, 8) !important;
  margin-left: 0px;
   margin-right: 0px;
   border: none;
@@ -300,36 +339,147 @@ color: black;
 }
 
 .item-perfil{
-   background-color: #286090 !important;
-    color: #fff !important;
+   background-color:  #fff !important;
+   border: 1px solid #fff ;
+    color:  rgb(149, 8, 8) !important;
+/*#286090*/
+}
+
+.item-perfil:hover, .item-perfil:focus{
+  background-color:  rgb(149, 8, 8) !important;
+  border: 1px solid rgb(149, 8, 8) ;
+   color: #fff !important;
 /*#286090*/
 }
 
 .btn-success {
-  color: #fff !important;
-  background-color: #5cb85c !important;
-  border-color: #4cae4c;
+  color:  rgb(149, 8, 8)!important;
+  background-color: #efb827 !important;
+  border-color: #efb827 !important;
+  border-bottom: 5px solid rgb(149, 8, 8)!important;
+  border-top: 5px solid rgb(149, 8, 8)!important;
+  margin-bottom:5px;
+  margin-right: 5px;
 }
 .btn-success:focus, .btn-success:hover {
-  color: #fff !important;
-  background-color: #358735 !important;
-  border-color: #4cae4c;
+  color:  #fff !important;
+  background-color: rgb(149, 8, 8)!important;
+  border-color: rgb(149, 8, 8)!important;
 }
 
 .btn-primary:focus, .btn-primary:hover {
-  color: #fff !important;
-  background-color: #175c97 !important;
-  border-color: #2e6da4;
+  color: rgb(149, 8, 8)!important;
+  background-color: #efb827 !important;
+  border-color: #efb827;
 }
 .btn-primary {
   color: #fff !important;
+  background-color:  rgb(149, 8, 8) !important;
+  border:1px rgb(149, 8, 8) !important;
+  border-bottom: 5px solid #efb827 !important;
+  border-top: 5px solid #efb827 !important;
+  margin-bottom:5px;
+  margin-right: 5px;
 }
 
-.fondo-menu{
-background-color: rgb(43, 125, 210) !important;
-/* verde oscuro rgba(20,115,106,1)  */
+
+.btn-danger:focus, .btn-danger:hover {
+  color: #fff !important;
+  background-color: rgb(149, 8, 8) !important;
+  border-color: rgb(149, 8, 8);
+  border-bottom: 5px solid #efb827  !important;
+  border-top: 5px solid rgb(149, 8, 8) !important;
+}
+.btn-danger {
+  color: rgb(149, 8, 8)!important;
+  background-color:  #efb827 !important;
+  border:1px #efb827 !important;
+  border-bottom: 5px solid #efb827 !important;
+  border-top: 5px solid #efb827 !important;
+  margin-bottom:5px;
+  margin-right: 5px;
+}
+
+
+.btn-info:focus, .btn-info:hover {
+  color: rgb(149, 8, 8)!important;
+  background-color:  #efb827 !important;
+  border:1px #efb827 !important;
+  border-bottom: 5px solid #efb827 !important;
+  border-top: 5px solid #efb827 !important;
+  
+}
+.btn-info {
+ 
+  color: #fff !important;
+  background-color: rgb(149, 8, 8) !important;
+  border-color: rgb(149, 8, 8); 
+  border-bottom: 5px solid  rgb(149, 8, 8) !important;
+  border-top: 5px solid  rgb(149, 8, 8) !important;
+  margin-bottom:5px;
+  margin-right: 5px;
+}
+
+
+.navbar-toggle {
+  color:rgb(149, 8, 8) !important;
+}
+/* 
+.fondo-menu{ 
+
+  background-color: #efb827 !important;
+
+} */
+
+.navbar{
+  background-color: #fff !important;
+border-bottom: 9px solid rgb(149, 8, 8);
+-webkit-box-shadow: -2px 17px 32px -12px rgba(133,133,130,1);
+-moz-box-shadow: -2px 17px 32px -12px rgba(133,133,130,1);
+box-shadow: -2px 17px 32px -12px rgba(133,133,130,1);
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+  color: rgb(149, 8, 8);
+  background-color: #fff;
+  border-top: 4px solid #fff;
+  border-bottom: 4px solid #eee26e;
+}
+.breadcrumb {
+  padding: 8px 15px;
+  margin-bottom: 20px;
+  list-style: none;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  border-bottom: 4px solid #eee26e !important;
+  padding-bottom: 20px !important;
+  -font-family-sans-serif: "Nunito", sans-serif;
+    --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.fondo-wrapper,.table-responsive, .tab-content{
+  background-color: #f5f5f5 !important;
+
 
 }
+
+.alert-danger{
+  background-color: #961303 !important;
+}
+
+.alert-link {
+  color: #fff;
+}
+.alert-danger .alert-link {
+  color: #ffffff;
+}
+.table-responsive {
+  border-bottom: 4px solid #eee26e !important;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+
+}
+
 .iconos-footer {
 display: block;
 position: fixed;
@@ -381,24 +531,20 @@ content: "\f0f6";
 
 }
 .social-item{
- background-color:#2b7dd2 !important;
+ background-color:rgb(149, 8, 8) !important;
  border-radius:3px;
- border:1px solid #2b7dd2;
+ border:1px solid rgb(149, 8, 8);
  margin-left:3px;
   color:white !important;
 
 }
 
-.item-perfil{
-    background-color: #2b7dd2 !important;
-    border-color: #2b7dd2 !important;
-    color:white !important;
-}
+
 .btn-primary.active, 
 .btn-primary:active, 
 .open>.dropdown-toggle.btn-primary {
-  color: white !important;
-  background-color: #1c5d95 !important;
+  color: rgb(149, 8, 8) !important;
+  background-color: #fff !important;
 }
 .main-header 
 .navbar-custom-menu a, 

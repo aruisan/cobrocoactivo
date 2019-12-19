@@ -108,7 +108,7 @@
 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-9">
                       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu-dependencias">
                       <span class="sr-only">Toggle navigation</span>
-                      <i class="fa fa-bars fa-2x text-white"></i>
+                      <i class="fa fa-bars fa-2x "></i>
                     </button>
                              <br>
                                 <br> <br>
@@ -146,10 +146,10 @@
               @yield('sidebar')     
             </ul>
           </div>
-                <!-- /.sidebar-collapse -->
+              
         </div>
-
-        <div id="page-wrapper">
+  <!-- /.sidebar-collapse -->
+        <div id="page-wrapper" class="fondo-wrapper">
          
           @include('alertas.request') 
           @yield('content')
@@ -163,8 +163,37 @@
         @include('administrativo.gestiondocumental.archivo.modals.modals')
         @include('administrativo.gestiondocumental.boletines.modals.modals')
         @include('administrativo.gestiondocumental.acuerdos.modals.modals')
+  
+  <footer id="myFooter">
+        <div class="container-fluid">
+            <div class="row">
+             
+              <div class="col-sm-12 col-md-4 text-center" style="padding: 5px 0">
+                  
+                
+                <p class="text-foo">© 2018 Copyright Derechos Reservados 
+            <a class="text-foo" href="http://altaespecialidad.co/"> Alta Especialidad SAS</a> </p>
+      
+                </div>
+               
+    <div class="col-sm-12 col-md-4 text-center" >
+                </div>
 
+                   <div class="col-sm-12 col-md-2 text-center" style="padding: 5px 0" >
+                  
+                    <h5 class=" text-foo">Producto Elaborado Por</h5>
+                </div>
+                <div class="col-sm-12 col-md-2 text-center"  style="padding: 5px 0">
+                    <a href="http://altaespecialidad.co/"><img class="img-foo" src="{{ asset('/img/logoOrigin.png') }}"  /></a>
+                </div>
+
+            </div>
+        </div>
+        <div >
+              </div>
+    </footer>
     </div>
+    
     <!-- /#wrapper -->
 
 <aside class="iconos-footer">
@@ -175,7 +204,7 @@
          <li class="social-item">
                  <span class="iconoNormatividad">  
                           <a data-toggle="modal" data-target="#modal-normas" title="NORMATIVIDAD">
-                        <i class="fa fa-file-text item-perfil" style="padding-top:10px;"></i> </a>
+                        <i class="fa fa-file-text text-white" style="padding-top:10px;"></i> </a>
                   </span>                           
                    
                   
@@ -187,12 +216,12 @@
               <li class="dropdown notifications-menu social-item">
                  <span class="iconoNotificaciones">  
                      <a href="{{route('notificaciones.index')}}"  class="btn btn-raised " title="NOTIFICACIONES">
-                        <i class="fa fa-bell-o item-perfil"></i>
+                        <i class="fa fa-bell-o text-white"></i>
                   </span>
                                   @if ($count = Auth::user()->unreadnotifications->count())
                                     
                                     <span class="iconoNotificaciones">  
-                                    <i class="fa fa-bell-o item-perfil" aria-hidden="true">{{$count}}</i>
+                                    <i class="fa fa-bell-o text-white" aria-hidden="true">{{$count}}</i>
                                     </span>
                                   
                                   @endif 

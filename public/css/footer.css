@@ -1,11 +1,15 @@
 #myFooter {
+    z-index: 1px;
 	clear: both;
-    background-color: #3c3d41;
-    color: white;
+    background-color: #fff ;
+    color:rgb(149, 8, 8);
+    -webkit-box-shadow: -2px -15px 13px -1px rgba(69,69,65,1);
+-moz-box-shadow: -2px -15px 13px -1px rgba(69,69,65,1);
+box-shadow: -2px -15px 13px -1px rgba(69,69,65,1);
 }
 
 #myFooter .footer-copyright {
-    background-color: #333333;
+    background-color: #fff;
     padding-top: 2px;
     padding-bottom: 2px;
     text-align: center;
@@ -30,6 +34,8 @@
     padding-left: 0;
     line-height: 1.7;
 }
+
+
 
 #myFooter h5{
     font-size: 18px;

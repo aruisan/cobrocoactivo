@@ -33,7 +33,7 @@ $(document).ready(function() {
 			  extend:    'excelHtml5',
 			  text:      '<i class="fa fa-file-excel-o"></i> ',
 			  titleAttr: 'Exportar a Excel',
-			  className: 'btn btn-success'
+			  className: 'btn btn-primary'
 		  },
 		  {
 			  extend:    'pdfHtml5',
@@ -43,13 +43,13 @@ $(document).ready(function() {
 			  header :true,
 			  orientation : 'landscape',
 			  pageSize: 'LEGAL',
-			  className: 'btn btn-danger',
+			  className: 'btn btn-primary',
 			   },
 		  {
 			  extend:    'print',
 			  text:      '<i class="fa fa-print"></i> ',
 			  titleAttr: 'Imprimir',
-			  className: 'btn btn-info'
+			  className: 'btn btn-primary'
 		  },
 	  ]	             
 
@@ -89,7 +89,7 @@ $(document).ready(function() {
 			  extend:    'excelHtml5',
 			  text:      '<i class="fa fa-file-excel-o"></i> ',
 			  titleAttr: 'Exportar a Excel',
-			  className: 'btn btn-success'
+			  className: 'btn btn-primary'
 		  },
 		  {
 			  extend:    'pdfHtml5',
@@ -101,14 +101,14 @@ $(document).ready(function() {
 			  exportOptions: {
 				  columns: [ 0,1,2, 3 ,4]
 					},
-			  className: 'btn btn-danger'
+			  className: 'btn btn-primary'
 			   
 		  },
 		  {
 			  extend:    'print',
 			  text:      '<i class="fa fa-print"></i> ',
 			  titleAttr: 'Imprimir',
-			  className: 'btn btn-info'
+			  className: 'btn btn-primary'
 		  },
 	  ]	                 
 
@@ -145,7 +145,7 @@ $(document).ready(function() {
 			  extend:    'excelHtml5',
 			  text:      '<i class="fa fa-file-excel-o"></i> ',
 			  titleAttr: 'Exportar a Excel',
-			  className: 'btn btn-success'
+			  className: 'btn btn-primary'
 		  },
 		  {
 			  extend:    'pdfHtml5',
@@ -155,13 +155,13 @@ $(document).ready(function() {
 			  exportOptions: {
 				  columns: [ 0,1,2,3,4]
 					},
-			  className: 'btn btn-danger'
+			  className: 'btn btn-primary'
 		  },
 		  {
 			  extend:    'print',
 			  text:      '<i class="fa fa-print"></i> ',
 			  titleAttr: 'Imprimir',
-			  className: 'btn btn-info'
+			  className: 'btn btn-primary'
 		  },
 	  ]	        
 		 });
@@ -197,19 +197,19 @@ $(document).ready(function() {
 			  extend:    'excelHtml5',
 			  text:      '<i class="fa fa-file-excel-o"></i> ',
 			  titleAttr: 'Exportar a Excel',
-			  className: 'btn btn-success'
+			  className: 'btn btn-primary'
 		  },
 		  {
 			  extend:    'pdfHtml5',
 			  text:      '<i class="fa fa-file-pdf-o"></i> ',
 			  titleAttr: 'Exportar a PDF',
-			  className: 'btn btn-danger'
+			  className: 'btn btn-primary'
 		  },
 		  {
 			  extend:    'print',
 			  text:      '<i class="fa fa-print"></i> ',
 			  titleAttr: 'Imprimir',
-			  className: 'btn btn-info'
+			  className: 'btn btn-primary'
 		  },
 	  ]	        
 		 });
@@ -245,19 +245,19 @@ language: {
 			  extend:    'excelHtml5',
 			  text:      '<i class="fa fa-file-excel-o"></i> ',
 			  titleAttr: 'Exportar a Excel',
-			  className: 'btn btn-success'
+			  className: 'btn btn-primary'
 		  },
 		  {
 			  extend:    'pdfHtml5',
 			  text:      '<i class="fa fa-file-pdf-o"></i> ',
 			  titleAttr: 'Exportar a PDF',
-			  className: 'btn btn-danger'
+			  className: 'btn btn-primary'
 		  },
 		  {
 			  extend:    'print',
 			  text:      '<i class="fa fa-print"></i> ',
 			  titleAttr: 'Imprimir',
-			  className: 'btn btn-info'
+			  className: 'btn btn-primary'
 		  },
 	  ]	        
 		 });
@@ -294,7 +294,7 @@ language: {
 			  extend:    'excelHtml5',
 			  text:      '<i class="fa fa-file-excel-o"></i> ',
 			  titleAttr: 'Exportar a Excel',
-			  className: 'btn btn-success'
+			  className: 'btn btn-primary'
 		  },
 		  {
 			  extend:    'pdfHtml5',
@@ -304,13 +304,13 @@ language: {
 				exportOptions: {
 				  columns: [ 0,1,2,3]
 					},
-			  className: 'btn btn-danger'
+			  className: 'btn btn-primary'
 		  },
 		  {
 			  extend:    'print',
 			  text:      '<i class="fa fa-print"></i> ',
 			  titleAttr: 'Imprimir',
-			  className: 'btn btn-info'
+			  className: 'btn btn-primary'
 		  },
 	  ]	        
 		 });
@@ -346,20 +346,20 @@ language: {
 			  extend:    'excelHtml5',
 			  text:      '<i class="fa fa-file-excel-o"></i> ',
 			  titleAttr: 'Exportar a Excel',
-			  className: 'btn btn-success'
+			  className: 'btn btn-primary'
 		  },
 		  {
 			  extend:    'pdfHtml5',
 			  text:      '<i class="fa fa-file-pdf-o"></i> ',
 			  titleAttr: 'Exportar a PDF',
 			   message : 'Orden de Pago-SIEX',
-			  className: 'btn btn-danger'
+			  className: 'btn btn-primary'
 		  },
 		  {
 			  extend:    'print',
 			  text:      '<i class="fa fa-print"></i> ',
 			  titleAttr: 'Imprimir',
-			  className: 'btn btn-info'
+			  className: 'btn btn-primary'
 		  },
 	  ]	              
 
@@ -397,20 +397,20 @@ $('#tabla_fuente').DataTable({
 			  extend:    'excelHtml5',
 			  text:      '<i class="fa fa-file-excel-o"></i> ',
 			  titleAttr: 'Exportar a Excel',
-			  className: 'btn btn-success'
+			  className: 'btn btn-primary'
 		  },
 		  {
 			  extend:    'pdfHtml5',
 			  text:      '<i class="fa fa-file-pdf-o"></i> ',
 			  titleAttr: 'Exportar a PDF',
 			   message : 'Fuentes-SIEX',
-			  className: 'btn btn-danger'
+			  className: 'btn btn-primary'
 		  },
 		  {
 			  extend:    'print',
 			  text:      '<i class="fa fa-print"></i> ',
 			  titleAttr: 'Imprimir',
-			  className: 'btn btn-info'
+			  className: 'btn btn-primary'
 		  },
 	  ]	        
 
@@ -448,20 +448,20 @@ $('#tabla_Pagos').DataTable({
 			  extend:    'excelHtml5',
 			  text:      '<i class="fa fa-file-excel-o"></i> ',
 			  titleAttr: 'Exportar a Excel',
-			  className: 'btn btn-success'
+			  className: 'btn btn-primary'
 		  },
 		  {
 			  extend:    'pdfHtml5',
 			  text:      '<i class="fa fa-file-pdf-o"></i> ',
 			  titleAttr: 'Exportar a PDF',
 			   message : 'Pagos-SIEX',
-			  className: 'btn btn-danger'
+			  className: 'btn btn-primary'
 		  },
 		  {
 			  extend:    'print',
 			  text:      '<i class="fa fa-print"></i> ',
 			  titleAttr: 'Imprimir',
-			  className: 'btn btn-info'
+			  className: 'btn btn-primary'
 		  },
 	  ]	        
 
@@ -499,7 +499,7 @@ $("#tabla_Rubros").DataTable({
 			  extend:    'excelHtml5',
 			  text:      '<i class="fa fa-file-excel-o"></i> ',
 			  titleAttr: 'Exportar a Excel',
-			  className: 'btn btn-success',
+			  className: 'btn btn-primary',
 			  customize: function( xlsx ) {
 			  var sheet = xlsx.xl.worksheets['sheet1.xml'];
 			  $('row:first c', sheet).attr( 's', '42' );
@@ -513,14 +513,14 @@ $("#tabla_Rubros").DataTable({
 			  exportOptions: {
 				  columns: [ 0,1,2,3]
 					},
-			  className: 'btn btn-danger'
+			  className: 'btn btn-primary'
 			  
 		  },
 		  {
 			  extend:    'print',
 			  text:      '<i class="fa fa-print"></i> ',
 			  titleAttr: 'Imprimir',
-			  className: 'btn btn-info',
+			  className: 'btn btn-primary',
 	   
 
 		  },
