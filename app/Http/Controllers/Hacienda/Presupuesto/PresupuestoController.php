@@ -33,11 +33,12 @@ class PresupuestoController extends Controller
 
     public function index(){
         $añoActual = Carbon::now()->year;
+        $mesActual = Carbon::now()->month;
         $vigens = Vigencia::where('vigencia', $añoActual)->where('tipo', 0)->where('estado', '0')->get();
 
         if ($vigens->count() == 0){
             $V = "Vacio";
-            return view('hacienda.presupuesto.index', compact('V', 'añoActual'));
+            return view('hacienda.presupuesto.index', compact('V', 'añoActual','mesActual'));
         } else {
             $V = $vigens[0]->id;
             $vigencia_id = $V;
@@ -872,20 +873,21 @@ class PresupuestoController extends Controller
 
 
         if (isset($cdps)){
-            return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP','pagos','valP','valCP','valR','codeCon','añoActual','valoresFinAdd','valoresFinRed','valoresFinCred','valoresFinCCred','valoresFinCdp','valoresFinReg','valorFcdp','valoresFinOp','valoresFinP','valoresFinC','valoresFinRes'));
+            return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP','pagos','valP','valCP','valR','codeCon','añoActual','valoresFinAdd','valoresFinRed','valoresFinCred','valoresFinCCred','valoresFinCdp','valoresFinReg','valorFcdp','valoresFinOp','valoresFinP','valoresFinC','valoresFinRes','mesActual'));
         } else{
-            return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP','pagos','valP','valCP','valR','codeCon','añoActual','valoresFinAdd','valoresFinRed','valoresFinCred','valoresFinCCred','valoresFinCdp','valoresFinReg','valorFcdp','valoresFinOp','valoresFinP','valoresFinC','valoresFinRes'));
+            return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP','pagos','valP','valCP','valR','codeCon','añoActual','valoresFinAdd','valoresFinRed','valoresFinCred','valoresFinCCred','valoresFinCdp','valoresFinReg','valorFcdp','valoresFinOp','valoresFinP','valoresFinC','valoresFinRes','mesActual'));
         }
     }
 
 
     public function ingresos(){
         $añoActual = Carbon::now()->year;
+        $mesActual = Carbon::now()->month;
         $vigens = Vigencia::where('vigencia', $añoActual)->where('tipo', 1)->where('estado', '0')->get();
 
         if ($vigens->count() == 0){
             $V = "Vacio";
-            return view('hacienda.presupuesto.indexIngresos', compact('V', 'añoActual'));
+            return view('hacienda.presupuesto.indexIngresos', compact('V', 'añoActual', 'mesActual'));
         } else {
             $V = $vigens[0]->id;
             $vigencia_id = $V;
@@ -1387,25 +1389,8 @@ class PresupuestoController extends Controller
 
         $codeCon = CodeContractuales::all();
 
-        //CDP's
 
-        $cdpsAll= Cdp::all();
-        foreach ($cdpsAll as $cdp){
-            if ($cdp->rubrosCdp->first()->rubros->vigencia_id == $vigencia_id){
-                $cdps[] = collect(['id' => $cdp->id,'name' => $cdp->name, 'valor' => $cdp->valor, 'secretaria_e' => $cdp->secretaria_e, 'jefe_e' => $cdp->jefe_e]);
-            }
-        }
-
-        //REGISTROS
-        $registros = Registro::all();
-
-        //dd($registros);
-
-        if (isset($cdps)){
-            return view('hacienda.presupuesto.indexIngresos', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP','pagos','valP','valCP','valR','codeCon','añoActual'));
-        } else{
-            return view('hacienda.presupuesto.indexIngresos', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP','pagos','valP','valCP','valR','codeCon','añoActual'));
-        }
+        return view('hacienda.presupuesto.indexIngresos', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales', 'Rubros','valoresCdp','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP','pagos','valP','valCP','valR','codeCon','añoActual','mesActual'));
     }
 
     public function create()
