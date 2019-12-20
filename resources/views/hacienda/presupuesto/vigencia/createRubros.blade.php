@@ -6,7 +6,11 @@
 	@if($vigencia->tipo == 0)
     <li> <a href="{{ url('/presupuesto') }}" class="btn btn-success"><i class="fa fa-money"></i><span class="hide-menu">&nbsp; Presupuesto</span></a></li>
 	@elseif($vigencia->tipo == 1)
-		<li> <a href="{{ url('/presupuestoIng') }}" class="btn btn-success"><i class="fa fa-money"></i><span class="hide-menu">&nbsp; Presupuesto</span></a></li>
+		@if($vigencia->vigencia == Carbon\Carbon::now()->year)
+			<li> <a href="{{ url('/presupuestoIng') }}" class="btn btn-success"><i class="fa fa-money"></i><span class="hide-menu">&nbsp; Presupuesto</span></a></li>
+		@else
+			<li> <a href="{{ url('/newPre/'.$vigencia->tipo.'/'.$vigencia->vigencia) }}" class="btn btn-success"><i class="fa fa-money"></i><span class="hide-menu">&nbsp; Presupuesto</span></a></li>
+		@endif
 	@endif
     <li class="dropdown">
         <a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown" href="#">
@@ -16,7 +20,7 @@
         </a>
         <ul class="dropdown-menu dropdown-user">
             @foreach($niveles as $level)
-                <li><a href="/presupuesto/registro/create/{{ $level->vigencia_id }}/{{ $level->level }}" class="btn btn-primary">Nivel {{ $level->level }}</a></li>
+                <li><a href="/presupuesto/registro/create/{{ $level->vigencia_id }}" class="btn btn-primary">Nivel {{ $level->level }}</a></li>
             @endforeach
             <li><a href="/presupuesto/font/create/{{ $vigencia_id }}" class="btn btn-primary">Fuentes</a></li>
             <li><a href="/presupuesto/rubro/create/{{ $vigencia_id }}" class="btn btn-primary">Rubros</a></li>
@@ -28,7 +32,7 @@
     <div class="col-md-12 align-self-center" id="crud">
         <div class="row justify-content-center">
             <br>
-            <h2><center>Creación de Rubros para la Vigencia {{ $vigencia->vigencia }}</center></h2><br>
+            <h2><center>Creación de Rubros para la Vigencia {{ $vigencia->vigencia }}, {{ Carbon\Carbon::now()->year }}</center></h2><br>
             <hr>
         		<form action="{{ url('/presupuesto/rubro') }}" method="POST"  class="form">
                     {{ csrf_field() }}

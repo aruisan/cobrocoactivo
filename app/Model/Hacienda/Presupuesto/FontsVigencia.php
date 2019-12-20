@@ -12,7 +12,7 @@ class FontsVigencia extends Model implements Auditable
     protected $table = 'fonts_vigencia';
 
     public function fontsRubro(){
-        return $this->hasMany('App\Model\Hacienda\Presupuesto\FontsRubro','font_id');
+        return $this->hasMany('App\Model\Hacienda\Presupuesto\FontsRubro','font_vigencia_id');
     }
 
     public function font(){

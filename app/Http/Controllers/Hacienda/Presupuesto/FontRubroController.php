@@ -31,7 +31,7 @@ class FontRubroController extends Controller
                 $fontRubro->valor = $valor[$i];
                 $fontRubro->valor_disp = $valor[$i];
                 $fontRubro->rubro_id = $rubro;
-                $fontRubro->font_id = $font[$i];
+                $fontRubro->font_vigencia_id = $font[$i];
                 $fontRubro->save();
             }
         }
@@ -44,7 +44,7 @@ class FontRubroController extends Controller
     	$fontRubro = FontsRubro::findOrFail($id);
         $fontRubro->valor = $valor;
         $fontRubro->valor_disp = $valor;
-        $fontRubro->font_id = $font;
+        $fontRubro->font_vigencia_id = $font;
         $fontRubro->save();
     }
 
@@ -54,6 +54,7 @@ class FontRubroController extends Controller
     public function show($id)
     {
         $rubro = Rubro::find($id);
+        //dd($rubro->vigencia->fonts[0]->fontsRubro);
         return view('hacienda.presupuesto.vigencia.createFontsRubro', compact('rubro'));
     }
 

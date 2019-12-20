@@ -297,6 +297,10 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
             Route::get('presupuestoIng','Hacienda\Presupuesto\PresupuestoController@ingresos');
 
+            ///// RUTAS DEL PRESUPUESTO DEL SIGUIENTE AÑO
+
+                Route::get('newPre/{type}/{year}','Hacienda\Presupuesto\PresupuestoController@newPre');
+
 
     ////// RUTAS PLAN DE DESARROLLO
 	Route::resource('pdd','Planeacion\Pdd\PdesarrolloController');
