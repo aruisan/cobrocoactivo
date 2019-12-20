@@ -7,10 +7,6 @@
         <li> <a href="{{ url('/presupuesto/level/create/'.$V) }}" class="btn btn-success"><i class="fa fa-edit"></i><span class="hide-menu">&nbsp;Editar Presupuesto</span></a></li>
     @endif
     <li> <a href="#" class="btn btn-primary hidden"><i class="fa fa-edit"></i><span class="hide-menu">&nbsp; Cambiar Vigencia</span></a></li>
-    <li>
-        <a href="{{ url('/presupuesto') }}" class="btn btn-success">
-            <span class="hide-menu"> Presupuesto de Egresos</span></a>
-    </li>
     @if($V != "Vacio")
         <li class="dropdown">
             <a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown">
@@ -41,13 +37,11 @@
         </li>
     @endif
     @if($V == "Vacio")
-        @if($V == "Vacio")
-            <li>
-                <a href="{{ url('/presupuesto/vigencia/create/1') }}" class="btn btn-primary">
-                    <i class="fa fa-plus"></i>
-                    <span class="hide-menu"> Nuevo Presupuesto de Ingresos</span></a>
-            </li>
-        @endif
+        <li>
+            <a href="{{ url('/presupuesto/vigencia/create/1') }}" class="btn btn-primary">
+                <i class="fa fa-plus"></i>
+                <span class="hide-menu"> Nuevo Presupuesto de Ingresos</span></a>
+        </li>
     @endif
 @stop
 @section('content')
@@ -66,14 +60,13 @@
             <div class="breadcrumb col-md-8 text-center">
                 <strong>
                     <h4><b>Presupuesto de Ingresos {{ $añoActual }}</b></h4>
-
                 </strong>
             </div>
             <div class="breadcrumb col-md-2 text-center">
                 <strong>
                     @if($mesActual == 12)
                         <h4>
-                            <a href="{{ url('/newPre/1',$añoActual+1) }}" class="btn btn-success"><span class="hide-menu"> Presupuesto de Ingresos {{ $añoActual + 1 }}</span></a>
+                            <a href="{{ url('/newPreIng/1',$añoActual+1) }}" class="btn btn-success"><span class="hide-menu"> Presupuesto de Ingresos {{ $añoActual + 1 }}</span></a>
                         </h4>
                     @else
                         <h4><b>&nbsp;</b></h4>
@@ -91,7 +84,7 @@
                     <a class="nav-link" data-toggle="pill" href="@can('rubros-list') #tabRubros @endcan">Rubros</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="@can('pac-list') #tabPAC @endcan">PAC</a>
+                    <a class="nav-link hidden" data-toggle="pill" href="@can('pac-list') #tabPAC @endcan">PAC</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="pill" href="@can('adiciones-list') #tabAddIng @endcan">Adiciones</a>

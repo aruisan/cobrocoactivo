@@ -1,7 +1,7 @@
 
 <div id="observacionCDP" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
-      <form class="form" action="{{url('/administrativo/cdp/r/'.$cdp->id)}}" method="POST">
+      <form class="form" action="{{url('/administrativo/cdp/r/'.$cdp->id.'/'.$cdp->vigencia_id)}}" method="POST">
           {!! method_field('PUT') !!}
           {{ csrf_field() }}
           <div class="modal-content">

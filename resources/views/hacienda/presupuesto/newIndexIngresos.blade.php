@@ -40,15 +40,6 @@
             </ul>
         </li>
     @endif
-    @if($V == "Vacio")
-        @if($V == "Vacio")
-            <li>
-                <a href="{{ url('/presupuesto/vigencia/create/1') }}" class="btn btn-primary">
-                    <i class="fa fa-plus"></i>
-                    <span class="hide-menu"> Nuevo Presupuesto de Ingresos</span></a>
-            </li>
-        @endif
-    @endif
 @stop
 @section('content')
     @if($V != "Vacio")
@@ -58,9 +49,7 @@
         @if($V != "Vacio")
             <div class="breadcrumb col-md-2 text-center">
                 <strong>
-                    <h4>
-                        <a href="{{ url('/presupuesto') }}" class="btn btn-success"><span class="hide-menu"> Presupuesto de Egresos</span></a>
-                    </h4>
+                    <h4><b>&nbsp;</b></h4>
                 </strong>
             </div>
             <div class="breadcrumb col-md-8 text-center">
@@ -71,13 +60,9 @@
             </div>
             <div class="breadcrumb col-md-2 text-center">
                 <strong>
-                    @if($mesActual == 12)
-                        <h4>
-                            <a href="{{ url('/newPre/1',$añoActual+1) }}" class="btn btn-success"><span class="hide-menu"> Presupuesto de Ingresos {{ $añoActual + 1 }}</span></a>
-                        </h4>
-                    @else
-                        <h4><b>&nbsp;</b></h4>
-                    @endif
+                    <h4>
+                        <a href="{{ url('/presupuestoIng') }}" class="btn btn-success"><span class="hide-menu"> Presupuesto de Ingresos {{ $añoActual - 1 }}</span></a>
+                    </h4>
                 </strong>
             </div>
             <ul class="nav nav-pills">

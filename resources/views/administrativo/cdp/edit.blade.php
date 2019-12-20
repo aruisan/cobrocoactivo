@@ -4,7 +4,7 @@
 @stop
 @section('sidebar')
     <li>
-        <a href="{{ url('/administrativo/cdp') }}" class="btn btn-success">
+        <a href="{{ url('/administrativo/cdp/'.$vigen) }}" class="btn btn-success">
             <span class="hide-menu">CDP's</span></a>
     </li>
     <li>
@@ -23,7 +23,7 @@
             <center><h2>Información del CDP: {{ $idcdp->name }}</h2></center>
             <br>
             <div class="form-validation">
-                <form class="form" action="{{url('/administrativo/cdp/'.$idcdp->id)}}" method="POST">
+                <form class="form" action="{{url('/administrativo/cdp/'.$idcdp->id.'/'.$vigen)}}" method="POST">
                     <hr>
                     {!! method_field('PUT') !!}
                     {{ csrf_field() }}

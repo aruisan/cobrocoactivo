@@ -546,12 +546,7 @@ class VisitanteController extends Controller
 
         //CDP's
 
-        $cdpsAll= Cdp::all();
-        foreach ($cdpsAll as $cdp){
-            if ($cdp->rubrosCdp->first()->rubros->vigencia_id == $vigencia_id){
-                $cdps[] = collect(['id' => $cdp->id,'name' => $cdp->name, 'valor' => $cdp->valor, 'secretaria_e' => $cdp->secretaria_e, 'jefe_e' => $cdp->jefe_e]);
-            }
-        }
+        $cdps= Cdp::where('vigencia_id', $V)->get();
 
         //REGISTROS
         $registros = Registro::all();
@@ -584,12 +579,7 @@ class VisitanteController extends Controller
 
         $PlanA = Documents::where('type','=','Plan de adquisiones')->get();
 
-        if (isset($cdps)){
-            return view('visitante.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','valoresCred', 'valoresCcred','valoresCyC','Concejales','Acuerdos','Actas','Resoluciones','PlanA','ManualC','Boletines','valoresRubro'));
-
-        } else {
-            return view('visitante.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','valoresCred', 'valoresCcred','valoresCyC','Concejales','Acuerdos','Actas','Resoluciones','PlanA','ManualC','Boletines','valoresRubro'));
-        }
+        return view('visitante.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','valoresCred', 'valoresCcred','valoresCyC','Concejales','Acuerdos','Actas','Resoluciones','PlanA','ManualC','Boletines','valoresRubro'));
 
     }
 

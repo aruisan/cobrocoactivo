@@ -136,12 +136,18 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
         //CDP's
 
-        Route::resource('cdp', 'Administrativo\Cdp\CdpController');
+        Route::get('cdp/{id}', 'Administrativo\Cdp\CdpController@index');
+        Route::put('cdp/{id}/{vigen}', 'Administrativo\Cdp\CdpController@update');
+        Route::get('cdp/create/{id}', 'Administrativo\Cdp\CdpController@create');
+        Route::post('cdp/', 'Administrativo\Cdp\CdpController@store');
+        Route::get('cdp/{vigen}/{id}', 'Administrativo\Cdp\CdpController@show');
+        Route::get('cdp/{vigen}/{id}/edit', 'Administrativo\Cdp\CdpController@edit');
+        Route::delete('cdp/{vigen}/{id}/delete', 'Administrativo\Cdp\CdpController@destroy');
         Route::Resource('rubrosCdp','Administrativo\Cdp\RubrosCdpController');
         Route::Resource('rubrosCdp/valor','Administrativo\Cdp\RubrosCdpValorController');
         Route::get('cdp/{id}/{rol}/{fecha}/{valor}/{estado}', 'Administrativo\Cdp\CdpController@updateEstado');
-        Route::put('cdp/r/{id}', 'Administrativo\Cdp\CdpController@rechazar');
-        Route::post('cdp/{id}/anular', 'Administrativo\Cdp\CdpController@anular');
+        Route::put('cdp/r/{id}/{vigen}', 'Administrativo\Cdp\CdpController@rechazar');
+        Route::post('cdp/{id}/anular/{vigen}', 'Administrativo\Cdp\CdpController@anular');
         //pdf cdp
 		Route::get('/cdp/pdf/{id}', 'Administrativo\Cdp\CdpController@pdf')->name('cpd-pdf');
 
@@ -290,7 +296,9 @@ Route::group([ 'middleware' => 'auth'] ,function(){
                 Route::get('presupuesto/informes/contractual/asignar','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@rubros');
                 Route::put('presupuesto/informes/contractual/asignar/store', 'Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@rubroStore');
 
+                // RUTAS DEL PRESUPUESTO DEL SIGUIENTE AÑO
 
+                Route::get('newPre/{type}/{year}','Hacienda\Presupuesto\PresupuestoController@newPre');
 
     ////// RUTAS PRESUPUESTO INGRESOS
 
@@ -299,7 +307,8 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
             ///// RUTAS DEL PRESUPUESTO DEL SIGUIENTE AÑO
 
-                Route::get('newPre/{type}/{year}','Hacienda\Presupuesto\PresupuestoController@newPre');
+                Route::get('newPreIng/{type}/{year}','Hacienda\Presupuesto\PresupuestoController@newPreIng');
+
 
 
     ////// RUTAS PLAN DE DESARROLLO

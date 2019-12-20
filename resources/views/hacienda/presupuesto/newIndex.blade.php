@@ -66,7 +66,7 @@
                 <strong>
                     @if($mesActual == 12)
                         <h4>
-                            <a href="{{ url('/newPre/0',$añoActual+1) }}" class="btn btn-success"><span class="hide-menu"> Presupuesto de Egresos {{ $añoActual + 1 }}</span></a>
+                            <a href="{{ url('/presupuesto') }}" class="btn btn-success"><span class="hide-menu"> Presupuesto de Egresos {{ $añoActual - 1 }}</span></a>
                         </h4>
                     @else
                         <h4><b>&nbsp;</b></h4>
@@ -550,8 +550,16 @@
                 </div>
 
                 <!-- TABLAS DE ADICIONES -->
+
+                <div id="tabAddIng" class=" tab-pane fade"><br>
+                    <h2 class="text-center ">Adiciones de Ingresos</h2>
+                </div>
+
+
                 <br>
                 <div id="tabAddEgr" class=" tab-pane fade"><br>
+                    <h2 class="text-center tituloIngresos">Adiciones de Egresos</h2>
+                    <br>
                     <div class="table-responsive">
                         <table class="table table-bordered" id="tabla_AddE">
                             <thead>
@@ -583,8 +591,13 @@
                 </div>
 
                 <!-- TABLAS DE REDUCCIONES -->
-                
+
+                <div id="tabRedIng" class=" tab-pane fade"><br>
+                    <h2 class="text-center">Reducciones de Ingresos</h2>
+                </div>
                 <div id="tabRedEgr" class=" tab-pane fade "><br>
+                    <h2 class="text-center tituloEgresos">Reducciones de Egresos</h2>
+                    <br>
                     <div class="table-responsive">
                         <table class="table table-bordered" id="tabla_RedE">
                             <thead>

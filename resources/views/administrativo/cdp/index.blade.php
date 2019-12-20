@@ -5,7 +5,7 @@
 @section('sidebar')
     @if( $rol == 2)
         <li>
-            <a href="{{ url('/administrativo/cdp/create') }}" class="btn btn-success">
+            <a href="{{ url('/administrativo/cdp/create/'.$vigencia_id) }}" class="btn btn-success">
                 <i class="fa fa-plus"></i>
                 <span class="hide-menu"> Crear CDP</span></a>
         </li>
@@ -33,10 +33,9 @@
             <a class="nav-link" data-toggle="pill" href="#tabHistorico">HISTORICO</a>
         </li>
     </ul>
-    <br>
     <div class="tab-content" style="background-color: white">
-        <div id="tabTareas" class="tab-pane active"><br>
-            <br>
+        <br>
+        <div id="tabTareas" class="tab-pane active">
             <div class="table-responsive">
                 @if(count($cdpTarea) > 0)
                     <table class="table table-bordered" id="tabla_CDP">
@@ -92,17 +91,17 @@
                                 <td class="text-center">$<?php echo number_format($cdp->rubrosCdpValor->sum('valor_disp'),0) ?></td>
                                 @if($rol == 2)
                                 <td class="text-center">
-                                    <a href="{{ url('administrativo/cdp/'.$cdp->id) }}" title="Ingresar Dinero al CDP" class="btn-sm btn-primary"><i class="fa fa-usd"></i></a>
+                                    <a href="{{ url('administrativo/cdp/'.$vigencia_id.'/'.$cdp->id) }}" title="Ingresar Dinero al CDP" class="btn-sm btn-primary"><i class="fa fa-usd"></i></a>
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ url('administrativo/cdp/'.$cdp->id.'/edit') }}" title="Editar CDP" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                                    <a href="{{ url('administrativo/cdp/'.$vigencia_id.'/'.$cdp->id.'/edit') }}" title="Editar CDP" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                 </td>
                                 @elseif($rol == 3)
                                     <td class="text-center">
                                         <input type="checkbox" class="form-group">
                                     </td>
                                     <td class="text-center">
-                                        <a href="{{ url('administrativo/cdp/'.$cdp->id) }}" title="Ver CDP" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                        <a href="{{ url('administrativo/cdp/'.$vigencia_id.'/'.$cdp->id) }}" title="Ver CDP" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                     </td>
                                 @endif
                             </tr>
@@ -120,8 +119,6 @@
             </div>
         </div>
         <div id="tabHistorico" class="tab-pane fade">
-            <br>
-            <br>
             <div class="table-responsive">
                 @if(count($cdps) > 0)
                     <table class="table table-bordered" id="tabla_Historico">
@@ -157,7 +154,7 @@
                                 </td>
                                 <td class="text-center">$<?php echo number_format($cdp->valor,0) ?></td>
                                 <td class="text-center">
-                                    <a href="{{ url('administrativo/cdp/'.$cdp->id) }}" title="Ver CDP" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                    <a href="{{ url('administrativo/cdp/'.$vigencia_id.'/'.$cdp->id) }}" title="Ver CDP" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                 </td>
                                 <td class="text-center">
                                     <a href="{{ route('cpd-pdf', $cdp->id) }}" title="File" class="btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i></a>

@@ -3,7 +3,7 @@
     Información del CDP
 @stop
 @section('sidebar')
-    <li> <a href="{{ url('/administrativo/cdp') }}" class="btn btn-success"><span class="hide-menu">&nbsp; CDP's</span></a></li>
+    <li> <a href="{{ url('/administrativo/cdp/'.$cdp->vigencia_id) }}" class="btn btn-success"><span class="hide-menu">&nbsp; CDP's</span></a></li>
     <br>
     <div class="card">
         <br>
@@ -125,11 +125,13 @@
             <div class="col-md-12 align-self-center">
                 <div class="alert alert-danger text-center">
                     El CDP no tiene rubros asigandos. Desea borrar el CDP? &nbsp;
-                    {!! Form::open(['method' => 'DELETE','route' => ['cdp.destroy', $cdp->id],'style'=>'display:inline']) !!}
-                    <button type="submit" class="btn btn-sm btn-danger">
-                        Borrar CDP
-                    </button>
-                    {!! Form::close() !!}
+                    <form action="{{ url('/administrativo/cdp/'.$cdp->vigencia_id.'/'.$cdp->id.'/delete') }}" method="post" class="form">
+                        {!! method_field('DELETE') !!}
+                        {{ csrf_field() }}
+                        <button type="submit" class="btn btn-sm btn-danger">
+                            Borrar CDP
+                        </button>
+                    </form>
                 </div>
             </div>
         @else
@@ -153,12 +155,12 @@
                                 <td class="text-center">
                                     <input type="hidden" name="cdp_id" value="{{ $cdp->id }}">
                                     <select name="rubro_id[]" class="form-group-lg" required>
-                                        @foreach($rubros as $rubro)
-                                            <option value="{{ $rubro['id'] }}">{{ $rubro['name'] }}</option>
+                                        @foreach($infoRubro as $rubro)
+                                            <option value="{{ $rubro['id_rubro'] }}">{{ $rubro['codigo'] }} - {{ $rubro['name'] }}</option>
                                         @endforeach
                                     </select>
                                 </td>
-                                <td class="text-center"><button type="button" class="btn-sm btn-danger borrar">&nbsp;-&nbsp; </button></td>
+                                <td class="text-center"></td>
                             </tr>
                         @endif
                     @endif
@@ -348,7 +350,7 @@
         @if($cdp->jefe_e == "3" and $cdp->secretaria_e == "3")
             <div class="row">
                 <div class="form-group text-center">
-                    <form action="{{url('/administrativo/cdp/'.$cdp->id.'/anular')}}" method="POST">
+                    <form action="{{url('/administrativo/cdp/'.$cdp->id.'/anular/'.$cdp->vigencia_id)}}" method="POST">
                         {{method_field('POST')}}
                         {{ csrf_field() }}
                         <button class="btn btn-danger btn-lg" type="submit" title="Al anular el CDP se retorna el dinero al rubro">Anular CDP</button>
@@ -427,8 +429,8 @@
                             '                                <td class="text-center">\n' +
                             '                                    <input type="hidden" name="cdp_id" value="{{ $cdp->id }}">\n' +
                             '                                    <select name="rubro_id[]" class="form-group-lg" required>\n' +
-                            '                                        @foreach($rubros as $rubro)\n' +
-                            '                                            <option value="{{ $rubro['id'] }}">{{ $rubro['name'] }}</option>\n' +
+                            '                                        @foreach($infoRubro as $rubro)\n' +
+                            '                                            <option value="{{ $rubro['id_rubro'] }}">{{ $rubro['codigo'] }} - {{ $rubro['name'] }}</option>\n' +
                             '                                        @endforeach\n' +
                             '                                    </select>\n' +
                             '                                </td>\n' +
