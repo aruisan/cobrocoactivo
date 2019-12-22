@@ -137,8 +137,9 @@ class CdpsRegistroController extends Controller
 
     public function destroy($id)
     {
-        $cdpsRegistro = CdpsRegistro::find($id);
-        Session::flash('error','CDP eliminado correctamente del registro');
+        $cdpsRegistro = CdpsRegistro::findOrFail($id);
         $cdpsRegistro->delete();
+
+        Session::flash('error','CDP eliminado correctamente del registro');
     }
 }

@@ -50,8 +50,31 @@ class PresupuestoController extends Controller
             $rubros = Rubro::where('vigencia_id', $vigencia_id)->get();
             $fontsRubros = FontsRubro::orderBy('font_vigencia_id')->get();
             $allRegisters = Register::orderByDesc('level_id')->get();
-            $pagos = Pagos::all();
-            $ordenPagos = OrdenPagos::all();
+            $ordenP = OrdenPagos::all();
+            foreach ($ordenP as $ord){
+                if ($ord->registros->cdpsRegistro[0]->cdp->vigencia_id == $V){
+                    $ordenPagos[] = collect(['id' => $ord->id, 'nombre' => $ord->nombre, 'persona' => $ord->registros->persona->nombre, 'valor' => $ord->valor, 'estado' => $ord->estado]);
+                }
+            }
+            if (!isset($ordenPagos)){
+                $ordenPagos[] = null;
+                unset($ordenPagos[0]);
+            } else {
+                foreach ($ordenPagos as $data){
+                    $pagoFind = Pagos::where('orden_pago_id',$data['id'])->get();
+                    if ($pagoFind->count() == 1){
+                        $pagos[] = collect(['id' => $pagoFind[0]->id, 'nombre' => $data['nombre'], 'persona' => $pagoFind[0]->orden_pago->registros->persona->nombre, 'valor' => $pagoFind[0]->valor, 'estado' => $pagoFind[0]->estado]);
+                    } elseif($pagoFind->count() > 1){
+                        foreach ($pagoFind as $info){
+                            $pagos[] = collect(['id' => $info->id, 'nombre' => $data['nombre'], 'persona' => $info->orden_pago->registros->persona->nombre, 'valor' => $info->valor, 'estado' => $info->estado]);
+                        }
+                    }
+                }
+            }
+            if (!isset($pagos)){
+                $pagos[] = null;
+                unset($pagos[0]);
+            }
 
             global $lastLevel;
             $lastLevel = $ultimoLevel->id;
@@ -864,7 +887,20 @@ class PresupuestoController extends Controller
         $cdps= Cdp::where('vigencia_id', $V)->get();
 
         //REGISTROS
-        $registros = Registro::all();
+        $allReg = Registro::all();
+        foreach ($allReg as $reg){
+            if ($reg->cdpsRegistro[0]->cdp->vigencia_id == $V){
+                $registros[] = collect(['id' => $reg->id, 'objeto' => $reg->objeto, 'nombre' => $reg->persona->nombre, 'valor' => $reg->valor, 'estado' => $reg->secretaria_e]);
+            }
+        }
+        if (!isset($registros)){
+            $registros[] = null;
+            unset($registros[0]);
+        }
+        if (!isset($cdps)){
+            $cdps[] = null;
+            unset($cdps[0]);
+        }
 
         return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP','pagos','valP','valCP','valR','codeCon','añoActual','valoresFinAdd','valoresFinRed','valoresFinCred','valoresFinCCred','valoresFinCdp','valoresFinReg','valorFcdp','valoresFinOp','valoresFinP','valoresFinC','valoresFinRes','mesActual'));
     }
@@ -1915,8 +1951,31 @@ class PresupuestoController extends Controller
             $rubros = Rubro::where('vigencia_id', $vigencia_id)->get();
             $fontsRubros = FontsRubro::orderBy('font_vigencia_id')->get();
             $allRegisters = Register::orderByDesc('level_id')->get();
-            $pagos = Pagos::all();
-            $ordenPagos = OrdenPagos::all();
+            $ordenP = OrdenPagos::all();
+            foreach ($ordenP as $ord){
+                if ($ord->registros->cdpsRegistro[0]->cdp->vigencia_id == $V){
+                    $ordenPagos[] = collect(['id' => $ord->id, 'nombre' => $ord->nombre, 'persona' => $ord->registros->persona->nombre, 'valor' => $ord->valor, 'estado' => $ord->estado]);
+                }
+            }
+            if (!isset($ordenPagos)){
+                $ordenPagos[] = null;
+                unset($ordenPagos[0]);
+            } else {
+                foreach ($ordenPagos as $data){
+                    $pagoFind = Pagos::where('orden_pago_id',$data['id'])->get();
+                    if ($pagoFind->count() == 1){
+                        $pagos[] = collect(['id' => $pagoFind[0]->id, 'nombre' => $data['nombre'], 'persona' => $pagoFind[0]->orden_pago->registros->persona->nombre, 'valor' => $pagoFind[0]->valor, 'estado' => $pagoFind[0]->estado]);
+                    } elseif($pagoFind->count() > 1){
+                        foreach ($pagoFind as $info){
+                            $pagos[] = collect(['id' => $info->id, 'nombre' => $data['nombre'], 'persona' => $info->orden_pago->registros->persona->nombre, 'valor' => $info->valor, 'estado' => $info->estado]);
+                        }
+                    }
+                }
+            }
+            if (!isset($pagos)){
+                $pagos[] = null;
+                unset($pagos[0]);
+            }
 
             global $lastLevel;
             $lastLevel = $ultimoLevel->id;
@@ -2729,7 +2788,20 @@ class PresupuestoController extends Controller
         $cdps= Cdp::where('vigencia_id', $V)->get();
 
         //REGISTROS
-        $registros = Registro::all();
+        $allReg = Registro::all();
+        foreach ($allReg as $reg){
+            if ($reg->cdpsRegistro[0]->cdp->vigencia_id == $V){
+                $registros[] = collect(['id' => $reg->id, 'objeto' => $reg->objeto, 'nombre' => $reg->persona->nombre, 'valor' => $reg->valor, 'estado' => $reg->secretaria_e]);
+            }
+        }
+        if (!isset($registros)){
+            $registros[] = null;
+            unset($registros[0]);
+        }
+        if (!isset($cdps)){
+            $cdps[] = null;
+            unset($cdps[0]);
+        }
 
         return view('hacienda.presupuesto.newIndex', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP','pagos','valP','valCP','valR','codeCon','añoActual','valoresFinAdd','valoresFinRed','valoresFinCred','valoresFinCCred','valoresFinCdp','valoresFinReg','valorFcdp','valoresFinOp','valoresFinP','valoresFinC','valoresFinRes','mesActual'));
     }

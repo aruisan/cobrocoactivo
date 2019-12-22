@@ -124,14 +124,18 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 	Route::group(['prefix' => 'administrativo'] ,function () 
 	{
 	    //Registros
-	    Route::resource('registros', 'Administrativo\Registro\RegistrosController');
+
+        Route::get('registros/{id}', 'Administrativo\Registro\RegistrosController@index');
+        Route::get('registros/create/{id}', 'Administrativo\Registro\RegistrosController@create');
+        Route::get('registros/show/{id}', 'Administrativo\Registro\RegistrosController@show');
+        Route::resource('registros', 'Administrativo\Registro\RegistrosController');
         Route::resource('cdpsRegistro','Administrativo\Registro\CdpsRegistroController');
         Route::resource('cdpsRegistro/valor','Administrativo\Registro\CdpsRegistroValorController');
         Route::get('registros/{id}/{fecha}/{valor}/{estado}/{valTot}', 'Administrativo\Registro\RegistrosController@updateEstado');
         //Route::put('registros/r/{id}/{rol}/{estado}', 'Administrativo\Registro\RegistrosController@rechazar');
 
             //pdf registros
-		Route::get('/registro/pdf/{id}', 'Administrativo\Registro\RegistrosController@pdf')->name('registro-pdf');
+		Route::get('/registro/pdf/{id}/{vigen}', 'Administrativo\Registro\RegistrosController@pdf')->name('registro-pdf');
 
 
         //CDP's
@@ -149,7 +153,7 @@ Route::group([ 'middleware' => 'auth'] ,function(){
         Route::put('cdp/r/{id}/{vigen}', 'Administrativo\Cdp\CdpController@rechazar');
         Route::post('cdp/{id}/anular/{vigen}', 'Administrativo\Cdp\CdpController@anular');
         //pdf cdp
-		Route::get('/cdp/pdf/{id}', 'Administrativo\Cdp\CdpController@pdf')->name('cpd-pdf');
+		Route::get('cdp/pdf/{id}/{vigen}', 'Administrativo\Cdp\CdpController@pdf')->name('cpd-pdf');
 
         Route::resource('marcas-herretes', 'Administrativo\MarcaHerrete\MarcaHerreteController');
         Route::get('persona-find/{identificador}', 'Cobro\PersonasController@personaFind');

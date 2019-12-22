@@ -11,7 +11,7 @@
         </li>
     @endif
     <li>
-        <a href="{{ url('/administrativo/registros') }}" class="btn btn-primary">
+        <a href="{{ url('/administrativo/registros/'.$vigencia_id) }}" class="btn btn-primary">
             <span class="hide-menu">Registros</span></a>
     </li>
     <li>
@@ -128,6 +128,7 @@
                             <th class="text-center">Objeto</th>
                             <th class="text-center">Estado</th>
                             <th class="text-center">Valor</th>
+                            <th class="text-center">Saldo</th>
                             <th class="text-center">Ver</th>
                             <th class="text-center">PDF</th>
                         </tr>
@@ -153,11 +154,12 @@
                                     </span>
                                 </td>
                                 <td class="text-center">$<?php echo number_format($cdp->valor,0) ?></td>
+                                <td class="text-center">$<?php echo number_format($cdp->saldo,0) ?></td>
                                 <td class="text-center">
                                     <a href="{{ url('administrativo/cdp/'.$vigencia_id.'/'.$cdp->id) }}" title="Ver CDP" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ route('cpd-pdf', $cdp->id) }}" title="File" class="btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i></a>
+                                    <a href="{{ url('administrativo/cdp/pdf/'.$cdp['id'].'/'.$vigencia_id) }}" title="File" class="btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i></a>
                                 </td>
                             </tr>
                         @endforeach

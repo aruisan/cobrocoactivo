@@ -549,7 +549,12 @@ class VisitanteController extends Controller
         $cdps= Cdp::where('vigencia_id', $V)->get();
 
         //REGISTROS
-        $registros = Registro::all();
+        $allReg = Registro::all();
+        foreach ($allReg as $reg){
+            if ($reg->cdpsRegistro[0]->cdp->vigencia_id == $V){
+                $registros[] = collect(['id' => $reg->id, 'objeto' => $reg->objeto, 'nombre' => $reg->persona->nombre, 'valor' => $reg->valor, 'estado' => $reg->secretaria_e]);
+            }
+        }
 
         //MODAL DE CONCEJALES
 

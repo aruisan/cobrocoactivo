@@ -466,10 +466,10 @@
                                         </span>
                                         </td>
                                         <td class="text-center">
-                                            <a href="{{ url('administrativo/cdp/'.$cdp['id']) }}" title="Ver" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                            <a href="{{ url('administrativo/cdp/'.$V.'/'.$cdp['id']) }}" title="Ver" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                         </td>
                                         <td class="text-center">
-                                            <a href="{{ route('cpd-pdf', $cdp['id']) }}" target="_blank" title="certificado" class="btn-sm btn-danger"><i class="fa fa-file-pdf-o"></i></a>
+                                            <a href="{{ url('administrativo/cdp/pdf/'.$cdp['id'].'/'.$V) }}" target="_blank" title="certificado" class="btn-sm btn-danger"><i class="fa fa-file-pdf-o"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -493,7 +493,7 @@
                     <div class="table-responsive">
                         @if(count($registros) >= 1)
                             <br>
-                            <a href="{{ url('administrativo/registros') }}" class="btn btn-primary btn-block m-b-12">Registros</a>
+                            <a href="{{ url('administrativo/registros/'.$V) }}" class="btn btn-primary btn-block m-b-12">Registros</a>
                             <br>
                             <table class="table table-bordered" id="tabla_Registros">
                                 <thead>
@@ -510,17 +510,17 @@
                                 <tbody>
                                 @foreach ($registros as $key => $data)
                                     <tr>
-                                        <td class="text-center">{{ $data->id }}</td>
-                                        <td class="text-center">{{ $data->objeto }}</td>
-                                        <td class="text-center">{{ $data->persona->nombre }}</td>
-                                        <td class="text-center">$<?php echo number_format($data->valor,0) ?></td>
+                                        <td class="text-center">{{ $data['id'] }}</td>
+                                        <td class="text-center">{{ $data['objeto'] }}</td>
+                                        <td class="text-center">{{ $data['nombre'] }}</td>
+                                        <td class="text-center">$<?php echo number_format($data['valor'],0) ?></td>
                                         <td class="text-center">
                                     <span class="badge badge-pill badge-danger">
-                                        @if($data->secretaria_e == "0")
+                                        @if($data['estado'] == "0")
                                             Pendiente
-                                        @elseif($data->secretaria_e == "1")
+                                        @elseif($data['estado'] == "1")
                                             Rechazado
-                                        @elseif($data->secretaria_e == "2")
+                                        @elseif($data['estado'] == "2")
                                             Anulado
                                         @else
                                             Aprobado
@@ -528,10 +528,10 @@
                                     </span>
                                         </td>
                                         <td class="text-center">
-                                            <a href="{{ url('administrativo/registros',$data->id) }}" title="Ver Registro" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                            <a href="{{ url('administrativo/registros/show',$data['id']) }}" title="Ver Registro" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                         </td>
                                         <td class="text-center">
-                                            <a href="{{ route('registro-pdf', $data->id) }}" target="_blank" title="certificado-registro" class="btn-sm btn-danger"><i class="fa fa-file-pdf-o"></i></a>
+                                            <a href="{{ url('administrativo/registro/pdf/'.$data['id'].'/'.$V) }}" target="_blank" title="certificado-registro" class="btn-sm btn-danger"><i class="fa fa-file-pdf-o"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -693,15 +693,15 @@
                                 <tbody>
                                 @foreach ($ordenPagos as $key => $data)
                                     <tr>
-                                        <td class="text-center">{{ $data->id }}</td>
-                                        <td class="text-center">{{ $data->nombre }}</td>
-                                        <td class="text-center">$<?php echo number_format($data->valor,0) ?></td>
-                                        <td class="text-center">{{ $data->registros->persona->nombre }}</td>
+                                        <td class="text-center">{{ $data['id'] }}</td>
+                                        <td class="text-center">{{ $data['nombre'] }}</td>
+                                        <td class="text-center">$<?php echo number_format($data['valor'],0) ?></td>
+                                        <td class="text-center">{{ $data['persona'] }}</td>
                                         <td class="text-center">
                                     <span class="badge badge-pill badge-danger">
-                                        @if($data->estado == "0")
+                                        @if($data['estado'] == 0)
                                             Pendiente
-                                        @elseif($data->estado == "1")
+                                        @elseif($data['estado'] == 1)
                                             Pagado
                                         @else
                                             Anulado
@@ -709,7 +709,7 @@
                                     </span>
                                         </td>
                                         <td class="text-center">
-                                            <a href="{{ url('administrativo/ordenPagos',$data->id) }}" title="Ver Orden de Pago" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                            <a href="{{ url('administrativo/ordenPagos',$data['id']) }}" title="Ver Orden de Pago" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -749,15 +749,15 @@
                                 <tbody>
                                 @foreach ($pagos as $key => $data)
                                     <tr>
-                                        <td class="text-center">{{ $data->id }}</td>
-                                        <td class="text-center">{{ $data->orden_pago->nombre }}</td>
-                                        <td class="text-center">$<?php echo number_format($data->valor,0) ?></td>
-                                        <td class="text-center">{{ $data->orden_pago->registros->persona->nombre }}</td>
+                                        <td class="text-center">{{ $data['id'] }}</td>
+                                        <td class="text-center">{{ $data['nombre'] }}</td>
+                                        <td class="text-center">$<?php echo number_format($data['valor'],0) ?></td>
+                                        <td class="text-center">{{ $data['persona'] }}</td>
                                         <td class="text-center">
                                     <span class="badge badge-pill badge-danger">
-                                        @if($data->estado == "0")
+                                        @if($data['estado'] == "0")
                                             Pendiente
-                                        @elseif($data->estado == "1")
+                                        @elseif($data['estado'] == "1")
                                             Pagado
                                         @else
                                             Anulado
@@ -765,7 +765,7 @@
                                     </span>
                                         </td>
                                         <td class="text-center">
-                                            <a href="{{ url('administrativo/pagos',$data->id) }}" title="Ver Pago" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                            <a href="{{ url('administrativo/pagos',$data['id']) }}" title="Ver Pago" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

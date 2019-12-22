@@ -32,16 +32,40 @@ class RegistrosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, $id)
     {
+        $vigencia = $id;
         $roles = auth()->user()->roles;
         foreach ($roles as $role){
             $rol= $role->id;
         }
-        $registros = Registro::where('secretaria_e','!=','3')->orderBy('id','DESC')->paginate(5);
-        $registrosHistorico = Registro::where('secretaria_e','3')->orderBy('id','DESC')->get();
-        return view('administrativo.registros.index',compact('registros','rol', 'registrosHistorico'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        $regT = Registro::where('secretaria_e','!=','3')->orderBy('id','DESC')->paginate(5);
+        foreach ($regT as $dataT){
+            if ($dataT->cdpsRegistro[0]->cdp->vigencia_id == $vigencia){
+                $registros[] = collect(['id' => $dataT->id, 'objeto' => $dataT->objeto, 'nombre' => $dataT->persona->nombre, 'valor' => $dataT->val_total, 'saldo' => $dataT->saldo, 'estado' => $dataT->secretaria_e]);
+            }
+        }
+        $regH = Registro::where('secretaria_e','3')->orderBy('id','DESC')->get();
+        foreach ($regH as $data){
+            if ($data->cdpsRegistro[0]->cdp->vigencia_id == $vigencia){
+                $registrosHistorico[] = collect(['id' => $data->id, 'objeto' => $data->objeto, 'nombre' => $data->persona->nombre, 'valor' => $data->val_total, 'saldo' => $data->saldo, 'estado' => $data->secretaria_e]);
+            }
+        }
+        if (isset($registros) and isset($registrosHistorico)){
+            return view('administrativo.registros.index',compact('registros','rol', 'registrosHistorico','vigencia'))
+                ->with('i', ($request->input('page', 1) - 1) * 5);
+        } else{
+            if (isset($registros)){
+                return view('administrativo.registros.index',compact('registros','rol','vigencia'))
+                    ->with('i', ($request->input('page', 1) - 1) * 5);
+            } elseif(isset($registrosHistorico)) {
+                return view('administrativo.registros.index',compact('rol', 'registrosHistorico','vigencia'))
+                    ->with('i', ($request->input('page', 1) - 1) * 5);
+            } else {
+                return view('administrativo.registros.index',compact('rol','vigencia'))
+                    ->with('i', ($request->input('page', 1) - 1) * 5);
+            }
+        }
     }
  
     /**
@@ -49,17 +73,17 @@ class RegistrosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
         $personas = Persona::all();
         $roles = auth()->user()->roles;
         foreach ($roles as $role){
             $rol= $role->id;
         }
-        $cdp = Cdp::all()->where('jefe_e','3')->count();
+        $cdp = Cdp::all()->where('jefe_e','3')->where('vigencia_id',$id)->count();
         if($cdp > 0){
-            $cdps = Cdp::all()->where('jefe_e','3')->where('saldo','>','0');
-            return view('administrativo.registros.create', compact('rol','personas','cdps'));
+            $cdps = Cdp::all()->where('jefe_e','3')->where('saldo','>','0')->where('vigencia_id',$id);
+            return view('administrativo.registros.create', compact('rol','personas','cdps', 'id'));
         }else{
             Session::flash('error','Actualmente no existen CDPs disponibles para crear registros.');
             return redirect('/administrativo/registros');
@@ -89,6 +113,7 @@ class RegistrosController extends Controller
         $registro->ruta = $ruta;
         $registro->valor = "0";
         $registro->saldo = "0";
+        $registro->val_total = "0";
         $registro->iva = "0";
         $registro->persona_id = $request->persona_id;
         if ($request->tipo_doc_text == null){
@@ -150,7 +175,7 @@ class RegistrosController extends Controller
         }
 
         Session::flash('success','El registro se ha creado exitosamente');
-        return redirect('/administrativo/registros/'.$registro->id);
+        return redirect('/administrativo/registros/'.$request->vigencia);
     }
 
     public function destroy($id)
@@ -183,29 +208,32 @@ class RegistrosController extends Controller
     {
         $personas = Persona::all();
         $registro = Registro::findOrFail($id);
+        $vigencia = $registro->cdpsRegistro[0]->cdp->vigencia_id;
         $cdps = Cdp::all();
         $contratos = Contractual::all();
         $roles = auth()->user()->roles;
         foreach ($roles as $role){
             $rol= $role->id;
         }
-        return view('administrativo.registros.edit', compact('registro','cdps','contratos','rol','personas'));
+        return view('administrativo.registros.edit', compact('registro','cdps','contratos','rol','personas','vigencia'));
     }
 
     public function show($id)
     {
         $registro = Registro::findOrFail($id);
+        $vigencia = $registro->cdpsRegistro[0]->cdp->vigencia_id;
         $roles = auth()->user()->roles;
-        $cdps = Cdp::where('saldo','>',0)->get();
+        $cdps = Cdp::where('saldo','>',0)->where('vigencia_id',$vigencia)->get();
         foreach ($roles as $role){
             $rol= $role->id;
         }
-        return view('administrativo.registros.show', compact('registro','rol','cdps'));
+        return view('administrativo.registros.show', compact('registro','rol','cdps','vigencia'));
     }
 
     public function update(Request $request, $id)
     {
         $update = Registro::findOrFail($id);
+        $vigencia = $update->cdpsRegistro[0]->cdp->vigencia_id;
         $update->objeto = $request->objeto;
         $update->iva = $request->iva;
         $update->persona_id = $request->persona_id;
@@ -219,7 +247,7 @@ class RegistrosController extends Controller
         $update->save();
 
         Session::flash('success','El registro se ha actualizado exitosamente');
-        return redirect('/administrativo/registros');
+        return redirect('/administrativo/registros/'.$vigencia);
     }
 
     public function updateEstado($id,$fecha,$valor,$estado,$valTot)
@@ -252,7 +280,7 @@ class RegistrosController extends Controller
             }
 
             Session::flash('success','Secretaria, su registro ha sido finalizado exitosamente.');
-            return redirect('/administrativo/registros/'.$id);
+            return redirect('/administrativo/registros/show/'.$id);
         } else{
             Session::flash('error','Secretaria, esta sobrepasando el valor disponible de los CDPs, verifique las sumas asignadas y el valor del iva.');
             return back();
@@ -287,13 +315,9 @@ class RegistrosController extends Controller
         }
     }
 
-    public function pdf($id){
+    public function pdf($id, $vigen){
         $registro = Registro::findOrFail($id);
-
-         $vigens = Vigencia::where('id', '>',0)->get();
-        foreach ($vigens as $vigen) {
-            $V = $vigen->id;
-        }
+        $V = $vigen;
         $vigencia_id = $V;
         $vigencia = Vigencia::find($vigencia_id);
 

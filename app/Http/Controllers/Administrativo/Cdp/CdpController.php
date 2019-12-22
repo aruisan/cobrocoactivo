@@ -316,7 +316,7 @@ class CdpController extends Controller
     }
 
 
-    public function pdf($id)
+    public function pdf($id, $vigen)
     {
         $roles = auth()->user()->roles;
         foreach ($roles as $role){
@@ -334,10 +334,8 @@ class CdpController extends Controller
 
         //codigo de rubros
 
-        $vigens = Vigencia::where('id', '>',0)->get();
-        foreach ($vigens as $vigen) {
-            $V = $vigen->id;
-        }
+        $V = $vigen;
+
         $vigencia_id = $V;
         $vigencia = Vigencia::find($vigencia_id);
 
