@@ -32,7 +32,8 @@ class PresupuestoController extends Controller
 
 
     public function index(){
-        $añoActual = Carbon::now()->year;
+        //$añoActual = Carbon::now()->year;
+        $añoActual = 2020;
         $mesActual = Carbon::now()->month;
         $vigens = Vigencia::where('vigencia', $añoActual)->where('tipo', 0)->where('estado', '0')->get();
 
@@ -881,7 +882,8 @@ class PresupuestoController extends Controller
 
 
     public function ingresos(){
-        $añoActual = Carbon::now()->year;
+        //$añoActual = Carbon::now()->year;
+        $añoActual = 2020;
         $mesActual = Carbon::now()->month;
         $vigens = Vigencia::where('vigencia', $añoActual)->where('tipo', 1)->where('estado', '0')->get();
 
@@ -1350,6 +1352,7 @@ class PresupuestoController extends Controller
                 $ArrayDispon[] = collect(['id' => $cod['id_rubro'], 'valor' => $AD]);
             }
         }
+
 
         //SALDO DISPONIBLE
 

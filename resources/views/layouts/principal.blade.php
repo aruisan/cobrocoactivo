@@ -175,9 +175,9 @@ color: #fff !important;
         <div class="lema">
             <marquee class="col-12">
               <h4 class="text-center text-white">
-                    Mesa Directiva: Presidente: Javier Rafael Rodriguez Archbold  - Primer Vicepresidente: Evis Livingston Howard  - Segundo Vicepresidente: Elsa Robinson Hawkins
-                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                    Mesa Directiva: Presidente: Javier Rafael Rodriguez Archbold  - Primer Vicepresidente: Evis Livingston Howard  - Segundo Vicepresidente: Elsa Robinson Hawkins
+                    LA  ALCALDIA  DE  GIRARDOT  LES  DESEA UNA  FELIZ  NAVIDAD  Y  UN  PROSPERO  AÑO  NUEVO  2020
+                    
+                     |******************|     LA  ALCALDIA  DE  GIRARDOT  LES  DESEA UNA  FELIZ  NAVIDAD  Y  UN  PROSPERO  AÑO  NUEVO  2020
                 </h4>
               </marquee>
         </div>
