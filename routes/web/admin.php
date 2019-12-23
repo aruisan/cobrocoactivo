@@ -161,6 +161,9 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
         //ORDENES DE PAGO
 
+        Route::get('ordenPagos/{id}','Administrativo\OrdenPago\OrdenPagosController@index');
+        Route::get('ordenPagos/show/{id}','Administrativo\OrdenPago\OrdenPagosController@show');
+        Route::get('ordenPagos/create/{id}','Administrativo\OrdenPago\OrdenPagosController@create');
         Route::resource('ordenPagos','Administrativo\OrdenPago\OrdenPagosController');
         Route::get('ordenPagos/liquidacion/create/{id}','Administrativo\OrdenPago\OrdenPagosController@liquidacion');
         Route::put('ordenPagos/liquidacion/store','Administrativo\OrdenPago\OrdenPagosController@liquidar');
@@ -180,6 +183,9 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
         //PAGOS
 
+        Route::get('pagos/{id}', 'Administrativo\Pago\PagosController@index');
+        Route::get('pagos/create/{id}', 'Administrativo\Pago\PagosController@create');
+        Route::get('pagos/show/{id}', 'Administrativo\Pago\PagosController@show');
         Route::resource('pagos', 'Administrativo\Pago\PagosController');
         Route::get('pagos/asignacion/{id}','Administrativo\Pago\PagosController@asignacion');
         Route::put('pagos/asignacion/store','Administrativo\Pago\PagosController@asignacionStore');

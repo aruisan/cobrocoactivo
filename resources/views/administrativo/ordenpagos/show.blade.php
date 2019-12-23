@@ -3,7 +3,7 @@
     Información Orden de Pago
 @stop
 @section('sidebar')
-    <li> <a href="{{ url('/administrativo/ordenPagos') }}" class="btn btn-success"><span class="hide-menu">&nbsp; Ordenes de Pago</span></a></li>
+    <li> <a href="{{ url('/administrativo/ordenPagos/'.$vigencia_id) }}" class="btn btn-success"><span class="hide-menu">&nbsp; Ordenes de Pago</span></a></li>
     <br>
     <div class="card">
         <br>
@@ -163,7 +163,7 @@
                     <tr class="text-center">
                         <td>
                             @for($x = 0; $x < count($infoRubro); $x++)
-                                @if($infoRubro[$x]['id_rubro'] == $R->cdpRegistroValor[$i]->fontRubro->fontVigencia->rubro_id)
+                                @if($infoRubro[$x]['id_rubro'] == $R->cdpRegistroValor[$i]->fontRubro->fontVigencia->fontsRubro[0]->rubro_id)
                                     {{ $infoRubro[$x]['codigo'] }}
                                 @endif
                             @endfor

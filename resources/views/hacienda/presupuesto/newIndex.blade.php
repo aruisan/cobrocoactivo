@@ -542,7 +542,7 @@
                             <div class="alert alert-danger">
                                 <center>
                                     No hay Registros.
-                                    <a href="{{ url('administrativo/registros/create') }}" class="btn btn-success btn-block">Crear Registro</a>
+                                    <a href="{{ url('administrativo/registros/create/'.$V) }}" class="btn btn-success btn-block">Crear Registro</a>
                                 </center>
                             </div>
                         @endif
@@ -709,7 +709,7 @@
                                     </span>
                                         </td>
                                         <td class="text-center">
-                                            <a href="{{ url('administrativo/ordenPagos',$data['id']) }}" title="Ver Orden de Pago" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                            <a href="{{ url('administrativo/ordenPagos/show',$data['id']) }}" title="Ver Orden de Pago" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -720,7 +720,7 @@
                             <div class="alert alert-danger">
                                 <center>
                                     No hay ordenes de pagos realizadas.
-                                    <a href="{{ url('administrativo/ordenPagos/create') }}" class="btn btn-success btn-block">Crear Orden de Pago</a>
+                                    <a href="{{ url('administrativo/ordenPagos/create/'.$V) }}" class="btn btn-success btn-block">Crear Orden de Pago</a>
                                 </center>
                             </div>
                         @endif

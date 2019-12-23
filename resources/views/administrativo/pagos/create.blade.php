@@ -40,16 +40,16 @@
                                 </thead>
                                 <tbody>
                                 @foreach ($ordenPagos as $key => $data)
-                                    <?php $desc = $data->valor - $data->descuentos->sum('valor');?>
-                                    <tr onclick="ver('col{{$data->id}}','Obj{{$data->nombre}}','Name{{$data->registros->persona->nombre}}','Val{{$data->saldo}}','ValTo{{$data->valor}}','Iva{{$data->iva}}','Desc{{$desc}}');" style="cursor:pointer">
-                                        <td id="col{{$data->id}}" class="text-center">{{ $data->id }}</td>
-                                        <td id="Obj{{$data->nombre}}" class="text-center">{{ $data->nombre }}</td>
-                                        <td id="Name{{$data->registros->persona->nombre}}" class="text-center">{{ $data->registros->persona->nombre }}</td>
+                                    <?php $desc = $data['info']->valor - $data['info']->descuentos->sum('valor');?>
+                                    <tr onclick="ver('col{{$data['info']->id}}','Obj{{$data['info']->nombre}}','Name{{$data['info']->registros->persona->nombre}}','Val{{$data['info']->saldo}}','ValTo{{$data['info']->valor}}','Iva{{$data['info']->iva}}','Desc{{$desc}}');" style="cursor:pointer">
+                                        <td id="col{{$data['info']->id}}" class="text-center">{{ $data['info']->id }}</td>
+                                        <td id="Obj{{$data['info']->nombre}}" class="text-center">{{ $data['info']->nombre }}</td>
+                                        <td id="Name{{$data['info']->registros->persona->nombre}}" class="text-center">{{ $data['info']->registros->persona->nombre }}</td>
                                         <td class="text-center">$<?php echo number_format($desc,0) ?></td>
-                                        <td class="text-center">$<?php echo number_format($data->saldo,0) ?></td>
-                                        <td id="Val{{$data->saldo}}" class="text-center hidden">{{ $data->saldo }}</td>
-                                        <td id="ValTo{{$data->valor}}" class="text-center hidden">{{ $data->valor }}</td>
-                                        <td id="Iva{{$data->iva}}" class="text-center hidden">{{ $data->iva }}</td>
+                                        <td class="text-center">$<?php echo number_format($data['info']->saldo,0) ?></td>
+                                        <td id="Val{{$data['info']->saldo}}" class="text-center hidden">{{ $data['info']->saldo }}</td>
+                                        <td id="ValTo{{$data['info']->valor}}" class="text-center hidden">{{ $data['info']->valor }}</td>
+                                        <td id="Iva{{$data['info']->iva}}" class="text-center hidden">{{ $data['info']->iva }}</td>
                                         <td id="Desc{{$desc}}" class="text-center hidden">{{ $desc }}</td>
                                     </tr>
                                 @endforeach

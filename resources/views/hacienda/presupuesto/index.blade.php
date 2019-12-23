@@ -542,7 +542,7 @@
                             <div class="alert alert-danger">
                                 <center>
                                     No hay Registros.
-                                    <a href="{{ url('administrativo/registros/create') }}" class="btn btn-success btn-block">Crear Registro</a>
+                                    <a href="{{ url('administrativo/registros/create/'.$V) }}" class="btn btn-success btn-block">Crear Registro</a>
                                 </center>
                             </div>
                         @endif
@@ -664,7 +664,7 @@
                     <div class="table-responsive">
                         @if(count($ordenPagos) >= 1)
                             <br>
-                            <a href="{{ url('administrativo/ordenPagos') }}" class="btn btn-primary btn-block m-b-12">Ordenes de Pago</a>
+                            <a href="{{ url('administrativo/ordenPagos/'.$V) }}" class="btn btn-primary btn-block m-b-12">Ordenes de Pago</a>
                             <br>
                             <table class="table table-bordered" id="tabla_OrdenPago">
                                 <thead>
@@ -696,7 +696,7 @@
                                     </span>
                                         </td>
                                         <td class="text-center">
-                                            <a href="{{ url('administrativo/ordenPagos',$data['id']) }}" title="Ver Orden de Pago" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                            <a href="{{ url('administrativo/ordenPagos/show',$data['id']) }}" title="Ver Orden de Pago" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -707,7 +707,7 @@
                             <div class="alert alert-danger">
                                 <center>
                                     No hay ordenes de pagos realizadas.
-                                    <a href="{{ url('administrativo/ordenPagos/create') }}" class="btn btn-success btn-block">Crear Orden de Pago</a>
+                                    <a href="{{ url('administrativo/ordenPagos/create/'.$V) }}" class="btn btn-success btn-block">Crear Orden de Pago</a>
                                 </center>
                             </div>
                         @endif
@@ -720,7 +720,7 @@
                     <div class="table-responsive">
                         @if(count($pagos) >= 1)
                             <br>
-                            <a href="{{ url('administrativo/pagos') }}" class="btn btn-primary btn-block m-b-12">Pagos</a>
+                            <a href="{{ url('administrativo/pagos/'.$V) }}" class="btn btn-primary btn-block m-b-12">Pagos</a>
                             <br>
                             <table class="table table-bordered" id="tabla_Pagos">
                                 <thead>
@@ -752,7 +752,7 @@
                                     </span>
                                         </td>
                                         <td class="text-center">
-                                            <a href="{{ url('administrativo/pagos',$data['id']) }}" title="Ver Pago" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                            <a href="{{ url('administrativo/pagos/show/',$data['id']) }}" title="Ver Pago" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -763,7 +763,7 @@
                             <div class="alert alert-danger">
                                 <center>
                                     No hay pagos realizados.
-                                    <a href="{{ url('administrativo/pagos/create') }}" class="btn btn-success btn-block">Crear Pagos</a>
+                                    <a href="{{ url('administrativo/pagos/create/'.$V) }}" class="btn btn-success btn-block">Crear Pagos</a>
                                 </center>
                             </div>
                         @endif

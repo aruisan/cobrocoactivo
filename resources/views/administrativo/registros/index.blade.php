@@ -19,7 +19,7 @@
             <span class="hide-menu">Contractual</span></a>
     </li>
     <li>
-        <a href="{{ url('/administrativo/ordenPagos') }}" class="btn btn-primary">
+        <a href="{{ url('/administrativo/ordenPagos/'.$vigencia) }}" class="btn btn-primary">
             <span class="hide-menu"> Orden de Pago</span></a>
     </li>
 @stop
