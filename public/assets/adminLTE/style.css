@@ -3,6 +3,9 @@
  * Copyright 2014 Vasily A. (https://github.com/vsn4ik)
  * Licensed under MIT (https://github.com/vsn4ik/bootstrap-submenu/blob/master/LICENSE)
  */
+
+
+ .barras{color:#b42f2f;}
  #myFooter {
   z-index: 1;
 clear: both;
@@ -171,6 +174,10 @@ color: black;
 #page-wraper {
  min-height: 1400px !important;
 }
+
+.btn-default{
+  border-color: #fff !important;
+}
 @media screen and (max-width: 420px){
 
         .titulo_presupuesto,
@@ -182,6 +189,7 @@ color: black;
           font-size:5vw !important;
           }
 
+          
       table th, table tr,table td{
         font-size:2.7vw !important;
         }

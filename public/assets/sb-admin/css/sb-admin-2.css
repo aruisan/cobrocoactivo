@@ -103,10 +103,11 @@
 @media (min-width: 768px) {
   .sidebar {
     z-index: 1;
-    position: absolute;
+    position: inherit;
     width: 100%;
-    margin-top: 75px;
-    margin-bottom:50px;
+    /* margin-top: 75px;
+    margin-bottom:50px; */
+    background-color: white;
   }
   .navbar-top-links .dropdown-messages,
   .navbar-top-links .dropdown-tasks,
