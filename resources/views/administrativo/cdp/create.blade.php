@@ -4,7 +4,7 @@
 @stop
 @section('sidebar')
     <li>
-        <a href="{{ url('/administrativo/cdp') }}" class="btn btn-success">
+        <a href="{{ url('/administrativo/cdp/'.$id) }}" class="btn btn-success">
             <span class="hide-menu">CDP'S</span></a>
     </li>
     <li>
@@ -23,7 +23,7 @@
             <center><h2>Nuevo CDP</h2></center>
             <br>
             <div class="form-validation">
-                <form class="form-valide" action="{{url('/administrativo/cdp')}}" method="POST" enctype="multipart/form-data">
+                <form class="form-valide" action="{{url('/administrativo/cdp/')}}" method="POST" enctype="multipart/form-data">
                     <hr>
                     {{ csrf_field() }}
                     <div class="col-md-6 align-self-center">
@@ -46,6 +46,7 @@
                     <input type="hidden" class="form-control" name="fecha" value="{{ Carbon\Carbon::today()->Format('Y-m-d')}}" min="{{ Carbon\Carbon::today()->Format('Y-m-d')}}">
                     <input type="hidden" class="form-control" name="dependencia_id" value="{{ $dependencia }}">
                     <input type="hidden" class="form-control" name="secretaria_e" value="0">
+                    <input type="hidden" class="form-control" name="vigencia_id" value="{{ $id }}">
                     <center>
                         <div class="form-group row">
                             <div class="col-lg-12 ml-auto">

@@ -4,7 +4,7 @@
 @stop
 @section('sidebar')
     <li>
-        <a href="{{route('registros.index')}}" class="btn btn-success">
+        <a href="{{ url('/administrativo/registros/'.$vigencia) }}" class="btn btn-success">
             <span class="hide-menu"> Registros</span></a>
     </li>
 @stop

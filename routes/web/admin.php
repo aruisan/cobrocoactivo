@@ -124,26 +124,36 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 	Route::group(['prefix' => 'administrativo'] ,function () 
 	{
 	    //Registros
-	    Route::resource('registros', 'Administrativo\Registro\RegistrosController');
+
+        Route::get('registros/{id}', 'Administrativo\Registro\RegistrosController@index');
+        Route::get('registros/create/{id}', 'Administrativo\Registro\RegistrosController@create');
+        Route::get('registros/show/{id}', 'Administrativo\Registro\RegistrosController@show');
+        Route::resource('registros', 'Administrativo\Registro\RegistrosController');
         Route::resource('cdpsRegistro','Administrativo\Registro\CdpsRegistroController');
         Route::resource('cdpsRegistro/valor','Administrativo\Registro\CdpsRegistroValorController');
         Route::get('registros/{id}/{fecha}/{valor}/{estado}/{valTot}', 'Administrativo\Registro\RegistrosController@updateEstado');
         //Route::put('registros/r/{id}/{rol}/{estado}', 'Administrativo\Registro\RegistrosController@rechazar');
 
             //pdf registros
-		Route::get('/registro/pdf/{id}', 'Administrativo\Registro\RegistrosController@pdf')->name('registro-pdf');
+		Route::get('/registro/pdf/{id}/{vigen}', 'Administrativo\Registro\RegistrosController@pdf')->name('registro-pdf');
 
 
         //CDP's
 
-        Route::resource('cdp', 'Administrativo\Cdp\CdpController');
+        Route::get('cdp/{id}', 'Administrativo\Cdp\CdpController@index');
+        Route::put('cdp/{id}/{vigen}', 'Administrativo\Cdp\CdpController@update');
+        Route::get('cdp/create/{id}', 'Administrativo\Cdp\CdpController@create');
+        Route::post('cdp/', 'Administrativo\Cdp\CdpController@store');
+        Route::get('cdp/{vigen}/{id}', 'Administrativo\Cdp\CdpController@show');
+        Route::get('cdp/{vigen}/{id}/edit', 'Administrativo\Cdp\CdpController@edit');
+        Route::delete('cdp/{vigen}/{id}/delete', 'Administrativo\Cdp\CdpController@destroy');
         Route::Resource('rubrosCdp','Administrativo\Cdp\RubrosCdpController');
         Route::Resource('rubrosCdp/valor','Administrativo\Cdp\RubrosCdpValorController');
         Route::get('cdp/{id}/{rol}/{fecha}/{valor}/{estado}', 'Administrativo\Cdp\CdpController@updateEstado');
-        Route::put('cdp/r/{id}', 'Administrativo\Cdp\CdpController@rechazar');
-        Route::post('cdp/{id}/anular', 'Administrativo\Cdp\CdpController@anular');
+        Route::put('cdp/r/{id}/{vigen}', 'Administrativo\Cdp\CdpController@rechazar');
+        Route::post('cdp/{id}/anular/{vigen}', 'Administrativo\Cdp\CdpController@anular');
         //pdf cdp
-		Route::get('/cdp/pdf/{id}', 'Administrativo\Cdp\CdpController@pdf')->name('cpd-pdf');
+		Route::get('cdp/pdf/{id}/{vigen}', 'Administrativo\Cdp\CdpController@pdf')->name('cpd-pdf');
 
         Route::resource('marcas-herretes', 'Administrativo\MarcaHerrete\MarcaHerreteController');
         Route::get('persona-find/{identificador}', 'Cobro\PersonasController@personaFind');
@@ -151,6 +161,9 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
         //ORDENES DE PAGO
 
+        Route::get('ordenPagos/{id}','Administrativo\OrdenPago\OrdenPagosController@index');
+        Route::get('ordenPagos/show/{id}','Administrativo\OrdenPago\OrdenPagosController@show');
+        Route::get('ordenPagos/create/{id}','Administrativo\OrdenPago\OrdenPagosController@create');
         Route::resource('ordenPagos','Administrativo\OrdenPago\OrdenPagosController');
         Route::get('ordenPagos/liquidacion/create/{id}','Administrativo\OrdenPago\OrdenPagosController@liquidacion');
         Route::put('ordenPagos/liquidacion/store','Administrativo\OrdenPago\OrdenPagosController@liquidar');
@@ -170,6 +183,9 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
         //PAGOS
 
+        Route::get('pagos/{id}', 'Administrativo\Pago\PagosController@index');
+        Route::get('pagos/create/{id}', 'Administrativo\Pago\PagosController@create');
+        Route::get('pagos/show/{id}', 'Administrativo\Pago\PagosController@show');
         Route::resource('pagos', 'Administrativo\Pago\PagosController');
         Route::get('pagos/asignacion/{id}','Administrativo\Pago\PagosController@asignacion');
         Route::put('pagos/asignacion/store','Administrativo\Pago\PagosController@asignacionStore');
@@ -285,11 +301,19 @@ Route::group([ 'middleware' => 'auth'] ,function(){
         Route::get('presupuesto/informes/lvl/{id}','Hacienda\Presupuesto\Informes\ReportsController@lvl');
         Route::get('presupuesto/informes/rubros/{id}','Hacienda\Presupuesto\Informes\ReportsController@rubros');
 
-        Route::resource('presupuesto/informes/contractual/homologar','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController');
-        Route::get('presupuesto/informes/contractual/homologar/create','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@create');
-        Route::put('presupuesto/informes/contractual/reporte','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@report');
-        Route::get('presupuesto/informes/contractual/asignar','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@rubros');
-        Route::put('presupuesto/informes/contractual/asignar/store', 'Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@rubroStore');
+                // RUTAS DEL PRESUPUESTO DEL SIGUIENTE AÑO
+
+                Route::get('newPre/{type}/{year}','Hacienda\Presupuesto\PresupuestoController@newPre');
+
+    ////// RUTAS PRESUPUESTO INGRESOS
+
+
+            Route::get('presupuestoIng','Hacienda\Presupuesto\PresupuestoController@ingresos');
+
+            ///// RUTAS DEL PRESUPUESTO DEL SIGUIENTE AÑO
+
+                Route::get('newPreIng/{type}/{year}','Hacienda\Presupuesto\PresupuestoController@newPreIng');
+
 
 
     ////// RUTAS PLAN DE DESARROLLO

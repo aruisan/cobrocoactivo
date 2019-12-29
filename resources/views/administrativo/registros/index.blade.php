@@ -5,13 +5,13 @@
 @section('sidebar')
     @if( $rol == 2)
         <li>
-            <a href="{{route('registros.create')}}" class="btn btn-success">
+            <a href="{{ url('/administrativo/registros/create/'.$vigencia) }}" class="btn btn-success">
                 <i class="fa fa-plus"></i>
                 <span class="hide-menu"> Crear Registros</span></a>
         </li>
     @endif
     <li>
-        <a href="{{ url('/administrativo/cdp') }}" class="btn btn-primary">
+        <a href="{{ url('/administrativo/cdp/'.$vigencia) }}" class="btn btn-primary">
             <span class="hide-menu"> CDP's</span></a>
     </li>
     <li>
@@ -19,7 +19,7 @@
             <span class="hide-menu">Contractual</span></a>
     </li>
     <li>
-        <a href="{{ url('/administrativo/ordenPagos') }}" class="btn btn-primary">
+        <a href="{{ url('/administrativo/ordenPagos/'.$vigencia) }}" class="btn btn-primary">
             <span class="hide-menu"> Orden de Pago</span></a>
     </li>
 @stop
@@ -39,10 +39,8 @@
     </ul>
     <div class="tab-content" style="background-color: white">
         <div id="tabTareas" class="tab-pane active"><br>
-            <br>
-            <br>
             <div class="table-responsive">
-        @if(count($registros) > 0)
+        @if(isset($registros))
             <table class="table table-bordered" id="tabla_registros">
                 <thead>
                 <tr>
@@ -56,19 +54,19 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach ($registros as $key => $data)
+                @foreach ($registros as $data)
                     <tr>
-                        <td class="text-center">{{ $data->id }}</td>
-                        <td class="text-center">{{ $data->objeto }}</td>
-                        <td class="text-center">{{ $data->persona->nombre }}</td>
-                        <td class="text-center">$<?php echo number_format($data->valor,0) ?></td>
+                        <td class="text-center">{{ $data['id'] }}</td>
+                        <td class="text-center">{{ $data['objeto'] }}</td>
+                        <td class="text-center">{{ $data['nombre'] }}</td>
+                        <td class="text-center">$<?php echo number_format($data['valor'],0) ?></td>
                         <td class="text-center">
                             <span class="badge badge-pill badge-danger">
-                                @if($data->secretaria_e == "0")
+                                @if($data['estado'] == "0")
                                     Pendiente
-                                @elseif($data->secretaria_e == "1")
+                                @elseif($data['estado'] == "1")
                                     Rechazado
-                                @elseif($data->secretaria_e == "2")
+                                @elseif($data['estado'] == "2")
                                     Anulado
                                 @else
                                     Aprobado
@@ -76,14 +74,14 @@
                             </span>
                         </td>
                         <td class="text-center">
-                            <a href="{{ url('administrativo/registros',$data->id) }}" title="Asignar Dinero al Registro" class="btn-sm btn-primary"><i class="fa fa-usd"></i></a>
+                            <a href="{{ url('administrativo/registros/show',$data['id']) }}" title="Asignar Dinero al Registro" class="btn-sm btn-primary"><i class="fa fa-usd"></i></a>
                         </td>                <td class="text-center">
-                            @if($data->secretaria_e == 0)
-                                <a href="{{ url('administrativo/registros/'.$data->id.'/edit') }}" class="btn-sm btn-info" title="Editar">
+                            @if($data['estado'] == 0)
+                                <a href="{{ url('administrativo/registros/'.$data['id'].'/edit') }}" class="btn-sm btn-info" title="Editar">
                                     <i class="fa fa-edit"></i>
                                 </a>
-                            @elseif($data->secretaria_e == 3)
-                                <a href="{{ url('administrativo/registros',$data->id) }}" class="btn-sm btn-info" title="Visualizar">
+                            @elseif($data['estado'] == 3)
+                                <a href="{{ url('administrativo/registros/show',$data['id']) }}" class="btn-sm btn-info" title="Visualizar">
                                     <i class="fa fa-eye"></i>
                                 </a>
                                 {!! Form::close() !!}
@@ -93,7 +91,6 @@
                 @endforeach
                 </tbody>
             </table>
-            {!! $registros->render() !!}
             @else
             <div class="col-md-12 align-self-center">
                 <div class="alert alert-danger text-center">
@@ -105,10 +102,8 @@
         </div>
         <div id="tabHistorico" class="tab-pane fade">
             <br>
-            <br>
-            <br>
             <div class="table-responsive">
-                @if(count($registrosHistorico) > 0)
+                @if(isset($registrosHistorico))
                     <table class="table table-bordered" id="tabla_registrosH">
                         <thead>
                         <tr>
@@ -123,20 +118,20 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($registrosHistorico as $key => $data)
+                        @foreach ($registrosHistorico as $data)
                             <tr>
-                                <td class="text-center">{{ $data->id }}</td>
-                                <td class="text-center">{{ $data->objeto }}</td>
-                                <td class="text-center">{{ $data->persona->nombre }}</td>
-                                <td class="text-center">$<?php echo number_format($data->val_total,0) ?></td>
-                                <td class="text-center">$<?php echo number_format($data->saldo,0) ?></td>
+                                <td class="text-center">{{ $data['id'] }}</td>
+                                <td class="text-center">{{ $data['objeto'] }}</td>
+                                <td class="text-center">{{ $data['nombre'] }}</td>
+                                <td class="text-center">$<?php echo number_format($data['valor'],0) ?></td>
+                                <td class="text-center">$<?php echo number_format($data['saldo'],0) ?></td>
                                 <td class="text-center">
                                     <span class="badge badge-pill badge-danger">
-                                        @if($data->secretaria_e == "0")
+                                        @if($data['estado'] == "0")
                                             Pendiente
-                                        @elseif($data->secretaria_e == "1")
+                                        @elseif($data['estado'] == "1")
                                             Rechazado
-                                        @elseif($data->secretaria_e == "2")
+                                        @elseif($data['estado'] == "2")
                                             Anulado
                                         @else
                                             Aprobado
@@ -144,10 +139,10 @@
                                     </span>
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ url('administrativo/registros',$data->id) }}" title="Ver Registro" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                    <a href="{{ url('administrativo/registros/show',$data['id']) }}" title="Ver Registro" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ route('registro-pdf', $data->id) }}" title="Ver Archivo" class="btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i></a>
+                                    <a href="{{ url('administrativo/registro/pdf/'.$data['id'].'/'.$vigencia) }}" title="Ver Archivo" class="btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i></a>
                                 </td>
                             </tr>
                         @endforeach

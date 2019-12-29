@@ -31,12 +31,30 @@ class OrdenPagosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $ordenPagoTarea = OrdenPagos::where('estado', '0')->get();
-        $ordenPagos = OrdenPagos::where('estado','!=', '0')->get();
+        $oPT = OrdenPagos::where('estado', '0')->get();
+        foreach ($oPT as $data){
+            if ($data->registros->cdpsRegistro[0]->cdp->vigencia_id == $id){
+                $ordenPagoTarea[] = collect(['info' => $data, 'persona' => $data->registros->persona->nombre]);
+            }
+        }
+        $oPH = OrdenPagos::where('estado','!=', '0')->get();
+        foreach ($oPH as $data){
+            if ($data->registros->cdpsRegistro[0]->cdp->vigencia_id == $id){
+                $ordenPagos[] = collect($data);
+            }
+        }
+        if (!isset($ordenPagoTarea)){
+            $ordenPagoTarea[] = null;
+            unset($ordenPagoTarea[0]);
+        }
+        if (!isset($ordenPagos)){
+            $ordenPagos[] = null;
+            unset($ordenPagos[0]);
+        }
 
-        return view('administrativo.ordenpagos.index', compact('ordenPagos','ordenPagoTarea'));
+        return view('administrativo.ordenpagos.index', compact('ordenPagos','ordenPagoTarea','id'));
     }
 
     /**
@@ -44,19 +62,25 @@ class OrdenPagosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        $Registros = Registro::where([['secretaria_e', '3'], ['saldo', '>', 0]])->get();
+        $Reg= Registro::where([['secretaria_e', '3'], ['saldo', '>', 0]])->get();
+        foreach ($Reg as $reg){
+            if ($reg->cdpsRegistro[0]->cdp->vigencia_id == $id){
+                $Registros[] = collect(['info' => $reg]);
+            }
+        }
+        //dd($Registros[0]['info']);
         $PUCs = Puc::all();
         $numOP = count(OrdenPagos::all());
-        if ($Registros == null) {
+        if (!isset($Registros)) {
             Session::flash('warning', 'No hay registros disponibles para crear la orden de pago, debe crear un nuevo registro. ');
-            return redirect('/administrativo/ordenPagos');
+            return redirect('/administrativo/ordenPagos/'.$id);
         }elseif ($PUCs == null){
             Session::flash('warning', 'No hay un PUC alamcenado en el software o finalizado, debe disponer de uno para poder realizar una orden de pago. ');
             return redirect('/administrativo/ordenPagos');
         }else{
-            return view('administrativo.ordenpagos.create', compact('Registros','numOP'));
+            return view('administrativo.ordenpagos.create', compact('Registros','numOP','id'));
         }
     }
 
@@ -72,7 +96,7 @@ class OrdenPagosController extends Controller
 
         if ($request->ValTOP > $registro_id->saldo){
             Session::flash('warning','El valor no puede ser superior al valor disponible del registro seleccionado: '.$registro_id->saldo.' Rectifique el valor de la orden de pago y el iva.');
-            return redirect('/administrativo/ordenPagos/create');
+            return redirect('/administrativo/ordenPagos/create/'.$request->vigencia);
         } else {
             $ordenPago = new OrdenPagos();
             $ordenPago->nombre = $request->concepto;
@@ -174,7 +198,7 @@ class OrdenPagosController extends Controller
         $ordenPago->estado = "1";
         $ordenPago->save();
         Session::flash('success','La orden de pago se ha finalizado exitosamente');
-        return redirect('/administrativo/ordenPagos/'.$request->ordenPago_id);
+        return redirect('/administrativo/ordenPagos/show/'.$request->ordenPago_id);
     }
 
     public function paySave(Request $request){
@@ -242,10 +266,11 @@ class OrdenPagosController extends Controller
     public function show($id)
     {
         $OrdenPago = OrdenPagos::findOrFail($id);
+        $vigenc = $OrdenPago->registros->cdpsRegistro[0]->cdp->vigencia_id;
         $OrdenPagoDescuentos = OrdenPagosDescuentos::where('orden_pagos_id', $id)->get();
         $R = Registro::findOrFail($OrdenPago->registros_id);
 
-        $all_rubros = Rubro::all();
+        $all_rubros = Rubro::where('vigencia_id', $vigenc);
         foreach ($all_rubros as $rubro){
             if ($rubro->fontsRubro->sum('valor_disp') != 0){
                 $valFuente = FontsRubro::where('rubro_id', $rubro->id)->sum('valor_disp');
@@ -256,10 +281,8 @@ class OrdenPagosController extends Controller
 
         //codigo de rubros
 
-        $vigens = Vigencia::where('id', '>',0)->get();
-        foreach ($vigens as $vigen) {
-            $V = $vigen->id;
-        }
+        $vigens = Vigencia::findOrFail($vigenc);
+        $V = $vigens->id;
         $vigencia_id = $V;
 
         $ultimoLevel = Level::where('vigencia_id', $vigencia_id)->get()->last();
@@ -311,7 +334,7 @@ class OrdenPagosController extends Controller
             }
         }
 
-        return view('administrativo.ordenpagos.show', compact('OrdenPago','OrdenPagoDescuentos','R','infoRubro'));
+        return view('administrativo.ordenpagos.show', compact('OrdenPago','OrdenPagoDescuentos','R','infoRubro','vigencia_id'));
     }
 
 

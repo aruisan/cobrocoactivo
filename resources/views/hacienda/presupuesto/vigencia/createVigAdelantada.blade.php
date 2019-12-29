@@ -24,7 +24,7 @@
     <div class="col-md-12 align-self-center">
         <div class="row justify-content-center">
             <br>
-            <center><h2>Nuevo Presupuesto de @if($tipo == 1) Ingresos @else Egresos @endif</h2></center>
+            <center><h2>Nuevo presupuesto de @if($id == 1) ingresos @else egresos @endif para la vigencia {{ $year }}</h2></center>
             <div class="form-validation">
                 <form class="form-valide" action="{{url('/presupuesto/vigencia')}}" method="POST" enctype="multipart/form-data">
                     <br>
@@ -33,8 +33,9 @@
                     <div class="form-group">
                         <label class="col-lg-4 col-form-label text-right" for="vigencia">Año de Vigencia <span class="text-danger">*</span></label>
                         <div class="col-lg-6">
-                            <input type="hidden" name="tipo" value="{{ $tipo }}">
-                            <input type="number" class="form-control" name="vigencia" min="2018" max="2100" value="2019">
+                            <input type="hidden" name="tipo" value="{{ $id }}">
+                            <input type="number" class="form-control" disabled value="{{ $year }}">
+                            <input type="hidden" class="form-control" name="vigencia" value="{{ $year }}">
                         </div>
                     </div>
                     <div class="form-group">

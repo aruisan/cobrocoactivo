@@ -19,12 +19,33 @@ class PagosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $pagosTarea = Pagos::where('estado', '0')->get();
-        $pagos = Pagos::where('estado','!=', '0')->get();
+        $pT = Pagos::where('estado', '0')->get();
+        foreach ($pT as $data){
+            if ($data->orden_pago->registros->cdpsRegistro[0]->cdp->vigencia_id == $id){
+                $pagosTarea[] = collect(['info' => $data, 'persona' => $data->orden_pago->registros->persona->nombre]);
+            }
+        }
 
-        return view('administrativo.pagos.index', compact('pagos','pagosTarea'));
+        $p = Pagos::where('estado','!=', '0')->get();
+        foreach ($p as $data){
+            if ($data->orden_pago->registros->cdpsRegistro[0]->cdp->vigencia_id == $id){
+                $pagos[] = collect(['info' => $data]);
+            }
+        }
+        if (!isset($pagosTarea)){
+            $pagosTarea[] = null;
+            unset($pagosTarea[0]);
+        }
+        if (!isset($pagos)){
+            $pagos[] = null;
+            unset($pagos[0]);
+        }
+
+        //dd($pagosTarea, $pagos);
+
+        return view('administrativo.pagos.index', compact('pagos','pagosTarea','id'));
     }
 
     /**
@@ -32,15 +53,19 @@ class PagosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        $ordenPagos = OrdenPagos::where([['estado', '1'], ['saldo', '>', 0]])->get();
-
-        if ($ordenPagos == null){
+        $oP = OrdenPagos::where([['estado', '1'], ['saldo', '>', 0]])->get();
+        foreach ($oP as $data){
+            if ($data->registros->cdpsRegistro[0]->cdp->vigencia_id == $id){
+                $ordenPagos[] = collect(['info' => $data]);
+            }
+        }
+        if (!isset($ordenPagos)){
             Session::flash('warning', 'No hay ordenes de pago disponibles para crear el pago. ');
-            return redirect('/administrativo/pagos');
+            return redirect('/administrativo/pagos/'.$id);
         } else {
-            return view('administrativo.pagos.create', compact('ordenPagos'));
+            return view('administrativo.pagos.create', compact('ordenPagos','id'));
         }
     }
 
@@ -181,7 +206,7 @@ class PagosController extends Controller
             $OP->save();
 
             Session::flash('success','El pago se ha finalizado exitosamente');
-            return redirect('/administrativo/pagos/'.$pago->id);
+            return redirect('/administrativo/pagos/show/'.$pago->id);
         } elseif ($valReceived > $valTotal){
             Session::flash('warning','El valor que va a pagar: $'.$valR.' es mayor al valor correspondiente del pago: $'.$valT);
             return back();

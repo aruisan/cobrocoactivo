@@ -423,6 +423,38 @@ class VisitanteController extends Controller
             $saldoDisp[] = collect(['id' => $valDisp['id'], 'valor' => $valDisp['valor'] - $valrest]);
         }
 
+        //CUENTAS POR PAGAR
+
+        for ($i=0;$i<sizeof($valOP);$i++){
+            $valueTot = $valOP[$i]['valor'] - $valP[$i]['valor'];
+            $valCP[] = collect(['id' => $valOP[$i]['id'], 'valor' => $valueTot]);
+            unset($valueTot);
+        }
+
+        //RESERVAS
+
+        for ($i=0;$i<sizeof($valoresRubro);$i++){
+            $valTot = $valoresRubro[$i]['valor'] - $valOP[$i]['valor'];
+            $valR[] = collect(['id' => $valOP[$i]['id'], 'valor' => $valTot]);
+            unset($valTot);
+        }
+
+        //CODE CONTRACTUALES
+
+        $codeCon = CodeContractuales::all();
+
+        //CDP's
+
+        $cdps= Cdp::where('vigencia_id', $V)->get();
+
+        //REGISTROS
+        $allReg = Registro::all();
+        foreach ($allReg as $reg){
+            if ($reg->cdpsRegistro[0]->cdp->vigencia_id == $V){
+                $registros[] = collect(['id' => $reg->id, 'objeto' => $reg->objeto, 'nombre' => $reg->persona->nombre, 'valor' => $reg->valor, 'estado' => $reg->secretaria_e]);
+            }
+        }
+
         //MODAL DE CONCEJALES
 
         $Concejales = Concejal::all();
@@ -452,6 +484,7 @@ class VisitanteController extends Controller
         $PlanA = Documents::where('type','=','Plan de adquisiones')->get();
 
         return view('visitante.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','valoresCred', 'valoresCcred','valoresCyC','Concejales','Acuerdos','Actas','Resoluciones','PlanA','ManualC','Boletines','valoresRubro'));
+
     }
 
     /**

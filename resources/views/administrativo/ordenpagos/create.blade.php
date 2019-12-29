@@ -4,7 +4,7 @@
 @stop
 @section('sidebar')
     <li>
-        <a href="{{ url('/administrativo/ordenPagos') }}" class="btn btn-success">
+        <a href="{{ url('/administrativo/ordenPagos/'.$id) }}" class="btn btn-success">
             <span class="hide-menu">Ordenes de Pago</span></a>
     </li>
 @stop
@@ -47,17 +47,17 @@
                                     </thead>
                                     <tbody>
                                     @foreach ($Registros as $key => $data)
-                                        <tr onclick="ver('col{{$data->id}}','Obj{{$data->objeto}}','Name{{$data->persona->nombre}}','Cc{{$data->persona->num_dc}}','Sal{{$data->saldo}}','Val{{$data->valor}}','Iva{{$data->iva}}','ValTo{{ $data->val_total}}');" style="cursor:pointer">
-                                            <td id="col{{$data->id}}" class="text-center">{{ $data->id }}</td>
-                                            <td id="Obj{{$data->objeto}}" class="text-center">{{ $data->objeto }}</td>
-                                            <td id="Name{{$data->persona->nombre}}" class="text-center">{{ $data->persona->nombre }}</td>
-                                            <td id="Cc{{$data->persona->num_dc}}" class="text-center hidden">{{ $data->persona->num_dc }}</td>
-                                            <td class="text-center">$<?php echo number_format($data->val_total,0) ?></td>
-                                            <td class="text-center">$<?php echo number_format($data->saldo,0) ?></td>
-                                            <td id="Sal{{$data->saldo}}" class="text-center hidden">{{ $data->saldo }}</td>
-                                            <td id="Val{{$data->valor}}" class="text-center hidden">{{ $data->valor }}</td>
-                                            <td id="Iva{{$data->iva}}" class="text-center hidden">{{ $data->iva }}</td>
-                                            <td id="ValTo{{$data->val_total}}" class="text-center hidden">{{ $data->val_total}}</td>
+                                        <tr onclick="ver('col{{$data['info']->id}}','Obj{{$data['info']->objeto}}','Name{{$data['info']->persona->nombre}}','Cc{{$data['info']->persona->num_dc}}','Sal{{$data['info']->saldo}}','Val{{$data['info']->valor}}','Iva{{$data['info']->iva}}','ValTo{{ $data['info']->val_total}}');" style="cursor:pointer">
+                                            <td id="col{{$data['info']->id}}" class="text-center">{{ $data['info']->id }}</td>
+                                            <td id="Obj{{$data['info']->objeto}}" class="text-center">{{ $data['info']->objeto }}</td>
+                                            <td id="Name{{$data['info']->persona->nombre}}" class="text-center">{{ $data['info']->persona->nombre }}</td>
+                                            <td id="Cc{{$data['info']->persona->num_dc}}" class="text-center hidden">{{ $data['info']->persona->num_dc }}</td>
+                                            <td class="text-center">$<?php echo number_format($data['info']->val_total,0) ?></td>
+                                            <td class="text-center">$<?php echo number_format($data['info']->saldo,0) ?></td>
+                                            <td id="Sal{{$data['info']->saldo}}" class="text-center hidden">{{ $data['info']->saldo }}</td>
+                                            <td id="Val{{$data['info']->valor}}" class="text-center hidden">{{ $data['info']->valor }}</td>
+                                            <td id="Iva{{$data['info']->iva}}" class="text-center hidden">{{ $data['info']->iva }}</td>
+                                            <td id="ValTo{{$data['info']->val_total}}" class="text-center hidden">{{ $data['info']->val_total}}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -68,7 +68,7 @@
                                 <div class="alert alert-danger">
                                     <center>
                                         No hay Registros.
-                                        <a href="{{ url('administrativo/registros/create') }}" class="btn btn-success btn-block">Crear Registro</a>
+                                        <a href="{{ url('administrativo/registros/create/'.$id) }}" class="btn btn-success btn-block">Crear Registro</a>
                                     </center>
                                 </div>
                             @endif
@@ -79,10 +79,9 @@
 
                           </div>
                         </div>
-                    </div>
-
 
                     <div class="col-md-12 " style="display: none; background-color: white" id="form" name="form">
+                        <br>
                       <div class="row">
                         
                         <div class="col-md-5 formularioRegistro">
@@ -109,6 +108,7 @@
                                 </div>
                                 <div class="col-md-9">
                                     <input type="text" style="text-align: center" class="form-control formularioRegistoLabel" name="Name" id="Name" disabled>
+                                    <input type="hidden" name="vigencia" id="vigencia" value="{{ $id }}">
                                 </div>
 
                             </div>

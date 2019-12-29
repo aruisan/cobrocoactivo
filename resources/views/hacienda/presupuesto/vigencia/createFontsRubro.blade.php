@@ -34,7 +34,7 @@
                 <tbody>
                 @foreach($rubro->vigencia->fonts as $font)
                     <tr>
-                        <td>{{ $font->name }}</td>
+                        <td>{{ $font->font->name }}</td>
                         <td>$<?php echo number_format($font->valor - $font->fontsRubro->sum('valor'),0) ?></td>
                     </tr>
                 @endforeach
@@ -79,7 +79,7 @@
                                     <input type="hidden" name="fontRubro_id[]" value="{{ $dato->id }}">
                                     <select name="font_id[]" class="form-control font">
                                         @foreach($rubro->vigencia->fonts as $font)
-                                            <option value="{{ $font->id }}" @if($dato->font_id == $font->id) selected @endif>{{ $font->name }}</option>
+                                            <option value="{{ $font->id }}" @if($dato->font_id == $font->id) selected @endif>{{ $font->font->name }}</option>
                                         @endforeach
                                     </select>
                                 </td>
@@ -96,7 +96,7 @@
                                     <input type="hidden" name="fontRubro_id[]">
                                     <select name="font_id[]" class="form-control">
                                         @foreach($rubro->vigencia->fonts as $font)
-                                            <option value="{{ $font->id }}">{{ $font->name }}</option>
+                                            <option value="{{ $font->id }}">{{ $font->font->name }}</option>
                                         @endforeach
                                     </select>
                                 </td>
@@ -104,7 +104,7 @@
                                     <td>No existen fuentes en la Vigencia</td>
                                 @endif
                                 <td><input type="number" name="valor[]" required></td>
-                                <td class="text-center" style="vertical-align:middle;"><button type="button" class="btn-sm btn-danger borrar"> - </button></td>
+                                <td class="text-center" style="vertical-align:middle;"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -160,7 +160,7 @@ new Vue({
 
 		nuevaFila: function(){
 	  		
-			$('#tabla tr:last').after('<tr>@if($rubro->vigencia->fonts) <td><input type="hidden" name="fontRubro_id[]"><select name="font_id[]" class="form-control"> @foreach($rubro->vigencia->fonts as $font) <option value="{{ $font->id }}">{{ $font->name }}</option> @endforeach </select></td> @else <td>No existen fuentes en la Vigencia</td> @endif <td><input type="number" name="valor[]" required></td><td class="text-center" style="vertical-align:middle;"><button type="button" class="btn-sm btn-danger borrar"> - </button></td></tr>');
+			$('#tabla tr:last').after('<tr>@if($rubro->vigencia->fonts) <td><input type="hidden" name="fontRubro_id[]"><select name="font_id[]" class="form-control"> @foreach($rubro->vigencia->fonts as $font) <option value="{{ $font->id }}">{{ $font->font->name }}</option> @endforeach </select></td> @else <td>No existen fuentes en la Vigencia</td> @endif <td><input type="number" name="valor[]" required></td><td class="text-center" style="vertical-align:middle;"><button type="button" class="btn-sm btn-danger borrar"> - </button></td></tr>');
 		}
 	}
 });

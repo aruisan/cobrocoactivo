@@ -4,7 +4,7 @@
 @stop
 @section('sidebar')
     <li>
-        <a href="{{route('registros.index')}}" class="btn btn-success">
+        <a href="{{ url('/administrativo/registros/'.$id) }}" class="btn btn-success">
             <span class="hide-menu"> Registros</span></a>
     </li>
     <br>
@@ -77,6 +77,7 @@
     <hr>
     <input type="hidden" name="fecha" value="{{ Carbon\Carbon::today()->Format('Y-m-d')}}">
     <input type="hidden" name="secretaria_e" value="0">
+    <input type="hidden" name="vigencia" value="{{$id}}">
     <div class="row">
         <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <label>Tercero: </label>
@@ -96,7 +97,7 @@
             <label>Objeto: </label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user-o" aria-hidden="true"></i></span>
-                <textarea name="objeto" class="form-control"></textarea>
+                <textarea name="objeto" class="form-control" required></textarea>
             </div>
             <small class="form-text text-muted">Nombre del registro</small>
         </div>
@@ -141,7 +142,7 @@
         <label>Número de Documento</label>
         <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-hashtag" aria-hidden="true"></i></span>
-            <input type="number" class="form-control" name="num_tipo_doc" placeholder="Número de Documento">
+            <input type="number" class="form-control" required name="num_tipo_doc" placeholder="Número de Documento">
         </div>
             <small class="form-text text-muted"> Número del Tipo de Documento</small>
         </div>

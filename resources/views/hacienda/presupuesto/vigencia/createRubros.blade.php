@@ -3,7 +3,19 @@
     Creación de Rubros
 @stop
 @section('sidebar')
-    <li> <a href="{{ url('/presupuesto') }}" class="btn btn-success"><i class="fa fa-money"></i><span class="hide-menu">&nbsp; Presupuesto</span></a></li>
+	@if($vigencia->tipo == 0)
+		@if($vigencia->vigencia == Carbon\Carbon::now()->year)
+    		<li> <a href="{{ url('/presupuesto') }}" class="btn btn-success"><i class="fa fa-money"></i><span class="hide-menu">&nbsp; Presupuesto</span></a></li>
+		@else
+			<li> <a href="{{ url('/newPre/'.$vigencia->tipo.'/'.$vigencia->vigencia) }}" class="btn btn-success"><i class="fa fa-money"></i><span class="hide-menu">&nbsp; Presupuesto</span></a></li>
+		@endif
+	@elseif($vigencia->tipo == 1)
+		@if($vigencia->vigencia == Carbon\Carbon::now()->year)
+			<li> <a href="{{ url('/presupuestoIng') }}" class="btn btn-success"><i class="fa fa-money"></i><span class="hide-menu">&nbsp; Presupuesto</span></a></li>
+		@else
+			<li> <a href="{{ url('/newPreIng/'.$vigencia->tipo.'/'.$vigencia->vigencia) }}" class="btn btn-success"><i class="fa fa-money"></i><span class="hide-menu">&nbsp; Presupuesto</span></a></li>
+		@endif
+	@endif
     <li class="dropdown">
         <a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown" href="#">
             <span class="hide-menu">Niveles</span>
@@ -12,7 +24,7 @@
         </a>
         <ul class="dropdown-menu dropdown-user">
             @foreach($niveles as $level)
-                <li><a href="/presupuesto/registro/create/{{ $level->vigencia_id }}/{{ $level->level }}" class="btn btn-primary">Nivel {{ $level->level }}</a></li>
+                <li><a href="/presupuesto/registro/create/{{ $level->vigencia_id }}" class="btn btn-primary">Nivel {{ $level->level }}</a></li>
             @endforeach
             <li><a href="/presupuesto/font/create/{{ $vigencia_id }}" class="btn btn-primary">Fuentes</a></li>
             <li><a href="/presupuesto/rubro/create/{{ $vigencia_id }}" class="btn btn-primary">Rubros</a></li>

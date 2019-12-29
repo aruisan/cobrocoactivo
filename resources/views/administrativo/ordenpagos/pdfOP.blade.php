@@ -38,19 +38,19 @@
 					<td>
 						<div class="col-md-12">
 							<div class="col-md-6">VALOR BRUTO</div>
-							<div class="col-md-6">$ <?php echo number_format($OrdenPago->registros->valor,0);?></div>
+							<div class="col-md-6">$ <?php echo number_format($OrdenPago->valor - $OrdenPago->iva,0);?></div>
 						</div>
 					</td>
 					<td>
 						<div class="col-md-12">
 							<div class="col-md-6">VALOR IVA</div>
-							<div class="col-md-6">$ <?php echo number_format($OrdenPago->registros->iva,0);?></div>
+							<div class="col-md-6">$ <?php echo number_format($OrdenPago->iva,0);?></div>
 						</div>
 					</td>
 					<td>
 						<div class="col-md-12">
 							<div class="col-md-6">VALOR TOTAL</div>
-							<div class="col-md-6">$ <?php echo number_format($OrdenPago->registros->val_total,0);?></div>
+							<div class="col-md-6">$ <?php echo number_format($OrdenPago->valor,0);?></div>
 						</div>
 					</td>
 				</tr>
@@ -69,7 +69,7 @@
 					</td>
 					<td>
 						<?php
-							$pay= $OrdenPago->registros->val_total - $OrdenPagoDescuentos->sum('valor');
+							$pay= $OrdenPago->valor - $OrdenPagoDescuentos->sum('valor');
 						?>
 						<div class="col-md-12">
 							<div class="col-md-6">A CANCELAR</div>

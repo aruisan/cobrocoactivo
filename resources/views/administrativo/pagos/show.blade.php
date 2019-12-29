@@ -3,7 +3,7 @@
     Información de Pago
 @stop
 @section('sidebar')
-    <li> <a href="{{ url('/administrativo/pagos') }}" class="btn btn-success"><span class="hide-menu">&nbsp; Pagos</span></a></li>
+    <li> <a href="{{ url('/administrativo/pagos/'.$pago->orden_pago->registros->cdpsRegistro[0]->cdp->vigencia_id) }}" class="btn btn-success"><span class="hide-menu">&nbsp; Pagos</span></a></li>
     <br>
     <div class="card">
         <br>

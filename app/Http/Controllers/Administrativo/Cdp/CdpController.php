@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Administrativo\Cdp;
 
+use App\Model\Administrativo\Cdp\RubrosCdpValor;
 use App\Model\Hacienda\Presupuesto\FontsRubro;
 use App\Model\Administrativo\Registro\CdpsRegistro;
 use App\Model\Administrativo\Cdp\Cdp;
@@ -26,21 +27,31 @@ class CdpController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
+        $vigencia_id = $id;
         $roles = auth()->user()->roles;
         foreach ($roles as $role){
             $rol= $role->id;
         }
         if ($rol == 2)
         {
-            $cdpTarea = Cdp::where('secretaria_e', '0')->orWhere('jefe_e','1')->get();
-            $cdps = Cdp::where('jefe_e','3')->orWhere('jefe_e','2')->get();
+            $cdpTarea = Cdp::where('vigencia_id', $vigencia_id)->where('secretaria_e', '0')->orWhere('jefe_e','1')->get();
+            $cdps = Cdp::where('vigencia_id', $id)
+            ->where(function ($query) {
+                $query->where('jefe_e','3')
+                    ->orWhere('jefe_e','2');
+            })->get();
+
 
         }elseif ($rol == 3)
         {
-            $cdpTarea = Cdp::where('jefe_e','0')->get();
-            $cdps = Cdp::where('jefe_e','3')->orWhere('jefe_e','2')->get();
+            $cdpTarea = Cdp::where('vigencia_id', $vigencia_id)->where('jefe_e','0')->get();
+            $cdps = Cdp::where('vigencia_id', $id)
+                ->where(function ($query) {
+                    $query->where('jefe_e','3')
+                        ->orWhere('jefe_e','2');
+                })->get();
         } else
         {
             $cdpTarea = null;
@@ -53,7 +64,7 @@ class CdpController extends Controller
         if ($cdps == null){
             $cdps = [];
         }
-        return view('administrativo.cdp.index', compact('cdps','rol', 'cdpTarea'));
+        return view('administrativo.cdp.index', compact('cdps','rol', 'cdpTarea','vigencia_id'));
     }
 
     /**
@@ -61,39 +72,35 @@ class CdpController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
+        $vigencia = $id;
         $rubros = Rubro::all();
         $dependencia = auth()->user()->dependencia_id;
-        return view('administrativo.cdp.create', compact('dependencia','rubros'));
+        return view('administrativo.cdp.create', compact('dependencia','rubros','id'));
     }
 
-    public function anular($id){
+    public function anular($id, $vigen){
         $cdp = Cdp::findOrFail($id);
         $cdpsRegistro = CdpsRegistro::where('cdp_id','=',$id)->get();
         if (count($cdpsRegistro) > 0){
             Session::flash('warning', 'Tiene Registros Relacionados al CDP. Elimine los Registros Para Poder Anular el CDP');
-            return redirect('/administrativo/cdp/'.$id);
+            return redirect('/administrativo/cdp/'.$vigen.'/'.$id);
         }else{
             $valor = $cdp->valor;
             $cdp->saldo = 0;
             $cdp->jefe_e = '2';
             $cdp->save();
 
-            $rubrosCdp = RubrosCdp::where('cdp_id','=',$id)->get();
+            $rubrosCdp = RubrosCdpValor::where('cdp_id', $id)->get();
             foreach ($rubrosCdp as $rubroCdp){
-                $id_rubro = $rubroCdp->rubro_id;
+               $fontR = FontsRubro::findOrFail($rubroCdp->fontsRubro->id);
+               $fontR->valor_disp = $fontR->valor_disp + $rubroCdp->valor;
+               $fontR->save();
             }
-            $rubro = FontsRubro::where('rubro_id','=',$id_rubro)->get();
-            foreach ($rubro as $data){
-                $idFontRubro = $data->id;
-            }
-            $cambio = FontsRubro::findOrFail($idFontRubro);
-            $cambio->valor_disp = $cambio->valor_disp + $valor;
-            $cambio->save();
 
             Session::flash('error','El CDP ha sido anulado');
-            return redirect('/administrativo/cdp/'.$id);
+            return redirect('/administrativo/cdp/'.$vigen.'/'.$id);
         }
     }
 
@@ -114,9 +121,10 @@ class CdpController extends Controller
         $cdp->saldo = 0;
         $cdp->secretaria_e = $request->secretaria_e;
         $cdp->ff_secretaria_e = $request->fecha;
+        $cdp->vigencia_id = $request->vigencia_id;
         $cdp->save();
         Session::flash('success','El CDP se ha creado exitosamente');
-        return redirect('/administrativo/cdp');
+        return redirect('/administrativo/cdp/'.$request->vigencia_id);
     }
 
     /**
@@ -125,14 +133,14 @@ class CdpController extends Controller
      * @param  \App\Cdp  $cdp
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($vigencia,$id)
     {
         $roles = auth()->user()->roles;
         foreach ($roles as $role){
             $rol= $role->id;
         }
         $cdp = Cdp::findOrFail($id);
-        $all_rubros = Rubro::all();
+        $all_rubros = Rubro::where('vigencia_id',$vigencia)->get();
         foreach ($all_rubros as $rubro){
             if ($rubro->fontsRubro->sum('valor_disp') != 0){
                 $valFuente = FontsRubro::where('rubro_id', $rubro->id)->sum('valor_disp');
@@ -143,10 +151,8 @@ class CdpController extends Controller
 
         //codigo de rubros
 
-        $vigens = Vigencia::where('id', '>',0)->get();
-        foreach ($vigens as $vigen) {
-            $V = $vigen->id;
-        }
+        $vigens = Vigencia::findOrFail($vigencia);
+        $V = $vigens->id;
         $vigencia_id = $V;
 
         $ultimoLevel = Level::where('vigencia_id', $vigencia_id)->get()->last();
@@ -206,11 +212,11 @@ class CdpController extends Controller
      * @param  \App\Cdp  $cdp
      * @return \Illuminate\Http\Response
      */
-    public function edit($cdp)
+    public function edit($vigen, $cdp)
     {
         $idcdp = Cdp::find($cdp);
         $rubros = Rubro::all();
-        return view('administrativo.cdp.edit', compact('idcdp','rubros'));
+        return view('administrativo.cdp.edit', compact('idcdp','rubros','vigen'));
     }
 
     /**
@@ -220,7 +226,7 @@ class CdpController extends Controller
      * @param  \App\Cdp  $cdp
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $idcdp)
+    public function update(Request $request, $idcdp, $vigen)
     {
         $store= Cdp::findOrFail($idcdp);
         $store->name = $request->name;
@@ -228,7 +234,7 @@ class CdpController extends Controller
         $store->save();
 
         Session::flash('success','El CDP '.$request->name.' se edito exitosamente.');
-        return  redirect('../administrativo/cdp');
+        return  redirect('../administrativo/cdp/'.$vigen);
     }
 
     /**
@@ -237,13 +243,13 @@ class CdpController extends Controller
      * @param  \App\Cdp  $cdp
      * @return \Illuminate\Http\Response
      */
-    public function destroy($cdp)
+    public function destroy($vigen, $id)
     {
-        $borrar = Cdp::find($cdp);
+        $borrar = Cdp::find($id);
         $borrar->delete();
 
         Session::flash('error','CDP borrado correctamente');
-        return redirect('../administrativo/cdp');
+        return redirect('../administrativo/cdp/'.$vigen);
     }
 
     public function updateEstado($id,$rol,$fecha,$valor,$estado)
@@ -256,7 +262,7 @@ class CdpController extends Controller
             $update->save();
 
             Session::flash('success','El CDP ha sido enviado exitosamente');
-            return redirect('/administrativo/cdp');
+            return redirect('/administrativo/cdp/'.$update->vigencia_id);
         }
         if ($rol == 3){
             if ($estado == 3){
@@ -268,13 +274,20 @@ class CdpController extends Controller
 
                 $this->actualizarValorRubro($id);
 
-                Session::flash('success','El CDP ha sido finalizado con exito');
-                return redirect('/administrativo/cdp');
+                        $update->save();
+
+                        Session::flash('success','El CDP ha sido finalizado con exito');
+                        return redirect('/administrativo/cdp/'.$update->vigencia_id);
+                    } else {
+                        Session::flash('error','El CDP no puede tener un valor superior al valor disponible en el rubro');
+                        return redirect('/administrativo/cdp/'.$update->vigencia_id.'/'.$id);
+                    }
+                }
             }
         }
     }
 
-    public function rechazar(Request $request, $id)
+    public function rechazar(Request $request, $id, $vigen)
     {
         if ($request->rol == "3"){
             $update = Cdp::findOrFail($id);
@@ -285,7 +298,7 @@ class CdpController extends Controller
             $update->save();
 
             Session::flash('error','El CDP ha sido rechazado');
-            return redirect('/administrativo/cdp');
+            return redirect('/administrativo/cdp/'.$vigen);
         }
     }
 
@@ -302,7 +315,7 @@ class CdpController extends Controller
     }
 
 
-    public function pdf($id)
+    public function pdf($id, $vigen)
     {
         $roles = auth()->user()->roles;
         foreach ($roles as $role){
@@ -320,10 +333,8 @@ class CdpController extends Controller
 
         //codigo de rubros
 
-        $vigens = Vigencia::where('id', '>',0)->get();
-        foreach ($vigens as $vigen) {
-            $V = $vigen->id;
-        }
+        $V = $vigen;
+
         $vigencia_id = $V;
         $vigencia = Vigencia::find($vigencia_id);
 
