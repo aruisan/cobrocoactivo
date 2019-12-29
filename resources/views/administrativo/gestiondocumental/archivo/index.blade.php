@@ -70,7 +70,7 @@
                                     <td>{{ $data->user->name }}</td>
                                     <td>{{ $data->tercero->nombre }}</td>
                                     <td>
-                                        <a href="{{Storage::url($data->resource->ruta)}}" target="_blank" title="Ver" class="btn-sm btn-success"><i class="fa fa-file-pdf-o"></i></a>
+                                        <a href="{{Storage::url($data->resource->ruta)}}" target="_blank" title="Ver" class="btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i></a>
                                         <a href="{{ url('dashboard/archivo/'.$data->id.'/edit') }}" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                     </td>
                                 </tr>
@@ -110,7 +110,7 @@
                                     <td>{{ $manual->ff_document }}</td>
                                     <td>{{ $manual->name }}</td>
                                     <td>
-                                        <a href="{{Storage::url($manual->resource->ruta)}}" target="_blank" title="Archivo" class="btn-sm btn-success"><i class="fa fa-file-pdf-o"></i></a>
+                                        <a href="{{Storage::url($manual->resource->ruta)}}" target="_blank" title="Archivo" class="btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i></a>
                                         <a href="{{ asset('/dashboard/archivo/manual/'.$manual->id) }}" title="Ver" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                     </td>
                                 </tr>
@@ -149,7 +149,7 @@
                                     <td>{{ $plan->ff_document }}</td>
                                     <td>{{ $plan->name}}</td>
                                     <td>
-                                        <a href="{{Storage::url($plan->resource->ruta)}}" target="_blank" title="Archivo" class="btn-sm btn-success"><i class="fa fa-file-pdf-o"></i></a>
+                                        <a href="{{Storage::url($plan->resource->ruta)}}" target="_blank" title="Archivo" class="btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i></a>
                                         <a href="{{ asset('/dashboard/archivo/plan/'.$plan->id) }}" title="Ver" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                     </td>
                                 </tr>
@@ -207,7 +207,7 @@
 			  extend:    'excelHtml5',
 			  text:      '<i class="fa fa-file-excel-o"></i> ',
 			  titleAttr: 'Exportar a Excel',
-			  className: 'btn btn-success'
+			  className: 'btn btn-primary'
 		  },
 		  {
 			  extend:    'pdfHtml5',
@@ -217,13 +217,13 @@
 			  header :true,
 			  orientation : 'landscape',
 			  pageSize: 'LEGAL',
-			  className: 'btn btn-danger',
+			  className: 'btn btn-primary',
 			   },
 		  {
 			  extend:    'print',
 			  text:      '<i class="fa fa-print"></i> ',
 			  titleAttr: 'Imprimir',
-			  className: 'btn btn-info'
+			  className: 'btn btn-primary'
 		  },
 	  ]	             
 
@@ -261,7 +261,7 @@
 			  extend:    'excelHtml5',
 			  text:      '<i class="fa fa-file-excel-o"></i> ',
 			  titleAttr: 'Exportar a Excel',
-			  className: 'btn btn-success'
+			  className: 'btn btn-primary'
 		  },
 		  {
 			  extend:    'pdfHtml5',
@@ -271,13 +271,13 @@
 			  header :true,
 			  orientation : 'landscape',
 			  pageSize: 'LEGAL',
-			  className: 'btn btn-danger',
+			  className: 'btn btn-primary',
 			   },
 		  {
 			  extend:    'print',
 			  text:      '<i class="fa fa-print"></i> ',
 			  titleAttr: 'Imprimir',
-			  className: 'btn btn-info'
+			  className: 'btn btn-primary'
 		  },
 	  ]	             
 
@@ -314,7 +314,7 @@
 			  extend:    'excelHtml5',
 			  text:      '<i class="fa fa-file-excel-o"></i> ',
 			  titleAttr: 'Exportar a Excel',
-			  className: 'btn btn-success'
+			  className: 'btn btn-primary'
 		  },
 		  {
 			  extend:    'pdfHtml5',
@@ -324,13 +324,13 @@
 			  header :true,
 			  orientation : 'landscape',
 			  pageSize: 'LEGAL',
-			  className: 'btn btn-danger',
+			  className: 'btn btn-primary',
 			   },
 		  {
 			  extend:    'print',
 			  text:      '<i class="fa fa-print"></i> ',
 			  titleAttr: 'Imprimir',
-			  className: 'btn btn-info'
+			  className: 'btn btn-primary'
 		  },
 	  ]	             
 

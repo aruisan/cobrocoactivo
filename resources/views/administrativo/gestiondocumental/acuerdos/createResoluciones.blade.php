@@ -17,7 +17,7 @@
     </div>
 </div>
 
-<div class="row inputCenter"  style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #3d7e9a; ">
+<div class="row inputCenter"  style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #efb827; ">
     <br>
     <hr>
     {!! Form::open(array('route' => 'resoluciones.store','method'=>'POST','enctype'=>'multipart/form-data')) !!}

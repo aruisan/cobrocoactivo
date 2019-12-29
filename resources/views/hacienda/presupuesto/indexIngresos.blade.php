@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @section('titulo')
-    Vigencia: {{ $añoActual }}
+    Presupuesto Ingresos - {{ $añoActual }}
 @stop
 @section('sidebar')
     @if($V != "Vacio")
@@ -56,30 +56,11 @@
     @endif
     <div class="col-md-12 align-self-center">
         @if($V != "Vacio")
-            <div class="breadcrumb col-md-2 text-center">
-                <strong>
-                    <h4>
-                        <a href="{{ url('/presupuesto') }}" class="btn btn-success"><span class="hide-menu"> Presupuesto de Egresos</span></a>
-                    </h4>
-                </strong>
-            </div>
-            <div class="breadcrumb col-md-8 text-center">
-                <strong>
-                    <h4><b>Presupuesto de Ingresos {{ $añoActual }}</b></h4>
-
-                </strong>
-            </div>
-            <div class="breadcrumb col-md-2 text-center">
-                <strong>
-                    @if($mesActual == 12)
-                        <h4>
-                            <a href="{{ url('/newPre/1',$añoActual+1) }}" class="btn btn-success"><span class="hide-menu"> Presupuesto de Ingresos {{ $añoActual + 1 }}</span></a>
-                        </h4>
-                    @else
-                        <h4><b>&nbsp;</b></h4>
-                    @endif
-                </strong>
-            </div>
+        <div class="breadcrumb text-center">
+            <strong>
+                <h4><b>Presupuesto de Ingresos Año {{ $añoActual }}</b></h4>
+            </strong>
+        </div>
             <ul class="nav nav-pills">
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="pill" href="#tabHome"><i class="fa fa-home"></i></a>
@@ -91,24 +72,64 @@
                     <a class="nav-link" data-toggle="pill" href="@can('rubros-list') #tabRubros @endcan">Rubros</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="@can('pac-list') #tabPAC @endcan">PAC</a>
+                    <a class="nav-link hidden" data-toggle="pill" href="@can('pac-list') #tabPAC @endcan">PAC</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="@can('adiciones-list') #tabAddIng @endcan">Adiciones</a>
+                    <a class="nav-link" data-toggle="pill" href="@can('cdps-list') #tabCert @endcan">CDP's</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="@can('adiciones-list') #tabRedIng @endcan">Reducciones</a>
+                    <a class="nav-link" data-toggle="pill" href="@can('registros-list') #tabReg @endcan">Registros</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        Adiciones &nbsp;
+                        <i class="fa fa-caret-down"></i>
+                    </a>
+                    @can('adiciones-list')
+                    <div class="dropdown-menu text-center">
+                        <center>
+                            <!---
+                        <h5><a type="button" class="dropdown-item btn btn-primary" data-toggle="pill" href="#tabAddIng">Ingresos</a></h5>
+                            -->
+                        <h5><a type="button" class="dropdown-item btn btn-primary" data-toggle="pill" href="#tabAddEgr">Egresos</a></h5>
+                        </center>
+                    </div>
+                    @endcan
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        Reducciones &nbsp;
+                        <i class="fa fa-caret-down"></i>
+                    </a>
+                    @can('reducciones-list')
+                    <div class="dropdown-menu text-center">
+                        <center>
+                            <!--
+                        <h5><a type="button" class="dropdown-item btn btn-primary" data-toggle="pill" href="#tabRedIng">Ingresos</a></h5>
+                            -->
+                        <h5><a type="button" class="dropdown-item btn btn-primary" data-toggle="pill" href="#tabRedEgr">Egresos</a></h5>
+                        </center>
+                    </div>
+                    @endcan
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="pill" href="@can('creditos-list') #tabCre @endcan">Creditos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" data-toggle="pill" href="#tabApl">Aplazamientos</a>
+                    <a class="nav-link disabled hidden" data-toggle="pill" href="#tabApl">Aplazamientos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="pill" href="#tabOP">Orden de Pago</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="pill" href="#tabP">Pagos</a>
                 </li>
             </ul>
+            <br>
             <div class="tab-content" style="background-color: white">
                 <div id="tabHome" class="tab-pane active"><br>
                     <div class="table-responsive">
+                        <br>
                         <table class="table table-hover table-bordered" align="100%" id="tabla_presupuesto" style="text-align: center">
                             <thead>
                             <tr>
@@ -120,6 +141,14 @@
                                 <th class="text-center">Credito</th>
                                 <th class="text-center">CCredito</th>
                                 <th class="text-center">P.Definitivo</th>
+                                <th class="text-center">CDP's</th>
+                                <th class="text-center">Registros</th>
+                                <th class="text-center">Saldo Disponible</th>
+                                <th class="text-center">Saldo de CDP</th>
+                                <th class="text-center">Ordenes de Pago</th>
+                                <th class="text-center">Pagos</th>
+                                <th class="text-center">Cuentas Por Pagar</th>
+                                <th class="text-center">Reservas</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -195,6 +224,94 @@
                                             <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorPD['valor'],0);?></td>
                                         @endif
                                     @endforeach
+                                    <!-- CDP'S -->
+                                    @foreach($valoresIniciales as $valorInicial)
+                                        @if($valorInicial['id'] == $codigo['id'])
+                                            <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
+                                        @endif
+                                    @endforeach
+                                    @foreach($valoresCdp as $valorCdp)
+                                        @if($codigo['id_rubro'] == $valorCdp['id'])
+                                            <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorCdp['valor'],0);?></td>
+                                        @endif
+                                    @endforeach
+                                    <!-- REGISTROS -->
+                                    @foreach($valoresIniciales as $valorInicial)
+                                        @if($valorInicial['id'] == $codigo['id'])
+                                            <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
+                                        @endif
+                                    @endforeach
+                                    @foreach($valoresRubro as $valorRubro)
+                                        @if($codigo['id_rubro'] == $valorRubro['id'])
+                                            <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorRubro['valor'],0);?></td>
+                                        @endif
+                                    @endforeach
+                                    <!-- SALDO DISPONIBLE -->
+                                    @foreach($valorDisp as $vDisp)
+                                        @if($vDisp['id'] == $codigo['id'])
+                                            <td class="text-center" style="vertical-align:middle;">$ <?php echo number_format($vDisp['valor'],0);?></td>
+                                        @endif
+                                    @endforeach
+                                    @foreach($saldoDisp as $salD)
+                                        @if($codigo['id_rubro'] == $salD['id'])
+                                            <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($salD['valor'],0);?></td>
+                                        @endif
+                                    @endforeach
+                                    <!-- SALDO DE CDP -->
+                                        @foreach($valoresIniciales as $valorInicial)
+                                            @if($valorInicial['id'] == $codigo['id'])
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
+                                            @endif
+                                        @endforeach
+                                        @foreach($valorDcdp as $valorDCdp)
+                                            @if($codigo['id_rubro'] == $valorDCdp['id'])
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorDCdp['valor'],0);?></td>
+                                            @endif
+                                        @endforeach
+                                    <!-- ORDENES DE PAGO -->
+                                        @foreach($valoresIniciales as $valorInicial)
+                                            @if($valorInicial['id'] == $codigo['id'])
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
+                                            @endif
+                                        @endforeach
+                                        @foreach($valOP as $valorOP)
+                                            @if($codigo['id_rubro'] == $valorOP['id'])
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorOP['valor'],0);?></td>
+                                            @endif
+                                        @endforeach
+                                    <!-- PAGOS -->
+                                        @foreach($valoresIniciales as $valorInicial)
+                                            @if($valorInicial['id'] == $codigo['id'])
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
+                                            @endif
+                                        @endforeach
+                                        @foreach($valP as $valorP)
+                                            @if($codigo['id_rubro'] == $valorP['id'])
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorP['valor'],0);?></td>
+                                            @endif
+                                        @endforeach
+                                    <!-- CUENTAS POR PAGAR -->
+                                        @foreach($valoresIniciales as $valorInicial)
+                                            @if($valorInicial['id'] == $codigo['id'])
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
+                                            @endif
+                                        @endforeach
+                                        @foreach($valCP as $valorCP)
+                                            @if($codigo['id_rubro'] == $valorCP['id'])
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorCP['valor'],0);?></td>
+                                            @endif
+                                        @endforeach
+                                    <!-- RESERVAS -->
+                                        @foreach($valoresIniciales as $valorInicial)
+                                            @if($valorInicial['id'] == $codigo['id'])
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
+                                            @endif
+                                        @endforeach
+                                        @foreach($valR as $valorR)
+                                            @if($codigo['id_rubro'] == $valorR['id'])
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorR['valor'],0);?></td>
+                                            @endif
+                                        @endforeach
                                 </tr>
                             @endforeach
                             </tbody>
@@ -246,7 +363,9 @@
                 <!-- TABLA DE RUBROS -->
 
                 <div id="tabRubros" class="tab-pane fade"><br>
+                <br>
                     <div class="table-responsive">
+                        <br>
                         <table class="table table-bordered" id="tabla_Rubros">
                             <thead>
                             <tr>
@@ -278,6 +397,144 @@
 
                 <div id="tabPAC" class="tab-pane fade"><br>
                     <h2 class="text-center">PAC</h2>
+                </div>
+
+                <!-- TABLA DE CDP's -->
+
+                <div id="tabCert" class=" tab-pane fade"><br>
+                    <div class="table-responsive">
+                        @if(isset($cdps))
+                        <br>
+                        <a href="{{ url('administrativo/cdp') }}" class="btn btn-primary btn-block m-b-12">CDP's</a>
+                        <br>
+                        <table class="table table-bordered" id="tabla_CDP">
+                            <thead>
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th class="text-center">Objeto</th>
+                                <th class="text-center">Valor</th>
+                                <th class="text-center">Estado Secretaria</th>
+                                <th class="text-center">Estado Jefe</th>
+                                <th class="text-center">Ver</th>
+                                <th class="text-center">Archivo</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($cdps as $cdp)
+                                <tr>
+                                    <td class="text-center">{{ $cdp['id'] }}</td>
+                                    <td class="text-center">{{ $cdp['name'] }}</td>
+                                    <td class="text-center">$ <?php echo number_format($cdp['valor'],0);?>.00</td>
+                                    <td class="text-center">
+                                        <span class="badge badge-pill badge-danger">
+                                            @if($cdp['secretaria_e'] == "0")
+                                                Pendiente
+                                            @elseif($cdp['secretaria_e'] == "1")
+                                                Rechazado
+                                            @elseif($cdp['secretaria_e'] == "2")
+                                                Anulado
+                                            @else
+                                                Enviado
+                                            @endif
+                                        </span>
+                                            </td>
+                                            <td class="text-center">
+                                        <span class="badge badge-pill badge-danger">
+                                            @if($cdp['jefe_e'] == "0")
+                                                Pendiente
+                                            @elseif($cdp['jefe_e'] == "1")
+                                                Rechazado
+                                            @elseif($cdp['jefe_e'] == "2")
+                                                Anulado
+                                            @elseif($cdp['jefe_e'] == "3")
+                                                Aprobado
+                                            @else
+                                                En Espera
+                                            @endif
+                                        </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ url('administrativo/cdp/'.$cdp['id']) }}" title="Ver" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ route('cpd-pdf', $cdp['id']) }}" target="_blank" title="certificado" class="btn-sm btn-danger"><i class="fa fa-file-pdf-o"></i></a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                            @else
+                            <br><br>
+                            <div class="alert alert-danger">
+                                <center>
+                                    No hay CDP's.
+                                    <a href="{{ url('administrativo/cdp/create') }}" class="btn btn-success btn-block">Crear CDP</a>
+                                </center>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+
+                <!-- TABLA DE REGISTROS -->
+
+                <div id="tabReg" class=" tab-pane fade"><br>
+                    <div class="table-responsive">
+                        @if(count($registros) >= 1)
+                            <br>
+                            <a href="{{ url('administrativo/registros') }}" class="btn btn-primary btn-block m-b-12">Registros</a>
+                            <br>
+                            <table class="table table-bordered" id="tabla_Registros">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">Id</th>
+                                    <th class="text-center">Nombre Registro</th>
+                                    <th class="text-center">Nombre Tercero</th>
+                                    <th class="text-center">Valor</th>
+                                    <th class="text-center">Estado</th>
+                                    <th class="text-center"><i class="fa fa-eye"></i></th>
+                                    <th class="text-center">Archivo</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach ($registros as $key => $data)
+                                    <tr>
+                                        <td class="text-center">{{ $data->id }}</td>
+                                        <td class="text-center">{{ $data->objeto }}</td>
+                                        <td class="text-center">{{ $data->persona->nombre }}</td>
+                                        <td class="text-center">$<?php echo number_format($data->valor,0) ?></td>
+                                        <td class="text-center">
+                                    <span class="badge badge-pill badge-danger">
+                                        @if($data->secretaria_e == "0")
+                                            Pendiente
+                                        @elseif($data->secretaria_e == "1")
+                                            Rechazado
+                                        @elseif($data->secretaria_e == "2")
+                                            Anulado
+                                        @else
+                                            Aprobado
+                                        @endif
+                                    </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="{{ url('administrativo/registros',$data->id) }}" title="Ver Registro" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="{{ route('registro-pdf', $data->id) }}" target="_blank" title="certificado-registro" class="btn-sm btn-danger"><i class="fa fa-file-pdf-o"></i></a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        @else
+                            <br>
+                            <div class="alert alert-danger">
+                                <center>
+                                    No hay Registros.
+                                    <a href="{{ url('administrativo/registros/create') }}" class="btn btn-success btn-block">Crear Registro</a>
+                                </center>
+                            </div>
+                        @endif
+                    </div>
                 </div>
 
                 <!-- TABLAS DE ADICIONES -->
@@ -396,13 +653,121 @@
                         </table>
                     </div>
                 </div>
-
-                <!-- TABLA DE APLAZAMIENTOS  -->
-
                 <div id="tabApl" class=" tab-pane fade"><br>
                     <h2 class="text-center">Aplazamientos</h2>
                 </div>
 
+                <!-- TABLA DE ORDEN DE PAGOS  -->
+
+                <div id="tabOP" class=" tab-pane fade">
+                    <div class="table-responsive">
+                        @if(count($ordenPagos) >= 1)
+                            <br>
+                            <a href="{{ url('administrativo/ordenPagos') }}" class="btn btn-primary btn-block m-b-12">Ordenes de Pago</a>
+                            <br>
+                            <table class="table table-bordered" id="tabla_OrdenPago">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">Id</th>
+                                    <th class="text-center">Concepto</th>
+                                    <th class="text-center">Valor</th>
+                                    <th class="text-center">Tercero</th>
+                                    <th class="text-center">Estado</th>
+                                    <th class="text-center"><i class="fa fa-eye"></i></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach ($ordenPagos as $key => $data)
+                                    <tr>
+                                        <td class="text-center">{{ $data->id }}</td>
+                                        <td class="text-center">{{ $data->nombre }}</td>
+                                        <td class="text-center">$<?php echo number_format($data->valor,0) ?></td>
+                                        <td class="text-center">{{ $data->registros->persona->nombre }}</td>
+                                        <td class="text-center">
+                                    <span class="badge badge-pill badge-danger">
+                                        @if($data->estado == "0")
+                                            Pendiente
+                                        @elseif($data->estado == "1")
+                                            Pagado
+                                        @else
+                                            Anulado
+                                        @endif
+                                    </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="{{ url('administrativo/ordenPagos',$data->id) }}" title="Ver Orden de Pago" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        @else
+                            <br>
+                            <div class="alert alert-danger">
+                                <center>
+                                    No hay ordenes de pagos realizadas.
+                                    <a href="{{ url('administrativo/ordenPagos/create') }}" class="btn btn-success btn-block">Crear Orden de Pago</a>
+                                </center>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+
+                <!-- TABLA DE PAGOS  -->
+
+                <div id="tabP" class=" tab-pane fade">
+                    <div class="table-responsive">
+                        @if(count($pagos) >= 1)
+                            <br>
+                            <a href="{{ url('administrativo/pagos') }}" class="btn btn-primary btn-block m-b-12">Pagos</a>
+                            <br>
+                            <table class="table table-bordered" id="tabla_Pagos">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">Id</th>
+                                    <th class="text-center">Orden de Pago</th>
+                                    <th class="text-center">Valor</th>
+                                    <th class="text-center">Tercero</th>
+                                    <th class="text-center">Estado</th>
+                                    <th class="text-center"><i class="fa fa-eye"></i></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach ($pagos as $key => $data)
+                                    <tr>
+                                        <td class="text-center">{{ $data->id }}</td>
+                                        <td class="text-center">{{ $data->orden_pago->nombre }}</td>
+                                        <td class="text-center">$<?php echo number_format($data->valor,0) ?></td>
+                                        <td class="text-center">{{ $data->orden_pago->registros->persona->nombre }}</td>
+                                        <td class="text-center">
+                                    <span class="badge badge-pill badge-danger">
+                                        @if($data->estado == "0")
+                                            Pendiente
+                                        @elseif($data->estado == "1")
+                                            Pagado
+                                        @else
+                                            Anulado
+                                        @endif
+                                    </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="{{ url('administrativo/pagos',$data->id) }}" title="Ver Pago" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        @else
+                            <br>
+                            <div class="alert alert-danger">
+                                <center>
+                                    No hay pagos realizados.
+                                    <a href="{{ url('administrativo/pagos/create') }}" class="btn btn-success btn-block">Crear Pagos</a>
+                                </center>
+                            </div>
+                        @endif
+                    </div>
+                </div>
             </div>
         @else
             <div class="breadcrumb text-center">
@@ -430,6 +795,15 @@
             ]
         } );
 
+        $('#tabla_CDP').DataTable( {
+            responsive: true,
+            "searching": false,
+            "pageLength": 5,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'print'
+            ]
+        } );
 
         $('#tabla_Rubros').DataTable( {
             responsive: true,
@@ -489,5 +863,26 @@
                 'pdf' ,'copy', 'csv', 'excel', 'print'
             ]
         } );
+
+        $('#tabla_OrdenPago').DataTable( {
+            responsive: true,
+            "searching": true,
+            "pageLength": 5,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'print'
+            ]
+        } );
+
+        $('#tabla_Pagos').DataTable( {
+            responsive: true,
+            "searching": true,
+            "pageLength": 5,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'print'
+            ]
+        } );
+
     </script>
 @stop

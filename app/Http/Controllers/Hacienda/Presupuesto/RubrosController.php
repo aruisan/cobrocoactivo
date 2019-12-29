@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Hacienda\Presupuesto;
 
 use App\Http\Controllers\Controller;
-use App\Model\Hacienda\Presupuesto\FontsVigencia;
 use App\Model\Hacienda\Presupuesto\RubrosMov;
 use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
@@ -14,7 +13,7 @@ use App\Model\Dependencia;
 use App\Model\Hacienda\Presupuesto\Vigencia;
 use App\Model\Hacienda\Presupuesto\Level;
 use App\Model\Hacienda\Presupuesto\Register;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 use Session;
 
@@ -23,7 +22,7 @@ class RubrosController extends Controller
     public function create($vigencia_id)
     {
       $vigencia = Vigencia::findOrFail($vigencia_id);
-      $fonts = FontsVigencia::where('vigencia_id', $vigencia_id)->get();
+      $fonts = Font::where('vigencia_id', $vigencia_id)->get();
       $niveles = Level::where('vigencia_id', $vigencia_id)->get();
       $subProy = SubProyecto::all();
       $ultimoLevel = Level::where('vigencia_id', $vigencia_id)->get()->last();
@@ -109,9 +108,7 @@ class RubrosController extends Controller
         $fuentesR = $rubro->Fontsrubro;
         $add = rubrosMov::where([['rubro_id','=',$id],['movimiento','=','2']])->get();
         $red = rubrosMov::where([['rubro_id','=',$id],['movimiento','=','3']])->get();
-        $añoActual = Carbon::now()->year;
-        $vigens = Vigencia::where('vigencia', $añoActual)->where('tipo', 0)->where('estado', '0')->get();
-        $fuentesAll = FontsVigencia::where('vigencia_id', $vigens[0]->id)->get();
+        $fuentesAll = Font::all();
         $valor = $fuentesR->sum('valor');
         $valorDisp = $fuentesR->sum('valor_disp');
 
@@ -123,7 +120,7 @@ class RubrosController extends Controller
 
             if ($rubro->rubrosMov->count() > 0){
                 foreach($rubro->rubrosMov as $RM){
-                    if ($RM->fonts_id == $fuente->font_vigencia_id){
+                    if ($RM->fonts_id == $fuente->font_id){
                         if ($RM->movimiento == 1){
                             $suma[] = $RM->valor;
                         } elseif($RM->movimiento == 2){
@@ -157,7 +154,7 @@ class RubrosController extends Controller
             }
             $val2 = array_sum($resta);
             $CCred = array_sum($restaC);
-            $valores[] = collect(['id' => $fuente->font_vigencia_id , 'credito' => $val, 'ccredito' => $val2, 'adicion' => $Cred, 'reduccion' => $CCred]);
+            $valores[] = collect(['id' => $fuente->font_id , 'credito' => $val, 'ccredito' => $val2, 'adicion' => $Cred, 'reduccion' => $CCred]);
             unset($suma, $resta, $Cred, $CCred);
         }
 
@@ -177,7 +174,6 @@ class RubrosController extends Controller
                 $files = 0;
             }
         }
-
 
         return view('hacienda.presupuesto.rubro.show', compact('rubro','fuentesR','valor','valorDisp','rol','rubros','fuentesAll','valores','files','add','red'));
         

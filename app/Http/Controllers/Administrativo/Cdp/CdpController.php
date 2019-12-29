@@ -260,24 +260,16 @@ class CdpController extends Controller
         }
         if ($rol == 3){
             if ($estado == 3){
-                foreach ($update->rubrosCdpValor as $fuentes){
-                    if ($fuentes->fontsRubro->valor_disp >= $fuentes->valor  ){
-                        $update->jefe_e = $estado;
-                        $update->ff_jefe_e = $fecha;
-                        $update->valor = $valor;
-                        $update->saldo = $valor;
+                $update->jefe_e = $estado;
+                $update->ff_jefe_e = $fecha;
+                $update->valor = $valor;
+                $update->saldo = $valor;
+                $update->save();
 
-                        $this->actualizarValorRubro($id);
+                $this->actualizarValorRubro($id);
 
-                        $update->save();
-
-                        Session::flash('success','El CDP ha sido finalizado con exito');
-                        return redirect('/administrativo/cdp');
-                    } else {
-                        Session::flash('error','El CDP no puede tener un valor superior al valor disponible en el rubro');
-                        return redirect('/administrativo/cdp/'.$id);
-                    }
-                }
+                Session::flash('success','El CDP ha sido finalizado con exito');
+                return redirect('/administrativo/cdp');
             }
         }
     }

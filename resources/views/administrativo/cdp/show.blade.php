@@ -220,7 +220,7 @@
                                             <input type="hidden" name="rubros_cdp_id[]" value="{{ $rubrosCdpData->id }}">
                                             @php( $fechaActual = Carbon\Carbon::today()->Format('Y-m-d') )
                                             <li style="list-style-type: none;">
-                                                {{ $fuentesRubro->fontVigencia->font->name }} : $<?php echo number_format( $fuentesRubro->valor_disp,0) ?>
+                                                {{ $fuentesRubro->font->name }} : $<?php echo number_format( $fuentesRubro->valor_disp,0) ?>
                                             </li>
                                         </div>
                                     @elseif($fuentesRubro->valor_disp != 0)
@@ -230,20 +230,20 @@
                                             <input type="hidden" name="rubros_cdp_id[]" value="{{ $rubrosCdpData->id }}">
                                             @php( $fechaActual = Carbon\Carbon::today()->Format('Y-m-d') )
                                             <li style="list-style-type: none;">
-                                                {{ $fuentesRubro->fontVigencia->font->name }} : $<?php echo number_format( $fuentesRubro->valor_disp,0) ?>
+                                                {{ $fuentesRubro->font->name }} : $<?php echo number_format( $fuentesRubro->valor_disp,0) ?>
                                             </li>
                                         </div>
                                     @endif
                                     <div class="col-lg-6">
                                         @if($cdp->jefe_e == "3")
-                                            Valor usado de {{ $fuentesRubro->fontVigencia->font->name }}:
+                                            Valor usado de {{ $fuentesRubro->font->name }}:
                                             @if($fuentesRubro->rubrosCdpValor->count() != 0)
                                                 @foreach($fuentesRubro->rubrosCdpValor as  $valoresFR)
                                                     @php($id_rubrosCdp = $rubrosCdpData->id )
                                                     @if($valoresFR->cdp_id == $cdp->id)
                                                         <input type="hidden" name="rubros_cdp_valor_id[]" value="{{ $valoresFR->id }}">
                                                         @if($cdp->secretaria_e == "0")
-                                                            <input type="number" required  name="valorFuenteUsar[]" id="id{{$fuentesRubro->font_vigencia_id}}" class="valor{{ $valoresFR->rubrosCdp_id }}" value="{{ $valoresFR->valor }}" max="{{ $fuentesRubro->valor_disp }}" style="text-align: center">
+                                                            <input type="number" required  name="valorFuenteUsar[]" id="id{{$fuentesRubro->font_id}}" class="valor{{ $valoresFR->rubrosCdp_id }}" value="{{ $valoresFR->valor }}" max="{{ $fuentesRubro->valor_disp }}" style="text-align: center">
                                                         @else
                                                             $<?php echo number_format( $valoresFR->valor,0) ?>
                                                         @endif
@@ -258,14 +258,14 @@
                                                 <input type="number" required  name="valorFuenteUsar[]" class="form-group-sm" value="0" max="{{ $fuentesRubro->valor_disp }}" style="text-align: center">
                                             @endif
                                         @elseif($fuentesRubro->valor_disp != 0)
-                                            Valor usado de {{ $fuentesRubro->fontVigencia->font->name }}:
+                                            Valor usado de {{ $fuentesRubro->font->name }}:
                                             @if($fuentesRubro->rubrosCdpValor->count() != 0)
                                                 @foreach($fuentesRubro->rubrosCdpValor as  $valoresFR)
                                                     @php($id_rubrosCdp = $rubrosCdpData->id )
                                                     @if($valoresFR->cdp_id == $cdp->id)
                                                         <input type="hidden" name="rubros_cdp_valor_id[]" value="{{ $valoresFR->id }}">
                                                         @if($cdp->secretaria_e == "0")
-                                                            <input type="number" required  name="valorFuenteUsar[]" id="id{{$fuentesRubro->font_vigencia_id}}" class="valor{{ $valoresFR->rubrosCdp_id }}" value="{{ $valoresFR->valor }}" max="{{ $fuentesRubro->valor_disp }}" style="text-align: center">
+                                                            <input type="number" required  name="valorFuenteUsar[]" id="id{{$fuentesRubro->font_id}}" class="valor{{ $valoresFR->rubrosCdp_id }}" value="{{ $valoresFR->valor }}" max="{{ $fuentesRubro->valor_disp }}" style="text-align: center">
                                                         @else
                                                             $<?php echo number_format( $valoresFR->valor,0) ?>
                                                         @endif
@@ -372,7 +372,7 @@
                 var fuenteR = fontsR[j].rubros_cdp_valor;
                 for (k = 0; k < fuenteR.length; k++){
                     var idClass = '#valor'+fuenteR[k].rubrosCdp_id;
-                    var idId = '.id'+fontsR[j].font_vigencia_id;
+                    var idId = '.id'+fontsR[j].font_id;
                     var i = i;
                 }
 

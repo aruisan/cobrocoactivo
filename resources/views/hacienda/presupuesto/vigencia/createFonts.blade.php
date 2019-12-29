@@ -63,31 +63,25 @@
                             <th class="text-center"><i class="fa fa-trash-o"></i></th>
                         </thead>
                         <tbody>
-                        @foreach($fonts as $data)
-                            <tr>
-                                <th scope="row"><input type="hidden" name="font_id[]" value="{{ $data->id }}"><input type="text" style="text-align:center" name="code[]" value="{{ $data->font->code }}"></th>
-                                <th scope="row"><input type="text" name="nombre[]" style="text-align:center" value="{{ $data->font->name }}"></th>
-                                <th scope="row"><input type="number" name="valor[]" style="text-align:center" value="{{ $data->valor }}" required></th>
-                                <td class="text-center"><button type="button" class="btn-sm btn-danger" v-on:click.prevent="eliminarDatos({{ $data->id }})" ><i class="fa fa-trash-o"></i></button></td>
+                            <tr v-for="dato in datos">
+                                <th scope="row"><input type="hidden" name="font_id[]" v-model="dato.id"><input type="text" style="text-align:center" name="code[]" v-model="dato.code"></th>
+                                <th scope="row"><input type="text" name="nombre[]" style="text-align:center" v-model="dato.name"></th>
+                                <th scope="row"><input type="number" name="valor[]" style="text-align:center" v-model="dato.valor" required></th>
+                                <td class="text-center"><button type="button" class="btn-sm btn-danger" v-on:click.prevent="eliminarDatos(dato.id)" ><i class="fa fa-trash-o"></i></button></td>
                             </tr>
-                        @endforeach
-                        @if($vigencia->fonts->sum('valor') < $vigencia->presupuesto_inicial)
                             @for($i=0;$i < $fila ;$i++)
-                                <tr >
-                                    <td><input type="hidden" name="font_id[]"><input type="text" name="code[]"></td>
-                                    <td><input type="text" name="nombre[]" required></td>
-                                    <td><input type="number" name="valor[]"  required></td>
-                                    <td class="text-center"><input type="button" class="borrar btn-sm btn-danger" value=" - " /></td>
-                                </tr>
+                            <tr >
+                                <td><input type="hidden" name="font_id[]"><input type="text" name="code[]"></td>
+                                <td><input type="text" name="nombre[]" required></td>
+                                <td><input type="number" name="valor[]"  required></td>
+                                <td class="text-center"><input type="button" class="borrar btn-sm btn-danger" value=" - " /></td>
+                            </tr>
                             @endfor
-                        @endif
                         </tbody>
                     </table>
                 </div><br><center>
-                    @if($vigencia->fonts->sum('valor') < $vigencia->presupuesto_inicial)
-                        <button type="button" v-on:click.prevent="nuevaFila" class="btn btn-success">Nueva Fila</button>
-                    @endif
-                        <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="button" v-on:click.prevent="nuevaFila" class="btn btn-success">Nueva Fila</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
             </center>
         </form>
     </div>
@@ -130,8 +124,9 @@ new Vue({
 		},
 
 		eliminarDatos: function(dato){
-			var url = '/presupuesto/font/'+dato;
-			axios.delete(url).then(response => {
+			var urlVigencia = '/presupuesto/font/'+dato;
+			axios.delete(urlVigencia).then(response => {
+				
 					location.reload();
 			});
 		},

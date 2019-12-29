@@ -116,7 +116,7 @@ class RubrosMovController extends Controller
         }
 
         $mov = RubrosMov::findOrFail($id);
-        $mov->font_vigencia_id = $idF;
+        $mov->fonts_id = $idF;
         $mov->valor = $valor;
         $mov->save();
 
@@ -224,7 +224,7 @@ class RubrosMovController extends Controller
                     $rubrosMov = new RubrosMov();
                     $rubrosMov->valor = $valor_Red[$i];
                     $rubrosMov->fonts_rubro_id = $fuenteR_id[$i];
-                    $rubrosMov->font_vigencia_id = $fuente_id_Add[$i];
+                    $rubrosMov->fonts_id = $fuente_id_Add[$i];
                     $rubrosMov->rubro_id = $id;
                     $rubrosMov->movimiento = $m;
                     $rubrosMov->resource_id = $resource;
@@ -266,7 +266,7 @@ class RubrosMovController extends Controller
                     $rubrosMov2 = new RubrosMov();
                     $rubrosMov2->valor = $valor[$i];
                     $rubrosMov2->fonts_rubro_id = $fuenteR_id[$i];
-                    $rubrosMov2->font_vigencia_id = 1;
+                    $rubrosMov2->fonts_id = 1;
                     $rubrosMov2->rubro_id = $id;
                     $rubrosMov2->movimiento = $m;
                     $rubrosMov2->resource_id = $resource;
@@ -300,7 +300,7 @@ class RubrosMovController extends Controller
                     $rubrosMov3 = new RubrosMov();
                     $rubrosMov3->valor = $valor2[$i];
                     $rubrosMov3->fonts_rubro_id = $fuenteR2_id[$i];
-                    $rubrosMov3->font_vigencia_id = 1;
+                    $rubrosMov3->fonts_id = 1;
                     $rubrosMov3->rubro_id = $id;
                     $rubrosMov3->movimiento = $m;
                     $rubrosMov3->resource_id = $resource2;

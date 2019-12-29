@@ -48,7 +48,8 @@
   }
   .text-white
   {
-    color:white;
+      color: white;
+
   }
 
    .text-black
@@ -63,14 +64,20 @@
 
   .form_entrar
   {
-          background-color: #009688;
+          background-color: #efb827;
           top: 20px;
           border-radius: 3%;
-          border: 1px solid rgba(51,122,183,.5); 
+          border: 1px solid #efb827; 
           -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.28);
           -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.28);
           box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.28);
           }
+
+.btn-info {
+background-color: rgb(149, 8, 8) !important;
+border: rgb(149, 8, 8) !important;
+}
+
 
 .top-6{
     margin-top: 6%;
@@ -89,14 +96,13 @@
 
   .btn-primary {
     color: #fff !important;
-    background-color :rgb(9,99,90) !important;
-    border-color: rgb(9,99,90) !important;
+    background-color: rgb(149, 8, 8)  !important;
+    border-color: rgb(149, 8, 8)  !important;
 }
 
   .btn-primary:hover {
-      color:#0056b3 !important; 
-
-      background-color:white !important;
+      color:rgb(149, 8, 8)  !important; 
+      background-color: #efb827 !important;
   }
 
 body{
@@ -107,6 +113,7 @@ body{
 
 #contenedor_buscar
 {
+    margin-top:80px;
   background-color:rgba(256,256,256,.7);
   padding:  3% 0px;
   border:1px solid #ababa6;;
@@ -119,9 +126,26 @@ box-shadow: -8px 12px 18px -6px rgba(0,0,0,0.75);
   /*position: absolute;*/
     width: 100%;
     height: 30px;
-  background-color: #14736a !important;
+    background-color: rgb(149, 8, 8) !important;
+   
+
 }
 
+.text-foo{
+      color: rgb(149, 8, 8) !important;
+}
+.navegacion{
+  background: rgb(149, 8, 8) !important;
+  border-style: none;
+-webkit-box-shadow: -2px 17px 13px -1px rgba(69,69,65,1);
+-moz-box-shadow: -2px 17px 13px -1px rgba(69,69,65,1);
+box-shadow: -2px 17px 13px -1px rgba(69,69,65,1);
+position: fixed;
+    top: 30;
+    width: 100%;
+    z-index: 1;
+  
+}
 
 .navbar-default .navbar-nav .open .dropdown-menu > li > a {
     color: white;
@@ -129,40 +153,31 @@ box-shadow: -8px 12px 18px -6px rgba(0,0,0,0.75);
 
 
 .navbar-default .navbar-nav .open .dropdown-menu  {
-background: #14736a !important;
+background: rgb(149, 8, 8) !important;
 }
 
 
-.item-menu{
-
-background:rgb(43, 187, 173);
-width: 100%;
-color: #fff !important;
-
-}
 
 .item-menu:focus, 
 .item-menu:hover {
     text-decoration: none;
-    background-color: rgb(43, 187, 173) !important;
-    color: #fff !important;
+    background-color: #efb827 !important;
+    color:rgb(149, 8, 8) !important;
 }
 
 .item-menu {
     text-decoration: none;
-   background-color: #14736a !important;
+   background-color: rgb(149, 8, 8) !important;
    color: #fff !important;
    margin-left: 0px;
     margin-right: 0px;
     border: none;
     /*box-shadow: none;*/
     border-radius: unset;
+    width: 100%;
 }
 
-.navegacion{
-  background:#14736a;
-  border-style: none;
-}
+
 
 </style>
 </head>
@@ -302,22 +317,29 @@ color: #fff !important;
   <footer id="myFooter">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h5 class="text-center">Producto Elaborado Por</h5>
-                </div>
-                <div class="col-sm-2 text-left">
-                    <a href="http://altaespecialidad.co/"><img src="{{ asset('/img/logo4.png') }}" width="90"/></a>
-                </div>
-                <div class="col-sm-4">
-                </div>
-                <div class="col-sm-4 text-center" style="padding: 10px 0">
+             
+              <div class="col-sm-4 text-center" style="padding: 10px 0">
                     <a href="http://siex.com.co/"><img src="{{ asset('/img/logo3.png') }}" width="350"/></a>
+                
+                <p class="text-foo">© 2018 Copyright Derechos Reservados 
+            <a class="text-foo" href="http://altaespecialidad.co/"> Alta Especialidad SAS</a> </p>
+      
                 </div>
+               
+    <div class="col-sm-4 text-center" >
+                </div>
+
+                   <div class="col-sm-3 ">
+                    <h5 class="text-right text-foo">Producto Elaborado Por</h5>
+                </div>
+                <div class="col-sm-1 text-left"  style="padding: 10px 0">
+                    <a href="http://altaespecialidad.co/"><img src="{{ asset('/img/logoOrigin.png') }}" width="90"/></a>
+                </div>
+
             </div>
         </div>
-        <div class="footer-copyright">
-            <p>© 2018 Copyright Derechos Reservados <a href="http://altaespecialidad.co/"> Alta Especialidad SAS</a> </p>
-        </div>
+        <div >
+              </div>
     </footer>
 
       
