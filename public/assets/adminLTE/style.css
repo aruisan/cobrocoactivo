@@ -475,6 +475,7 @@ box-shadow: -2px 17px 32px -12px rgba(133,133,130,1);
 
  .sidebar{
   width: 100%;
+  position:relative !important;
 }
 .fondo-wrapper,.table-responsive, .tab-content{
   background-color: #f5f5f5 !important;
