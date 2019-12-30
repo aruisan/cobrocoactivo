@@ -28,11 +28,14 @@
         <li> <a href="#" class="btn btn-primary hidden"><i class="fa fa-edit"></i><span class="hide-menu">&nbsp; Cambiar Vigencia</span></a></li>
     @else
     @endif
-    <li>
+    <div class="row">
+    <div class="col-sm-2">
+    </div>
+    <div class="col-sm-4">
         <a href="#" class="btn btn-success">
             <span class="hide-menu"> Presupuesto de Ingresos</span></a>
-    </li>
-    <li class="dropdown">
+    </div>
+    <div class="dropdown col-sm-4">
         <a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown">
 
             Informes
@@ -59,7 +62,10 @@
                 <a href="#" class="btn btn-primary text-left">Fuentes</a>
             </li>
         </ul>
-    </li>
+    </div>
+       </div>
+       <div class="col-sm-2">
+    </div>
     <li>
         @if($V != "Vacio")
             <a class="dropdown-toggle btn btn btn-primary hidden" data-toggle="dropdown" href="#">
