@@ -52,9 +52,21 @@
    CONTABILIDAD
    <span class="caret"></span>
    </a>
+
    <ul class="dropdown-menu">
       <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/retefuente')}}">Retención en la Fuente</a></li>
-      <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/puc')}}">PUC</a></li>
+      
+      <li class="dropdown-submenu">
+         <a class="dropdown-item item-menu" href="#" >PUC</a>
+         <ul class="dropdown-menu">
+         <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/puc/pucIndex',1)}}">PUC Res. 3832 Ingresos</a></li>
+          <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/puc/pucIndex',2)}}">PUC Res. 3832 Gastos</a></li>
+           
+            <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/puc/pucIndexAct')}}">PUC de vigencia</a></li>
+         </ul>
+      </li>
+     
+      {{-- <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/puc')}}">PUC</a></li> --}}
       <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/impumuni')}}">Impuestos Municipales</a></li>
       <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/informes/lvl/1')}}">Informes</a></li>
    </ul>
