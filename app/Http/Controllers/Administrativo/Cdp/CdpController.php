@@ -38,10 +38,10 @@ class CdpController extends Controller
         {
             $cdpTarea = Cdp::where('vigencia_id', $vigencia_id)->where('secretaria_e', '0')->orWhere('jefe_e','1')->get();
             $cdps = Cdp::where('vigencia_id', $id)
-            ->where(function ($query) {
-                $query->where('jefe_e','3')
-                    ->orWhere('jefe_e','2');
-            })->get();
+                ->where(function ($query) {
+                    $query->where('jefe_e','3')
+                        ->orWhere('jefe_e','2');
+                })->get();
 
 
         }elseif ($rol == 3)
@@ -94,9 +94,9 @@ class CdpController extends Controller
 
             $rubrosCdp = RubrosCdpValor::where('cdp_id', $id)->get();
             foreach ($rubrosCdp as $rubroCdp){
-               $fontR = FontsRubro::findOrFail($rubroCdp->fontsRubro->id);
-               $fontR->valor_disp = $fontR->valor_disp + $rubroCdp->valor;
-               $fontR->save();
+                $fontR = FontsRubro::findOrFail($rubroCdp->fontsRubro->id);
+                $fontR->valor_disp = $fontR->valor_disp + $rubroCdp->valor;
+                $fontR->save();
             }
 
             Session::flash('error','El CDP ha sido anulado');
@@ -266,13 +266,14 @@ class CdpController extends Controller
         }
         if ($rol == 3){
             if ($estado == 3){
-                $update->jefe_e = $estado;
-                $update->ff_jefe_e = $fecha;
-                $update->valor = $valor;
-                $update->saldo = $valor;
-                $update->save();
+                foreach ($update->rubrosCdpValor as $fuentes){
+                    if ($fuentes->fontsRubro->valor_disp >= $fuentes->valor  ){
+                        $update->jefe_e = $estado;
+                        $update->ff_jefe_e = $fecha;
+                        $update->valor = $valor;
+                        $update->saldo = $valor;
 
-                $this->actualizarValorRubro($id);
+                        $this->actualizarValorRubro($id);
 
                         $update->save();
 
@@ -389,9 +390,9 @@ class CdpController extends Controller
 
         $fecha = Carbon::createFromTimeString($cdp->created_at);
 
-        
-    $dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
-    $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+
+        $dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
+        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 
         $pdf = PDF::loadView('administrativo.cdp.pdf', compact('cdp','rubros','valores','rol','infoRubro', 'vigencia', 'dias', 'meses', 'fecha'))->setOptions(['images' => true,'isRemoteEnabled' => true]);
         return $pdf->stream();
