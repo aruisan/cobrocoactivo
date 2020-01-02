@@ -9,14 +9,15 @@ class gPuc extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable;
 
-        protected $fillable = [
-            'code',
-            'name',
-            'parent',
-            'order',
-            'enable',
-            'type'
-        ];
+    // protected $guarded = [];
+    //     protected $fillable = [
+    //         'code',
+    //         'name',
+    //         'parent',
+    //         'order',
+    //         'enable',
+    //         'type',
+    //     ];
 
 
         var $mom, $kids;

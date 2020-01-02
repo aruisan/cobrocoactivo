@@ -17,8 +17,7 @@ class ActPucController extends Controller
      */
     public function index()
     {
-        // $surveys = gPuc::with('childrenRecursive')->where('parent','=',1)->get(); 
-        // $codigos = gPuc::where('type','=','1')->get();      
+         
 
         $child =  gPuc::with('childrens')->get();
         $parent = gPuc::with('parents')->get();

@@ -8,27 +8,29 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Session;
 
-class IngPucController extends Controller
+class ResPucController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
-        // $surveys = gPuc::with('childrenRecursive')->where('parent','=',1)->get(); 
-        // $codigos = gPuc::where('type','=','1')->get();      
+      
 
         $child =  gPuc::with('childrens')->get();
         $parent = gPuc::with('parents')->get();
 
-        $codigos = gPuc::where('type','=',$id)->withCount('childrens')->get();
+       $codigosi = gPuc::where('type','=','1')->where('enable','=', 1)->withCount('childrens')->get();
+        $codigosg = gPuc::where('type','=','2')->where('enable','=', 1)->withCount('childrens')->get();
        
 
-        // return $codigos;
-        // return $parent;
-           return view('administrativo.contabilidad.puc.pucIndex', compact('codigos'));
+           return view('administrativo.contabilidad.puc.pucIndex', compact('codigosi','codigosg'));
+
+           
+        
+       
        
     }
 

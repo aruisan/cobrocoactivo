@@ -192,7 +192,7 @@ Route::group([ 'middleware' => 'auth'] ,function(){
             //PUC
 
         Route::resource('contabilidad/puc/pucIndexAct','Administrativo\Contabilidad\ActPucController');
-        Route::resource('contabilidad/puc/pucIndex/{id}','Administrativo\Contabilidad\IngPucController');
+        Route::resource('contabilidad/puc/pucIndex','Administrativo\Contabilidad\ResPucController');
         
 
         Route::resource('contabilidad/puc','Administrativo\Contabilidad\PucController');

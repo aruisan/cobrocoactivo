@@ -59,9 +59,8 @@
       <li class="dropdown-submenu">
          <a class="dropdown-item item-menu" href="#" >PUC</a>
          <ul class="dropdown-menu">
-         <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/puc/pucIndex',1)}}">PUC Res. 3832 Ingresos</a></li>
-          <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/puc/pucIndex',2)}}">PUC Res. 3832 Gastos</a></li>
-           
+         <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/puc/pucIndex')}}">PUC Res. 3832 de 2019</a></li>
+          
             <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/puc/pucIndexAct')}}">PUC de vigencia</a></li>
          </ul>
       </li>
