@@ -3,21 +3,33 @@
     Editar Proyecto de Acuerdo
 @stop
 @section('sidebar')
-    <li> <a class="btn btn-primary" href="{{ asset('/dashboard/acuerdos') }}"><span class="hide-menu">Acuerdos</span></a></li>
+    {{-- <li> <a class="btn btn-primary" href="{{ asset('/dashboard/acuerdos') }}"><span class="hide-menu">Acuerdos</span></a></li> --}}
 @stop
 @section('content')
 
-<div class="col-12 formularioAcuerdo">
-<div class="row">
-    <div class="col-lg-12 margin-tb">
-        <h2 class="text-center"> Editar Proyecto de Acuerdo</h2>
-    </div>
-</div>
 
-
-
+<div class="col-xs-12 col-sm-12 col-md-12 formularioAcuerdo">
+        <div class="row">
+            
+            <div class="col-lg-12 margin-tb">
+                <h2 class="text-center"> Editar Proyecto de Acuerdo</h2>
+            </div>
+        </div>
+        
 <div class="row inputCenter"  style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #efb827; ">
-    <hr>
+        
+        <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link regresar"  href="{{ asset('/dashboard/acuerdos') }}" >Volver a Acuerdos</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link " data-toggle="pill" href="#ver">Editar</a>
+                </li>
+             
+             
+            </ul>
+            
+    <div class="tab-content col-sm-12" > <hr>
     <form action="{{ asset('/dashboard/acuerdos/proyectos/'.$ProyAcuerdo->id) }}" method="POST"  class="form" enctype="multipart/form-data">
         {!! method_field('PUT') !!}
         {{ csrf_field() }}
@@ -166,7 +178,7 @@
                 </form>
         </div>
     </div>
-
+</div>
 </div>
 </div>
 @endsection

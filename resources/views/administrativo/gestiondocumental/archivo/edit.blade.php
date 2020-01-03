@@ -3,13 +3,13 @@
     Editar Archivo
 @stop
 @section('sidebar')
-    <li> <a class="btn btn-primary" href="{{ asset('/dashboard/archivo') }}"><span class="hide-menu">Archivos</span></a></li>
+    {{-- <li> <a class="btn btn-primary" href="{{ asset('/dashboard/archivo') }}"><span class="hide-menu">Archivos</span></a></li> --}}
 @stop
 @section('content')
 
 <div class="col-12 formularioArchivo">
 <div class="row">
-    <br>
+
     <div class="col-lg-12 margin-tb">
         <h2 class="text-center"> Editar Archivo</h2>
     </div>
@@ -18,6 +18,19 @@
 
 <div class="row inputCenter"  style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #efb827; ">
        
+        <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link regresar"  href="{{ asset('/dashboard/archivo') }}" >Volver a Archivo</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link " data-toggle="pill" href="#ver">VER</a>
+                </li>
+             
+             
+            </ul>
+ 
+</div>
+<div class="tab-content col-sm-12" > 
     <br>
     <hr>
     <form action="{{ asset('/dashboard/archivo/'.$Document->id) }}" method="POST"  class="form" enctype="multipart/form-data">

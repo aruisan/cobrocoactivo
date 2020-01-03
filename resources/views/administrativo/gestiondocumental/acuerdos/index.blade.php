@@ -141,7 +141,8 @@
                                         <td>{{ $data2->Concejales->persona->nombre}}</td>
                                         <td>
                                             <a href="{{Storage::url($data2->resource->ruta)}}" target="_blank" title="Ver" class="btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i></a>
-                                            <a href="{{ url('dashboard/acuerdos/proyectos/'.$data2->id.'/edit') }}" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                                         <br>  
+                                            <br> <a href="{{ url('dashboard/acuerdos/proyectos/'.$data2->id.'/edit') }}" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

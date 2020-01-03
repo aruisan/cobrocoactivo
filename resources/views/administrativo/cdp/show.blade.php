@@ -2,117 +2,127 @@
 @section('titulo')
     Información del CDP
 @stop
+
 @section('sidebar')
-    <li> <a href="{{ url('/administrativo/cdp/'.$cdp->vigencia_id) }}" class="btn btn-success"><span class="hide-menu">&nbsp; CDP's</span></a></li>
+    {{-- <li> <a href="{{ url('/administrativo/cdp') }}" class="btn btn-success"><span class="hide-menu">&nbsp; CDP's</span></a></li> --}}
     <br>
-    <div class="card">
-        <br>
-        <center>
-            <h4><b>Número del CDP:</b>&nbsp;{{ $cdp->id }}</h4>
-        </center>
-        <br>
-        <center>
-            <h4><b>Valor del CDP</b></h4>
-        </center>
-        <div class="text-center">
-            @if($rol == 3 and $cdp->jefe_e == 0)
-                $<?php echo number_format( $cdp->rubrosCdpValor->sum('valor_disp'),0) ?>
-                @else
-                $<?php echo number_format( $cdp->valor,0) ?>
-            @endif
-        </div>
-        <br>
-        @if($cdp->jefe_e != "3")
-        <center>
-            <h4><b>Valores de los Rubros</b></h4>
-        </center>
-        <br>
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <tbody>
-                    @foreach($valores as $valor)
-                    <tr>
-                        <td>{{ $valor['name'] }}</td>
-                        <td>$<?php echo number_format($valor['dinero'],0) ?></td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-        @endif
-        @if($cdp->jefe_e == "1" and $cdp->motivo != null)
-            <br>
-            <center>
-                <h4><b>Motivo del Rechazo</b></h4>
-            </center>
-            <div class="text-center">
-                {{ $cdp->motivo }}
-            </div>
-            <br>
-        @endif
-    </div>
+   
 @stop
+
 @section('content')
     <div class="col-md-12 align-self-center">
-        <div class="row justify-content-center">
-            <center><h3>{{ $cdp->name }}</h3></center>
-            <div class="form-validation">
-                <form class="form" action="">
-                    <hr>
-                    {{ csrf_field() }}
-                    <div class="col-lg-6">
-                        <table class="table-responsive" width="100%">
-                            <tbody class="text-center">
-                                <tr>
-                                    <td><b>Dependencia:</b></td>
-                                    <td><textarea class="text-center" style="border: none; resize: none;" disabled>{{ $cdp->dependencia->name }}</textarea></td>
-                                </tr>
-                                <tr>
-                                    <td><b>Fecha de Creación:</b></td>
-                                    <td>{{ $cdp->fecha }}</td>
-                                </tr>
-                                @if($cdp->secretaria_e == "3" and $cdp->jefe_e == "3")
-                                    <tr>
-                                        <td><b>Fecha de Envio por Secretaria:</b></td>
-                                        <td>{{ $cdp->ff_secretaria_e }}</td>
-                                    </tr>
-                                @endif
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-lg-6">
-                        <table class="table-responsive" style="width: 100%">
-                            <tbody class="text-center">
-                            <tr>
-                                <td><b>Observación:</b></td>
-                                <td><textarea class="text-center" style="border: none; resize: none;" disabled>{{ $cdp->observacion }}</textarea></td>
-                            </tr>
-                            <tr>
-                                <td><b>Saldo:</b></td>
-                                <td>$<?php echo number_format($cdp->saldo,0) ?></td>
-                            </tr>
-                            @if($cdp->secretaria_e == "3" and $cdp->jefe_e == "3")
-                                <tr>
-                                    <td><b>Fecha de Finalización:</b></td>
-                                    <td>{{ $cdp->ff_jefe_e }}</td>
-                                </tr>
-                            @endif
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-lg-12 text-center">
-                        <br>
-                        <b>
-                            @if($cdp->secretaria_e == "3" and $cdp->jefe_e == "0")
-                                Fecha de Envio por Secretaria:
-                                {{ $cdp->ff_secretaria_e }}
-                            @endif
-                        </b>
-                    </div>
-                </form>
-            </div>
-        </div>
+
+     <div class="breadcrumb text-center">
+        <strong>
+            <h4><b>Información del CDP</b></h4>
+        </strong>
     </div>
+          
+        
+         <div class="col-lg-12">
+
+            <ul class="nav nav-pills">
+    
+                <li class="nav-item regresar"><a class="nav-link "  href="{{ url('/administrativo/cdp') }}">Volver a CDP'S</a></li>
+                <li class="nav-item active"><a class="tituloTabs" data-toggle="tab" href="#info">Información CDP: {{ $cdp->id }}</a></li>
+                <li class="nav-item "><a class="tituloTabs" data-toggle="tab" href="#asigna">Asignar Rubros</a></li>
+                <li class="nav-item "><a class="tituloTabs" data-toggle="tab" href="#rubros">Valor de Rubros</a></li>
+       
+            </ul>
+          </div>
+ 
+<div class="col-lg-12 ">
+            <div class="tab-content">
+
+              <div id="info" class="tab-pane fade in active">
+                    <div class="row ">
+                            <br>
+                            <div class="col-sm-9"><h3>Objeto del CDP: {{ $cdp->name }}</h3></div>     
+                            <div class="col-sm-3"><h4><b>Número del CDP:</b>&nbsp;{{ $cdp->id }}</h4></div>     
+                            <br>
+                            <br>
+
+                            <div class="form-validation">
+                                <form class="form" action="">
+                                    <hr>
+                                    {{ csrf_field() }}
+                                    <div class="col-lg-6">
+                                        <table class="table-responsive" width="100%">
+                                            <tbody class="text-center">
+                                                <tr>
+                                                    <td><b>Dependencia:</b></td>
+                                                    <td><textarea class="text-center" style="border: none; resize: none;" disabled>{{ $cdp->dependencia->name }}</textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Fecha de Creación:</b></td>
+                                                    <td>{{ $cdp->fecha }}</td>
+                                                </tr>
+                                                @if($cdp->secretaria_e == "3" and $cdp->jefe_e == "3")
+                                                    <tr>
+                                                        <td><b>Fecha de Envio por Secretaria:</b></td>
+                                                        <td>{{ $cdp->ff_secretaria_e }}</td>
+                                                    </tr>
+                                                @endif
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <table class="table-responsive" style="width: 100%">
+                                            <tbody class="text-center">
+                                            <tr>
+                                                <td><b>Observación:</b></td>
+                                                <td><textarea class="text-center" style="border: none; resize: none;" disabled>{{ $cdp->observacion }}</textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Saldo:</b></td>
+                                                <td>$<?php echo number_format($cdp->saldo,0) ?></td>
+                                            </tr>
+                                            @if($cdp->secretaria_e == "3" and $cdp->jefe_e == "3")
+                                                <tr>
+                                                    <td><b>Fecha de Finalización:</b></td>
+                                                    <td>{{ $cdp->ff_jefe_e }}</td>
+                                                </tr>
+                                            @endif
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-lg-12 text-center">
+                                        <br>
+                                        <b>
+                                            @if($cdp->secretaria_e == "3" and $cdp->jefe_e == "0")
+                                                Fecha de Envio por Secretaria:
+                                                {{ $cdp->ff_secretaria_e }}
+                                            @endif
+                                        </b>
+                                    </div>
+                                </form>
+
+                                        
+                                    <div class="col-lg-12 text-center">    
+                                    <div class="row">
+                                    
+                                        <div class="col-sm-4 ">   
+                                        <h4><b>Valor del CDP:</b></h4>
+                                        </div>
+                                        
+                                        <div class="col-sm-8 " style="text-align:left;">   
+                                            @if($rol == 3 and $cdp->jefe_e == 0)
+                                            <h4><b>   $<?php echo number_format( $cdp->rubrosCdpValor->sum('valor_disp'),0) ?></b></h4>
+                                                @else
+                                            <h4><b>  $<?php echo number_format( $cdp->valor,0) ?></b></h4>
+                                            @endif
+                                        </div>
+
+                                        </div>
+                                    </div>
+                                        <br>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+     <div id="asigna" class="tab-pane ">
     <div class="col-md-12 align-self-center">
         <hr>
         <center>
@@ -359,8 +369,52 @@
             </div>
         @endif
     </div>
+
+</div>
+             <div id="rubros" class="tab-pane ">
+
+                <div class="card">
+                      
+                        @if($cdp->jefe_e != "3")
+                        <center>
+                            <h4><b>Valores de los Rubros</b></h4>
+                        </center>
+                        <br>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <tbody>
+                                    @foreach($valores as $valor)
+                                    <tr>
+                                        <td>{{ $valor['name'] }}</td>
+                                        <td>$<?php echo number_format($valor['dinero'],0) ?></td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        @endif
+                        @if($cdp->jefe_e == "1" and $cdp->motivo != null)
+                            <br>
+                            <center>
+                                <h4><b>Motivo del Rechazo</b></h4>
+                            </center>
+                            <div class="text-center">
+                                {{ $cdp->motivo }}
+                            </div>
+                            <br>
+                        @endif
+                    </div>
+                </div>
+            </div>
+</div>
+</div>
     @include('modal.observacionCDP')
     @stop
+
+
+
+
+
 @section('js')
     <script>
 

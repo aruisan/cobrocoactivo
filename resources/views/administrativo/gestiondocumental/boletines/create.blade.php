@@ -3,21 +3,35 @@
     Crear Boletín
 @stop
 @section('sidebar')
-    <li> <a class="btn btn-primary" href="{{ asset('/dashboard/boletines') }}"><span class="hide-menu">Boletines</span></a></li>
+    {{-- <li> <a class="btn btn-primary" href="{{ asset('/dashboard/boletines') }}"><span class="hide-menu">Boletines</span></a></li> --}}
 @stop
 @section('content')
 
-<div class="col-12 formularioBoletin">
-<div class="row">
-    <br>
-    <div class="col-lg-12 margin-tb">
-        <h2 class="text-center"> Creación de Boletín</h2>
-    </div>
-</div>
+<div class="col-xs-12 col-sm-12 col-md-12 formularioBoletin">
 
 
- <div class="row inputCenter"  style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #3d7e9a; ">
-      
+        <div class="row">
+            
+            <div class="col-lg-12 margin-tb">
+                <h2 class="text-center"> Nuevo Boletín</h2>
+            </div>
+        </div>
+        
+<div class="row inputCenter"  style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #efb827; ">
+        
+        <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link regresar"  href="{{ asset('/dashboard/boletines') }}" >Volver a Boletines</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link " data-toggle="pill" href="#ver">VER</a>
+                </li>
+             
+             
+            </ul>
+            
+    <div class="tab-content col-sm-12" >
+  
     <br>
     <hr>
     {!! Form::open(array('route' => 'boletines.store','method'=>'POST','enctype'=>'multipart/form-data')) !!}
@@ -72,6 +86,7 @@
     {!! Form::close() !!}
 </div>
 
+</div>
 </div>
 
 @endsection

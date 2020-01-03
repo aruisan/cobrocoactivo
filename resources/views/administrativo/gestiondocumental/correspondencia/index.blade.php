@@ -22,11 +22,11 @@
             <a class="nav-link" data-toggle="pill" href="#tabS">SALIDA</a>
         </li>
     </ul>
-    <br>
-    <div class="tab-content" style="background-color: white">
+
+    <div class="tab-content" >
         <div id="tabE" class="tab-pane active"><br>
             <div class="table-responsive">
-                <br>
+               
                 @if(count($CorrespondenciaE) > 0)
                 <table class="table table-hover table-bordered" align="100%" id="tabla_corrE">
                     <thead>

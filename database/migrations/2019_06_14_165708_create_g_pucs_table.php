@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class RetencionFuentes extends Migration
+class CreategPucsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,15 @@ class RetencionFuentes extends Migration
      */
     public function up()
     {
-        Schema::create('retencion_fuentes', function (Blueprint $table) {
+                   
+        Schema::create('g_pucs', function (Blueprint $table) {
             $table->increments('id');
-
-            $table->text('concepto');
-            $table->integer('uvt');
-            $table->integer('base');
-            $table->decimal('tarifa');
-            $table->integer('codigo');
-            $table->text('cuenta');
-
+            $table->string('code',50);
+            $table->string('name',400);
+            $table->integer('parent');
+            $table->integer('order');
+            $table->integer('enable');
+            $table->enum('type', ['1', '2']);
             $table->timestamps();
         });
     }
@@ -34,6 +33,6 @@ class RetencionFuentes extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('retencion_fuentes');
+        Schema::dropIfExists('g_pucs');
     }
 }

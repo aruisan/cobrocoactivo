@@ -123,8 +123,11 @@ class CdpController extends Controller
         $cdp->ff_secretaria_e = $request->fecha;
         $cdp->vigencia_id = $request->vigencia_id;
         $cdp->save();
+        $id= $cdp->id;
+        
         Session::flash('success','El CDP se ha creado exitosamente');
-        return redirect('/administrativo/cdp/'.$request->vigencia_id);
+        // return $id;
+        return redirect('/administrativo/cdp/'.$id);
     }
 
     /**

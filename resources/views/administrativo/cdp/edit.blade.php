@@ -3,8 +3,8 @@
     Información del CDP
 @stop
 @section('sidebar')
-    <li>
-        <a href="{{ url('/administrativo/cdp/'.$vigen) }}" class="btn btn-success">
+    {{-- <li>
+        <a href="{{ url('/administrativo/cdp') }}" class="btn btn-success">
             <span class="hide-menu">CDP's</span></a>
     </li>
     <li>
@@ -14,13 +14,32 @@
     <li>
         <a href="{{ url('/dashboard/contractual') }}" class="btn btn-primary">
             <span class="hide-menu">Contractual</span></a>
-    </li>
+    </li> --}}
 @stop
 @section('content')
     <div class="col-md-12 align-self-center">
         <div class="row justify-content-center">
+                 <div class="breadcrumb text-center">
+        <strong>
+            <h4><b>MODIFICAR CDP: {{ $idcdp->name }}</b></h4>
+        </strong>
+    </div>
+            <ul class="nav nav-pills">
+    
+      <li class="nav-item regresar">
+
+            <a class="nav-link "  href="{{ url('/administrativo/cdp') }}">Volver a CDP'S</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="{{ url('/administrativo/cdp/create') }}" >
+            
+                NUEVO CDP</a>
+        </li>
+  
+        
+   </ul>
             <br>
-            <center><h2>Información del CDP: {{ $idcdp->name }}</h2></center>
+            <center><h2></h2></center>
             <br>
             <div class="form-validation">
                 <form class="form" action="{{url('/administrativo/cdp/'.$idcdp->id.'/'.$vigen)}}" method="POST">

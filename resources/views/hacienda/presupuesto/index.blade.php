@@ -3,11 +3,8 @@
     Vigencia: {{ $añoActual }}
 @stop
 @section('sidebar')
-    @if($V != "Vacio")
-        <li> <a href="{{ url('/presupuesto/level/create/'.$V) }}" class="btn btn-success"><i class="fa fa-edit"></i><span class="hide-menu">&nbsp;Editar Presupuesto</span></a></li>
-    @endif
-    <li> <a href="#" class="btn btn-primary hidden"><i class="fa fa-edit"></i><span class="hide-menu">&nbsp; Cambiar Vigencia</span></a></li>
-    @if($V != "Vacio")
+    {{-- @if($V != "Vacio")
+        <li> <a href="{{ url('/presupuesto/level/create/'.$V) }}" class="btn btn-success hidden"><i class="fa fa-edit"></i><span class="hide-menu">&nbsp;Editar Presupuesto</span></a></li>
         <li class="dropdown">
             <a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown">
                 Informes
@@ -36,13 +33,60 @@
             </ul>
         </li>
     @endif
-    @if($V == "Vacio")
-        <li>
-            <a href="{{ url('/presupuesto/vigencia/create/0') }}" class="btn btn-primary">
-                <i class="fa fa-plus"></i>
-                <span class="hide-menu"> Nuevo Presupuesto de Egresos</span></a>
-        </li>
-    @endif
+    <div class="row">
+    <div class="col-sm-2">
+    </div>
+    <div class="col-sm-4">
+        <a href="#" class="btn btn-success">
+            <span class="hide-menu"> Presupuesto de Ingresos</span></a>
+    </div>
+    <div class="dropdown col-sm-4">
+        <a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown">
+
+            Informes
+            <i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-user">
+            <li class="dropdown-submenu">
+                <a class="test btn btn-primary text-left" href="#">Contractual &nbsp;</a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ url('/presupuesto/informes/contractual/homologar') }}" class="btn btn-success text-left">Homologar</a></li>
+                    <li><a data-toggle="modal" data-target="#reporteHomologar" class="btn btn-success text-left">Reporte</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="btn btn-primary text-left">FUT </a>
+            </li>
+            <li>
+                <a href="{{ url('/presupuesto/informes/lvl/1') }}" class="btn btn-primary text-left">Niveles</a>
+            </li>
+            <li>
+                <a href="#" class="btn btn-primary text-left">Comparativo (Ingresos - Gastos)</a>
+            </li>
+            <li>
+                <a href="#" class="btn btn-primary text-left">Fuentes</a>
+            </li>
+        </ul>
+    </div>
+       </div>
+       <div class="col-sm-2">
+    </div>
+    <li>
+        @if($V != "Vacio")
+            <a class="dropdown-toggle btn btn btn-primary hidden" data-toggle="dropdown" href="#">
+        @else
+            <a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown" href="#">
+        @endif
+            <i class="fa fa-plus"></i>
+            <span class="hide-menu">Nuevo Presupuesto</span>
+            &nbsp;
+            <i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-user">
+            <li><a href="{{ url('/presupuesto/vigencia/create/1') }}" class="btn btn-primary">Ingresos</a></li>
+            <li><a href="{{ url('/presupuesto/vigencia/create/0') }}" class="btn btn-primary">Egresos</a></li>
+        </ul>
+    </li> --}}
 @stop
 @section('content')
     @if($V != "Vacio")
@@ -415,12 +459,27 @@
 
                 <div id="tabCert" class=" tab-pane fade"><br>
                     <div class="table-responsive">
-                        @if(isset($cdps))
-                            <br>
-                            <a href="{{ url('administrativo/cdp/'.$V) }}" class="btn btn-primary btn-block m-b-12">CDP's</a>
-                            <br>
-                            <table class="table table-bordered" id="tabla_CDP">
-                                <thead>
+                        @if(count($cdps) >= 1)
+                        <br>
+                        <a href="{{ url('administrativo/cdp') }}" class="btn btn-primary btn-block m-b-12">CDP Detallado</a>
+                        <br>
+               <div class="box">
+               
+                <div class="box-body">
+                        <table class="table table-bordered" id="tabla_CDP">
+                            <thead>
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th class="text-center">Objeto</th>
+                                <th class="text-center">Valor</th>
+                                <th class="text-center">Estado Secretaria</th>
+                                <th class="text-center">Estado Jefe</th>
+                                <th class="text-center">Ver</th>
+                                <th class="text-center">Archivo</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($cdps as $cdp)
                                 <tr>
                                     <th class="text-center">#</th>
                                     <th class="text-center">Objeto</th>

@@ -3,22 +3,35 @@
     Agregar Resoluciones
 @stop
 @section('sidebar')
-    <li> <a class="btn btn-primary" href="{{ asset('/dashboard/acuerdos') }}"><span class="hide-menu">Acuerdos</span></a></li>
+    {{-- <li> <a class="btn btn-primary" href="{{ asset('/dashboard/acuerdos') }}"><span class="hide-menu">Acuerdos</span></a></li> --}}
 @stop
 @section('content')
 
 
+<div class="col-xs-12 col-sm-12 col-md-12 formularioResolucion">
 
-<div class="col-12 formularioResolucion">
-<div class="row">
-    <br>
-    <div class="col-lg-12 margin-tb">
-        <h2 class="text-center"> Agregar Resolución</h2>
-    </div>
-</div>
 
+        <div class="row">
+            
+            <div class="col-lg-12 margin-tb">
+                <h2 class="text-center"> Nueva Resolución</h2>
+            </div>
+        </div>
+        
 <div class="row inputCenter"  style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #efb827; ">
-    <br>
+        
+        <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link regresar"  href="{{ asset('/dashboard/acuerdos') }}" >Volver a Acuerdos</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link " data-toggle="pill" href="#ver">Nuevo</a>
+                </li>
+             
+             
+            </ul>
+            
+    <div class="tab-content col-sm-12" > <br>
     <hr>
     {!! Form::open(array('route' => 'resoluciones.store','method'=>'POST','enctype'=>'multipart/form-data')) !!}
     <div class="row">
@@ -82,5 +95,6 @@
         <button class="btn btn-primary btn-raised btn-lg" id="storeRegistro">Agregar</button>
     </div>
     {!! Form::close() !!}
+</div>
 </div>
 @endsection
