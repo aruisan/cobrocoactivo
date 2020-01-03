@@ -3,20 +3,39 @@
     Contratación
 @stop
 @section('sidebar')
-    <li>
+    {{-- <li>
         <a href="{{ url('/contractual/create') }}" class="btn btn-success">
             <i class="fa fa-plus"></i>
             <span class="hide-menu">Crear Contractual</span></a>
-    </li>
+    </li> --}}
 @stop
 @section('content')
-    <div class="col-md-12 align-self-center">
-        <div class="breadcrumb text-center">
-            <strong>
-                <h4><b>Contractual</b></h4>
-            </strong>
+
+<div class="col-xs-12 col-sm-12 col-md-12 formularioAcuerdo">
+
+
+        <div class="row">
+            
+            <div class="col-lg-12 margin-tb">
+                <h2 class="text-center"> Contractual</h2>
+            </div>
         </div>
-        <br>
+        
+<div class="row inputCenter"  style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #efb827; ">
+        
+        <ul class="nav nav-pills">
+          
+                <li class="nav-item active">
+                    <a class="nav-link " data-toggle="pill" href="#ver">Contractual</a>
+                </li>
+                   <li class="nav-item">
+                    <a class="nav-link regresar"  href="{{  url('/contractual/create') }}" >Nuevo Contrato</a>
+                </li>
+             
+            </ul>
+            
+    <div class="tab-content col-sm-12" >
+
         <div class="table-responsive">
             <br>
             @if(count($consulta)>0)
@@ -52,6 +71,8 @@
                 </div>
             @endif
         </div>
+    </div>
+    </div>
     </div>
 @stop
 @section('js')

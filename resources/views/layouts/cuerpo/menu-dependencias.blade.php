@@ -23,17 +23,34 @@
    </ul>
 </li>
 --}}
-<li class="dropdown ">
+<li >
    <a class="btn btn-default btn-sm item-menu" href="{{ url('/contractual') }}">
     CONTRATACIÓN
    </a>
 </li>
 
 <li class="dropdown ">
-   <a class="btn btn-default btn-sm item-menu" href="{{ url('/presupuesto') }}">
+   <a class="btn btn-default btn-sm dropdown-toggle item-menu" type="button" data-toggle="dropdown" data-submenu="">
    PRESUPUESTO
+   <span class="caret"></span>
    </a>
+   <ul class="dropdown-menu">
+       <li><a class="item-menu" tabindex="-1" href="{{ url('/presupuesto') }}">Presupuesto Gastos 2019</a></li>
+      
+      <li class="dropdown-submenu">
+         <a class="dropdown-item item-menu " href="#">Informes</a>
+         <ul class="dropdown-menu">
+            <li><a class="item-menu" href="#">Contractual</a></li>
+            <li><a class="item-menu" href="#">FUT</a></li>
+            <li><a class="item-menu" href="#">Comparativo (Ingresos-Gastos)</a></li>
+         </ul>
+      </li>
+   
+   </ul>
 </li>
+  
+
+    
 
 <li class="dropdown ">
    <a class="btn btn-default btn-sm item-menu" href="{{ url('/admin/ordenDia') }}">
