@@ -7,7 +7,7 @@
     Presupuesto - 2019
 @stop
 @section('sidebar')
-    {{-- @if($V != "Vacio")
+    @if($V != "Vacio")
         <li> <a href="{{ url('/presupuesto/level/create/'.$V) }}" class="btn btn-success hidden"><i class="fa fa-edit"></i><span class="hide-menu">&nbsp;Editar Presupuesto</span></a></li>
         <li class="dropdown">
             <a class="dropdown-toggle btn btn btn-primary hidden" data-toggle="dropdown" href="#">
@@ -81,7 +81,7 @@
             <li><a href="{{ url('/presupuesto/vigencia/create/1') }}" class="btn btn-primary">Ingresos</a></li>
             <li><a href="{{ url('/presupuesto/vigencia/create/0') }}" class="btn btn-primary">Egresos</a></li>
         </ul>
-    </li> --}}
+    </li>
 @stop
 @section('content')
     @include('modal.Informes.reporte')

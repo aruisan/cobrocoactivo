@@ -29,7 +29,13 @@
    </a>
 </li>
 
-<li class="dropdown ">
+<li >
+   <a class="btn btn-default btn-sm item-menu" href="{{ url('/presupuesto') }}">
+    PRESUPUESTO
+   </a>
+</li>
+
+{{-- <li class="dropdown ">
    <a class="btn btn-default btn-sm dropdown-toggle item-menu" type="button" data-toggle="dropdown" data-submenu="">
    PRESUPUESTO
    <span class="caret"></span>
@@ -48,7 +54,7 @@
    
    </ul>
 </li>
-  
+   --}}
 
     
 
