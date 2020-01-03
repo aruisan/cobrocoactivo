@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Hacienda\Presupuesto;
 
 use App\Http\Controllers\Controller;
+use App\Model\Hacienda\Presupuesto\FontsVigencia;
 use App\Model\Hacienda\Presupuesto\RubrosMov;
 use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ use App\Model\Dependencia;
 use App\Model\Hacienda\Presupuesto\Vigencia;
 use App\Model\Hacienda\Presupuesto\Level;
 use App\Model\Hacienda\Presupuesto\Register;
-use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 use Session;
 
@@ -21,39 +22,39 @@ class RubrosController extends Controller
 {
     public function create($vigencia_id)
     {
-      $vigencia = Vigencia::findOrFail($vigencia_id);
-      $fonts = Font::where('vigencia_id', $vigencia_id)->get();
-      $niveles = Level::where('vigencia_id', $vigencia_id)->get();
-      $subProy = SubProyecto::all();
-      $ultimoLevel = Level::where('vigencia_id', $vigencia_id)->get()->last();
-      $registers = Register::where('level_id', $ultimoLevel->id)->get();
+        $vigencia = Vigencia::findOrFail($vigencia_id);
+        $fonts = FontsVigencia::where('vigencia_id', $vigencia_id)->get();
+        $niveles = Level::where('vigencia_id', $vigencia_id)->get();
+        $subProy = SubProyecto::all();
+        $ultimoLevel = Level::where('vigencia_id', $vigencia_id)->get()->last();
+        $registers = Register::where('level_id', $ultimoLevel->id)->get();
 
-       foreach ($registers as $register){
-                $register_id = $register->code_padre->registers->id;
-                $code = $register->code_padre->registers->code.$register->code;
-                $ultimo = $register->code_padre->registers->level->level;
-                  while($ultimo > 1){
-                        $registro = Register::findOrFail($register_id);
-                        $register_id = $registro->code_padre->registers->id;
-                        $code = $registro->code_padre->registers->code.$code;
-                        
-                        $ultimo =  $registro->code_padre->registers->level->level;
-                   
-                    }
-                    $codigos[] = collect(['id' => $register->id , 'codigo' => $code]);
+        foreach ($registers as $register){
+            $register_id = $register->code_padre->registers->id;
+            $code = $register->code_padre->registers->code.$register->code;
+            $ultimo = $register->code_padre->registers->level->level;
+            while($ultimo > 1){
+                $registro = Register::findOrFail($register_id);
+                $register_id = $registro->code_padre->registers->id;
+                $code = $registro->code_padre->registers->code.$code;
+
+                $ultimo =  $registro->code_padre->registers->level->level;
+
             }
+            $codigos[] = collect(['id' => $register->id , 'codigo' => $code]);
+        }
 
 
-      $levels = Rubro::where('vigencia_id', $vigencia_id)->count();
+        $levels = Rubro::where('vigencia_id', $vigencia_id)->count();
         if($levels == 0){
-           $fila = $vigencia->ultimo;
+            $fila = $vigencia->ultimo;
         }else if($levels >= $vigencia->ultimo){
             $fila = 0;
         }else if( $vigencia->ultimo > $levels){
             $fila = $vigencia->ultimo - $levels;
         }
 
-      return view('hacienda.presupuesto.vigencia.createRubros', compact('vigencia', 'fonts', 'subProy', 'fila', 'niveles', 'registers', 'codigos','vigencia_id'));
+        return view('hacienda.presupuesto.vigencia.createRubros', compact('vigencia', 'fonts', 'subProy', 'fila', 'niveles', 'registers', 'codigos','vigencia_id'));
     }
 
     /**
@@ -77,7 +78,7 @@ class RubrosController extends Controller
 
             if($id[$i]){
                 $this->update($id[$i], $name[$i], $code[$i], $register[$i], $subProy[$i]);
-            }else{          
+            }else{
                 $rubro = new Rubro();
                 $rubro->name = $name[$i];
                 $rubro->cod = $code[$i];
@@ -88,7 +89,7 @@ class RubrosController extends Controller
             }
         }
 
-       return  back();
+        return  back();
     }
 
     /**
@@ -108,7 +109,9 @@ class RubrosController extends Controller
         $fuentesR = $rubro->Fontsrubro;
         $add = rubrosMov::where([['rubro_id','=',$id],['movimiento','=','2']])->get();
         $red = rubrosMov::where([['rubro_id','=',$id],['movimiento','=','3']])->get();
-        $fuentesAll = Font::all();
+        $añoActual = Carbon::now()->year;
+        $vigens = Vigencia::where('vigencia', $añoActual)->where('tipo', 0)->where('estado', '0')->get();
+        $fuentesAll = FontsVigencia::where('vigencia_id', $vigens[0]->id)->get();
         $valor = $fuentesR->sum('valor');
         $valorDisp = $fuentesR->sum('valor_disp');
 
@@ -120,7 +123,7 @@ class RubrosController extends Controller
 
             if ($rubro->rubrosMov->count() > 0){
                 foreach($rubro->rubrosMov as $RM){
-                    if ($RM->fonts_id == $fuente->font_id){
+                    if ($RM->fonts_id == $fuente->font_vigencia_id){
                         if ($RM->movimiento == 1){
                             $suma[] = $RM->valor;
                         } elseif($RM->movimiento == 2){
@@ -154,7 +157,7 @@ class RubrosController extends Controller
             }
             $val2 = array_sum($resta);
             $CCred = array_sum($restaC);
-            $valores[] = collect(['id' => $fuente->font_id , 'credito' => $val, 'ccredito' => $val2, 'adicion' => $Cred, 'reduccion' => $CCred]);
+            $valores[] = collect(['id' => $fuente->font_vigencia_id , 'credito' => $val, 'ccredito' => $val2, 'adicion' => $Cred, 'reduccion' => $CCred]);
             unset($suma, $resta, $Cred, $CCred);
         }
 
@@ -175,8 +178,9 @@ class RubrosController extends Controller
             }
         }
 
+
         return view('hacienda.presupuesto.rubro.show', compact('rubro','fuentesR','valor','valorDisp','rol','rubros','fuentesAll','valores','files','add','red'));
-        
+
     }
 
     /**

@@ -9,7 +9,7 @@ class Font extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable;
 
-	 public function fontsRubro(){
-		return $this->hasMany('App\Model\Hacienda\Presupuesto\FontsRubro','font_vigencia_id');
-	}
+    public function fontsRubro(){
+        return $this->hasMany('App\Model\Hacienda\Presupuesto\FontsRubro','font_vigencia_id');
+    }
 }

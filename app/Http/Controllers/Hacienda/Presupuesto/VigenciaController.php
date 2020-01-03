@@ -12,9 +12,9 @@ use Session;
 class VigenciaController extends Controller
 {
 
-	 public function create($tipo)
+    public function create($tipo)
     {
-    	return view('hacienda.presupuesto.vigencia.create', compact('tipo'));
+        return view('hacienda.presupuesto.vigencia.create', compact('tipo'));
     }
 
     public function store(Request $request){
@@ -36,7 +36,7 @@ class VigenciaController extends Controller
                 $ruta = "";
             }
 
-        	$vigencia = new Vigencia;
+            $vigencia = new Vigencia;
             $vigencia->vigencia = $request->vigencia;
             $vigencia->tipo = $request->tipo;
             $vigencia->ultimo = $request->niveles;
@@ -45,6 +45,7 @@ class VigenciaController extends Controller
             $vigencia->numero_decreto = $request->decreto;
             $vigencia->fecha = $request->fecha;
             $vigencia->user_id = 1;
+            $vigencia->estado = '0';
             $vigencia->save();
 
             Session::flash('success','La Vigencia se ha creado exitosamente');
@@ -54,10 +55,6 @@ class VigenciaController extends Controller
             return back();
         }
 
-    } 
-
-
-
-	
+    }
 
 }
