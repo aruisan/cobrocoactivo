@@ -3,7 +3,7 @@
     Crear Retención en la Fuente
 @stop
 @section('sidebar')
-    <li> <a class="btn btn-primary" href="{{ '/administrativo/contabilidad/retefuente' }}"><span class="hide-menu">Retención en la Fuente</span></a></li>
+    <div> <a class="btn btn-primary" href="{{ '/administrativo/contabilidad/retefuente' }}"><span class="hide-menu">Retención en la Fuente</span></a></div>
 @stop
 
 
@@ -21,7 +21,7 @@
 
 <div class="col-10">
 
- <div class="row inputCenter" style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #3d7e9a; ">
+ <div class="row inputCenter" style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #efb827; ">
             
                    
     <br>
@@ -92,14 +92,20 @@
     </div>
 
 
-    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+    <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center">
         <button class="btn btn-primary btn-raised btn-lg" id="storeRegistro">Guardar</button>
     </div>
 
+       <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center">
+        <a class="btn btn-primary btn-raised btn-lg" href="{{ '/administrativo/contabilidad/retefuente' }}"> 
+        Cancelar</button></a>
+    </div>
+
+ 
 
     {!! Form::close() !!}
       </div>
      </div>
     </div>
-</div>
+
 @endsection

@@ -386,8 +386,10 @@ color: black;
 
 @media (min-width:545px){
 
-  .sidebar ul li{width: 50%; 
-    margin-left: 25%;
+  .sidebar ul div a{
+    width: 100%; 
+    margin-left: 0%;
+    
   }
 
 }
@@ -475,6 +477,8 @@ box-shadow: -2px 17px 32px -12px rgba(133,133,130,1);
 
  .sidebar{
   width: 100%;
+  position:relative !important;
+  align-content: center;
 }
 .fondo-wrapper,.table-responsive, .tab-content{
   background-color: #f5f5f5 !important;

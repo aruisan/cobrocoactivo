@@ -13,7 +13,7 @@
 </div>
 
 
-<div class="row inputCenter" style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #3d7e9a; ">
+<div class="row inputCenter" style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #efb827; ">
    
     <br>
     <hr>
@@ -83,17 +83,22 @@
         </div>
 
 <div class="row">
-        <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center">
+        <div class="form-group col-xs-4 col-sm-4 col-md-4 col-lg-4 text-center">
             <button class="btn btn-primary btn-raised btn-lg">Guardar</button>
         </div>
     </form>
-    <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center">
+    <div class="form-group col-xs-4 col-sm-4 col-md-4 col-lg-4 text-center">
         <form action="{{ asset('/administrativo/contabilidad/retefuente/'.$retens->id) }}" method="post">
             {!! method_field('DELETE') !!}
             {{ csrf_field() }}
             <button class="btn btn-danger btn-raised btn-lg">Eliminar</button>
         </form>
     </div>
+     <div class="form-group col-xs-4 col-sm-4 col-md-4 col-lg-4 text-center">
+        <a class="btn btn-primary btn-raised btn-lg" href="{{ '/administrativo/contabilidad/retefuente' }}"> 
+        Cancelar</button></a>
+    </div>
+
        </div>
 
 
