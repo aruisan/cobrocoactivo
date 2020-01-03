@@ -1927,7 +1927,6 @@ class PresupuestoController extends Controller
 
             $codeCon = CodeContractuales::all();
 
-
             return view('hacienda.presupuesto.newIndexIngresos', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales', 'Rubros','valoresCdp','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP','pagos','valP','valCP','valR','codeCon','añoActual','mesActual'));
         }
     }
