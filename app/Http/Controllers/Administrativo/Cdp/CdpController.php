@@ -115,8 +115,11 @@ class CdpController extends Controller
         $cdp->secretaria_e = $request->secretaria_e;
         $cdp->ff_secretaria_e = $request->fecha;
         $cdp->save();
+        $id= $cdp->id;
+        
         Session::flash('success','El CDP se ha creado exitosamente');
-        return redirect('/administrativo/cdp');
+        // return $id;
+        return redirect('/administrativo/cdp/'.$id);
     }
 
     /**

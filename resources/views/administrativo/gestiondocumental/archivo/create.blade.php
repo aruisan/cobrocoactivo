@@ -3,7 +3,7 @@
     Crear Archivo
 @stop
 @section('sidebar')
-    <li> <a class="btn btn-primary" href="{{ asset('/dashboard/archivo') }}"><span class="hide-menu">Archivos</span></a></li>
+    {{-- <li> <a class="btn btn-primary" href="{{ asset('/dashboard/archivo') }}"><span class="hide-menu">Archivos</span></a></li> --}}
 @stop
 @section('content')
 
@@ -18,8 +18,19 @@
 
 
      <div class="row inputCenter"  style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #efb827; ">
-         
-    <br>
+    <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link regresar"  href="{{ asset('/dashboard/archivo') }}" >Volver a Archivo</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link " data-toggle="pill" href="#ver">Nuevo Archivo</a>
+                </li>
+             
+             
+            </ul>
+ 
+</div>
+<div class="tab-content col-sm-12" > 
     <hr>
     {!! Form::open(array('route' => 'archivo.store','method'=>'POST','enctype'=>'multipart/form-data')) !!}
     <input type="hidden" name="fecha_entrada" value="{{ Carbon\Carbon::today()->Format('Y-m-d')}}">

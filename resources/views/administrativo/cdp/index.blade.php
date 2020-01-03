@@ -3,21 +3,21 @@
     CDP's
 @stop
 @section('sidebar')
-    @if( $rol == 2)
+    {{-- @if( $rol == 2)
         <li>
             <a href="{{ url('/administrativo/cdp/create') }}" class="btn btn-success">
                 <i class="fa fa-plus"></i>
                 <span class="hide-menu"> Crear CDP</span></a>
         </li>
-    @endif
-    <li>
+    @endif --}}
+    {{-- <li>
         <a href="{{ url('/administrativo/registros') }}" class="btn btn-primary">
             <span class="hide-menu">Registros</span></a>
     </li>
     <li>
         <a href="{{ url('/dashboard/contractual') }}" class="btn btn-primary">
             <span class="hide-menu">Contractual</span></a>
-    </li>
+    </li> --}}
 @stop
 @section('content')
     <div class="breadcrumb text-center">
@@ -25,17 +25,36 @@
             <h4><b>CDP's</b></h4>
         </strong>
     </div>
+
+    
     <ul class="nav nav-pills">
-        <li class="nav-item">
+         <li class="nav-item regresar">
+            <a class="nav-link" href="{{ url('/presupuesto') }}" >
+            
+            Volver a Presupuesto</a>
+        </li>
+        <li class="nav-item active">
             <a class="nav-link" data-toggle="pill" href="#tabTareas">TAREAS</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" data-toggle="pill" href="#tabHistorico">HISTORICO</a>
         </li>
+        
+         @if( $rol == 2)
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url('/administrativo/cdp/create') }}" >
+            
+                NUEVO CDP</a>
+        </li>
+
+        
+    @endif
+
+    
     </ul>
-    <br>
-    <div class="tab-content" style="background-color: white">
-        <div id="tabTareas" class="tab-pane active"><br>
+  
+    <div class="tab-content" >
+        <div id="tabTareas" class="tab-pane fade in active"><br>
             <br>
             <div class="table-responsive">
                 @if(count($cdpTarea) > 0)
@@ -176,8 +195,20 @@
                 @endif
             </div>
         </div>
+
+</div>
 @stop
 @section('js')
+
+ <script type="text/javascript" >
+
+        $(document).ready(function(){
+        
+        $('.nav-tabs a[href="#tabTareas"]').tab('show')
+        });
+
+        </script>
+
     <script>
         $('#tabla_CDP').DataTable( {
             responsive: true,

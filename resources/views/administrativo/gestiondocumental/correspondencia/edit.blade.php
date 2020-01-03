@@ -3,20 +3,37 @@
     Editar Correspondencia
 @stop
 @section('sidebar')
-    <li><a href="{{ route('correspondencia.index') }}" class="btn btn-primary">Correspondencias</a></li>
+    {{-- <li><a href="{{ route('correspondencia.index') }}" class="btn btn-primary">Correspondencias</a></li> --}}
 @stop
 @section('content')
 
 <div class="col-12 formularioCorrespondencia">
-    <div class="row">
+<div class="breadcrumb text-center">
+        <strong>
+            <h4><b>Modificar Correspondencia</b></h4>
+        </strong>
+    </div>
+    <ul class="nav nav-pills">
+        <li class="nav-item">
+            <a class="nav-link regresar"  href="{{ route('correspondencia.index') }}" >Volver a correspondencia</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link " data-toggle="pill" href="#editar">EDITAR</a>
+        </li>
+    </ul>
+  
+
+{{-- style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #efb827; " --}}
+  <div class="tab-content" >  
+  
+  <div class="row">
         <br>
         <div class="col-lg-12 margin-tb">
-            <h2 class="text-center"> Correspondencia: {{ $CorrespondenciaE->name }}</h2>
+            <h3 class="text-center"> Correspondencia: {{ $CorrespondenciaE->name }}</h3>
         </div>
     </div>
-
-
-  <div class="row inputCenter"  style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #efb827; ">
+        <div id="editar" class="tab-pane  fade in active">
+  <div class="row inputCenter"  >
         <br>
         <hr>
         <form action="{{ asset('/dashboard/correspondencia/'.$CorrespondenciaE->id) }}" method="POST"  class="form" enctype="multipart/form-data">
@@ -170,7 +187,8 @@
              </div>
         </div>
     </div>
-
+  </div>
+    </div>
 </div>
 
 
