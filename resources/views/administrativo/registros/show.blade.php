@@ -3,63 +3,41 @@
     Registro
 @stop
 @section('sidebar')
-  <li>
+  {{-- <li>
       <a href="{{route('registros.index')}}" class="btn btn-success">
           <span class="hide-menu"> Registros</span></a>
-  </li>
-  <br>
-  <div class="card">
-      <br>
-      <center>
-          <h4><b>Valor del Registro</b></h4>
-          <h5>Obtenido de los CDP</h5>
-      </center>
-      <div class="text-center">
-          $<?php echo number_format($registro->valor,0) ?>
-      </div>
-      <br>
-      <center>
-          <h4><b>IVA del Registro</b></h4>
-      </center>
-      <div class="text-center">
-          $<?php echo number_format($registro->iva,0) ?>
-      </div>
-      <br>
-      <center>
-          <h4><b>Valor Total del Registro</b></h4>
-          <h5>Valor Registro + Valor IVA</h5>
-      </center>
-      <div class="text-center">
-          $<?php echo number_format($registro->val_total,0) ?>
-      </div>
-      <br>
-      @if($registro->secretaria_e != 3)
-      <center>
-          <h4><b>Dinero en los CDP's</b></h4>
-      </center>
-      <br>
-      <div class="table-responsive">
-          <table class="table table-hover">
-              <tbody>
-              @foreach($cdps as $cdp)
-                  <tr>
-                      <td>{{ $cdp['name'] }}</td>
-                      <td>$<?php echo number_format($cdp['saldo'],0) ?></td>
-                  </tr>
-              @endforeach
-              </tbody>
-          </table>
-      </div>
-      @endif
-  </div>
+  </li> --}}
+ 
 @stop
 @section('content')
-<div class="row">
-    <div class="col-lg-12 margin-tb">
-        <h3 class="text-center">{{ $registro->objeto }}</h3>
+   <div class="breadcrumb text-center">
+        <strong>
+            <h4><b>Detalles de Registro: {{ $registro->objeto }}</b></h4>
+        </strong>
     </div>
-</div>
-<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+            <a class="nav-link regresar"  href="{{url('administrativo/registros') }}">Volver a Registros</a>
+        </li> 
+        <li class="nav-item active">
+            <a class="nav-link" data-toggle="pill" href="#datos"> Datos básicos Registro </a>
+        </li>
+        <li class="nav-item ">
+            <a class="nav-link " data-toggle="pill" href="#cdpDisp">Agregar valor a Registro</a>
+        </li>
+      
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#valor">Consultar Dinero CDP'S</a>
+        </li>
+     
+    </ul>
+
+
+<div class="col-lg-12 " style="background-color:white;">
+            <div class="tab-content">
+
+                 <div id="datos" class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2 tab-pane fade in active">
+
     <hr>
     <div class="form-validation">
         <div class="row">
@@ -119,7 +97,8 @@
         </div>
     </div>
 </div>
-<div class="col-md-12 align-self-center">
+   <div id="cdpDisp" class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2 tab-pane">
+
     <hr>
     <center>
         <h3>CDP's del Registro</h3>
@@ -331,6 +310,56 @@
                     </center>
                 </form>
             @endif
+    </div>
+</div>
+
+   <div id="valor" class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2 tab-pane">
+    <br>
+  <div class="card">
+      <br>
+      <center>
+          <h4><b>Valor del Registro</b></h4>
+          <h5>Obtenido de los CDP</h5>
+      </center>
+      <div class="text-center">
+          $<?php echo number_format($registro->valor,0) ?>
+      </div>
+      <br>
+      <center>
+          <h4><b>IVA del Registro</b></h4>
+      </center>
+      <div class="text-center">
+          $<?php echo number_format($registro->iva,0) ?>
+      </div>
+      <br>
+      <center>
+          <h4><b>Valor Total del Registro</b></h4>
+          <h5>Valor Registro + Valor IVA</h5>
+      </center>
+      <div class="text-center">
+          $<?php echo number_format($registro->val_total,0) ?>
+      </div>
+      <br>
+      @if($registro->secretaria_e != 3)
+      <center>
+          <h4><b>Dinero en los CDP's</b></h4>
+      </center>
+      <br>
+      <div class="table-responsive">
+          <table class="table table-hover">
+              <tbody>
+              @foreach($cdps as $cdp)
+                  <tr>
+                      <td>{{ $cdp['name'] }}</td>
+                      <td>$<?php echo number_format($cdp['saldo'],0) ?></td>
+                  </tr>
+              @endforeach
+              </tbody>
+          </table>
+      </div>
+      @endif
+  </div>
+   </div>
     </div>
 </div>
 @include('modal.observacion')

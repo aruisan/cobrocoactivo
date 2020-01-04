@@ -190,13 +190,16 @@ background: rgb(149, 8, 8) !important;
         <div class="lema">
             <marquee class="col-12">
               <h4 class="text-center text-white">
-                    Mesa Directiva: Presidente: Javier Rafael Rodriguez Archbold  - Primer Vicepresidente: Evis Livingston Howard  - Segundo Vicepresidente: Elsa Robinson Hawkins
+                    Mesa Directiva: Presidente: Léri Aniseto Henry Taylor
+                      
                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                    Mesa Directiva: Presidente: Javier Rafael Rodriguez Archbold  - Primer Vicepresidente: Evis Livingston Howard  - Segundo Vicepresidente: Elsa Robinson Hawkins
+                    Mesa Directiva: Presidente: Léri Aniseto Henry Taylor  
+               
                 </h4>
               </marquee>
         </div>
-
+{{-- - Primer Vicepresidente: Evis Livingston Howard  
+                      - Segundo Vicepresidente: Elsa Robinson Hawkins --}}
 <nav class="navbar navbar-default navegacion" role="navigation" >
   <!-- El logotipo y el icono que despliega el menú se agrupan
        para mostrarlos mejor en los dispositivos móviles -->
@@ -222,6 +225,7 @@ background: rgb(149, 8, 8) !important;
                             <li><a class="item-menu" data-toggle="modal" data-target="#modal-pres" href="">Presupuesto</a></li>
                             <!-- <li><a data-toggle="modal" data-target="#modal-rc" href="">Rendición de Cuentas</a></li> -->
                             <!-- <li><a data-toggle="modal" data-target="#modal-le" href="">Lista de Empleados</a></li> -->
+                             <li><a class="item-menu" data-toggle="modal" data-target="#modal-Al" href="">Alcalde</a></li>
                             <li><a class="item-menu" data-toggle="modal" data-target="#modal-lc" href="">Lista de Concejales</a></li>
                             <li><a class="item-menu" data-toggle="modal" data-target="#modal-boletines" href="">Boletines</a></li>
                         </ul>

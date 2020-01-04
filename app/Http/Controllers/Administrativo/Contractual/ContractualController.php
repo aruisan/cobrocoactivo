@@ -45,6 +45,7 @@ class ContractualController extends Controller
         // $consulta = ModuloInicial::where('modulo', '=', 'contractual')
         // ->where('idUsers','=',$usuario)
         // ->get();
+        // return $consulta;
         return view('administrativo.contractual.index')->with('consulta', $consulta);
 
     }

@@ -9,9 +9,12 @@
                  </h4>
              </div>
              <div class="modal-body">
-                 <li>Presidente: <b>Javier Rodríguez Archbold </b> </li>
-                 <li>Vicepresidenta Primera: <b>Evis Livingston Howard</b> </li>
-                 <li>Vicepresidenta Segunda: <b> Elsa Robinson Hawkins</b> </li>
+                 <li>Presidente: <b></b> </li> 
+                Léri Aniseto Henry Taylor
+                 <li>Vicepresidenta Primera: <b></b> </li>
+                 {{-- Evis Livingston Howard --}}
+                 <li>Vicepresidenta Segunda: <b> </b> </li>
+                 {{-- Elsa Robinson Hawkins --}}
              </div>
              <div class="modal-footer">
                  <div class="row">
@@ -97,7 +100,7 @@
                      Lista de Concejales
                  </h4>
              </div>
-             @if(count($Concejales) > 0)
+             {{-- @if(count($Concejales) > 0)
                  <div class="modal-body">
                      <div class="row">
                          @foreach ($Concejales as $key => $data)
@@ -119,7 +122,14 @@
                          Actualmente no hay concejales almacenados.
                      </div>
                  </div>
-             @endif
+             @endif --}}
+              <div class="col-md-12 align-self-center">
+                     <div class="alert alert-danger text-center">
+                         Actualmente no hay concejales almacenados.
+                     </div>
+                 </div>
+
+                
              <div class="modal-footer">
                  <div class="row">
                      <div class="col-sm-6 text-right">
@@ -134,6 +144,62 @@
      </div>
  </div>
 
+
+ <!-- Modal Alcalde -->
+ <div class="modal fade" id="modal-Al" tabindex="-1" role="dialog" aria-hidden="true">
+     <div class="modal-dialog" role="document">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                 <h4 class="modal-title text-center">
+                     Alcaldía
+                 </h4>
+             </div>
+             {{-- @if(count($Concejales) > 0)
+                 <div class="modal-body">
+                     <div class="row">
+                         @foreach ($Concejales as $key => $data)
+                             <div class="col-lg-10">
+                                 <h7>&nbsp;</h7>
+                                 <h4 class="media-heading"><b>{{$data->persona['nombre']}}</b></h4>
+                                 <p class="f-s-12">No C.C {{ $data->persona['num_dc'] }} </p>
+                             </div>
+                             <div class="col-lg-2">
+                                 <img src="{{ asset('img/concejales/'.$data->persona['num_dc'].'.png')}}" class="card-img-top" width="100%">
+                             </div>
+                             <br>
+                         @endforeach
+                     </div>
+                 </div>
+             @else
+                 <div class="col-md-12 align-self-center">
+                     <div class="alert alert-danger text-center">
+                         Actualmente no hay concejales almacenados.
+                     </div>
+                 </div>
+             @endif --}}
+             <div class="col-md-10 ">
+                                 <h7>&nbsp;</h7>
+                                  <br><br>
+                                 <h4 class="media-heading text-center"><b>Alcalde: </b>Jorge Norberto Gari Hooke</h4>
+                                 
+                                 <br><br>
+                             </div>
+
+                
+             <div class="modal-footer">
+                 <div class="row">
+                     <div class="col-sm-6 text-right">
+                         <img class="card-img-top" src="{{ asset('img/escudoIslas.png') }}" alt="Card image cap" width="60">
+                     </div>
+                     <div class="col-sm-6 text-left">
+                         <img class="card-img-top" src="{{ asset('img/masporlasislas.png') }}" alt="Card image cap" width="150">
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </div>
  <!-- MODAL DE BOLETINES -->
  <div class="modal fade" id="modal-boletines" tabindex="-1" role="dialog" aria-hidden="true">
      <div class="modal-dialog modal-lg" role="document">
