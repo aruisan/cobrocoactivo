@@ -6,7 +6,7 @@
 @section('sidebar')
     {{-- <li> <a href="{{ url('/administrativo/cdp') }}" class="btn btn-success"><span class="hide-menu">&nbsp; CDP's</span></a></li> --}}
     <br>
-   
+
 @stop
 
 @section('content')
@@ -17,28 +17,28 @@
             <h4><b>Información del CDP</b></h4>
         </strong>
     </div>
-          
-        
+
+
          <div class="col-lg-12">
 
             <ul class="nav nav-pills">
-    
+
                 <li class="nav-item regresar"><a class="nav-link "  href="{{ url('/administrativo/cdp') }}">Volver a CDP'S</a></li>
                 <li class="nav-item active"><a class="tituloTabs" data-toggle="tab" href="#info">Información CDP: {{ $cdp->id }}</a></li>
                 <li class="nav-item "><a class="tituloTabs" data-toggle="tab" href="#asigna">Asignar Rubros</a></li>
                 <li class="nav-item "><a class="tituloTabs" data-toggle="tab" href="#rubros">Valor de Rubros</a></li>
-       
+
             </ul>
           </div>
- 
+
 <div class="col-lg-12 ">
             <div class="tab-content">
 
               <div id="info" class="tab-pane fade in active">
                     <div class="row ">
                             <br>
-                            <div class="col-sm-9"><h3>Objeto del CDP: {{ $cdp->name }}</h3></div>     
-                            <div class="col-sm-3"><h4><b>Número del CDP:</b>&nbsp;{{ $cdp->id }}</h4></div>     
+                            <div class="col-sm-9"><h3>Objeto del CDP: {{ $cdp->name }}</h3></div>
+                            <div class="col-sm-3"><h4><b>Número del CDP:</b>&nbsp;{{ $cdp->id }}</h4></div>
                             <br>
                             <br>
 
@@ -97,15 +97,15 @@
                                     </div>
                                 </form>
 
-                                        
-                                    <div class="col-lg-12 text-center">    
+
+                                    <div class="col-lg-12 text-center">
                                     <div class="row">
-                                    
-                                        <div class="col-sm-4 ">   
+
+                                        <div class="col-sm-4 ">
                                         <h4><b>Valor del CDP:</b></h4>
                                         </div>
-                                        
-                                        <div class="col-sm-8 " style="text-align:left;">   
+
+                                        <div class="col-sm-8 " style="text-align:left;">
                                             @if($rol == 3 and $cdp->jefe_e == 0)
                                             <h4><b>   $<?php echo number_format( $cdp->rubrosCdpValor->sum('valor_disp'),0) ?></b></h4>
                                                 @else
@@ -232,7 +232,7 @@
                                             <input type="hidden" name="rubros_cdp_id[]" value="{{ $rubrosCdpData->id }}">
                                             @php( $fechaActual = Carbon\Carbon::today()->Format('Y-m-d') )
                                             <li style="list-style-type: none;">
-                                                {{ $fuentesRubro->font->name }} : $<?php echo number_format( $fuentesRubro->valor_disp,0) ?>
+                                                {{ $fuentesRubro->fontVigencia->font->name }} : $<?php echo number_format( $fuentesRubro->valor_disp,0) ?>
                                             </li>
                                         </div>
                                     @elseif($fuentesRubro->valor_disp != 0)
@@ -242,13 +242,13 @@
                                             <input type="hidden" name="rubros_cdp_id[]" value="{{ $rubrosCdpData->id }}">
                                             @php( $fechaActual = Carbon\Carbon::today()->Format('Y-m-d') )
                                             <li style="list-style-type: none;">
-                                                {{ $fuentesRubro->font->name }} : $<?php echo number_format( $fuentesRubro->valor_disp,0) ?>
+                                                {{ $fuentesRubro->fontVigencia->font->name }} : $<?php echo number_format( $fuentesRubro->valor_disp,0) ?>
                                             </li>
                                         </div>
                                     @endif
                                     <div class="col-lg-6">
                                         @if($cdp->jefe_e == "3")
-                                            Valor usado de {{ $fuentesRubro->font->name }}:
+                                            Valor usado de {{ $fuentesRubro->fontVigencia->font->name}}:
                                             @if($fuentesRubro->rubrosCdpValor->count() != 0)
                                                 @foreach($fuentesRubro->rubrosCdpValor as  $valoresFR)
                                                     @php($id_rubrosCdp = $rubrosCdpData->id )
@@ -270,7 +270,7 @@
                                                 <input type="number" required  name="valorFuenteUsar[]" class="form-group-sm" value="0" max="{{ $fuentesRubro->valor_disp }}" style="text-align: center">
                                             @endif
                                         @elseif($fuentesRubro->valor_disp != 0)
-                                            Valor usado de {{ $fuentesRubro->font->name }}:
+                                            Valor usado de {{ $fuentesRubro->fontVigencia->font->name}}:
                                             @if($fuentesRubro->rubrosCdpValor->count() != 0)
                                                 @foreach($fuentesRubro->rubrosCdpValor as  $valoresFR)
                                                     @php($id_rubrosCdp = $rubrosCdpData->id )
@@ -374,7 +374,7 @@
              <div id="rubros" class="tab-pane ">
 
                 <div class="card">
-                      
+
                         @if($cdp->jefe_e != "3")
                         <center>
                             <h4><b>Valores de los Rubros</b></h4>
