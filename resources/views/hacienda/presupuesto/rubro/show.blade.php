@@ -3,23 +3,10 @@
     Información del Rubro
 @stop
 @section('sidebar')
-    <li> <a href="{{ url('/presupuesto') }}" class="btn btn-success"><i class="fa fa-money"></i><span class="hide-menu">&nbsp; Presupuesto</span></a></li>
+{{-- 
+   <li> <a href="{{ url('/presupuesto') }}" class="btn btn-success"><i class="fa fa-money"></i><span class="hide-menu">&nbsp; Presupuesto</span></a></li>
     <div class="card">
-        <br>
-        <center>
-            <h4><b>Valor Total del Rubro</b></h4>
-        </center>
-        <div class="text-center">
-            $ <?php echo number_format($valor,0);?>.00
-        </div>
-        <br>
-            <center>
-                <h4><b>Valor Disponible del Rubro</b></h4>
-            </center>
-        <div class="text-center">
-            $ <?php echo number_format($valorDisp,0);?>.00
-        </div>
-        <br>
+       
     </div>
     @if( $rol == 2)
     <li class="dropdown">
@@ -39,10 +26,62 @@
             </li>
         </ul>
     </li>
-    @endif
+    @endif --}}
 @stop
 @section('content')
-    <div class="col-md-12 align-self-center formularioRubro">
+
+
+   <div class="breadcrumb text-center">
+        <strong>
+            <h4><b>Detalles del Rubro: {{ $rubro->name }}</b></h4>
+        </strong>
+    </div>
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+            <a class="nav-link regresar"  href="{{ url('/presupuesto') }}">Volver a Presupuesto</a>
+        </li> 
+        <li class="nav-item active">
+            <a class="nav-link" data-toggle="pill" href="#datos"> Datos Básicos Rubro </a>
+        </li>
+         <li class="nav-item ">
+            <a class="nav-link" data-toggle="pill" href="#fuentes"> Fuentes de Rubro </a>
+        </li>
+             <li class="nav-item ">
+            <a class="nav-link" data-toggle="pill" href="#cdp"> CDP´S de Rubro </a>
+        </li>
+             <li class="nav-item ">
+            <a class="nav-link" data-toggle="pill" href="#registros"> Registros de Rubro </a>
+        </li>
+             <li class="nav-item ">
+            <a class="nav-link" data-toggle="pill" href="#movimientos"> Movimientos de Rubro </a>
+        </li>
+
+     @if( $rol == 2)
+    <li class="dropdown">
+    <a class="nav-item dropdown-toggle" data-toggle="dropdown" href="#">Acciones
+    <span class="caret"></span></a>
+    <ul class="dropdown-menu">
+           <li>
+                <a data-toggle="modal" data-target="#adicion" class="btn btn-primary text-left">Adición</a>
+            </li>
+            <li>
+                <a data-toggle="modal" data-target="#reduccion" class="btn btn-primary text-left">Reducción</a>
+            </li>
+            <li>
+                <a data-toggle="modal" data-target="#credito" class="btn btn-primary text-left">Credito</a>
+            </li>
+    </ul>
+  </li>
+  @endif
+     
+    </ul>
+
+    <div class="col-lg-12 " style="background-color:white;">
+            <div class="tab-content">
+
+                 <div id="datos" class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2 tab-pane fade in active">
+
+   
         <div class="row justify-content-center">
             <center><h2>{{ $rubro->name }}</h2></center>
             <div class="form-validation">
@@ -76,12 +115,37 @@
                                 <input type="number" disabled class="form-control" style="text-align:center" name="valor" value="{{ $rubro->vigencia->vigencia }}">
                             </div>
                         </div>
+                         <br>
+                          
+        <br>
                     </div>
+                    <div class="col-md-12 align-self-center">
+                          <div class="row">
+                           <br> <br>
+                        <div class="col-lg-6 form-group">
+        <center>
+            <h4><b>Valor Total del Rubro</b></h4>
+        </center>
+        <div class="text-center">
+         <?php echo number_format($valor,0);?>   $ .00
+        </div>
+        <br>
+      
+                        </div>
+                        <div class="col-lg-6 form-group">
+                          <center>
+                <h4><b>Valor Disponible del Rubro</b></h4>
+            </center>
+        <div class="text-center">
+            $ <?php echo number_format($valorDisp,0);?>.00
+        </div>
+         </div>    </div></div>
                 </form>
             </div>
         </div>
     </div>
-    <div class="col-md-12 align-self-center formularioRubro">
+      <div id="fuentes" class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2 tab-pane">
+
         <hr>
         <center>
             <h3>Fuentes del Rubro</h3>
@@ -112,7 +176,7 @@
         </div>
     </div>
     <br>
-    <div class="col-md-12 align-self-center formularioRubro" style="background-color: white">
+       <div id="cdp" class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2 tab-pane">
         <br>
         <hr>
         <center>
@@ -160,7 +224,7 @@
         </div>
     </div>
     <br>
-    <div class="col-md-12 align-self-center formularioRubro" style="background-color: white">
+       <div id="registros" class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2 tab-pane">
         <br>
         <hr>
         <center>
@@ -191,7 +255,7 @@
             </table>
         </div>
     </div>
-    <div class="col-md-12 align-self-center formularioRubro" style="background-color: white">
+     <div id="movimientos" class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2 tab-pane">
         <hr>
         <center>
             <h3>Movimientos del Rubro</h3>
@@ -273,6 +337,9 @@
             </div>
         @endif
     </div>
+       </div>
+     
+            </div>
     @include('modal.adicionRubro')
     @include('modal.reduccionRubro')
     @include('modal.creditoRubro')

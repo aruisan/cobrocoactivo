@@ -3,19 +3,36 @@
     Editar Registro
 @stop
 @section('sidebar')
-    <li>
-        <a href="{{ url('/administrativo/registros/'.$vigencia) }}" class="btn btn-success">
+    {{-- <li>
+        <a href="{{route('registros.index')}}" class="btn btn-success">
             <span class="hide-menu"> Registros</span></a>
-    </li>
+    </li> --}}
 @stop
 @section('content')
-<div class="row">
-    <br>
-    <div class="col-lg-12 margin-tb">
-        <h3 class="text-center"> Editar Registro: {{ $registro->objeto }}</h3>
+
+   <div class="breadcrumb text-center">
+        <strong>
+            <h4><b>Editar Registro: {{ $registro->objeto }}</b></h4>
+        </strong>
     </div>
-</div>
-<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+            <a class="nav-link regresar"  href="{{url('administrativo/registros') }}">Volver a Registros</a>
+        </li> 
+        <li class="nav-item active">
+            <a class="nav-link" data-toggle="pill" href="#datos"> Editar Registro </a>
+        </li>
+    
+     
+    </ul>
+
+
+<div class="col-lg-12 " style="background-color:white;">
+            <div class="tab-content">
+
+                 <div id="datos" class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2 tab-pane fade in active">
+
+
     <hr>
     <div class="form-validation">
         <form class="form" action="{{url('/administrativo/registros/'.$registro->id)}}" method="POST">
@@ -111,6 +128,8 @@
                 <button type="submit" class="btn btn-primary" id="storeRegistro">Guardar</button>
             </div>
         </form>
+    </div>
+</div>
     </div>
 </div>
 @endsection

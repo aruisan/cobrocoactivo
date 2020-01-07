@@ -90,6 +90,11 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
         Route::get('/comision/{id}/','Administrativo\GestionDocumental\Comisiones\ComisionesController@index');
 
+        //RUTAS alcaldia
+
+        Route::Resource('alcaldia','Administrativo\GestionDocumental\AlcaldiaController');
+
+
         //RUTAS CONCEJALES
 
         Route::Resource('concejales','Administrativo\GestionDocumental\ConcejalController');

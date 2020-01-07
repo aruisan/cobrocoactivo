@@ -3,7 +3,7 @@
     Registros
 @stop
 @section('sidebar')
-    @if( $rol == 2)
+    {{-- @if( $rol == 2)
         <li>
             <a href="{{ url('/administrativo/registros/create/'.$vigencia) }}" class="btn btn-success">
                 <i class="fa fa-plus"></i>
@@ -21,7 +21,7 @@
     <li>
         <a href="{{ url('/administrativo/ordenPagos/'.$vigencia) }}" class="btn btn-primary">
             <span class="hide-menu"> Orden de Pago</span></a>
-    </li>
+    </li> --}}
 @stop
 @section('content')
     <div class="breadcrumb text-center">
@@ -30,12 +30,20 @@
         </strong>
     </div>
     <ul class="nav nav-pills">
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="pill" href="#tabTareas">TAREAS</a>
+      <li class="nav-item">
+            <a class="nav-link regresar"  href="{{url('/presupuesto') }}">Volver a Presupuesto</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link " data-toggle="pill" href="#tabTareas">TAREAS</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" data-toggle="pill" href="#tabHistorico">HISTORICO</a>
         </li>
+         @if( $rol == 2)
+        <li class="nav-item">
+            <a class="nav-link"  href="{{route('registros.create')}}">NUEVO REGISTRO</a>
+        </li>
+          @endif
     </ul>
     <div class="tab-content" style="background-color: white">
         <div id="tabTareas" class="tab-pane active"><br>

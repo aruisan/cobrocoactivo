@@ -29,7 +29,13 @@
    </a>
 </li>
 
-<li class="dropdown ">
+<li >
+   <a class="btn btn-default btn-sm item-menu" href="{{ url('/presupuesto') }}">
+    PRESUPUESTO
+   </a>
+</li>
+
+{{-- <li class="dropdown ">
    <a class="btn btn-default btn-sm dropdown-toggle item-menu" type="button" data-toggle="dropdown" data-submenu="">
    PRESUPUESTO
    <span class="caret"></span>
@@ -47,7 +53,7 @@
       </li>
    
    </ul>
-</li>
+</li> --}}
   
 
     
@@ -59,8 +65,8 @@
 </li>
 
 <li class="dropdown ">
-   <a class="btn btn-default btn-sm item-menu" href="{{ url('/dashboard/concejales') }}">
-   CONCEJALES
+   <a class="btn btn-default btn-sm item-menu" href="{{ url('/dashboard/alcaldia') }}">
+   ALCALDIA
    </a>
 </li>
 
@@ -73,16 +79,16 @@
    <ul class="dropdown-menu">
       <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/retefuente')}}">Retención en la Fuente</a></li>
       
-      <li class="dropdown-submenu">
+      {{-- <li class="dropdown-submenu">
          <a class="dropdown-item item-menu" href="#" >PUC</a>
          <ul class="dropdown-menu">
          <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/puc/pucIndex')}}">PUC Res. 3832 de 2019</a></li>
           
             <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/puc/pucIndexAct')}}">PUC de vigencia</a></li>
          </ul>
-      </li>
+      </li> --}}
      
-      {{-- <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/puc')}}">PUC</a></li> --}}
+      <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/puc')}}">PUC</a></li>
       <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/impumuni')}}">Impuestos Municipales</a></li>
       <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/informes/lvl/1')}}">Informes</a></li>
    </ul>
