@@ -190,11 +190,9 @@ background: rgb(149, 8, 8) !important;
         <div class="lema">
             <marquee class="col-12">
               <h4 class="text-center text-white">
-                    Mesa Directiva: Presidente: Léri Aniseto Henry Taylor
-                      
+                    Mesa Directiva: Presidente: Léri Aniseto Henry Taylor  - Primer Vicepresidente: Evis Livingston Howard  - Segundo Vicepresidente: Elsa Robinson Hawkins
                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                    Mesa Directiva: Presidente: Léri Aniseto Henry Taylor  
-               
+                    Mesa Directiva: Presidente: Léri Aniseto Henry Taylor  - Primer Vicepresidente: Evis Livingston Howard  - Segundo Vicepresidente: Elsa Robinson Hawkins
                 </h4>
               </marquee>
         </div>
